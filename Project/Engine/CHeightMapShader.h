@@ -12,10 +12,10 @@ class CHeightMapShader :
 private:
     Ptr<CTexture>       m_pHeightMap;
     Ptr<CTexture>       m_pBrushTex;
-    Vec2                m_vScale;       // ³ôÀÌ Brush Å©±â
+    Vec2                m_vScale;       // ë†’ì´ Brush í¬ê¸°
     float               m_fVelocity;
     int                 m_iBrushIdx;
-    CStructuredBuffer*  m_pInput;       // Ray Ãæµ¹ À§Ä¡
+    CStructuredBuffer*  m_pInput;       // Ray ì¶©ëŒ ìœ„ì¹˜
 
 
 public:
@@ -28,11 +28,11 @@ public:
 
 
 public:
-    virtual void UpdateData();
-    virtual void Clear();
+    virtual void UpdateData() override;
+    virtual void Clear() override;
 
 
 public:
     CHeightMapShader(UINT _iGroupPerThreadX, UINT _iGroupPerThreadY, UINT _iGroupPerThreadZ);
-    ~CHeightMapShader();
+    virtual ~CHeightMapShader() override;
 };

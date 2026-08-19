@@ -4,7 +4,7 @@
 #include "PlayerWeaponStates.h"
 
 CPlayerWeaponScript::CPlayerWeaponScript()
-	: CScript((UINT)SCRIPT_TYPE::PLAYERWEAPONSCRIPT)
+	: CScript(static_cast<UINT>(SCRIPT_TYPE::PLAYERWEAPONSCRIPT))
 	, m_pStateScript(nullptr)
 {
 }
@@ -50,7 +50,7 @@ void CPlayerWeaponScript::EndOverlap(CCollider3D* _Other)
 {
 }
 
-void CPlayerWeaponScript::ChangeState(wstring _strStateName)
+void CPlayerWeaponScript::ChangeState(wstring _strStateName) const
 {
 	m_pStateScript->ChangeState(_strStateName);
 }

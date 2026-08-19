@@ -22,7 +22,7 @@ int Animator3DUI::render_update()
     if (FALSE == ComponentUI::render_update())
         return FALSE;
 
-    // ¾Ö´Ï¸ŞÀÌ¼Ç Stop ±â´É È®ÀÎ
+    // ì• ë‹ˆë©”ì´ì…˜ Stop ê¸°ëŠ¥ í™•ì¸
     ImGui::Text("Animation Stop");
     ImGui::SameLine();
     bool AnimStop = GetTarget()->Animator3D()->IsStop();
@@ -37,14 +37,14 @@ int Animator3DUI::render_update()
     if(ImGui::SliderInt("##AnimClip", &CurClip, 0, ClipSize - 1))
         GetTarget()->Animator3D()->Play(CurClip, true);
 
-    // AnimClip Á¤º¸ Ãâ·Â ¿©ºÎ.
+    // AnimClip ì •ë³´ ì¶œë ¥ ì—¬ë¶€.
     /*ImGui::Text("ShowAnimInfo  ");
     ImGui::SameLine();
     ImGui::Checkbox("##ShowAnimInfo", &m_bShowAnimInfo);
 
     if (m_bShowAnimInfo)*/
     {
-        // ÇöÀç Animator3DÀÇ AnimClip Á¤º¸¸¦ Ãâ·ÂÇÏÀÚ
+        // í˜„ì¬ Animator3Dì˜ AnimClip ì •ë³´ë¥¼ ì¶œë ¥í•˜ì
         ImGui::Text("AnimationClipInfo");
         vector<tMTAnimClip> vecAnimClip = *(GetTarget()->Animator3D()->GetAnimClip());
 
@@ -60,7 +60,7 @@ int Animator3DUI::render_update()
         ImGui::SetNextItemWidth(32.f);
         ImGui::Text("FrmLen");
 
-        // ¾Ö´Ï¸ŞÀÌ¼Ç Å¬¸³ ÀÌ¸§, ½ÃÀÛ Frame, ³¡ Frame, Frame ±æÀÌ Á¤º¸ ÃÑ 4°¡Áö¸¸ Ãâ·ÂÇÑ´Ù. 
+        // ì• ë‹ˆë©”ì´ì…˜ í´ë¦½ ì´ë¦„, ì‹œì‘ Frame, ë Frame, Frame ê¸¸ì´ ì •ë³´ ì´ 4ê°€ì§€ë§Œ ì¶œë ¥í•œë‹¤. 
         for (int i = 0; i < vecAnimClip.size(); ++i)
         {
             ImGui::Text("#%d     ", i);
@@ -91,14 +91,14 @@ int Animator3DUI::render_update()
         }
     }
 
-    // ClipÀ» »õ·Î ¸¸µé°í ½Í´Ù¸é.
+    // Clipì„ ìƒˆë¡œ ë§Œë“¤ê³  ì‹¶ë‹¤ë©´.
     ImGui::Text("MakeAnimInfo  ");
     ImGui::SameLine();
     ImGui::Checkbox("##MakeAnimInfo", &m_bMakeAnimInfo);
 
     if (m_bMakeAnimInfo)
     {
-        // ÀÓ½Ã AnimClipÀ» Ãß°¡ÇÏ´Â ÇÔ¼ö.
+        // ì„ì‹œ AnimClipì„ ì¶”ê°€í•˜ëŠ” í•¨ìˆ˜.
         ImGui::Text("AddAnimClip   ");
         ImGui::SameLine();
         static char TempAnimName[128] = {};
@@ -128,7 +128,7 @@ int Animator3DUI::render_update()
             ImGui::Text("FrmLen");
         }
 
-        // ¾Ö´Ï¸ŞÀÌ¼Ç Å¬¸³ ÀÌ¸§, ½ÃÀÛ Frame, ³¡ Frame, Frame ±æÀÌ Á¤º¸ ÃÑ 4°¡Áö¸¸ Ãâ·ÂÇÑ´Ù. 
+        // ì• ë‹ˆë©”ì´ì…˜ í´ë¦½ ì´ë¦„, ì‹œì‘ Frame, ë Frame, Frame ê¸¸ì´ ì •ë³´ ì´ 4ê°€ì§€ë§Œ ì¶œë ¥í•œë‹¤. 
         for (int i = 0; i < m_vecAnimClip.size(); ++i)
         {
             ImGui::Text("#%d     ", i);
@@ -156,7 +156,7 @@ int Animator3DUI::render_update()
             m_vecAnimClip[i].dTimeLength = m_vecAnimClip[i].iFrameLength / 60.f;
         }
 
-        // AnimClip Mesh ÆÄÀÏ¿¡ ÀúÀå.
+        // AnimClip Mesh íŒŒì¼ì— ì €ì¥.
         ImGui::Text("Save AnimClip ");
         ImGui::SameLine();
         if (ImGui::Button("##Save AnimClip", ImVec2(18.f, 18.f)))
@@ -165,7 +165,7 @@ int Animator3DUI::render_update()
         }
     }
 
-    // Animator3D¿¡ AnimClip Àû¿ë.
+    // Animator3Dì— AnimClip ì ìš©.
     ImGui::Text("Apply AnimClip");
     ImGui::SameLine();
     if (ImGui::Button("##Apply AnimClip", ImVec2(18.f, 18.f)))
@@ -173,7 +173,7 @@ int Animator3DUI::render_update()
         GetTarget()->Animator3D()->SetAnimClip(&m_vecAnimClip);
     }
 
-    // ÀÓ½Ã. FrameCount Á¶Àı
+    // ì„ì‹œ. FrameCount ì¡°ì ˆ
     int FrameCount = GetTarget()->Animator3D()->GetFrameCount();
     ImGui::DragInt("FrameCount", &FrameCount);
     GetTarget()->Animator3D()->SetFrameCount(FrameCount);

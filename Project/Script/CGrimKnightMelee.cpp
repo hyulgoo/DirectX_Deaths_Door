@@ -29,6 +29,6 @@ void CGrimKnightMelee::tick()
 
 void CGrimKnightMelee::Exit()
 {
-	//°ø°İ prefab »ı¼º
-	CLevelSaveLoadInScript::SpawnPrefab(L"prefab\\JumpAttack.prefab", (int)LAYER::MONSTERPROJECTILE, GetOwner()->Transform()->GetWorldPos(), 0.2f);
+	//ê³µê²© prefab ìƒì„±
+	CLevelSaveLoadInScript::SpawnPrefab(L"prefab\\JumpAttack.prefab", static_cast<int>(LAYER::MONSTERPROJECTILE), GetOwner()->Transform()->GetWorldPos(), 0.2f);
 }

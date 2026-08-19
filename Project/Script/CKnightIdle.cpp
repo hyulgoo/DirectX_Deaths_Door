@@ -27,7 +27,7 @@ void CKnightIdle::Exit()
 
 void CKnightIdle::BeginOverlap(CCollider3D* _Other)
 {
-	if ((int)LAYER::PLAYER == _Other->GetOwner()->GetLayerIndex())
+	if (static_cast<int>(LAYER::PLAYER) == _Other->GetOwner()->GetLayerIndex())
 	{
 		ChangeState(L"RunAttack");
 	}

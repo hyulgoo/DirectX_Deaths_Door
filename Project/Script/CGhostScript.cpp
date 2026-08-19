@@ -8,7 +8,7 @@
 #include <Engine/CPhysXMgr.h>
 
 CGhostScript::CGhostScript()		
-	: CMonsterScript((UINT)SCRIPT_TYPE::GHOSTSCRIPT)
+	: CMonsterScript(static_cast<UINT>(SCRIPT_TYPE::GHOSTSCRIPT))
 	, m_bRecognizeCheck(false)
 	, m_bOnCollision(false)
 	, m_bIsHit(false)
@@ -17,7 +17,7 @@ CGhostScript::CGhostScript()
 }
 
 CGhostScript::CGhostScript(const CGhostScript& _Other)	
-	: CMonsterScript((UINT)SCRIPT_TYPE::GHOSTSCRIPT)
+	: CMonsterScript(static_cast<UINT>(SCRIPT_TYPE::GHOSTSCRIPT))
 	, m_bRecognizeCheck(_Other.m_bRecognizeCheck)
 	, m_bOnCollision(false)
 	, m_bIsHit(false)
@@ -31,7 +31,7 @@ CGhostScript::~CGhostScript()
 
 void CGhostScript::begin()
 {
-	// µ¿Àû ÀçÁú »ý¼º.
+	// ë™ì  ìž¬ì§ˆ ìƒì„±.
 	int iMtrlCount = MeshRender()->GetMtrlCount();
 
 	for (int i = 0; i < iMtrlCount; ++i)
@@ -49,7 +49,7 @@ void CGhostScript::begin()
 
 	GetOwner()->Rigidbody()->SetVelocityLimit(300.f);
 
-	// ÃÊ±â ½ºÅÈ ¼³Á¤.
+	// ì´ˆê¸° ìŠ¤íƒ¯ ì„¤ì •.
 	Stat tInitStat;
 	tInitStat.Attack = 1;
 	tInitStat.Speed = 300;
@@ -63,9 +63,9 @@ void CGhostScript::tick()
 
 }
 
-Vec3 CGhostScript::GetDir(Vec3 _start, Vec3 _target)
+Vec3 CGhostScript::GetDir(Vec3 _start, Vec3 _target) const
 {
-	// ¾Æ·¡ÃàÀ» ±âÁØÀ¸·Î CurPos¿¡¼­ TargetPos¸¦ ¹Ù¶óº¸´Â angle ¹ÝÈ¯
+	// ì•„ëž˜ì¶•ì„ ê¸°ì¤€ìœ¼ë¡œ CurPosì—ì„œ TargetPosë¥¼ ë°”ë¼ë³´ëŠ” angle ë°˜í™˜
 	Vec3 vCurPos = _start;
 	Vec2 vDefault = Vec2(0.f, -1.f);
 	Vec3 vTargetPos = _target;
@@ -81,13 +81,13 @@ void CGhostScript::BeginOverlap(CCollider3D* _Other)
 	
 	if (L"Slash_R" == _Other->GetOwner()->GetName() || L"Slash_L" == _Other->GetOwner()->GetName() && m_bIsHit == false)
 	{
-		//player°¡ ¹Ù¶ó º¸´Â ¹æÇâÀ¸·Î ÀÌµ¿
+		//playerê°€ ë°”ë¼ ë³´ëŠ” ë°©í–¥ìœ¼ë¡œ ì´ë™
 		m_bIsHit = true;
 		m_pStateScript->ChangeState(L"GhostHit");
 	}
-	if ((int)LAYER::PLAYER == _Other->GetOwner()->GetLayerIndex() && m_bIsHit ==false)
+	if (static_cast<int>(LAYER::PLAYER) == _Other->GetOwner()->GetLayerIndex() && m_bIsHit ==false)
 	{
-		CLevelSaveLoadInScript::SpawnPrefab(L"prefab\\GhostDead.prefab", (int)LAYER::DEFAULT, GetOwner()->Transform()->GetWorldPos(), 0.5f);
+		CLevelSaveLoadInScript::SpawnPrefab(L"prefab\\GhostDead.prefab", static_cast<int>(LAYER::DEFAULT), GetOwner()->Transform()->GetWorldPos(), 0.5f);
 		GetOwner()->SetLifeSpan(0.f);
 	}
 	else if (_Other->GetOwner()->GetScript<CMonsterScript>() && m_bIsHit == true)
@@ -95,7 +95,7 @@ void CGhostScript::BeginOverlap(CCollider3D* _Other)
 		Stat tCurStat = _Other->GetOwner()->GetScript<CStateScript>()->GetStat();
 		tCurStat.HP -= 50;
 		_Other->GetOwner()->GetScript<CStateScript>()->SetStat(tCurStat);
-		CLevelSaveLoadInScript::SpawnPrefab(L"prefab\\GhostDead.prefab", (int)LAYER::DEFAULT, GetOwner()->Transform()->GetWorldPos(), 0.5f);
+		CLevelSaveLoadInScript::SpawnPrefab(L"prefab\\GhostDead.prefab", static_cast<int>(LAYER::DEFAULT), GetOwner()->Transform()->GetWorldPos(), 0.5f);
 		GetOwner()->SetLifeSpan(0.f);
 	}	
 }

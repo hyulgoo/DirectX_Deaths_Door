@@ -4,7 +4,7 @@
 #include "CSpawnMgr.h"
 
 CFenceScript::CFenceScript()
-	: CScript((UINT)SCRIPT_TYPE::FENCESCRIPT)
+	: CScript(static_cast<UINT>(SCRIPT_TYPE::FENCESCRIPT))
 	, m_iRoomNum(-1)
 	, m_pStatic(nullptr)
 	, m_vStartPos{}
@@ -26,11 +26,11 @@ void CFenceScript::begin()
 
 void CFenceScript::tick()
 {
-	// È°¼ºÈ­µÇÁö ¾Ê¾Ò´Ù¸é return
+	// í™œì„±í™”ë˜ì§€ ì•Šì•˜ë‹¤ë©´ return
 	if (!m_bActive)
 		return;
 
-	// OpenÀÌ¶ó¸é ¾Æ·¡·Î Close¶ó¸é À§·Î ¹æÇâÀ» ÁÜ
+	// Openì´ë¼ë©´ ì•„ëž˜ë¡œ Closeë¼ë©´ ìœ„ë¡œ ë°©í–¥ì„ ì¤Œ
 	Vec3 vCurPos = Transform()->GetWorldPos();
 	float fFenceDir = 0.f;
 	if (m_bOpen)
@@ -41,7 +41,7 @@ void CFenceScript::tick()
 
 	Transform()->SetRelativePos(vCurPos);
 
-	// ÀÏÁ¤ °Å¸® ÀÌ»ó ÀÌµ¿Çß´Ù¸é false
+	// ì¼ì • ê±°ë¦¬ ì´ìƒ ì´ë™í–ˆë‹¤ë©´ false
 	m_fMoveDistance = (m_vStartPos - Transform()->GetWorldPos()).Length();
 	if (m_fMoveDistance > 800.f * Transform()->GetRelativeScale().x)
 	{

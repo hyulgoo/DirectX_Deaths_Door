@@ -36,10 +36,10 @@ void CRenderComponent::render_depthmap()
 		pMtrl->SetAnim3D(false);
 	}
 
-	// »ç¿ëÇÒ ÀçÁú ¾÷µ¥ÀÌÆ®
+	// ì‚¬ìš©í•  ì¬ì§ˆ ì—…ë°ì´íŠ¸
 	pMtrl->UpdateData();
 
-	// »ç¿ëÇÒ ¸Ş½¬ ¾÷µ¥ÀÌÆ® ¹× ·»´õ¸µ
+	// ì‚¬ìš©í•  ë©”ì‰¬ ì—…ë°ì´íŠ¸ ë° ë Œë”ë§
 	//GetMesh()->render(0);
 	
 	UINT iSubsetCount = GetMesh()->GetSubsetCount();
@@ -48,10 +48,10 @@ void CRenderComponent::render_depthmap()
 	{
 		if (nullptr != GetMaterial(i))
 		{
-			// »ç¿ëÇÒ ÀçÁú ¾÷µ¥ÀÌÆ®
+			// ì‚¬ìš©í•  ì¬ì§ˆ ì—…ë°ì´íŠ¸
 			//GetMaterial(i)->UpdateData();
 
-			// »ç¿ëÇÒ ¸Ş½¬ ¾÷µ¥ÀÌÆ® ¹× ·»´õ¸µ
+			// ì‚¬ìš©í•  ë©”ì‰¬ ì—…ë°ì´íŠ¸ ë° ë Œë”ë§
 			GetMesh()->render(i);
 		}
 	}
@@ -106,7 +106,7 @@ Ptr<CMaterial> CRenderComponent::GetSharedMaterial(UINT _idx)
 
 Ptr<CMaterial> CRenderComponent::GetDynamicMaterial(UINT _idx)
 {
-	// ¿øº» ÀçÁúÀÌ ¾ø´Ù -> Nullptr ¹İÈ¯
+	// ì›ë³¸ ì¬ì§ˆì´ ì—†ë‹¤ -> Nullptr ë°˜í™˜
 	if (nullptr == m_vecMtrls[_idx].pSharedMtrl)
 	{
 		m_vecMtrls[_idx].pCurMtrl = nullptr;
@@ -129,7 +129,7 @@ ULONG64 CRenderComponent::GetInstID(UINT _iMtrlIdx)
 	if (m_pMesh == NULL || m_vecMtrls[_iMtrlIdx].pCurMtrl == NULL)
 		return 0;
 
-	uInstID id{ (UINT)m_pMesh->GetID(), (WORD)m_vecMtrls[_iMtrlIdx].pCurMtrl->GetID(), (WORD)_iMtrlIdx };
+	uInstID id{ (UINT)m_pMesh->GetID(), static_cast<WORD>(m_vecMtrls[_iMtrlIdx].pCurMtrl->GetID()), static_cast<WORD>(_iMtrlIdx) };
 	return id.llID;
 }
 
@@ -137,7 +137,7 @@ ULONG64 CRenderComponent::GetInstID(UINT _iMtrlIdx)
 
 void CRenderComponent::SaveToLevelFile(FILE* _File)
 {
-	//// ÀÌ°Å ´ëÃ¼ ¿Ö ÀúÀåÇÔ????? 
+	//// ì´ê±° ëŒ€ì²´ ì™œ ì €ì¥í•¨????? 
 	//COMPONENT_TYPE type = GetType();
 	//fwrite(&type, sizeof(UINT), 1, _File);
 	

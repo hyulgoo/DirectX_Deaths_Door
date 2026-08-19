@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "RigidbodyUI.h"
 #include <Engine/components.h>
-#include <Engine\CRigidbody.h>
+#include <Engine/CRigidbody.h>
 #include <Engine/CPhysXMgr.h>
 
 RigidbodyUI::RigidbodyUI()

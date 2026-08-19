@@ -20,6 +20,6 @@ public:
 
 public:
     CCrowBossSlidingReady();
-    ~CCrowBossSlidingReady();
+    virtual ~CCrowBossSlidingReady() override;
 };
 

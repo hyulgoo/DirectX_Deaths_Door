@@ -8,9 +8,9 @@ class CTileMap :
     public CRenderComponent
 {
 private:
-    UINT                m_iTileCountX;  // Å¸ÀÏ °¡·Î
-    UINT                m_iTileCountY;  // Å¸ÀÏ ¼¼·Î
-    Vec2                m_vSliceSize;   // Å¸ÀÏ ÇÏ³ªÀÇ Å©±â(UV ´ÜÀ§)
+    UINT                m_iTileCountX;  // íƒ€ì¼ ê°€ë¡œ
+    UINT                m_iTileCountY;  // íƒ€ì¼ ì„¸ë¡œ
+    Vec2                m_vSliceSize;   // íƒ€ì¼ í•˜ë‚˜ì˜ í¬ê¸°(UV ë‹¨ìœ„)
     vector<tTile>       m_vecTile;
     CStructuredBuffer*  m_Buffer;
 
@@ -32,6 +32,6 @@ public:
     CLONE(CTileMap);
 public:
     CTileMap();
-    ~CTileMap();
+    virtual ~CTileMap() override;
 };
 

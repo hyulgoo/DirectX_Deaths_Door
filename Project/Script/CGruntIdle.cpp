@@ -11,7 +11,7 @@ void CGruntIdle::tick()
 {
 	CGameObject* pPlayer = GetOwner()->GetScript<CGruntScript>()->GetPlayer();
 
-	// Detect »óÅÂ¶ó¸é Notify »óÅÂ·Î ÀüÈ¯.
+	// Detect ìƒíƒœë¼ë©´ Notify ìƒíƒœë¡œ ì „í™˜.
 	if (GetOwner()->GetScript<CGruntScript>()->IsDetect())
 	{
 		ChangeState(L"Run2");

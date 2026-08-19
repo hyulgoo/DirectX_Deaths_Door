@@ -1,8 +1,8 @@
 #include "pch.h"
 #include "MeshRenderUI.h"
 
-#include <Engine\CMeshRender.h>
-#include <Engine\CResMgr.h>
+#include <Engine/CMeshRender.h>
+#include <Engine/CResMgr.h>
 
 #include "ImGuiMgr.h"
 #include "ListUI.h"
@@ -37,10 +37,10 @@ int MeshRenderUI::render_update()
 	GetResKey(pMesh.Get(), szBuff, 50);
 	ImGui::InputText("##MeshName", szBuff, 50, ImGuiInputTextFlags_ReadOnly);
 
-	// Mesh µå¶ø Ã¼Å©
+	// Mesh ë“œëž ì²´í¬
 	if (ImGui::BeginDragDropTarget())
 	{
-		// ÇØ´ç ³ëµå¿¡¼­ ¸¶¿ì½º ¶¾ °æ¿ì, ÁöÁ¤ÇÑ PayLoad Å°°ªÀÌ ÀÏÄ¡ÇÑ °æ¿ì
+		// í•´ë‹¹ ë…¸ë“œì—ì„œ ë§ˆìš°ìŠ¤ ë—€ ê²½ìš°, ì§€ì •í•œ PayLoad í‚¤ê°’ì´ ì¼ì¹˜í•œ ê²½ìš°
 		const ImGuiPayload* pPayLoad = ImGui::AcceptDragDropPayload("Resource");
 		if (pPayLoad)
 		{
@@ -68,7 +68,7 @@ int MeshRenderUI::render_update()
 			pListUI->AddItem(string(pair.first.begin(), pair.first.end()));
 		}
 
-		// Ç×¸ñ ¼±ÅÃ½Ã È£Ãâ¹ÞÀ» µ¨¸®°ÔÀÌÆ® µî·Ï
+		// í•­ëª© ì„ íƒì‹œ í˜¸ì¶œë°›ì„ ë¸ë¦¬ê²Œì´íŠ¸ ë“±ë¡
 		pListUI->AddDynamic_Select(this, (UI_DELEGATE_1)&MeshRenderUI::SelectMesh);
 	}
 		
@@ -79,7 +79,7 @@ int MeshRenderUI::render_update()
 
 	if (ImGui::BeginDragDropTarget())
 	{
-		// ÇØ´ç ³ëµå¿¡¼­ ¸¶¿ì½º ¶¾ °æ¿ì, ÁöÁ¤ÇÑ PayLoad Å°°ªÀÌ ÀÏÄ¡ÇÑ °æ¿ì
+		// í•´ë‹¹ ë…¸ë“œì—ì„œ ë§ˆìš°ìŠ¤ ë—€ ê²½ìš°, ì§€ì •í•œ PayLoad í‚¤ê°’ì´ ì¼ì¹˜í•œ ê²½ìš°
 		const ImGuiPayload* pPayLoad = ImGui::AcceptDragDropPayload("Resource");
 		if (pPayLoad)
 		{
@@ -108,7 +108,7 @@ int MeshRenderUI::render_update()
 			pListUI->AddItem(string(pair.first.begin(), pair.first.end()));
 		}
 
-		// Ç×¸ñ ¼±ÅÃ½Ã È£Ãâ¹ÞÀ» µ¨¸®°ÔÀÌÆ® µî·Ï
+		// í•­ëª© ì„ íƒì‹œ í˜¸ì¶œë°›ì„ ë¸ë¦¬ê²Œì´íŠ¸ ë“±ë¡
 		pListUI->AddDynamic_Select(this, (UI_DELEGATE_1)&MeshRenderUI::SelectMaterial);
 	}
 	/*int datai0 = 0;

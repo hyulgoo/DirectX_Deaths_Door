@@ -18,9 +18,9 @@ void CSetColorShader::UpdateData()
 {
 	m_OutTex->UpdateData_CS(0, false);
 
-	// ±×·ì °³¼ö °è»ê
-	m_iGroupX = (UINT)m_OutTex->Width() / m_iGroupPerThreadX;
-	m_iGroupY = (UINT)m_OutTex->Height() / m_iGroupPerThreadY;
+	// ê·¸ë£¹ ê°œìˆ˜ ê³„ì‚°
+	m_iGroupX = static_cast<UINT>(m_OutTex->Width()) / m_iGroupPerThreadX;
+	m_iGroupY = static_cast<UINT>(m_OutTex->Height()) / m_iGroupPerThreadY;
 	m_iGroupZ = 1;
 }
 

@@ -1,52 +1,52 @@
 #include "pch.h"
 #include "TestLevel.h"
 
-#include <Engine\CLevelMgr.h>
-#include <Engine\CLevel.h>
-#include <Engine\CLayer.h>
-#include <Engine\CGameObject.h>
-#include <Engine\components.h>
+#include <Engine/CLevelMgr.h>
+#include <Engine/CLevel.h>
+#include <Engine/CLayer.h>
+#include <Engine/CGameObject.h>
+#include <Engine/components.h>
 
-#include <Engine\CResMgr.h>
-#include <Engine\CCollisionMgr.h>
+#include <Engine/CResMgr.h>
+#include <Engine/CCollisionMgr.h>
 
-#include <Script\CPlayerScript.h>
-#include <Script\CStateScript.h>
-#include <Script\CMonsterScript.h>
-#include <Script\CCameraMoveScript.h>
-#include <Script\CPlayerWeaponScript.h>
-#include <Script\CGameCameraScript.h>
-#include <Script\CMagic_ArrowScript.h>
-#include <Script\CMagic_BombScript.h>
-#include <Script\CMagic_FireScript.h>
-#include <Script\CMagic_HookScript.h>
+#include <Script/CPlayerScript.h>
+#include <Script/CStateScript.h>
+#include <Script/CMonsterScript.h>
+#include <Script/CCameraMoveScript.h>
+#include <Script/CPlayerWeaponScript.h>
+#include <Script/CGameCameraScript.h>
+#include <Script/CMagic_ArrowScript.h>
+#include <Script/CMagic_BombScript.h>
+#include <Script/CMagic_FireScript.h>
+#include <Script/CMagic_HookScript.h>
 #include <Engine/CPhysXMgr.h>
 #include <Script/CBatScript.h>
-#include <Script\CGruntScript.h>
+#include <Script/CGruntScript.h>
 #include <Script/CLurkerScript.h>
-#include <Script\CBazookaScript.h>
+#include <Script/CBazookaScript.h>
 #include <Script/CMainLightScript.h>
 #include <Script/CWaterCameraScript.h>
 #include <Script/CCrowBossScript.h>
 #include <Script/CGrimKnightScript.h>
 #include <Script/CSlashScript.h>
-#include <Script\CWaterScript.h>
+#include <Script/CWaterScript.h>
 #include <Script/CHitStoneScript.h>
 
 #include <Engine/CEventMgr.h>
 #include "CLevelSaveLoad.h"
 
-#include <Script\CArrowIconScript.h>
-#include <Script\CFireIconScript.h>
-#include <Script\CBombIconScript.h>
-#include <Script\CHookIconScript.h>
-#include <Script\CHPIconScript.h>
-#include <Script\CMPIconScript.h>
-#include <Script\CKnightScript.h>
-#include <Script\CSoundScript.h>
-#include <Script\CBankNPCScript.h>
-#include <Script\CBankNPCScript.h>
-#include <Script\CMonsterDetectRangeScript.h>
+#include <Script/CArrowIconScript.h>
+#include <Script/CFireIconScript.h>
+#include <Script/CBombIconScript.h>
+#include <Script/CHookIconScript.h>
+#include <Script/CHPIconScript.h>
+#include <Script/CMPIconScript.h>
+#include <Script/CKnightScript.h>
+#include <Script/CSoundScript.h>
+#include <Script/CBankNPCScript.h>
+#include <Script/CBankNPCScript.h>
+#include <Script/CMonsterDetectRangeScript.h>
 #include <Engine/CDetourMgr.h>
 #include <Script/CFenceScript.h>
 
@@ -56,7 +56,7 @@ void CreateTestLevel()
 	CGameObject* pPlayer = nullptr;
 	CGameObject* pObject = nullptr;
 	CGameObject* pKnight = nullptr;
-	// Ãæµ¹ ½ÃÅ³ ·¹ÀÌ¾î Â¦ ÁöÁ¤
+	// ì¶©ëŒ ì‹œí‚¬ ë ˆì´ì–´ ì§ ì§€ì •
 	CCollisionMgr::GetInst()->LayerCheck((int)LAYER::PLAYER, (int)LAYER::MONSTER);
 	CCollisionMgr::GetInst()->LayerCheck((int)LAYER::PLAYER, ((int)LAYER::GROUND));
 	CCollisionMgr::GetInst()->LayerCheck((int)LAYER::PLAYER, ((int)LAYER::FALLAREA));
@@ -114,9 +114,9 @@ void CreateTestLevel()
 		pMainCam->AddComponent(new CGameCameraScript);
 
 		pMainCam->Camera()->SetProjType(PROJ_TYPE::ORTHOGRAPHIC);
-		pMainCam->Camera()->SetCameraIndex(0);		// MainCamera ·Î ¼³Á¤
-		pMainCam->Camera()->SetLayerMaskAll(true);	// ¸ðµç ·¹ÀÌ¾î Ã¼Å©
-		pMainCam->Camera()->SetLayerMask(31, false);// UI Layer ´Â ·»´õ¸µÇÏÁö ¾Ê´Â´Ù.
+		pMainCam->Camera()->SetCameraIndex(0);		// MainCamera ë¡œ ì„¤ì •
+		pMainCam->Camera()->SetLayerMaskAll(true);	// ëª¨ë“  ë ˆì´ì–´ ì²´í¬
+		pMainCam->Camera()->SetLayerMask(31, false);// UI Layer ëŠ” ë Œë”ë§í•˜ì§€ ì•ŠëŠ”ë‹¤.
 
 		SpawnGameObject(pMainCam, Vec3(0.f, 0.f, 0.f), (int)LAYER::MAINCAMERA);
 
@@ -131,7 +131,7 @@ void CreateTestLevel()
 		pSubCam->Camera()->SetProjType(PROJ_TYPE::ORTHOGRAPHIC);
 		pSubCam->Camera()->SetCameraIndex(2);
 		pSubCam->Camera()->SetLayerMaskAll(false);
-		pSubCam->Camera()->SetLayerMask(31, true);// UI Layer ´Â ·»´õ¸µÇÏÁö ¾Ê´Â´Ù.
+		pSubCam->Camera()->SetLayerMask(31, true);// UI Layer ëŠ” ë Œë”ë§í•˜ì§€ ì•ŠëŠ”ë‹¤.
 
 		SpawnGameObject(pSubCam, Vec3(0.f, 0.f, 0.f), (int)LAYER::SUBCAMERA);
 	}
@@ -311,8 +311,8 @@ void CreateTestLevel()
 
 		pWaterCam->Camera()->SetProjType(PROJ_TYPE::ORTHOGRAPHIC);
 		pWaterCam->Camera()->SetCameraIndex(1);
-		pWaterCam->Camera()->SetLayerMaskAll(true);	// ¸ðµç ·¹ÀÌ¾î Ã¼Å©
-		pWaterCam->Camera()->SetLayerMask(31, false);// UI Layer ´Â ·»´õ¸µÇÏÁö ¾Ê´Â´Ù.
+		pWaterCam->Camera()->SetLayerMaskAll(true);	// ëª¨ë“  ë ˆì´ì–´ ì²´í¬
+		pWaterCam->Camera()->SetLayerMask(31, false);// UI Layer ëŠ” ë Œë”ë§í•˜ì§€ ì•ŠëŠ”ë‹¤.
 		pWaterCam->Camera()->SetWaterCamera(true);
 
 		SpawnGameObject(pWaterCam, Vec3(0.f, 0.f, 0.f), 10);

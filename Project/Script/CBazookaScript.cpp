@@ -7,7 +7,7 @@
 #include <Engine/CDetourMgr.h>
 
 CBazookaScript::CBazookaScript() :
-	CMonsterScript((UINT)SCRIPT_TYPE::BAZOOKASCRIPT)
+	CMonsterScript(static_cast<UINT>(SCRIPT_TYPE::BAZOOKASCRIPT))
 	, m_fPlayerDistance(0.f)
 	, m_fMeleeRange(300.f)
 	, m_fRunAwayRange(600.f)
@@ -21,7 +21,7 @@ CBazookaScript::CBazookaScript() :
 }
 
 CBazookaScript::CBazookaScript(const CBazookaScript& _Other)
-	: CMonsterScript((UINT)SCRIPT_TYPE::BAZOOKASCRIPT)
+	: CMonsterScript(static_cast<UINT>(SCRIPT_TYPE::BAZOOKASCRIPT))
 	, m_fPlayerDistance(_Other.m_fPlayerDistance)
 	, m_fMeleeRange(_Other.m_fMeleeRange)
 	, m_fRunAwayRange(_Other.m_fRunAwayRange)
@@ -39,7 +39,7 @@ void CBazookaScript::begin()
 {
 	CMonsterScript::begin();
 	
-	// µø¿˚ ¿Á¡˙ ª˝º∫.
+	// ÎèôÏ†Å Ïû¨Ïßà ÏÉùÏÑ±.
 	int iMtrlCount = MeshRender()->GetMtrlCount();
 
 	for (int i = 0; i < iMtrlCount; ++i)
@@ -47,7 +47,7 @@ void CBazookaScript::begin()
 		MeshRender()->GetDynamicMaterial(i);
 	}
 
-	// ªÛ≈¬ ≥÷æÓ¡÷±‚.
+	// ÏÉÅÌÉú ÎÑ£Ïñ¥Ï£ºÍ∏∞.
 	if (nullptr == m_pStateScript)
 	{
 		m_pStateScript = GetOwner()->GetScript<CStateScript>();
@@ -60,7 +60,7 @@ void CBazookaScript::begin()
 		m_pStateScript->AddState(L"Trace", new CBazookaTrace);
 		m_pStateScript->ChangeState(L"Idle");
 
-		// √ ±‚ Ω∫≈» º≥¡§.
+		// Ï¥àÍ∏∞ Ïä§ÌÉØ ÏÑ§Ï†ï.
 		Stat NewStat;
 		NewStat.Max_HP = 300;
 		NewStat.HP = NewStat.Max_HP;
@@ -69,7 +69,7 @@ void CBazookaScript::begin()
 		NewStat.Speed = 100.f;
 		m_pStateScript->SetStat(NewStat);
 
-		// ¿Ã¿¸ HP
+		// Ïù¥Ï†Ñ HP
 		m_fPrevHP = NewStat.Max_HP;
 	}
 }
@@ -78,7 +78,7 @@ void CBazookaScript::tick()
 {
 	CMonsterScript::tick();
 	
-	// HP∞° 0 ¿Ã«œ∏È ªÁ∏¡.
+	// HPÍ∞Ä 0 Ïù¥ÌïòÎ©¥ ÏÇ¨Îßù.
 	if (m_pStateScript && m_pStateScript->GetStat().HP <= 0)
 	{
 		if (m_pStateScript->FindState(L"Death") != m_pStateScript->GetCurState())
@@ -93,7 +93,7 @@ void CBazookaScript::tick()
 	m_MonsterToPlayerDir.y /= m_fPlayerDistance;
 	m_MonsterToPlayerDir.z /= m_fPlayerDistance;
 
-	// «√∑π¿ÃæÓ∏¶ πŸ∂Û∫∏¥¬ ∞ÊøÏ.
+	// ÌîåÎ†àÏù¥Ïñ¥Î•º Î∞îÎùºÎ≥¥Îäî Í≤ΩÏö∞.
 	if (m_bStarePlayer)
 	{
 		float fDir = GetSmoothDir(GetOwner(), m_pPlayer);
@@ -103,7 +103,7 @@ void CBazookaScript::tick()
 
 	float fCurHP = m_pStateScript->GetStat().HP;
 
-	// √º∑¬¿Ã ¡Ÿæ˙¥Ÿ∏È.
+	// Ï≤¥Î†•Ïù¥ Ï§ÑÏóàÎã§Î©¥.
 	if (m_fPrevHP < fCurHP)
 	{
 		// Sound

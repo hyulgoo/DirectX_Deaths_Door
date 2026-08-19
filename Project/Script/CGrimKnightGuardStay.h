@@ -16,6 +16,6 @@ public:
 
 public:
     CGrimKnightGuardStay();
-    ~CGrimKnightGuardStay();
+    virtual ~CGrimKnightGuardStay() override;
 };
 

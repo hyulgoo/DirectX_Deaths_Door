@@ -19,7 +19,7 @@ CPlyMagic_Arrow::~CPlyMagic_Arrow()
 
 void CPlyMagic_Arrow::Enter()
 {
-	GetOwner()->Animator3D()->Play((int)PLAYERANIM_TYPE::ARROW, false);
+	GetOwner()->Animator3D()->Play(static_cast<int>(PLAYERANIM_TYPE::ARROW), false);
 	GetOwner()->GetChild()[1]->Transform()->SetRelativeScale(0.04f, 0.04f, 0.04f);
 	GetOwner()->GetChild()[1]->Transform()->SetRelativeRot(XM_PI / 2.f, XM_PI, XM_PI / 2.f);
 	GetOwner()->GetChild()[1]->Transform()->SetRelativePos(Vec3(0.f, 1.f, 1.f));
@@ -36,30 +36,30 @@ void CPlyMagic_Arrow::tick()
 	}
 	if (GetOwner()->Animator3D()->IsFinish())
 	{
-		// ¿¡³ÊÁö°¡ ºÎÁ·ÇÏ´Ù¸é Idle·Î µ¹¾Æ°¡°Ô ÇÔ.
+		// ì—ë„ˆì§€ê°€ ë¶€ì¡±í•˜ë‹¤ë©´ Idleë¡œ ëŒì•„ê°€ê²Œ í•¨.
 		if (1 > GetOwnerScript()->GetStat().MP)
 		{
 			GetOwner()->GetScript<CPlayerScript>()->ChangeState(L"Idle");			
 		}
 		else if (nullptr == m_pArrow)
 		{
-			// Player ¾÷±×·¹ÀÌµå ¼öÄ¡¸¦ °¡Á®¿Í °è¼ö¸¦ °öÇØ BombÀÇ ÃÖÁ¾µ¥¹ÌÁö¸¦ Á¤ÇÔ.
+			// Player ì—…ê·¸ë ˆì´ë“œ ìˆ˜ì¹˜ë¥¼ ê°€ì ¸ì™€ ê³„ìˆ˜ë¥¼ ê³±í•´ Bombì˜ ìµœì¢…ë°ë¯¸ì§€ë¥¼ ì •í•¨.
 			Vec3 CurPos = GetOwner()->Transform()->GetWorldPos();
 			Vec3 vDir = GetOwner()->Transform()->GetXZDir();
 			Vec3 vSpawnPos = Vec3(CurPos.x, CurPos.y + 40.f, CurPos.z) + vDir * 20.f;
-			m_pArrow = CLevelSaveLoadInScript::SpawnandReturnPrefab(L"prefab\\Arrow.prefab", (int)LAYER::PLAYERPROJECTILE, vSpawnPos);
+			m_pArrow = CLevelSaveLoadInScript::SpawnandReturnPrefab(L"prefab\\Arrow.prefab", static_cast<int>(LAYER::PLAYERPROJECTILE), vSpawnPos);
 			m_pArrow->Transform()->SetRelativeScale(Vec3(0.45f));
 			m_pArrow->Transform()->SetRelativeRot(m_vAttackDir);
 			m_pArrow->Transform()->SetRelativePos(vSpawnPos);
 		}
 		else if (KEY_RELEASE(KEY::RBTN))
 		{
-			// °ø°Ý¿¡ µû¸¥ ¿¡³ÊÁö ¼Ò¸ð
+			// ê³µê²©ì— ë”°ë¥¸ ì—ë„ˆì§€ ì†Œëª¨
 			Stat CurStat = GetOwnerScript()->GetStat();
 			CurStat.MP -= 1;
 			GetOwnerScript()->SetStat(CurStat);
 
-			// Player ¾÷±×·¹ÀÌµå ¼öÄ¡¸¦ °¡Á®¿Í °è¼ö¸¦ °öÇØ ArrowÀÇ ÃÖÁ¾µ¥¹ÌÁö¸¦ Á¤ÇÔ.
+			// Player ì—…ê·¸ë ˆì´ë“œ ìˆ˜ì¹˜ë¥¼ ê°€ì ¸ì™€ ê³„ìˆ˜ë¥¼ ê³±í•´ Arrowì˜ ìµœì¢…ë°ë¯¸ì§€ë¥¼ ì •í•¨.
 			float fDamage = GetOwnerScript()->GetStat().Spell_Power * (1.f + 0.3f * GetOwner()->GetScript<CPlayerScript>()->GetUpgrade(PLAYER_UPGRADE::MAGIC));
 			Vec3 CurPos = GetOwner()->Transform()->GetWorldPos();
 			Vec3 vDir = GetOwner()->Transform()->GetXZDir();

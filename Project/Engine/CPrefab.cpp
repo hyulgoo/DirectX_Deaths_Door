@@ -18,7 +18,7 @@ CPrefab::~CPrefab()
 		delete m_ProtoObj;
 }
 
-CGameObject* CPrefab::Instantiate()
+CGameObject* CPrefab::Instantiate() const
 {
 	return m_ProtoObj->Clone();	
 }
@@ -48,7 +48,7 @@ int CPrefab::Save(const wstring& _strRelativePath)
 	return S_OK;
 }
 
-CGameObject* CPrefab::GetProtoObj()
+CGameObject* CPrefab::GetProtoObj() const
 {
 	return m_ProtoObj;
 }
@@ -75,32 +75,32 @@ int CPrefab::Load(const wstring& _strFilePath)
 }
 
 void CPrefab::SaveProtoObj(CGameObject* _Obj, FILE* _File)
-{// obj ÀÌ¸§
+{// obj ì´ë¦„
 	SaveWString(_Obj->GetName(), _File);
 
-	// ÄÄÆ÷³ÍÆ®
-	for (UINT i = 0; i <= (UINT)COMPONENT_TYPE::END; ++i)
+	// ì»´í¬ë„ŒíŠ¸
+	for (UINT i = 0; i <= static_cast<UINT>(COMPONENT_TYPE::END); ++i)
 	{
-		if (i == (UINT)COMPONENT_TYPE::END)
+		if (i == static_cast<UINT>(COMPONENT_TYPE::END))
 		{
-			// ÄÄÆ÷³ÍÆ® ÀúÀåÀÌ ³¡³µ´Ù¸é (UINT)COMPONENT_TYPE::END¸¸ ±â·Ï
+			// ì»´í¬ë„ŒíŠ¸ ì €ì¥ì´ ëë‚¬ë‹¤ë©´ (UINT)COMPONENT_TYPE::ENDë§Œ ê¸°ë¡
 			fwrite(&i, sizeof(UINT), 1, _File);
 			break;
 		}
 
-		CComponent* Com = _Obj->GetComponent((COMPONENT_TYPE)i);
-		// ÄÄÆ÷³ÍÆ®°¡ ¾ø´Ù¸é ³Ñ¾î°¡±â
+		CComponent* Com = _Obj->GetComponent(static_cast<COMPONENT_TYPE>(i));
+		// ì»´í¬ë„ŒíŠ¸ê°€ ì—†ë‹¤ë©´ ë„˜ì–´ê°€ê¸°
 		if (nullptr == Com)
 			continue;
 
-		// ÄÄÆ÷³ÍÆ® Å¸ÀÔ ÀúÀå
+		// ì»´í¬ë„ŒíŠ¸ íƒ€ì… ì €ì¥
 		fwrite(&i, sizeof(UINT), 1, _File);
 
-		// ÄÄÆ÷³ÍÆ® ¼¼ºÎÁ¤º¸ ÀúÀå È£Ãâ
+		// ì»´í¬ë„ŒíŠ¸ ì„¸ë¶€ì •ë³´ ì €ì¥ í˜¸ì¶œ
 		Com->SaveToLevelFile(_File);
 	}
 
-	// ½ºÅ©¸³Æ®
+	// ìŠ¤í¬ë¦½íŠ¸
 	const vector<CScript*>& vecScript = _Obj->GetScripts();
 	size_t ScriptCount = vecScript.size();
 	fwrite(&ScriptCount, sizeof(size_t), 1, _File);
@@ -112,7 +112,7 @@ void CPrefab::SaveProtoObj(CGameObject* _Obj, FILE* _File)
 		vecScript[i]->SaveToLevelFile(_File);
 	}
 
-	// ÀÚ½Ä obj
+	// ìì‹ obj
 	const vector<CGameObject*>& vecChild = _Obj->GetChild();
 	size_t ChildCount = vecChild.size();
 	fwrite(&ChildCount, sizeof(size_t), 1, _File);
@@ -127,23 +127,23 @@ CGameObject* CPrefab::LoadProtoObj(FILE* _File)
 {
 	CGameObject* pObject = new CGameObject;
 
-	// ÀÌ¸§
+	// ì´ë¦„
 	wstring Name;
 	LoadWString(Name, _File);
 	pObject->SetName(Name);
 
-	// ÄÄÆ÷³ÍÆ®
+	// ì»´í¬ë„ŒíŠ¸
 	while (true)
 	{
 		UINT ComponentType = 0;
 		fread(&ComponentType, sizeof(UINT), 1, _File);
 
-		if ((UINT)COMPONENT_TYPE::END == ComponentType)
+		if (static_cast<UINT>(COMPONENT_TYPE::END) == ComponentType)
 			break;
 
 		CComponent* Component = nullptr;
 
-		switch ((COMPONENT_TYPE)ComponentType)
+		switch (static_cast<COMPONENT_TYPE>(ComponentType))
 		{
 		case COMPONENT_TYPE::TRANSFORM:
 			Component = new CTransform();
@@ -189,7 +189,7 @@ CGameObject* CPrefab::LoadProtoObj(FILE* _File)
 		pObject->AddComponent(Component);
 	}
 
-	// ½ºÅ©¸³Æ®
+	// ìŠ¤í¬ë¦½íŠ¸
 	size_t ScriptCount = 0;
 	fread(&ScriptCount, sizeof(size_t), 1, _File);
 
@@ -202,7 +202,7 @@ CGameObject* CPrefab::LoadProtoObj(FILE* _File)
 		pScript->LoadFromLevelFile(_File);
 	}
 
-	// ÀÚ½Ä obj
+	// ìì‹ obj
 	size_t ChildCount = 0;
 	fread(&ChildCount, sizeof(size_t), 1, _File);
 
@@ -218,7 +218,7 @@ CGameObject* CPrefab::LoadProtoObj(FILE* _File)
 
 void CPrefab::RegisterProtoObject(CGameObject* _Proto)
 {
-	// ¿øº» ¿ÀºêÁ§Æ®´Â ·¹º§ ¼Ò¼ÓÀÌ ¾Æ´Ï¿©¾ß ÇÑ´Ù.
+	// ì›ë³¸ ì˜¤ë¸Œì íŠ¸ëŠ” ë ˆë²¨ ì†Œì†ì´ ì•„ë‹ˆì—¬ì•¼ í•œë‹¤.
 	assert(-1 == _Proto->GetLayerIndex());
 
 	m_ProtoObj = _Proto;

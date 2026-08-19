@@ -21,7 +21,7 @@ CAnimation3DShader::~CAnimation3DShader()
 
 void CAnimation3DShader::UpdateData()
 {
-	// ±¸Á¶È­¹öÆÛ Àü´Þ
+	// êµ¬ì¡°í™”ë²„í¼ ì „ë‹¬
 	m_pFrameDataBuffer->UpdateData_CS(16, true); // t16
 	m_pOffsetMatBuffer->UpdateData_CS(17, true); // t17
 	m_pOutputBuffer->UpdateData_CS(0, false);   // u0
@@ -34,7 +34,7 @@ void CAnimation3DShader::UpdateData()
 
 void CAnimation3DShader::Clear()
 {
-	// Àü´ÞÇÑ ±¸Á¶È­¹öÆÛ Å¬¸®¾î	
+	// ì „ë‹¬í•œ êµ¬ì¡°í™”ë²„í¼ í´ë¦¬ì–´	
 	if (nullptr != m_pFrameDataBuffer)
 	{
 		m_pFrameDataBuffer->Clear_CS(true);

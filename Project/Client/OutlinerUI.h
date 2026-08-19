@@ -21,7 +21,7 @@ public:
     void SetTargetToInspector(DWORD_PTR _SelectedNode);
     CGameObject* GetSelectedObject();
 
-    // ф╝╦╝╟║ ╦╝╪б╣х ╟Ф©Л, ют╥бю╦╥н ╣И╬Н©б ╣╔юлем©м ╣©юогя ЁК╣Е╦╕  ╪╠ец╩Себ╥н ╣п╢ы.
+    // М┼╦К╕╛Й╟─ К╕╛Л┘▀К░° Й╡╫Л ╟, Л·┘К═╔Л°╪К║° К⌠╓Л√╢Л≤╗ К█╟Л²╢М└╟Л≥─ К▐≥Л²╪М∙° К┘╦К⌠°К╔╪  Л└═М┐²Л┐│М┐°К║° К▒■К▀╓.
     void SetSelectedNodeData(DWORD_PTR _data)
     {
         m_dwSelectedData = _data;

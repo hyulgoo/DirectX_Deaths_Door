@@ -9,7 +9,7 @@ void CGruntJumpAttackReady::Enter()
 
 void CGruntJumpAttackReady::tick()
 {
-	// ¾Ö´Ï¸ÞÀÌ¼ÇÀÌ ³¡³ª¸é NailAttack·Î ´Ù½Ã º¯°æ.
+	// ì• ë‹ˆë©”ì´ì…˜ì´ ëë‚˜ë©´ NailAttackë¡œ ë‹¤ì‹œ ë³€ê²½.
 	if (GetOwner()->Animator3D()->IsFinish())
 		ChangeState(L"JumpAttack");
 }

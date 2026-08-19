@@ -18,11 +18,11 @@ CParticleSystem::CParticleSystem()
 {
 
 	//================
-	// ¿«πÃæ¯¥¬ √ ±‚ºº∆√
+	// ÏùòÎØ∏ÏóÜÎäî Ï¥àÍ∏∞ÏÑ∏ÌåÖ
 	//================
 	m_ModuleData.iMaxParticleCount = 1000;
 
-	m_ModuleData.ModuleCheck[(UINT)PARTICLE_MODULE::PARTICLE_SPAWN] = true;
+	m_ModuleData.ModuleCheck[static_cast<UINT>(PARTICLE_MODULE::PARTICLE_SPAWN)] = true;
 	m_ModuleData.SpawnRate = 20;
 	m_ModuleData.vSpawnColor = Vec3(0.4f, 0.4f, 0.4f);
 	m_ModuleData.vSpawnScaleMin = Vec3(15.f, 15.f, 15.f);
@@ -30,7 +30,7 @@ CParticleSystem::CParticleSystem()
 
 	m_ModuleData.SpawnShapeType = 0;
 	m_ModuleData.vBoxShapeScale = Vec3(200.f, 200.f, 200.f);	
-	//m_ModuleData.Space = 0; // Ω√πƒ∑π¿Ãº« ¡¬«•∞Ë
+	//m_ModuleData.Space = 0; // ÏãúÎÆ¨Î†àÏù¥ÏÖò Ï¢åÌëúÍ≥Ñ
 
 	m_ModuleData.MinLifeTime = 3.f;
 	m_ModuleData.MaxLifeTime = 5.f;
@@ -38,14 +38,14 @@ CParticleSystem::CParticleSystem()
 	//========================================================
 
 	//SetName(L"ParticleSystem");
-	// ¿‘¿⁄ ∏ﬁΩ¨
+	// ÏûÖÏûê Î©îÏâ¨
 	SetMesh(CResMgr::GetInst()->FindRes<CMesh>(L"PointMesh"));
 
-	// ∆ƒ∆º≈¨ ¿¸øÎ ¿Á¡˙
+	// ÌååÌã∞ÌÅ¥ Ï†ÑÏö© Ïû¨Ïßà
 	SetMaterial(CResMgr::GetInst()->FindRes<CMaterial>(L"ParticleRenderMtrl"), 0);
 
-	// ∆ƒ∆º≈¨ æ˜µ•¿Ã∆Æ ƒƒ«ª∆Æ Ω¶¿Ã¥ı	
-	m_UpdateCS = (CParticleUpdateShader*)CResMgr::GetInst()->FindRes<CComputeShader>(L"ParticleUpdateCS").Get();
+	// ÌååÌã∞ÌÅ¥ ÏóÖÎç∞Ïù¥Ìä∏ Ïª¥Ìì®Ìä∏ ÏâêÏù¥Îçî	
+	m_UpdateCS = static_cast<CParticleUpdateShader*>(CResMgr::GetInst()->FindRes<CComputeShader>(L"ParticleUpdateCS").Get());
 
 	m_ParticleBuffer = new CStructuredBuffer;
 	m_ParticleBuffer->Create(sizeof(tParticle), m_ModuleData.iMaxParticleCount, SB_TYPE::READ_WRITE, false);
@@ -62,14 +62,14 @@ CParticleSystem::CParticleSystem(const CParticleSystem& _Other)
 	, m_ModuleData(_Other.m_ModuleData)
 	, m_Tex(_Other.m_Tex)
 {
-	// ¿‘¿⁄ ∏ﬁΩ¨
+	// ÏûÖÏûê Î©îÏâ¨
 	SetMesh(CResMgr::GetInst()->FindRes<CMesh>(L"PointMesh"));
 
-	// ∆ƒ∆º≈¨ ¿¸øÎ ¿Á¡˙
+	// ÌååÌã∞ÌÅ¥ Ï†ÑÏö© Ïû¨Ïßà
 	SetMaterial(CResMgr::GetInst()->FindRes<CMaterial>(L"ParticleRenderMtrl"), 0);
 
-	// ∆ƒ∆º≈¨ æ˜µ•¿Ã∆Æ ƒƒ«ª∆Æ Ω¶¿Ã¥ı	
-	m_UpdateCS = (CParticleUpdateShader*)CResMgr::GetInst()->FindRes<CComputeShader>(L"ParticleUpdateCS").Get();
+	// ÌååÌã∞ÌÅ¥ ÏóÖÎç∞Ïù¥Ìä∏ Ïª¥Ìì®Ìä∏ ÏâêÏù¥Îçî	
+	m_UpdateCS = static_cast<CParticleUpdateShader*>(CResMgr::GetInst()->FindRes<CComputeShader>(L"ParticleUpdateCS").Get());
 
 	m_ParticleBuffer = new CStructuredBuffer;
 	m_ParticleBuffer->Create(sizeof(tParticle), m_ModuleData.iMaxParticleCount, SB_TYPE::READ_WRITE, false);
@@ -106,30 +106,30 @@ CParticleSystem::~CParticleSystem()
 
 void CParticleSystem::finaltick()
 {
-	// Ω∫∆˘ ∑π¿Ã∆Æ ∞ËªÍ
-	// 1∞≥ Ω∫∆˘ Ω√∞£
-	float fTimePerCount = 1.f / (float)m_ModuleData.SpawnRate;
-	m_AccTime += DT;
+	// Ïä§Ìè∞ Î†àÏù¥Ìä∏ Í≥ÑÏÇ∞
+	// 1Í∞ú Ïä§Ìè∞ ÏãúÍ∞Ñ
+	float fTimePerCount = 1.f / static_cast<float>(m_ModuleData.SpawnRate);
+	m_AccTime           += DT;
 
-	// ¥©¿˚Ω√∞£¿Ã ∞≥¥Á ª˝º∫Ω√∞£¿ª ≥—æÓº≠∏È
+	// ÎàÑÏ†ÅÏãúÍ∞ÑÏù¥ Í∞úÎãπ ÏÉùÏÑ±ÏãúÍ∞ÑÏùÑ ÎÑòÏñ¥ÏÑúÎ©¥
 	if (fTimePerCount < m_AccTime)
 	{
-		// √ ∞˙ πË¿≤ ==> ª˝º∫ ∞≥ºˆ
+		// Ï¥àÍ≥º Î∞∞Ïú® ==> ÏÉùÏÑ± Í∞úÏàò
 		float fData = m_AccTime / fTimePerCount;
 
-		// ≥™∏”¡ˆ¥¬ ≥≤¿∫ Ω√∞£
+		// ÎÇòÎ®∏ÏßÄÎäî ÎÇ®ÏùÄ ÏãúÍ∞Ñ
 		m_AccTime = fTimePerCount * (fData - floor(fData));
 
-		// RWπˆ∆€¿« ∞≥ºˆ∫∏¥Ÿ ª˝º∫∞≥ºˆ∞° ∏π¥Ÿ∏È πˆ∆€ ªÁ¿Ã¡Ó∏¶ ¥√∑¡¡‹.
-		if (m_RWBuffer->GetElementCount() < (UINT)fData)
-			m_RWBuffer->Create(sizeof(tRWParticleBuffer), (UINT)fData, SB_TYPE::READ_WRITE, true);
-		// πˆ∆€ø° Ω∫∆˘ƒ´øÓ∆Æ ¿¸¥ﬁ
-		tRWParticleBuffer rwbuffer = { (int)fData };
+		// RWÎ≤ÑÌçºÏùò Í∞úÏàòÎ≥¥Îã§ ÏÉùÏÑ±Í∞úÏàòÍ∞Ä ÎßéÎã§Î©¥ Î≤ÑÌçº ÏÇ¨Ïù¥Ï¶àÎ•º ÎäòÎ†§Ï§å.
+		if (m_RWBuffer->GetElementCount() < static_cast<UINT>(fData))
+			m_RWBuffer->Create(sizeof(tRWParticleBuffer), static_cast<UINT>(fData), SB_TYPE::READ_WRITE, true);
+		// Î≤ÑÌçºÏóê Ïä§Ìè∞Ïπ¥Ïö¥Ìä∏ Ï†ÑÎã¨
+		tRWParticleBuffer rwbuffer = { static_cast<int>(fData) };
 		m_RWBuffer->SetData(&rwbuffer);
 	}
 
 
-	// ∆ƒ∆º≈¨ æ˜µ•¿Ã∆Æ ƒƒ«ª∆Æ Ω¶¿Ã¥ı
+	// ÌååÌã∞ÌÅ¥ ÏóÖÎç∞Ïù¥Ìä∏ Ïª¥Ìì®Ìä∏ ÏâêÏù¥Îçî
 	m_ModuleDataBuffer->SetData(&m_ModuleData);
 
 	m_UpdateCS->SetParticleBuffer(m_ParticleBuffer);
@@ -145,21 +145,21 @@ void CParticleSystem::render()
 {
 	Transform()->UpdateData();
 
-	// ∆ƒ∆º≈¨πˆ∆€ t20 ø° πŸ¿Œµ˘
+	// ÌååÌã∞ÌÅ¥Î≤ÑÌçº t20 Ïóê Î∞îÏù∏Îî©
 	m_ParticleBuffer->UpdateData(20, PIPELINE_STAGE::PS_ALL);
 
-	// ∏µ‚ µ•¿Ã≈Õ t21 ø° πŸ¿Œµ˘
+	// Î™®Îìà Îç∞Ïù¥ÌÑ∞ t21 Ïóê Î∞îÏù∏Îî©
 	m_ModuleDataBuffer->UpdateData(21, PIPELINE_STAGE::PS_GEOMETRY);
 
 	// Particle Render	
 	GetMaterial(0)->SetTexParam(TEX_0, m_Tex);
-	// Emissive ø©∫Œ
+	// Emissive Ïó¨Î∂Ä
 	GetMaterial(0)->SetScalarParam(INT_0, &m_iEmissive);
 
 	GetMaterial(0)->UpdateData();
 	GetMesh()->render_particle(m_ModuleData.iMaxParticleCount);
 
-	// ∆ƒ∆º≈¨ πˆ∆€ πŸ¿Œµ˘ «ÿ¡¶
+	// ÌååÌã∞ÌÅ¥ Î≤ÑÌçº Î∞îÏù∏Îî© Ìï¥Ï†ú
 	m_ParticleBuffer->Clear();
 	m_ModuleDataBuffer->Clear();
 }
@@ -172,11 +172,11 @@ void CParticleSystem::render(UINT _iSubset)
 void CParticleSystem::SpawnModule(int _MaxParticle, int _SpawnRate, Vec3 _SpawnColor, Vec3 SpawnMinScale
 	, Vec3 SpawnMaxScale, Vec3 _SpawnBoxScale, float _MinLifeTime, float _MaxLifeTime)
 {
-	for (UINT i = 0; i < (UINT)PARTICLE_MODULE::END; ++i)
+	for (UINT i = 0; i < static_cast<UINT>(PARTICLE_MODULE::END); ++i)
 	{
 		m_ModuleData.ModuleCheck[i] = false;
 	}
-	m_ModuleData.ModuleCheck[(UINT)PARTICLE_MODULE::PARTICLE_SPAWN] = true;
+	m_ModuleData.ModuleCheck[static_cast<UINT>(PARTICLE_MODULE::PARTICLE_SPAWN)] = true;
 	m_ModuleData.iMaxParticleCount = _MaxParticle;
 	m_ModuleData.SpawnRate = _SpawnRate;
 	m_ModuleData.vSpawnColor = _SpawnColor / 255;
@@ -184,7 +184,7 @@ void CParticleSystem::SpawnModule(int _MaxParticle, int _SpawnRate, Vec3 _SpawnC
 	m_ModuleData.vSpawnScaleMax = SpawnMaxScale;
 	m_ModuleData.SpawnShapeType = 0;
 	m_ModuleData.vBoxShapeScale = _SpawnBoxScale;
-	m_ModuleData.Space = 0; // Ω√πƒ∑π¿Ãº« ¡¬«•∞Ë
+	m_ModuleData.Space = 0; // ÏãúÎÆ¨Î†àÏù¥ÏÖò Ï¢åÌëúÍ≥Ñ
 	m_ModuleData.MinLifeTime = _MinLifeTime;
 	m_ModuleData.MaxLifeTime = _MaxLifeTime;
 
@@ -192,21 +192,21 @@ void CParticleSystem::SpawnModule(int _MaxParticle, int _SpawnRate, Vec3 _SpawnC
 
 void CParticleSystem::ColorChangeModule(Vec3 _vStartColor, Vec3 _vEndColor)
 {
-	m_ModuleData.ModuleCheck[(UINT)PARTICLE_MODULE::COLOR_CHANGE] = true;
+	m_ModuleData.ModuleCheck[static_cast<UINT>(PARTICLE_MODULE::COLOR_CHANGE)] = true;
 	m_ModuleData.vStartColor = _vStartColor / 255.f;
 	m_ModuleData.vEndColor = _vEndColor / 255;
 }
 
 void CParticleSystem::ScaleChangeModule(float _vStartScale, float _vEndScale)
 {
-	m_ModuleData.ModuleCheck[(UINT)PARTICLE_MODULE::SCALE_CHANGE] = true;
+	m_ModuleData.ModuleCheck[static_cast<UINT>(PARTICLE_MODULE::SCALE_CHANGE)] = true;
 	m_ModuleData.StartScale = _vStartScale;
 	m_ModuleData.EndScale = _vEndScale;
 }
 
 void CParticleSystem::AddVelocityModule(float _fSpeed, int _iVelocityType, Vec3 _vVelocityDir, float _fAngle)
 {
-	m_ModuleData.ModuleCheck[(UINT)PARTICLE_MODULE::ADD_VELOCITY] = true;
+	m_ModuleData.ModuleCheck[static_cast<UINT>(PARTICLE_MODULE::ADD_VELOCITY)] = true;
 	m_ModuleData.AddVelocityType = _iVelocityType;
 	m_ModuleData.Speed = _fSpeed;
 	m_ModuleData.vVelocityDir = _vVelocityDir;
@@ -215,27 +215,27 @@ void CParticleSystem::AddVelocityModule(float _fSpeed, int _iVelocityType, Vec3 
 
 void CParticleSystem::DragModule(float _fStartDrag, float _fEndDrag)
 {
-	m_ModuleData.ModuleCheck[(UINT)PARTICLE_MODULE::DRAG] = true;
+	m_ModuleData.ModuleCheck[static_cast<UINT>(PARTICLE_MODULE::DRAG)] = true;
 	m_ModuleData.StartDrag = _fStartDrag;
 	m_ModuleData.EndDrag = -_fEndDrag;
 }
 
 void CParticleSystem::RandomForceModule(float _fForceTerm, float _fForce)
 {
-	m_ModuleData.ModuleCheck[(UINT)PARTICLE_MODULE::NOISE_FORCE] = true;
+	m_ModuleData.ModuleCheck[static_cast<UINT>(PARTICLE_MODULE::NOISE_FORCE)] = true;
 	m_ModuleData.fNoiseTerm = _fForceTerm;
 	m_ModuleData.fNoiseForce = _fForce;
 }
 
 void CParticleSystem::VelocityAlignmentModule()
 {
-	m_ModuleData.ModuleCheck[(UINT)PARTICLE_MODULE::RENDER] = true;
+	m_ModuleData.ModuleCheck[static_cast<UINT>(PARTICLE_MODULE::RENDER)] = true;
 	m_ModuleData.VelocityAlignment = true;
 }
 
 void CParticleSystem::VelocityScaleModule(float _fMaxSpeed, Vec3 _vMaxVelocityScale)
 {
-	m_ModuleData.ModuleCheck[(UINT)PARTICLE_MODULE::RENDER] = true;
+	m_ModuleData.ModuleCheck[static_cast<UINT>(PARTICLE_MODULE::RENDER)] = true;
 	m_ModuleData.VelocityScale = true;
 	m_ModuleData.vMaxVelocityScale = _vMaxVelocityScale;
 	m_ModuleData.vMaxSpeed = _fMaxSpeed;
@@ -245,7 +245,7 @@ void CParticleSystem::AnimationModule(int _iFrmCount, int _iXCount, Vec2 _vLeftT
 {
 	Vec2 Resolution = Vec2(m_Tex->Width(), m_Tex->Height());
 
-	m_ModuleData.ModuleCheck[(UINT)PARTICLE_MODULE::ANIMATION] = true;
+	m_ModuleData.ModuleCheck[static_cast<UINT>(PARTICLE_MODULE::ANIMATION)] = true;
 	m_ModuleData.iFrmCount = _iFrmCount;
 	m_ModuleData.iXCount = _iXCount;
 	m_ModuleData.vLeftTop = _vLeftTop / Resolution;
@@ -255,7 +255,7 @@ void CParticleSystem::AnimationModule(int _iFrmCount, int _iXCount, Vec2 _vLeftT
 
 void CParticleSystem::OnOff(bool _Onff)
 {
-	m_ModuleData.ModuleCheck[(UINT)PARTICLE_MODULE::PARTICLE_SPAWN] = _Onff;
+	m_ModuleData.ModuleCheck[static_cast<UINT>(PARTICLE_MODULE::PARTICLE_SPAWN)] = _Onff;
 	m_AccTime = 0.f;
 }
 
@@ -285,7 +285,7 @@ void CParticleSystem::LoadFromLevelFile(FILE* _File)
 		LoadWString(strKey, _File);
 		LoadWString(strRelativePath, _File);
 
-		m_UpdateCS = (CParticleUpdateShader*)CResMgr::GetInst()->FindRes<CComputeShader>(strKey).Get();
+		m_UpdateCS = static_cast<CParticleUpdateShader*>(CResMgr::GetInst()->FindRes<CComputeShader>(strKey).Get());
 
 	}
 	LoadResRef(m_Tex, _File);

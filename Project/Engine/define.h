@@ -38,23 +38,23 @@ enum class MRT_TYPE
 enum class COMPONENT_TYPE
 {
 	// update
-	TRANSFORM,		// À§Ä¡, Å©±â, È¸Àü
-	COLLIDER2D,		// 2Â÷¿ø Ãæµ¹
-	COLLIDER3D,		// 3Â÷¿ø Ãæµ¹
+	TRANSFORM,		// ìœ„ì¹˜, í¬ê¸°, íšŒì „
+	COLLIDER2D,		// 2ì°¨ì› ì¶©ëŒ
+	COLLIDER3D,		// 3ì°¨ì› ì¶©ëŒ
 	ANIMATOR2D,		// Sprite Animation
 	ANIMATOR3D,		// Bone Sknning Animation
-	LIGHT2D,		// 2Â÷¿ø ±¤¿ø
-	LIGHT3D,		// 3Â÷¿ø ±¤¿ø
+	LIGHT2D,		// 2ì°¨ì› ê´‘ì›
+	LIGHT3D,		// 3ì°¨ì› ê´‘ì›
 	CAMERA,			// Camera
 	RIGIDBODY,
 
 	// render
-	MESHRENDER,		// ±âº»ÀûÀÎ ·»´õ¸µ
-	PARTICLESYSTEM, // ÀÔÀÚ ·»´õ¸µ
-	TILEMAP,		// 2Â÷¿ø Å¸ÀÏ
-	SKYBOX,			// ÇÏ´Ã
-	LANDSCAPE,		// 3Â÷¿ø ÁöÇü
-	DECAL,			// ³»ºÎ ·»´õ¸µ
+	MESHRENDER,		// ê¸°ë³¸ì ì¸ ë Œë”ë§
+	PARTICLESYSTEM, // ìž…ìž ë Œë”ë§
+	TILEMAP,		// 2ì°¨ì› íƒ€ì¼
+	SKYBOX,			// í•˜ëŠ˜
+	LANDSCAPE,		// 3ì°¨ì› ì§€í˜•
+	DECAL,			// ë‚´ë¶€ ë Œë”ë§
 		
 	END,
 
@@ -62,8 +62,8 @@ enum class COMPONENT_TYPE
 	SCRIPT,
 };
 
-extern const char* COMPONENT_TYPE_STR[(UINT)COMPONENT_TYPE::END];
-extern const wchar_t* COMPONENT_TYPE_WSTR[(UINT)COMPONENT_TYPE::END];
+extern const char*    COMPONENT_TYPE_STR[static_cast<UINT>(COMPONENT_TYPE::END)];
+extern const wchar_t* COMPONENT_TYPE_WSTR[static_cast<UINT>(COMPONENT_TYPE::END)];
 
 
 enum class RES_TYPE
@@ -72,8 +72,8 @@ enum class RES_TYPE
 	MATERIAL,
 	PREFAB,
 
-	MESH,			// ÇüÅÂ
-	TEXTURE,		// ÀÌ¹ÌÁö
+	MESH,			// í˜•íƒœ
+	TEXTURE,		// ì´ë¯¸ì§€
 	SOUND,
 
 	GRAPHICS_SHADER,
@@ -82,8 +82,8 @@ enum class RES_TYPE
 	END,
 };
 
-extern const char* RES_TYPE_STR[(UINT)RES_TYPE::END];
-extern const wchar_t* RES_TYPE_WSTR[(UINT)RES_TYPE::END];
+extern const char*    RES_TYPE_STR[static_cast<UINT>(RES_TYPE::END)];
+extern const wchar_t* RES_TYPE_WSTR[static_cast<UINT>(RES_TYPE::END)];
 
 
 
@@ -184,8 +184,8 @@ enum class BS_TYPE
 {
 	DEFAULT,		// No Blending
 	MASK,			// Alpha Coverage
-	ALPHA_BLEND,	// Alpha °è¼ö 
-	ONE_ONE,		// 1:1 È¥ÇÕ
+	ALPHA_BLEND,	// Alpha ê³„ìˆ˜ 
+	ONE_ONE,		// 1:1 í˜¼í•©
 	END,
 };
 
@@ -216,12 +216,12 @@ enum class SHADER_DOMAIN
 	DOMAIN_LIGHT,
 
 	// SwapChain(Foward)
-	DOMAIN_OPAQUE,		// ºÒÅõ¸í ¿ÀºêÁ§Æ®
-	DOMAIN_MASK,		// ºÒÅõ¸í, Åõ¸í
-	DOMAIN_TRANSPARENT,	// ¹ÝÅõ¸í
-	DOMAIN_POSTPROCESS, // ÈÄ Ã³¸®
+	DOMAIN_OPAQUE,		// ë¶ˆíˆ¬ëª… ì˜¤ë¸Œì íŠ¸
+	DOMAIN_MASK,		// ë¶ˆíˆ¬ëª…, íˆ¬ëª…
+	DOMAIN_TRANSPARENT,	// ë°˜íˆ¬ëª…
+	DOMAIN_POSTPROCESS, // í›„ ì²˜ë¦¬
 	DOMAIN_UI,
-	DOMAIN_UNDEFINED,	// ¹ÌÁ¤
+	DOMAIN_UNDEFINED,	// ë¯¸ì •
 };
 
 

@@ -16,6 +16,6 @@ public:
 
 public:
     CKnightJumpAttack2();
-    ~CKnightJumpAttack2();
+    virtual ~CKnightJumpAttack2() override;
 };
 

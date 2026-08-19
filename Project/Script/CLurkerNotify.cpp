@@ -5,25 +5,25 @@
 
 void CLurkerNotify::Enter()
 {
-	// AnimClip ÀÌ¸§Àº ReadyActionÀÓ
+	// AnimClip ì´ë¦„ì€ ReadyActionì„
 	GetOwner()->Animator3D()->Play(1, false);
 
-	// Player ÀÀ½Ã
+	// Player ì‘ì‹œ
 	GetOwner()->GetScript<CLurkerScript>()->SetStarePlayer(true);
 }
 
 void CLurkerNotify::tick()
 {
-	// ÀÌ¹Ì Notify Çàµ¿À» ÇÑÀûÀÌ ÀÖ´Ù¸é ´Ù¸¥ »óÅÂ·Î.
+	// ì´ë¯¸ Notify í–‰ë™ì„ í•œì ì´ ìˆë‹¤ë©´ ë‹¤ë¥¸ ìƒíƒœë¡œ.
 	if (m_bNotifyAnimEnd)
 	{
 		Vec3 PlayerPos = GetOwner()->GetScript<CLurkerScript>()->GetPlayerPos();
 		float fDistance = GetOwner()->GetScript<CLurkerScript>()->GetPlayerDistance();
 
-		// °ø°İ ¹üÀ§¿¡ µé¾î¿Â °æ¿ì. ³­¼ö¸¦ »ı¼ºÇØ¼­ 4°¡Áö ÆĞÅÏ Áß ÇÏ³ª¸¦ ¼±ÅÃÇÑ´Ù. 
+		// ê³µê²© ë²”ìœ„ì— ë“¤ì–´ì˜¨ ê²½ìš°. ë‚œìˆ˜ë¥¼ ìƒì„±í•´ì„œ 4ê°€ì§€ íŒ¨í„´ ì¤‘ í•˜ë‚˜ë¥¼ ì„ íƒí•œë‹¤. 
 		if (fDistance < GetOwner()->GetScript<CLurkerScript>()->GetAttackRange())
 		{
-			// ³Ê¹« °¡±î¿ì¸é ¹é½ºÅÜ.
+			// ë„ˆë¬´ ê°€ê¹Œìš°ë©´ ë°±ìŠ¤í….
 			if (fDistance < GetOwner()->GetScript<CLurkerScript>()->GetBackStepRange() && !m_bJustBeforeBackStep)
 			{
 				ChangeState(L"BackStep");
@@ -37,7 +37,7 @@ void CLurkerNotify::tick()
 				srand(time(0));
 				int iRandom = rand() % 3;
 
-				// ¹«Á¶°Ç ÀÌÀü ÆĞÅÏ°ú ´Ù¸¥ ÆĞÅÏÀÌ ³ª¿Àµµ·Ï ÇÏ±â.
+				// ë¬´ì¡°ê±´ ì´ì „ íŒ¨í„´ê³¼ ë‹¤ë¥¸ íŒ¨í„´ì´ ë‚˜ì˜¤ë„ë¡ í•˜ê¸°.
 				if (m_iPrevPattern == iRandom)
 				{
 					if (m_iPrevPattern == 2)
@@ -62,7 +62,7 @@ void CLurkerNotify::tick()
 			ChangeState(L"Trace");
 	}
 
-	// ÇöÀç ÁøÇàÁßÀÎ ReadyAction ¾Ö´Ï¸ŞÀÌ¼ÇÀÌ ³¡³µ´Ù¸é m_bNotifyAnimEnd¸¦ true·Î º¯°æ.
+	// í˜„ì¬ ì§„í–‰ì¤‘ì¸ ReadyAction ì• ë‹ˆë©”ì´ì…˜ì´ ëë‚¬ë‹¤ë©´ m_bNotifyAnimEndë¥¼ trueë¡œ ë³€ê²½.
 	else
 	{
 		if (GetOwner()->Animator3D()->IsFinish())

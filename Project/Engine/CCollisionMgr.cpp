@@ -32,7 +32,7 @@ void CCollisionMgr::tick()
 			if (!(m_matrix[iRow] & (1 << iCol)))
 				continue;
 
-			// iRow ·¹ÀÌ¾î¿Í iCol ·¹ÀÌ¾î´Â ¼­·Î Ãæµ¹°Ë»ç¸¦ ÁøÇàÇÑ´Ù.
+			// iRow ë ˆì´ì–´ì™€ iCol ë ˆì´ì–´ëŠ” ì„œë¡œ ì¶©ëŒê²€ì‚¬ë¥¼ ì§„í–‰í•œë‹¤.
 			CollisionBtwLayer(pLevel->GetLayer(iRow), pLevel->GetLayer(iCol));
 		}
 	}
@@ -71,7 +71,7 @@ void CCollisionMgr::CollisionBtwObject(CGameObject* _LeftObject, CGameObject* _R
 		&& !(_LeftObject->Collider3D() && _RightObject->Collider3D()))
 		return;
 
-	// Ãæµ¹Ã¼ ID »ý¼º
+	// ì¶©ëŒì²´ ID ìƒì„±
 	CollisionID id = {};
 
 	if (_LeftObject->Collider2D() && _RightObject->Collider2D())
@@ -85,7 +85,7 @@ void CCollisionMgr::CollisionBtwObject(CGameObject* _LeftObject, CGameObject* _R
 		id.RightID = _RightObject->Collider3D()->GetID();
 	}
 	
-	// ID °Ë»ö
+	// ID ê²€ìƒ‰
 	map<UINT_PTR, bool>::iterator iter = m_mapColID.find(id.id);
 	if (iter == m_mapColID.end())
 	{
@@ -93,7 +93,7 @@ void CCollisionMgr::CollisionBtwObject(CGameObject* _LeftObject, CGameObject* _R
 		iter = m_mapColID.find(id.id);
 	}
 
-	// µÑ Áß ÇÏ³ª¶óµµ »èÁ¦ ¿¹Á¤ »óÅÂ¶ó¸é(Dead »óÅÂ)
+	// ë‘˜ ì¤‘ í•˜ë‚˜ë¼ë„ ì‚­ì œ ì˜ˆì • ìƒíƒœë¼ë©´(Dead ìƒíƒœ)
 	bool bDead = false;
 	if (_LeftObject->IsDead() || _RightObject->IsDead())
 	{
@@ -102,10 +102,10 @@ void CCollisionMgr::CollisionBtwObject(CGameObject* _LeftObject, CGameObject* _R
 
 	if(_LeftObject->Collider2D() && _RightObject->Collider2D())
 	{
-		// µÎ Ãæµ¹Ã¼°¡ Áö±Ý Ãæµ¹ ÁßÀÎÁö È®ÀÎ
+		// ë‘ ì¶©ëŒì²´ê°€ ì§€ê¸ˆ ì¶©ëŒ ì¤‘ì¸ì§€ í™•ì¸
 		if (CollisionBtw2DCollider(_LeftObject->Collider2D(), _RightObject->Collider2D()))
 		{
-			// ÀÌÀü¿¡ Ãæµ¹ÇÑ ÀûÀÌ ÀÖ°í, µÑÁß ÇÏ³ª ÀÌ»óÀÌ »èÁ¦ ¿¹Á¤ÀÌ¶ó¸é
+			// ì´ì „ì— ì¶©ëŒí•œ ì ì´ ìžˆê³ , ë‘˜ì¤‘ í•˜ë‚˜ ì´ìƒì´ ì‚­ì œ ì˜ˆì •ì´ë¼ë©´
 			if (bDead && iter->second)
 			{
 				_LeftObject->Collider2D()->EndOverlap(_RightObject->Collider2D());
@@ -113,14 +113,14 @@ void CCollisionMgr::CollisionBtwObject(CGameObject* _LeftObject, CGameObject* _R
 			}
 			else if (iter->second)
 			{
-				// °è¼Ó Ãæµ¹ Áß
+				// ê³„ì† ì¶©ëŒ ì¤‘
 				_LeftObject->Collider2D()->OnOverlap(_RightObject->Collider2D());
 				_RightObject->Collider2D()->OnOverlap(_LeftObject->Collider2D());
 			}
 			else
 			{
-				// ÀÌ¹ø ÇÁ·¹ÀÓ¿¡ Ãæµ¹
-				if (!bDead) // µÑÁß ÇÏ³ª¶óµµ Dead »óÅÂ¸é Ãæµ¹À» ¹«½ÃÇÑ´Ù.
+				// ì´ë²ˆ í”„ë ˆìž„ì— ì¶©ëŒ
+				if (!bDead) // ë‘˜ì¤‘ í•˜ë‚˜ë¼ë„ Dead ìƒíƒœë©´ ì¶©ëŒì„ ë¬´ì‹œí•œë‹¤.
 				{
 					_LeftObject->Collider2D()->BeginOverlap(_RightObject->Collider2D());
 					_RightObject->Collider2D()->BeginOverlap(_LeftObject->Collider2D());
@@ -130,7 +130,7 @@ void CCollisionMgr::CollisionBtwObject(CGameObject* _LeftObject, CGameObject* _R
 		}
 		else
 		{
-			// Ãæµ¹ ÇØÁ¦
+			// ì¶©ëŒ í•´ì œ
 			if (iter->second)
 			{
 				_LeftObject->Collider2D()->EndOverlap(_RightObject->Collider2D());
@@ -141,10 +141,10 @@ void CCollisionMgr::CollisionBtwObject(CGameObject* _LeftObject, CGameObject* _R
 	}
 	else
 	{
-		// µÎ Ãæµ¹Ã¼°¡ Áö±Ý Ãæµ¹ ÁßÀÎÁö È®ÀÎ
+		// ë‘ ì¶©ëŒì²´ê°€ ì§€ê¸ˆ ì¶©ëŒ ì¤‘ì¸ì§€ í™•ì¸
 		if (CollisionBtw3DCollider(_LeftObject->Collider3D(), _RightObject->Collider3D()))
 		{
-			// ÀÌÀü¿¡ Ãæµ¹ÇÑ ÀûÀÌ ÀÖ°í, µÑÁß ÇÏ³ª ÀÌ»óÀÌ »èÁ¦ ¿¹Á¤ÀÌ¶ó¸é
+			// ì´ì „ì— ì¶©ëŒí•œ ì ì´ ìžˆê³ , ë‘˜ì¤‘ í•˜ë‚˜ ì´ìƒì´ ì‚­ì œ ì˜ˆì •ì´ë¼ë©´
 			if (bDead && iter->second)
 			{
 				_LeftObject->Collider3D()->EndOverlap(_RightObject->Collider3D());
@@ -152,14 +152,14 @@ void CCollisionMgr::CollisionBtwObject(CGameObject* _LeftObject, CGameObject* _R
 			}
 			else if (iter->second)
 			{
-				// °è¼Ó Ãæµ¹ Áß
+				// ê³„ì† ì¶©ëŒ ì¤‘
 				_LeftObject->Collider3D()->OnOverlap(_RightObject->Collider3D());
 				_RightObject->Collider3D()->OnOverlap(_LeftObject->Collider3D());
 			}
 			else
 			{
-				// ÀÌ¹ø ÇÁ·¹ÀÓ¿¡ Ãæµ¹
-				if (!bDead) // µÑÁß ÇÏ³ª¶óµµ Dead »óÅÂ¸é Ãæµ¹À» ¹«½ÃÇÑ´Ù.
+				// ì´ë²ˆ í”„ë ˆìž„ì— ì¶©ëŒ
+				if (!bDead) // ë‘˜ì¤‘ í•˜ë‚˜ë¼ë„ Dead ìƒíƒœë©´ ì¶©ëŒì„ ë¬´ì‹œí•œë‹¤.
 				{
 					_LeftObject->Collider3D()->BeginOverlap(_RightObject->Collider3D());
 					_RightObject->Collider3D()->BeginOverlap(_LeftObject->Collider3D());
@@ -169,7 +169,7 @@ void CCollisionMgr::CollisionBtwObject(CGameObject* _LeftObject, CGameObject* _R
 		}
 		else
 		{
-			// Ãæµ¹ ÇØÁ¦
+			// ì¶©ëŒ í•´ì œ
 			if (iter->second)
 			{
 				_LeftObject->Collider3D()->EndOverlap(_RightObject->Collider3D());
@@ -182,8 +182,8 @@ void CCollisionMgr::CollisionBtwObject(CGameObject* _LeftObject, CGameObject* _R
 
 }
 
-// µÎ Ãæµ¹Ã¼ÀÇ Ãæµ¹ °Ë»ç ÁøÇà
-bool CCollisionMgr::CollisionBtw2DCollider(CCollider2D* _pLeft, CCollider2D* _pRight)
+// ë‘ ì¶©ëŒì²´ì˜ ì¶©ëŒ ê²€ì‚¬ ì§„í–‰
+bool CCollisionMgr::CollisionBtw2DCollider(CCollider2D* _pLeft, CCollider2D* _pRight) const
 {
 	// 0 -- 1
 	// |    |
@@ -196,7 +196,7 @@ bool CCollisionMgr::CollisionBtw2DCollider(CCollider2D* _pLeft, CCollider2D* _pR
 		Vec3(-0.5f, -0.5f, 0.f),
 	};
 
-	// µÎ Ãæµ¹Ã¼ÀÇ °¢ Ç¥¸é º¤ÅÍ 2°³¾¿ ±¸ÇÔ
+	// ë‘ ì¶©ëŒì²´ì˜ ê° í‘œë©´ ë²¡í„° 2ê°œì”© êµ¬í•¨
 	Vec3 arrProj[4] = {};
 
 	arrProj[0] = XMVector3TransformCoord(arrLocal[1], _pLeft->GetColliderWorldMat()) - XMVector3TransformCoord(arrLocal[0], _pLeft->GetColliderWorldMat());
@@ -205,17 +205,17 @@ bool CCollisionMgr::CollisionBtw2DCollider(CCollider2D* _pLeft, CCollider2D* _pR
 	arrProj[2] = XMVector3TransformCoord(arrLocal[1], _pRight->GetColliderWorldMat()) - XMVector3TransformCoord(arrLocal[0], _pRight->GetColliderWorldMat());
 	arrProj[3] = XMVector3TransformCoord(arrLocal[3], _pRight->GetColliderWorldMat()) - XMVector3TransformCoord(arrLocal[0], _pRight->GetColliderWorldMat());
 	
-	// µÎ Ãæµ¹Ã¼ÀÇ Áß½ÉÁ¡À» ±¸ÇÔ
+	// ë‘ ì¶©ëŒì²´ì˜ ì¤‘ì‹¬ì ì„ êµ¬í•¨
 	Vec3 vCenter = XMVector3TransformCoord(Vec3(0.f, 0.f, 0.f), _pRight->GetColliderWorldMat()) - XMVector3TransformCoord(Vec3(0.f, 0.f, 0.f), _pLeft->GetColliderWorldMat());
 	
 
-	// ºÐ¸®Ãà Å×½ºÆ®
+	// ë¶„ë¦¬ì¶• í…ŒìŠ¤íŠ¸
 	for (int i = 0; i < 4; ++i)
 	{
 		Vec3 vProj = arrProj[i];
 		vProj.Normalize();
 
-		// 4°³ÀÇ Ç¥¸é¹éÅÍ¸¦ ÁöÁ¤µÈ Åõ¿µÃàÀ¸·Î Åõ¿µ½ÃÅ² °Å¸®ÀÇ ÃÑÇÕ / 2
+		// 4ê°œì˜ í‘œë©´ë°±í„°ë¥¼ ì§€ì •ëœ íˆ¬ì˜ì¶•ìœ¼ë¡œ íˆ¬ì˜ì‹œí‚¨ ê±°ë¦¬ì˜ ì´í•© / 2
 		float fProjDist = 0.f;
 		for (int j = 0; j < 4; ++j)
 		{
@@ -233,7 +233,7 @@ bool CCollisionMgr::CollisionBtw2DCollider(CCollider2D* _pLeft, CCollider2D* _pR
     return true;
 }
 
-bool CCollisionMgr::CollisionBtw3DCollider(CCollider3D* _pLeft, CCollider3D* _pRight)
+bool CCollisionMgr::CollisionBtw3DCollider(CCollider3D* _pLeft, CCollider3D* _pRight) const
 {
 	Vec3 arrLocal[8] =
 	{
@@ -249,10 +249,10 @@ bool CCollisionMgr::CollisionBtw3DCollider(CCollider3D* _pLeft, CCollider3D* _pR
 
 	if (_pLeft->GetCollider3DType() == _pRight->GetCollider3DType())
 	{
-		// µÑ ´Ù CubeÀÎ °æ¿ì
+		// ë‘˜ ë‹¤ Cubeì¸ ê²½ìš°
 		if (_pLeft->GetCollider3DType() == COLLIDER3D_TYPE::CUBE)
 		{
-			// µÎ Ãæµ¹Ã¼ÀÇ °¢ Ãà Ç¥¸éº¤ÅÍ 3°³¾¿ ±¸ÇÔ
+			// ë‘ ì¶©ëŒì²´ì˜ ê° ì¶• í‘œë©´ë²¡í„° 3ê°œì”© êµ¬í•¨
 			Vec3 arrProj[6] = {};
 
 			arrProj[0] = XMVector3TransformCoord(arrLocal[1], _pLeft->GetColliderWorldMat()) - XMVector3TransformCoord(arrLocal[0], _pLeft->GetColliderWorldMat());
@@ -263,17 +263,17 @@ bool CCollisionMgr::CollisionBtw3DCollider(CCollider3D* _pLeft, CCollider3D* _pR
 			arrProj[4] = XMVector3TransformCoord(arrLocal[3], _pRight->GetColliderWorldMat()) - XMVector3TransformCoord(arrLocal[0], _pRight->GetColliderWorldMat());
 			arrProj[5] = XMVector3TransformCoord(arrLocal[4], _pRight->GetColliderWorldMat()) - XMVector3TransformCoord(arrLocal[0], _pRight->GetColliderWorldMat());
 
-			// µÎ Ãæµ¹Ã¼ÀÇ Áß½ÉÁ¡À» ±¸ÇÔ
+			// ë‘ ì¶©ëŒì²´ì˜ ì¤‘ì‹¬ì ì„ êµ¬í•¨
 			Vec3 vCenter = XMVector3TransformCoord(Vec3(0.f, 0.f, 0.f), _pRight->GetColliderWorldMat()) - XMVector3TransformCoord(Vec3(0.f, 0.f, 0.f), _pLeft->GetColliderWorldMat());
 
 
-			// ºÐ¸®Ãà Å×½ºÆ®
+			// ë¶„ë¦¬ì¶• í…ŒìŠ¤íŠ¸
 			for (int i = 0; i < 6; ++i)
 			{
 				Vec3 vProj = arrProj[i];
 				vProj.Normalize();
 
-				// 4°³ÀÇ Ç¥¸é¹éÅÍ¸¦ ÁöÁ¤µÈ Åõ¿µÃàÀ¸·Î Åõ¿µ½ÃÅ² °Å¸®ÀÇ ÃÑÇÕ / 2
+				// 4ê°œì˜ í‘œë©´ë°±í„°ë¥¼ ì§€ì •ëœ íˆ¬ì˜ì¶•ìœ¼ë¡œ íˆ¬ì˜ì‹œí‚¨ ê±°ë¦¬ì˜ ì´í•© / 2
 				float fProjDist = 0.f;
 				for (int j = 0; j < 6; ++j)
 				{
@@ -287,29 +287,29 @@ bool CCollisionMgr::CollisionBtw3DCollider(CCollider3D* _pLeft, CCollider3D* _pR
 					return false;
 			}
 		}
-		// µÑ ´Ù SphereÀÎ °æ¿ì
+		// ë‘˜ ë‹¤ Sphereì¸ ê²½ìš°
 		else 
 		{
 			if (abs(_pLeft->GetOffsetScale().x) <= 0.001f || abs(_pRight->GetOffsetScale().x) <= 0.001f)
 				return false;
 
-			// µÎ Ãæµ¹Ã¼ÀÇ Áß½ÉÁ¡À» ±¸ÇÔ
+			// ë‘ ì¶©ëŒì²´ì˜ ì¤‘ì‹¬ì ì„ êµ¬í•¨
 			Vec3 vCenter = XMVector3TransformCoord(Vec3(0.f, 0.f, 0.f), _pRight->GetColliderWorldMat()) - XMVector3TransformCoord(Vec3(0.f, 0.f, 0.f), _pLeft->GetColliderWorldMat());
 
-			// µÎ ¹°Ã¼ÀÇ xÃà ScaleÀ» °¡Á®¿Í Radius·Î »ç¿ë
-			float fLeftRadius = _pLeft->GetOffsetScale().x;		// Sphere´Ï±î x, y, z°¡ ¸ðµÎ °°´Ù°í °¡Á¤.
+			// ë‘ ë¬¼ì²´ì˜ xì¶• Scaleì„ ê°€ì ¸ì™€ Radiusë¡œ ì‚¬ìš©
+			float fLeftRadius = _pLeft->GetOffsetScale().x;		// Sphereë‹ˆê¹Œ x, y, zê°€ ëª¨ë‘ ê°™ë‹¤ê³  ê°€ì •.
 			float fRightRadius = _pRight->GetOffsetScale().x;	
 			
-			// ¿ÞÂÊ Ãæµ¹Ã¼ÀÇ ¾Û¼ÖÀÌ ¾È ÄÑÁø °æ¿ì
+			// ì™¼ìª½ ì¶©ëŒì²´ì˜ ì•±ì†”ì´ ì•ˆ ì¼œì§„ ê²½ìš°
 			if (!_pLeft->IsAbsolute())
 			{
-				fLeftRadius *= _pLeft->GetOwner()->Transform()->GetRelativeScale().x; // ºÎ¸ðÀÇ Å©±âµµ x, y, z°¡ °°´Ù°í °¡Á¤.
+				fLeftRadius *= _pLeft->GetOwner()->Transform()->GetRelativeScale().x; // ë¶€ëª¨ì˜ í¬ê¸°ë„ x, y, zê°€ ê°™ë‹¤ê³  ê°€ì •.
 			}
 
-			// ¿À¸¥ÂÊ Ãæµ¹Ã¼ÀÇ ¾Û¼ÖÀÌ ¾È ÄÑÁø°æ¿ì
+			// ì˜¤ë¥¸ìª½ ì¶©ëŒì²´ì˜ ì•±ì†”ì´ ì•ˆ ì¼œì§„ê²½ìš°
 			if (!_pRight->IsAbsolute())
 			{
-				fRightRadius *= _pRight->GetOwner()->Transform()->GetRelativeScale().x; // ºÎ¸ðÀÇ Å©±âµµ x, y, z°¡ °°´Ù°í °¡Á¤.
+				fRightRadius *= _pRight->GetOwner()->Transform()->GetRelativeScale().x; // ë¶€ëª¨ì˜ í¬ê¸°ë„ x, y, zê°€ ê°™ë‹¤ê³  ê°€ì •.
 			}
 
 			float fRadius = (fLeftRadius + fRightRadius) / 2.f;
@@ -320,7 +320,7 @@ bool CCollisionMgr::CollisionBtw3DCollider(CCollider3D* _pLeft, CCollider3D* _pR
 				return false;
 		}
 	}
-	// °¢°¢ Cube, SphereÀÎ °æ¿ì
+	// ê°ê° Cube, Sphereì¸ ê²½ìš°
 	else
 	{
 		Vec3 arrProj[3] = {};
@@ -329,16 +329,16 @@ bool CCollisionMgr::CollisionBtw3DCollider(CCollider3D* _pLeft, CCollider3D* _pR
 		arrProj[1] = XMVector3TransformCoord(arrLocal[3], _pLeft->GetColliderWorldMat()) - XMVector3TransformCoord(arrLocal[0], _pLeft->GetColliderWorldMat());
 		arrProj[2] = XMVector3TransformCoord(arrLocal[4], _pLeft->GetColliderWorldMat()) - XMVector3TransformCoord(arrLocal[0], _pLeft->GetColliderWorldMat());
 
-		// µÎ Ãæµ¹Ã¼ÀÇ Áß½ÉÁ¡À» ±¸ÇÔ
+		// ë‘ ì¶©ëŒì²´ì˜ ì¤‘ì‹¬ì ì„ êµ¬í•¨
 		Vec3 vCenter = XMVector3TransformCoord(Vec3(0.f, 0.f, 0.f), _pRight->GetColliderWorldMat()) - XMVector3TransformCoord(Vec3(0.f, 0.f, 0.f), _pLeft->GetColliderWorldMat());
 
-		// ºÐ¸®Ãà Å×½ºÆ®
+		// ë¶„ë¦¬ì¶• í…ŒìŠ¤íŠ¸
 		for (int i = 0; i < 3; ++i)
 		{
 			Vec3 vProj = arrProj[i];
 			vProj.Normalize();
 
-			// 4°³ÀÇ Ç¥¸é¹éÅÍ¸¦ ÁöÁ¤µÈ Åõ¿µÃàÀ¸·Î Åõ¿µ½ÃÅ² °Å¸®ÀÇ ÃÑÇÕ / 2
+			// 4ê°œì˜ í‘œë©´ë°±í„°ë¥¼ ì§€ì •ëœ íˆ¬ì˜ì¶•ìœ¼ë¡œ íˆ¬ì˜ì‹œí‚¨ ê±°ë¦¬ì˜ ì´í•© / 2
 			float fProjDist = 0.f;
 			for (int j = 0; j < 3; ++j)
 			{

@@ -3,7 +3,7 @@
 
 #include "CEngine.h"
 
-int g_arrVK[(UINT)KEY::END]
+int g_arrVK[static_cast<UINT>(KEY::END)]
 =
 {
 	 VK_UP, 
@@ -85,9 +85,9 @@ CKeyMgr::~CKeyMgr()
 
 void CKeyMgr::init()
 {
-	for (int i = 0; i < (int)KEY::END; ++i)
+	for (int i = 0; i < static_cast<int>(KEY::END); ++i)
 	{
-		m_vecKey.push_back(tKeyInfo{ (KEY)i  , KEY_STATE::NONE });
+		m_vecKey.push_back(tKeyInfo{ static_cast<KEY>(i)  , KEY_STATE::NONE });
 	}
 }
 
@@ -97,9 +97,9 @@ void CKeyMgr::tick()
 	{
 		for (size_t i = 0; i < m_vecKey.size(); ++i)
 		{
-			if (GetAsyncKeyState(g_arrVK[(UINT)m_vecKey[i].key]) & 0x8000)
+			if (GetAsyncKeyState(g_arrVK[static_cast<UINT>(m_vecKey[i].key)]) & 0x8000)
 			{
-				// ¿Ã¿¸ø°¥¬ ¥≠∏Æ¡ˆ æ æ“¥Ÿ.
+				// Ïù¥Ï†ÑÏóêÎäî ÎàåÎ¶¨ÏßÄ ÏïäÏïòÎã§.
 				if (false == m_vecKey[i].bPrev)
 				{
 					m_vecKey[i].state = KEY_STATE::TAP;
@@ -107,13 +107,13 @@ void CKeyMgr::tick()
 				}
 				else
 				{
-					// ¡ˆ±›µµ ¥≠∑¡¿÷∞Ì, ¿Ã¿¸ «¡∑π¿”ø°º≠µµ ¥≠∑¡¿÷æ˙¥Ÿ.
+					// ÏßÄÍ∏àÎèÑ ÎàåÎ†§ÏûàÍ≥†, Ïù¥Ï†Ñ ÌîÑÎ†àÏûÑÏóêÏÑúÎèÑ ÎàåÎ†§ÏûàÏóàÎã§.
 					m_vecKey[i].state = KEY_STATE::PRESSED;
 				}
 			}
 			else
 			{
-				// ¥≠∑¡¿÷¡ˆ æ ¥Ÿ.
+				// ÎàåÎ†§ÏûàÏßÄ ÏïäÎã§.
 				if (false == m_vecKey[i].bPrev)
 				{
 					m_vecKey[i].state = KEY_STATE::NONE;
@@ -126,20 +126,20 @@ void CKeyMgr::tick()
 			}
 		}
 
-		// Mouse ¿ßƒ° ∞ªΩ≈
+		// Mouse ÏúÑÏπò Í∞±Ïã†
 		m_vPrevMousePos = m_vMousePos;
 
 		POINT ptMousePos = {};
 		GetCursorPos(&ptMousePos);		
 		ScreenToClient(CEngine::GetInst()->GetMainWnd(), &ptMousePos);
-		m_vMousePos = Vec2((float)ptMousePos.x, (float)ptMousePos.y);
+		m_vMousePos          = Vec2(static_cast<float>(ptMousePos.x), static_cast<float>(ptMousePos.y));
 		GlobalData.tMousePos = m_vMousePos;
 
 		m_vMouseDir = m_vMousePos - m_vPrevMousePos;
 		m_vMouseDir.y *= -1;
 	}
 
-	// Window ∞° focus ªÛ≈¬∞° æ∆¥œ¥Ÿ
+	// Window Í∞Ä focus ÏÉÅÌÉúÍ∞Ä ÏïÑÎãàÎã§
 	else
 	{
 		for (size_t i = 0; i < m_vecKey.size(); ++i)

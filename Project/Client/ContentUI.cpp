@@ -1,9 +1,9 @@
 #include "pch.h"
 #include "ContentUI.h"
 
-#include <Engine\CResMgr.h>
-#include <Engine\CPathMgr.h>
-#include <Engine\CEventMgr.h>
+#include <Engine/CResMgr.h>
+#include <Engine/CPathMgr.h>
+#include <Engine/CEventMgr.h>
 
 #include "TreeUI.h"
 #include "ImGuiMgr.h"
@@ -16,7 +16,7 @@ ContentUI::ContentUI()
 {
     SetName("Content");
 
-    // ContentUI ¾È¿¡ ÀÚ½ÄÀ¸·Î Tree ¸¦ Ãß°¡ÇÑ´Ù.
+    // ContentUI ì•ˆì— ìì‹ìœ¼ë¡œ Tree ë¥¼ ì¶”ê°€í•œë‹¤.
     m_Tree = new TreeUI;
     m_Tree->SetName("ContentTree");
     m_Tree->SetActive(true);
@@ -54,12 +54,12 @@ int ContentUI::render_update()
 
 void ContentUI::Reload()
 {
-	// Content Æú´õ¿¡ ÀÖ´Â ÆÄÀÏ ÀÌ¸§µéÀ» È®ÀÎ
+	// Content í´ë”ì— ìˆëŠ” íŒŒì¼ ì´ë¦„ë“¤ì„ í™•ì¸
 	m_vecResPath.clear();
 	wstring strContentPath = CPathMgr::GetInst()->GetContentPath();
 	FindFileName(strContentPath);
 
-	// ÆÄÀÏ¸íÀ¸·Î ¸®¼Ò½º ·Îµù
+	// íŒŒì¼ëª…ìœ¼ë¡œ ë¦¬ì†ŒìŠ¤ ë¡œë”©
 	for (size_t i = 0; i < m_vecResPath.size(); ++i)
 	{
 		RES_TYPE type = GetResTypeByExt(m_vecResPath[i]);
@@ -91,7 +91,7 @@ void ContentUI::Reload()
 	}
 
 
-	// ¸®¼Ò½ºÀÇ ¿øº»ÆÄÀÏ Ã¼Å©
+	// ë¦¬ì†ŒìŠ¤ì˜ ì›ë³¸íŒŒì¼ ì²´í¬
 	for (UINT i = 0; i < UINT(RES_TYPE::END); ++i)
 	{
 		const map<wstring, Ptr<CRes>>& mapRes = CResMgr::GetInst()->GetResources((RES_TYPE)i);
@@ -113,7 +113,7 @@ void ContentUI::Reload()
 		}
 	}
 
-	// Æ®¸® °»½Å
+	// íŠ¸ë¦¬ ê°±ì‹ 
 	ResetContent();
 }
 
@@ -124,12 +124,12 @@ void ContentUI::ResetContent()
 	m_Tree->Clear();
 	m_Tree->AddItem("Root", 0);
 
-	// ¸®¼Ò½º ¸Å´ÏÀú¿¡¼­ ÇöÀç ¸ğµç ¸®¼Ò½º ¸ñ·Ï ¹Ş¾Æ¿È
+	// ë¦¬ì†ŒìŠ¤ ë§¤ë‹ˆì €ì—ì„œ í˜„ì¬ ëª¨ë“  ë¦¬ì†ŒìŠ¤ ëª©ë¡ ë°›ì•„ì˜´
 	for (size_t i = 0; i < (UINT)RES_TYPE::END; ++i)
 	{
 		const map<wstring, Ptr<CRes>>& mapRes = CResMgr::GetInst()->GetResources((RES_TYPE)i);
 
-		// m_Tree ¿¡ ÇöÀç ¸®¼Ò½º ¸ñ·ÏÀ» AddItem
+		// m_Tree ì— í˜„ì¬ ë¦¬ì†ŒìŠ¤ ëª©ë¡ì„ AddItem
 		TreeNode* pCategory = m_Tree->AddItem(ToString((RES_TYPE)i), 0);
         pCategory->SetCategoryNode(true);
 
@@ -148,7 +148,7 @@ void ContentUI::SetTargetToInspector(DWORD_PTR _SelectedNode)
 	if (nullptr == pSelectObject)
 		return;
 
-	// Inspector ¿¡ ¼±ÅÃµÈ Resource ¸¦ ¾Ë·ÁÁØ´Ù.	
+	// Inspector ì— ì„ íƒëœ Resource ë¥¼ ì•Œë ¤ì¤€ë‹¤.	
 	InspectorUI* pInspector = (InspectorUI*)ImGuiMgr::GetInst()->FindUI("##Inspector");
 	pInspector->SetTargetResource(pSelectObject);
 }

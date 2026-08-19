@@ -25,7 +25,7 @@ void CKnightJumpAttack2::tick()
 	float fRatio = m_fDelay / GetOwner()->Animator3D()->GetCurClipTimeLength();
 	if (fRatio > 0.8f && !m_bAttack)
 	{
-		CLevelSaveLoadInScript::SpawnPrefab(L"prefab\\JumpAttack.prefab", (int)LAYER::MONSTERPROJECTILE, GetOwner()->Transform()->GetWorldPos(), 0.2f);
+		CLevelSaveLoadInScript::SpawnPrefab(L"prefab\\JumpAttack.prefab", static_cast<int>(LAYER::MONSTERPROJECTILE), GetOwner()->Transform()->GetWorldPos(), 0.2f);
 		CSoundScript* soundscript = CLevelMgr::GetInst()->FindObjectByName(L"SoundUI")->GetScript<CSoundScript>();
 		Ptr<CSound> pSound = soundscript->AddSound(L"Sound\\Monster\\Knight\\KnightSlam1.ogg", 1, 0.1f);
 		m_bAttack = true;

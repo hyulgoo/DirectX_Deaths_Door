@@ -13,6 +13,6 @@ public:
 
 public:
     CSlashScript();
-    ~CSlashScript();
+    virtual ~CSlashScript() override;
 };
 

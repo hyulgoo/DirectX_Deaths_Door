@@ -3,7 +3,7 @@
 #include <Engine/CDetourMgr.h>
 
 CMainLightScript::CMainLightScript()
-	: CScript((UINT)SCRIPT_TYPE::MAINLIGHTSCRIPT)
+	: CScript(static_cast<UINT>(SCRIPT_TYPE::MAINLIGHTSCRIPT))
 	, m_pPlayer(nullptr)
 {
 }

@@ -12,6 +12,6 @@ public:
 
 public:
     CGrimKnightGuardBreak();
-    ~CGrimKnightGuardBreak();
+    virtual ~CGrimKnightGuardBreak() override;
 };
 

@@ -11,9 +11,9 @@
 #include "CLevelMgr.h"
 #include "CLevel.h"
 
-#include <Detour\DetourNavMesh.h>
-#include <Detour\DetourNavMeshBuilder.h>
-#include <Detour\DetourNavMeshQuery.h>
+#include <Detour/DetourNavMesh.h>
+#include <Detour/DetourNavMeshBuilder.h>
+#include <Detour/DetourNavMeshQuery.h>
 
 #include <fstream>
 
@@ -45,7 +45,7 @@ CDetourMgr::~CDetourMgr()
 	}
 }
 
-void CDetourMgr::init()
+void CDetourMgr::init() const
 {
 }
 
@@ -128,7 +128,7 @@ void CDetourMgr::LoadNavMeshFromBinFile(const char* path)
 		if (!tileHeader.tileRef || !tileHeader.dataSize)
 			break;
 
-		unsigned char* data = (unsigned char*)dtAlloc(tileHeader.dataSize, DT_ALLOC_PERM);
+		unsigned char* data = static_cast<unsigned char*>(dtAlloc(tileHeader.dataSize, DT_ALLOC_PERM));
 		if (!data) break;
 		memset(data, 0, tileHeader.dataSize);
 		fread(data, tileHeader.dataSize, 1, fp);
@@ -161,7 +161,7 @@ Vec3* CDetourMgr::GetPathtoTarget(Vec3 _vStartPos, int* ActualPathCount)
 	return GetPathtoTarget(_vStartPos, m_pPlayer->Transform()->GetWorldPos(), ActualPathCount);
 }
 
-Vec3* CDetourMgr::GetPathtoTarget(Vec3 _vStartPos, Vec3 _vTargetPos, int* ActualPathCount)
+Vec3* CDetourMgr::GetPathtoTarget(Vec3 _vStartPos, Vec3 _vTargetPos, int* ActualPathCount) const
 {
 	if (nullptr == m_pNaviMesh)
 		assert(nullptr);
@@ -170,11 +170,11 @@ Vec3* CDetourMgr::GetPathtoTarget(Vec3 _vStartPos, Vec3 _vTargetPos, int* Actual
 	for (int i = 0; i < 256 * 3; i++)
 		actualPath[i] = 0.0f;
 
-	// NavMesh¿Í ÇÔ²² °æ·Î °èÈ¹À» ¼öÇàÇÏ´Â Query °´Ã¼ »ý¼º
+	// NavMeshì™€ í•¨ê»˜ ê²½ë¡œ ê³„íšì„ ìˆ˜í–‰í•˜ëŠ” Query ê°ì²´ ìƒì„±
 	dtNavMeshQuery* navQuery = dtAllocNavMeshQuery();
 	navQuery->init(m_pNaviMesh, 4866);
 
-	// ½ÃÀÛ, µµÂø À§Ä¡ ¼³Á¤
+	// ì‹œìž‘, ë„ì°© ìœ„ì¹˜ ì„¤ì •
 	float startpos[3] = {};
 	startpos[0] = _vStartPos.x;
 	startpos[1] = _vStartPos.y;
@@ -187,29 +187,29 @@ Vec3* CDetourMgr::GetPathtoTarget(Vec3 _vStartPos, Vec3 _vTargetPos, int* Actual
 	endpos[2] = -vEndPos.z;
 
 	dtPolyRef startRef, endRef;
-	float polyPickExt[3] = { 30000,30000,30000 }; // ¹üÀ§¸¦ Á¦ÇÑÇÏ±â À§ÇÑ º¤ÅÍ
+	float polyPickExt[3] = { 30000,30000,30000 }; // ë²”ìœ„ë¥¼ ì œí•œí•˜ê¸° ìœ„í•œ ë²¡í„°
 
 	dtQueryFilter filter;
-	filter.setIncludeFlags(0xFFFF); // ±æÃ£±â¿¡ »ç¿ëµÉ ¸ðµç Æú¸®°ï ÂüÁ¶.
-	filter.setExcludeFlags(0); // Æú¸®°ïÀ» Á¦¿ÜÇÏÁö ¾ÊÀ½.
+	filter.setIncludeFlags(0xFFFF); // ê¸¸ì°¾ê¸°ì— ì‚¬ìš©ë  ëª¨ë“  í´ë¦¬ê³¤ ì°¸ì¡°.
+	filter.setExcludeFlags(0); // í´ë¦¬ê³¤ì„ ì œì™¸í•˜ì§€ ì•ŠìŒ.
 
 	navQuery->findNearestPoly(startpos, polyPickExt, &filter, &startRef, 0);
 	navQuery->findNearestPoly(endpos, polyPickExt, &filter, &endRef, 0);
 
-	// ½ÃÀÛ°ú µµÂø À§Ä¡±îÁö °æ·Î Å½»ö
+	// ì‹œìž‘ê³¼ ë„ì°© ìœ„ì¹˜ê¹Œì§€ ê²½ë¡œ íƒìƒ‰
 	float nearestStartPos[3], nearestEndPos[3];
 	navQuery->closestPointOnPoly(startRef, startpos, nearestStartPos, 0);
 	navQuery->closestPointOnPoly(endRef, endpos, nearestEndPos, 0);
 
-	// °æ·Î¸¦ °èÈ¹.
+	// ê²½ë¡œë¥¼ ê³„íš.
 	dtPolyRef path[256];
 	int pathCount;
 	navQuery->findPath(startRef, endRef, nearestStartPos, nearestEndPos, &filter, path, &pathCount, 256);
 
-	// °æ·Î¸¦ µû¶ó ½ÇÁ¦ ÀÌµ¿ °æ·Î¸¦ »ý¼º
+	// ê²½ë¡œë¥¼ ë”°ë¼ ì‹¤ì œ ì´ë™ ê²½ë¡œë¥¼ ìƒì„±
 	navQuery->findStraightPath(nearestStartPos, nearestEndPos, path, pathCount, actualPath, 0, 0, ActualPathCount, 256);
 
-	// Query °´Ã¼ ÇÒ´ç ÇØÁ¦
+	// Query ê°ì²´ í• ë‹¹ í•´ì œ
 	dtFreeNavMeshQuery(navQuery);
 
 	Vec3 Path[256] = {};
@@ -223,14 +223,14 @@ Vec3* CDetourMgr::GetPathtoTarget(Vec3 _vStartPos, Vec3 _vTargetPos, int* Actual
 	return Path;
 }
 
-float CDetourMgr::GetDirtoTarget(Vec3 _vStartPos)
+float CDetourMgr::GetDirtoTarget(Vec3 _vStartPos) const
 {
 	Vec3 vPlayerPos = m_pPlayer->Transform()->GetWorldPos();
 	
 	return GetDir(vPlayerPos, _vStartPos);;
 }
 
-float CDetourMgr::GetSmoothDirtoTarget(CGameObject* _pStartObj, float _fdegree)
+float CDetourMgr::GetSmoothDirtoTarget(CGameObject* _pStartObj, float _fdegree) const
 {
 	return GetSmoothDir(_pStartObj, m_pPlayer, _fdegree);
 }

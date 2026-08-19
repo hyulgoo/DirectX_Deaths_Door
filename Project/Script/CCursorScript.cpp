@@ -6,7 +6,7 @@
 #include <Engine/CDevice.h>
 
 CCursorScript::CCursorScript()
-	: CScript((UINT)CURSORSCRIPT)
+	: CScript(static_cast<UINT>(CURSORSCRIPT))
 {
 	
 }

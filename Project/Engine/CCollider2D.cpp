@@ -21,7 +21,7 @@ CCollider2D::~CCollider2D()
 
 void CCollider2D::finaltick()
 {
-	// Ãæµ¹ È¸¼ö°¡ À½¼öÀÎ °æ¿ì
+	// ì¶©ëŒ íšŒìˆ˜ê°€ ìŒìˆ˜ì¸ ê²½ìš°
 	assert(0 <= m_iCollisionCount);
 
 	m_matCollider2D = XMMatrixScaling(m_vOffsetScale.x, m_vOffsetScale.y, m_vOffsetScale.z);
@@ -36,11 +36,11 @@ void CCollider2D::finaltick()
 	}
 	else
 	{
-		// Ãæµ¹Ã¼ ¿ùµå * ¿ÀºêÁ§Æ® ¿ùµå
+		// ì¶©ëŒì²´ ì›”ë“œ * ì˜¤ë¸Œì íŠ¸ ì›”ë“œ
 		m_matCollider2D *= matWorld;
 	}
 	
-	// DebugShape ¿äÃ»
+	// DebugShape ìš”ì²­
 	Vec4 vColor = Vec4(0.f, 1.f, 0.f, 1.f);
 	if (0 < m_iCollisionCount)
 		vColor = Vec4(1.f, 0.f, 0.f, 1.f);
@@ -57,7 +57,7 @@ void CCollider2D::BeginOverlap(CCollider2D* _Other)
 {
 	m_iCollisionCount += 1;
 
-	// Script È£Ãâ
+	// Script í˜¸ì¶œ
 	const vector<CScript*>& vecScript = GetOwner()->GetScripts();
 	for (size_t i = 0; i < vecScript.size(); ++i)
 	{
@@ -65,9 +65,9 @@ void CCollider2D::BeginOverlap(CCollider2D* _Other)
 	}
 }
 
-void CCollider2D::OnOverlap(CCollider2D* _Other)
+void CCollider2D::OnOverlap(CCollider2D* _Other) const
 {
-	// Script È£Ãâ
+	// Script í˜¸ì¶œ
 	const vector<CScript*>& vecScript = GetOwner()->GetScripts();
 	for (size_t i = 0; i < vecScript.size(); ++i)
 	{
@@ -79,7 +79,7 @@ void CCollider2D::EndOverlap(CCollider2D* _Other)
 {
 	m_iCollisionCount -= 1;
 
-	// Script È£Ãâ
+	// Script í˜¸ì¶œ
 	const vector<CScript*>& vecScript = GetOwner()->GetScripts();
 	for (size_t i = 0; i < vecScript.size(); ++i)
 	{

@@ -14,6 +14,6 @@ public:
 
 public:
     CPlyWpHit();
-    ~CPlyWpHit();
+    virtual ~CPlyWpHit() override;
 };
 

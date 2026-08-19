@@ -7,7 +7,7 @@ tGlobal		GlobalData = {};
 Stat		g_tPlayerStat = {};
 LEVEL_TYPE	g_tNextLevel;
 
-extern const char* RES_TYPE_STR[(UINT)RES_TYPE::END] =
+extern const char* RES_TYPE_STR[static_cast<UINT>(RES_TYPE::END)] =
 {
 	"MESHDATA",
 	"MATERIAL",
@@ -19,7 +19,7 @@ extern const char* RES_TYPE_STR[(UINT)RES_TYPE::END] =
 	"COMPUTE_SHADER"
 };
 
-extern const wchar_t* RES_TYPE_WSTR[(UINT)RES_TYPE::END] =
+extern const wchar_t* RES_TYPE_WSTR[static_cast<UINT>(RES_TYPE::END)] =
 {
 	L"MESHDATA",
 	L"MATERIAL",
@@ -33,7 +33,7 @@ extern const wchar_t* RES_TYPE_WSTR[(UINT)RES_TYPE::END] =
 
 
 
-extern const char* COMPONENT_TYPE_STR[(UINT)COMPONENT_TYPE::END] =
+extern const char* COMPONENT_TYPE_STR[static_cast<UINT>(COMPONENT_TYPE::END)] =
 {
 	"TRANSFORM",
 	"COLLIDER2D",
@@ -52,7 +52,7 @@ extern const char* COMPONENT_TYPE_STR[(UINT)COMPONENT_TYPE::END] =
 	"DECAL",
 };
 
-extern const wchar_t* COMPONENT_TYPE_WSTR[(UINT)COMPONENT_TYPE::END] =
+extern const wchar_t* COMPONENT_TYPE_WSTR[static_cast<UINT>(COMPONENT_TYPE::END)] =
 {
 	L"TRANSFORM",
 	L"COLLIDER2D",

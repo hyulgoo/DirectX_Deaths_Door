@@ -19,9 +19,9 @@ CPlyLadder::~CPlyLadder()
 void CPlyLadder::Enter()
 {
 	m_fStartYPos = GetOwner()->Transform()->GetRelativePos().y;
-	GetOwner()->Animator3D()->Play((int)PLAYERANIM_TYPE::LADDER_UP, true);
+	GetOwner()->Animator3D()->Play(static_cast<int>(PLAYERANIM_TYPE::LADDER_UP), true);
 
-	// »ç´Ù¸®¸¦ Å¸´Â Áß¿¡´Â ¹«Àû
+	// ì‚¬ë‹¤ë¦¬ë¥¼ íƒ€ëŠ” ì¤‘ì—ëŠ” ë¬´ì 
 	GetOwner()->GetScript<CPlayerScript>()->SetInvincible(true);
 }
 
@@ -33,12 +33,12 @@ void CPlyLadder::tick()
 		return;
 	}
 		
-	// »ç´Ù¸® ¿À¸£±â°¡ ³¡³µ´Ù¸é LadderFinish Anim Àç»ý ÈÄ ³¡³µ´Ù¸é Idle·Î ÀüÈ¯
+	// ì‚¬ë‹¤ë¦¬ ì˜¤ë¥´ê¸°ê°€ ëë‚¬ë‹¤ë©´ LadderFinish Anim ìž¬ìƒ í›„ ëë‚¬ë‹¤ë©´ Idleë¡œ ì „í™˜
 	if (m_bEnd)
 	{
-		if (GetOwner()->Animator3D()->GetCurClip() != (int)PLAYERANIM_TYPE::LADDER_FINISH)
+		if (GetOwner()->Animator3D()->GetCurClip() != static_cast<int>(PLAYERANIM_TYPE::LADDER_FINISH))
 		{
-			GetOwner()->Animator3D()->Play((int)PLAYERANIM_TYPE::LADDER_FINISH, false);
+			GetOwner()->Animator3D()->Play(static_cast<int>(PLAYERANIM_TYPE::LADDER_FINISH), false);
 			if (GetOwner()->Animator3D()->IsStop())
 				GetOwner()->Animator3D()->SetStop(false);
 			Vec3 Dir = GetOwner()->Transform()->GetXZDir();
@@ -52,19 +52,19 @@ void CPlyLadder::tick()
 		return;
 	}
 
-	// ÀÌµ¿ Áß Key°¡ ReleaseµÆ´Ù¸é Anim Stop
+	// ì´ë™ ì¤‘ Keyê°€ Releaseëë‹¤ë©´ Anim Stop
 	if (KEY_RELEASE(KEY::W) || KEY_RELEASE(KEY::S))
 	{
 		GetOwner()->Animator3D()->SetStop(true);
 	}
 	float Diff = GetOwner()->Transform()->GetRelativePos().y - m_fStartYPos;
-	// »ç´Ù¸® ³ôÀÌ ÀÌ»óÀ¸·Î ÀÌµ¿Çß´Ù¸é End·Î
+	// ì‚¬ë‹¤ë¦¬ ë†’ì´ ì´ìƒìœ¼ë¡œ ì´ë™í–ˆë‹¤ë©´ Endë¡œ
 	if (Diff >= m_fLadderHeight)
 	{
 		m_bEnd = true;
 	}
 	
-	// Å¸´Â µµÁß Dodge½Ã ÀüÈ¯
+	// íƒ€ëŠ” ë„ì¤‘ Dodgeì‹œ ì „í™˜
 	if (KEY_TAP(KEY::SPACE))
 	{
 		GetOwner()->GetScript<CPlayerScript>()->ChangeState(L"Dodge");
@@ -87,13 +87,13 @@ void CPlyLadder::Exit()
 
 void CPlyLadder::Move()
 {
-	// W, S¸¦ ´©¸£°í ÀÖ´Ù¸é À§¾Æ·¡·Î ¿òÁ÷ÀÓ. ÀÌÀü¿¡ ¸ØÃçÀÖ¾ú´Ù¸é ´Ù½Ã ¾Ö´Ï¸ÞÀÌ¼ÇÀ» Àç»ý
+	// W, Së¥¼ ëˆ„ë¥´ê³  ìžˆë‹¤ë©´ ìœ„ì•„ëž˜ë¡œ ì›€ì§ìž„. ì´ì „ì— ë©ˆì¶°ìžˆì—ˆë‹¤ë©´ ë‹¤ì‹œ ì• ë‹ˆë©”ì´ì…˜ì„ ìž¬ìƒ
 	if (KEY_PRESSED(KEY::W))
 	{
 		GetOwner()->Rigidbody()->SetGravity(m_fSpeed);
 
-		if (GetOwner()->Animator3D()->GetCurClip() != (int)PLAYERANIM_TYPE::LADDER_UP)
-			GetOwner()->Animator3D()->Play((int)PLAYERANIM_TYPE::LADDER_UP, true);
+		if (GetOwner()->Animator3D()->GetCurClip() != static_cast<int>(PLAYERANIM_TYPE::LADDER_UP))
+			GetOwner()->Animator3D()->Play(static_cast<int>(PLAYERANIM_TYPE::LADDER_UP), true);
 		else
 		{
 			if (GetOwner()->Animator3D()->IsStop())
@@ -104,8 +104,8 @@ void CPlyLadder::Move()
 	{
 		GetOwner()->Rigidbody()->SetGravity(-m_fSpeed);
 
-		if (GetOwner()->Animator3D()->GetCurClip() != (int)PLAYERANIM_TYPE::LADDER_DOWN)
-			GetOwner()->Animator3D()->Play((int)PLAYERANIM_TYPE::LADDER_DOWN, true);
+		if (GetOwner()->Animator3D()->GetCurClip() != static_cast<int>(PLAYERANIM_TYPE::LADDER_DOWN))
+			GetOwner()->Animator3D()->Play(static_cast<int>(PLAYERANIM_TYPE::LADDER_DOWN), true);
 		else
 		{
 			if (GetOwner()->Animator3D()->IsStop())

@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "ScriptUI.h"
 
-#include <Script\CScriptMgr.h>
+#include <Script/CScriptMgr.h>
 
 #include "ParamUI.h"
 
@@ -34,7 +34,7 @@ int ScriptUI::render_update()
 
 	ImGui::NewLine();
 
-	// Script ¿¡¼­ ¿ä±¸ÇÏ´Â ScalarParameter ¸¦ UI ¿¡ ³ëÃâ	
+	// Script ì—ì„œ ìš”êµ¬í•˜ëŠ” ScalarParameter ë¥¼ UI ì— ë…¸ì¶œ	
 	const vector<tScriptParam>& vecScriptParam = m_pTargetScript->GetScritpParam();
 	if (vecScriptParam.empty())
 		return 1;

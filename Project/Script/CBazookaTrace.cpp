@@ -9,13 +9,13 @@ void CBazookaTrace::tick()
 
 	float fDistance = GetOwner()->GetScript<CBazookaScript>()->GetPlayerDistance();
 
-	// °ø°İ¹üÀ§ ÀÌ³»¸é Aim »óÅÂ·Î.
+	// ê³µê²©ë²”ìœ„ ì´ë‚´ë©´ Aim ìƒíƒœë¡œ.
 	if (fDistance < GetOwner()->GetScript<CBazookaScript>()->GetAttackRange())
 	{
 		ChangeState(L"Aim");
 	}
 
-	// ÀÌ»óÀÌ¸é Trace
+	// ì´ìƒì´ë©´ Trace
 	else
 	{
 		float fSpeed = GetOwnerScript()->GetStat().Speed;
@@ -36,27 +36,27 @@ void CBazookaTrace::tick()
 
 		if (m_iCurrentPathIndex < m_iActualPathCount)
 		{
-			// ´ÙÀ½ ³ëµå(¸Ş½Ã) À§Ä¡
+			// ë‹¤ìŒ ë…¸ë“œ(ë©”ì‹œ) ìœ„ì¹˜
 			Vec3 targetPos = m_vActualPath[m_iCurrentPathIndex];
 			targetPos.z *= -1.f;
 			if (targetPos.x == 0 && targetPos.y == 0 && targetPos.z == 0)
 			{
 				return;
 			}
-			// ÇöÀç ¿ÀºêÁ§Æ® À§Ä¡		
+			// í˜„ì¬ ì˜¤ë¸Œì íŠ¸ ìœ„ì¹˜		
 			Vec3 currentPos = GetOwner()->Transform()->GetWorldPos();
 
-			// ÀÌµ¿ÇÒ ¹æÇâ º¤ÅÍ °è»ê ¹× Á¤±ÔÈ­
+			// ì´ë™í•  ë°©í–¥ ë²¡í„° ê³„ì‚° ë° ì •ê·œí™”
 			Vec3 direction = targetPos - currentPos;
 			direction.Normalize();
 
-			// »õ·Î¿î À§Ä¡ °è»ê
+			// ìƒˆë¡œìš´ ìœ„ì¹˜ ê³„ì‚°
 			Vec3 newPos = currentPos + direction * fSpeed * DT;
 			direction.y = 0.f;
 
 			GetOwner()->Rigidbody()->SetVelocity(direction * fSpeed);
 
-			// ¸¸¾à Å¸°Ù À§Ä¡¿¡ µµ´ŞÇß´Ù¸é, ´ÙÀ½ °æ·Î ÀÎµ¦½º.
+			// ë§Œì•½ íƒ€ê²Ÿ ìœ„ì¹˜ì— ë„ë‹¬í–ˆë‹¤ë©´, ë‹¤ìŒ ê²½ë¡œ ì¸ë±ìŠ¤.
 			float distanceToTarget = (targetPos - currentPos).Length();
 			if (distanceToTarget < 50.f)
 			{

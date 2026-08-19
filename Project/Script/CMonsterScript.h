@@ -1,5 +1,5 @@
 #pragma once
-#include <Engine\CScript.h>
+#include <Engine/CScript.h>
 
 class CStateScript;
 
@@ -7,12 +7,12 @@ class CMonsterScript :
     public CScript
 {
 private:
-    bool            m_bPaperBurnEffect;     // PaperBurn È¿°ú¸¦ ÁÙÁö.
-    bool            m_bSendDeadTime;        // »ç¸Á½Ã°£À» ÀÌ¹Ì º¸³Â´ÂÁö. 
-    float           m_fDeathTime;           // »ç¸Á ½Ã°¢.
-    float           m_fLastHitTime;         // ¸¶Áö¸·À¸·Î ÇÇ°İµÈ ½Ã°¢.
-    bool            m_bFixPos;              // À§Ä¡ °íÁ¤ ¿©ºÎ.
-    Vec3            m_vFixedPos;            // °íÁ¤ À§Ä¡.
+    bool            m_bPaperBurnEffect;     // PaperBurn íš¨ê³¼ë¥¼ ì¤„ì§€.
+    bool            m_bSendDeadTime;        // ì‚¬ë§ì‹œê°„ì„ ì´ë¯¸ ë³´ëƒˆëŠ”ì§€. 
+    float           m_fDeathTime;           // ì‚¬ë§ ì‹œê°.
+    float           m_fLastHitTime;         // ë§ˆì§€ë§‰ìœ¼ë¡œ í”¼ê²©ëœ ì‹œê°.
+    bool            m_bFixPos;              // ìœ„ì¹˜ ê³ ì • ì—¬ë¶€.
+    Vec3            m_vFixedPos;            // ê³ ì • ìœ„ì¹˜.
     bool            m_bSpawnByDoor;
 
 protected:
@@ -44,7 +44,7 @@ public:
     CLONE(CMonsterScript);
 public:
     explicit CMonsterScript(UINT SCRIPT_TYPE);
-    ~CMonsterScript();  
+    virtual  ~CMonsterScript() override;  
 };
 
 

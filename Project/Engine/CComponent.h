@@ -17,8 +17,8 @@ private:
     const COMPONENT_TYPE m_Type;
 
 public:
-    COMPONENT_TYPE GetType() { return m_Type; }
-    CGameObject* GetOwner() { return m_pOwner ; }
+    COMPONENT_TYPE GetType() const { return m_Type; }
+    CGameObject*   GetOwner() const { return m_pOwner ; }
 
 public:
     virtual void begin() {}
@@ -27,7 +27,7 @@ public:
     virtual void finaltick_module();
     
 
-    virtual CComponent* Clone() = 0;
+    virtual CComponent* Clone() override = 0;
 
 public:
     virtual void SaveToLevelFile(FILE* _File) = 0;
@@ -54,7 +54,7 @@ public:
 public:
     CComponent(COMPONENT_TYPE _Type);
     CComponent(const CComponent& _Other);
-    virtual ~CComponent();
+    virtual ~CComponent() override;
 
     friend class CGameObject;
 };

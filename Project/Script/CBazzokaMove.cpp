@@ -11,20 +11,20 @@ void CBazzokaMove::Enter()
 
 void CBazzokaMove::tick()
 {
-	// Player ÀÀ½Ã
+	// Player ì‘ì‹œ
 	GetOwner()->GetScript<CBazookaScript>()->SetStarePlayer(true);
 
 	Vec3 PlayerPos = GetOwner()->GetScript<CBazookaScript>()->GetPlayerPos();
 
 	float fDistance = GetOwner()->GetScript<CBazookaScript>()->GetPlayerDistance();
 
-	// ±ÙÁ¢ °ø°İ ¹üÀ§¸é Melee
+	// ê·¼ì ‘ ê³µê²© ë²”ìœ„ë©´ Melee
 	if (fDistance < GetOwner()->GetScript<CBazookaScript>()->GetMeleeRange())
 	{
 		ChangeState(L"Melee");
 	}
 
-	// µµ¸Á. ¿©±â¼­´Â ´Ş¸®´Â °÷À» ¹Ù¶óº¸µµ·Ï È¸Àü½ÃÄÑÁà¾ß ÇÑ´Ù. 
+	// ë„ë§. ì—¬ê¸°ì„œëŠ” ë‹¬ë¦¬ëŠ” ê³³ì„ ë°”ë¼ë³´ë„ë¡ íšŒì „ì‹œì¼œì¤˜ì•¼ í•œë‹¤. 
 	else if (fDistance <= GetOwner()->GetScript<CBazookaScript>()->GetRunAwayRange() || m_fMoveTime <= 0.5f)
 	{
 		m_fMoveTime += DT;
@@ -44,7 +44,7 @@ void CBazzokaMove::tick()
 			m_iActualPathCount = 0;
 			m_fLastRenewal -= m_fRenewal_Trace;
 
-			// ÇöÀç À§Ä¡¿¡¼­ ÇÃ·¹ÀÌ¾î¿ÍÀÇ Â÷ÀÌ¸¸Å­ ´õÇØÁØ °÷À¸·Î ÀÌµ¿½ÃÅ°ÀÚ.
+			// í˜„ì¬ ìœ„ì¹˜ì—ì„œ í”Œë ˆì´ì–´ì™€ì˜ ì°¨ì´ë§Œí¼ ë”í•´ì¤€ ê³³ìœ¼ë¡œ ì´ë™ì‹œí‚¤ì.
 			Vec3 CurPos = GetOwner()->Transform()->GetWorldPos();
 			Vec3 TargetPos = CurPos + CurPos - PlayerPos;
 			memcpy(m_vActualPath, CDetourMgr::GetInst()->GetPathtoTarget(CurPos, TargetPos, &m_iActualPathCount), sizeof(Vec3) * 256);
@@ -52,47 +52,47 @@ void CBazzokaMove::tick()
 
 		if (m_iCurrentPathIndex < m_iActualPathCount)
 		{
-			// ´ÙÀ½ ³ëµå(¸Ş½Ã) À§Ä¡
+			// ë‹¤ìŒ ë…¸ë“œ(ë©”ì‹œ) ìœ„ì¹˜
 			Vec3 targetPos = m_vActualPath[m_iCurrentPathIndex];
 			targetPos.z *= -1.f;
 			if (targetPos.x == 0 && targetPos.y == 0 && targetPos.z == 0)
 			{
 				return;
 			}
-			// ÇöÀç ¿ÀºêÁ§Æ® À§Ä¡		
+			// í˜„ì¬ ì˜¤ë¸Œì íŠ¸ ìœ„ì¹˜		
 			Vec3 currentPos = GetOwner()->Transform()->GetWorldPos();
 
-			// ÀÌµ¿ÇÒ ¹æÇâ º¤ÅÍ °è»ê ¹× Á¤±ÔÈ­
+			// ì´ë™í•  ë°©í–¥ ë²¡í„° ê³„ì‚° ë° ì •ê·œí™”
 			Vec3 direction = targetPos - currentPos;
 			direction.Normalize();
 
-			// »õ·Î¿î À§Ä¡ °è»ê
+			// ìƒˆë¡œìš´ ìœ„ì¹˜ ê³„ì‚°
 			Vec3 newPos = currentPos + direction * fSpeed * DT;
 			direction.y = 0.f;
 
 			GetOwner()->Rigidbody()->SetVelocity(direction * fSpeed);
 
-			// ¸¸¾à Å¸°Ù À§Ä¡¿¡ µµ´ŞÇß´Ù¸é, ´ÙÀ½ °æ·Î ÀÎµ¦½º.
+			// ë§Œì•½ íƒ€ê²Ÿ ìœ„ì¹˜ì— ë„ë‹¬í–ˆë‹¤ë©´, ë‹¤ìŒ ê²½ë¡œ ì¸ë±ìŠ¤.
 			float distanceToTarget = (targetPos - currentPos).Length();
 			if (distanceToTarget < 50.f)
 			{
 				++m_iCurrentPathIndex;
 			}
 
-			// °¡´Â °÷À» ¹Ù¶óº¸µµ·Ï È¸Àü ½ÃÅ°±â.
+			// ê°€ëŠ” ê³³ì„ ë°”ë¼ë³´ë„ë¡ íšŒì „ ì‹œí‚¤ê¸°.
 			Vec3 CurDir = GetOwner()->Transform()->GetRelativeRot();
 			float fDir = GetSmoothDir(currentPos, targetPos, CurDir);
 			GetOwner()->Transform()->SetRelativeRot(CurDir.x, fDir, 0.f);
 		}
 	}
 
-	// °ø°İ¹üÀ§
+	// ê³µê²©ë²”ìœ„
 	else if (fDistance < GetOwner()->GetScript<CBazookaScript>()->GetAttackRange() && fDistance > GetOwner()->GetScript<CBazookaScript>()->GetRunAwayRange())
 	{
 		ChangeState(L"Aim");
 	}
 
-	// ¹üÀ§ ÀÌ»óÀÌ¸é Trace.
+	// ë²”ìœ„ ì´ìƒì´ë©´ Trace.
 	else
 	{
 		ChangeState(L"Trace");

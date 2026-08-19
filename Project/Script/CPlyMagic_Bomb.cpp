@@ -20,7 +20,7 @@ CPlyMagic_Bomb::~CPlyMagic_Bomb()
 
 void CPlyMagic_Bomb::Enter()
 {
-	GetOwner()->Animator3D()->Play((int)PLAYERANIM_TYPE::MAGIC_BOMB, false);
+	GetOwner()->Animator3D()->Play(static_cast<int>(PLAYERANIM_TYPE::MAGIC_BOMB), false);
 
 	CSoundScript* soundscript = CLevelMgr::GetInst()->FindObjectByName(L"SoundUI")->GetScript<CSoundScript>();
 	Ptr<CSound> pSound = soundscript->AddSound(L"Sound\\Player\\BombCharge.ogg", 1, 0.2f);
@@ -34,34 +34,34 @@ void CPlyMagic_Bomb::tick()
 		CalcDir();
 	}
 
-	if (GetOwner()->Animator3D()->IsFinish() && GetOwner()->Animator3D()->GetCurClip() == (int)PLAYERANIM_TYPE::MAGIC_BOMB)
+	if (GetOwner()->Animator3D()->IsFinish() && GetOwner()->Animator3D()->GetCurClip() == static_cast<int>(PLAYERANIM_TYPE::MAGIC_BOMB))
 	{
-		// ¿¡³ÊÁö°¡ ºÎÁ·ÇÏ´Ù¸é Idle·Î µ¹¾Æ°¡°Ô ÇÔ.
+		// ì—ë„ˆì§€ê°€ ë¶€ì¡±í•˜ë‹¤ë©´ Idleë¡œ ëŒì•„ê°€ê²Œ í•¨.
 		if (2 > GetOwnerScript()->GetStat().MP)
 		{
 			GetOwner()->GetScript<CPlayerScript>()->ChangeState(L"Idle");
 		}
-		// ÆøÅºÀº Ã³À½ 1¹ø¸¸ »ý¼ºµÇ°í »ý¼ºÇß´Ù¸é ±× ÈÄ¿¡´Â À§Ä¡¸¦ Á¶Á¤ÇÔ.
+		// í­íƒ„ì€ ì²˜ìŒ 1ë²ˆë§Œ ìƒì„±ë˜ê³  ìƒì„±í–ˆë‹¤ë©´ ê·¸ í›„ì—ëŠ” ìœ„ì¹˜ë¥¼ ì¡°ì •í•¨.
 		else if(nullptr == m_pBomb)
 		{
-			// Player ¾÷±×·¹ÀÌµå ¼öÄ¡¸¦ °¡Á®¿Í °è¼ö¸¦ °öÇØ BombÀÇ ÃÖÁ¾µ¥¹ÌÁö¸¦ Á¤ÇÔ.
+			// Player ì—…ê·¸ë ˆì´ë“œ ìˆ˜ì¹˜ë¥¼ ê°€ì ¸ì™€ ê³„ìˆ˜ë¥¼ ê³±í•´ Bombì˜ ìµœì¢…ë°ë¯¸ì§€ë¥¼ ì •í•¨.
 			Vec3 CurPos = GetOwner()->Transform()->GetWorldPos();
 			Vec3 vDir = GetOwner()->Transform()->GetXZDir();
 			Vec3 vSpawnPos = Vec3(CurPos.x, CurPos.y + 120.f, CurPos.z) + vDir * 20.f;
-			m_pBomb = CLevelSaveLoadInScript::SpawnandReturnPrefab(L"prefab\\Bomb.prefab", (int)LAYER::PLAYERPROJECTILE, vSpawnPos);
+			m_pBomb = CLevelSaveLoadInScript::SpawnandReturnPrefab(L"prefab\\Bomb.prefab", static_cast<int>(LAYER::PLAYERPROJECTILE), vSpawnPos);
 			m_pBomb->Rigidbody()->SetRigidPos(vSpawnPos);
 		}
 		 else if (KEY_RELEASE(KEY::RBTN))
 		{
-			// °ø°Ý¿¡ µû¸¥ ¿¡³ÊÁö ¼Ò¸ð
+			// ê³µê²©ì— ë”°ë¥¸ ì—ë„ˆì§€ ì†Œëª¨
 			Stat CurStat = GetOwnerScript()->GetStat();
 			CurStat.MP -= 2;
 			GetOwnerScript()->SetStat(CurStat);
 
-			// ÆøÅº ÁØºñ ¾Ö´Ï¸ÞÀÌ¼ÇÀÌ ³¡³µ´Ù¸é ¸Ó¸® À§¿¡ ÆøÅºÀ» »ý¼ºÇÔ.
+			// í­íƒ„ ì¤€ë¹„ ì• ë‹ˆë©”ì´ì…˜ì´ ëë‚¬ë‹¤ë©´ ë¨¸ë¦¬ ìœ„ì— í­íƒ„ì„ ìƒì„±í•¨.
 			CalcDir();
-			// ÆøÅºÀ» »ý¼ºÇÑ »óÅÂ¿¡¼­ ¿ìÅ¬¸¯ ReleaseÇÏ¸é ÆøÅº ´øÁö´Â ¾Ö´Ï¸ÞÀÌ¼Ç Play ¹× ÆøÅº¿¡ ¼Óµµ¸¦ ÁÜ.
-			GetOwner()->Animator3D()->Play((int)PLAYERANIM_TYPE::MAGIC_BOMB_FINISH, false);
+			// í­íƒ„ì„ ìƒì„±í•œ ìƒíƒœì—ì„œ ìš°í´ë¦­ Releaseí•˜ë©´ í­íƒ„ ë˜ì§€ëŠ” ì• ë‹ˆë©”ì´ì…˜ Play ë° í­íƒ„ì— ì†ë„ë¥¼ ì¤Œ.
+			GetOwner()->Animator3D()->Play(static_cast<int>(PLAYERANIM_TYPE::MAGIC_BOMB_FINISH), false);
 
 			float fDamage = GetOwnerScript()->GetStat().Spell_Power * (1.f + 0.3f * GetOwner()->GetScript<CPlayerScript>()->GetUpgrade(PLAYER_UPGRADE::MAGIC));
 			fDamage *= 2.5f;
@@ -83,9 +83,9 @@ void CPlyMagic_Bomb::tick()
 			m_pBomb->Rigidbody()->SetRigidPos(vSpawnPos);
 		}
 	}
-	else if (GetOwner()->Animator3D()->IsFinish() && GetOwner()->Animator3D()->GetCurClip() == (int)PLAYERANIM_TYPE::MAGIC_BOMB_FINISH)
+	else if (GetOwner()->Animator3D()->IsFinish() && GetOwner()->Animator3D()->GetCurClip() == static_cast<int>(PLAYERANIM_TYPE::MAGIC_BOMB_FINISH))
 	{
-		// ÆøÅºÀ» ´øÁö°í ´øÁü ¾Ö´Ï¸ÞÀÌ¼ÇÀÌ ³¡³µ´Ù¸é Idle·Î ÀüÈ¯
+		// í­íƒ„ì„ ë˜ì§€ê³  ë˜ì§ ì• ë‹ˆë©”ì´ì…˜ì´ ëë‚¬ë‹¤ë©´ Idleë¡œ ì „í™˜
 		GetOwner()->GetScript<CPlayerScript>()->ChangeState(L"Idle");
 	}
 	else

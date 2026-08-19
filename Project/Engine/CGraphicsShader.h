@@ -61,11 +61,11 @@ public:
 
     ComPtr<ID3D11VertexShader> GetVSInst() { return m_VSInst; }
 
-    RS_TYPE GetRSType() { return m_RSType; }
+    RS_TYPE GetRSType() const { return m_RSType; }
 
-    SHADER_DOMAIN GetDomain() { return m_Domain; }
-    void UpdateData();
-    void UpdateData_Inst();
+    SHADER_DOMAIN GetDomain() const { return m_Domain; }
+    void          UpdateData() const;
+    void          UpdateData_Inst() const;
 
     void AddScalarParam(SCALAR_PARAM _Param, const string& _desc) { m_vecScalarParam.push_back(tScalarParam{ _Param, _desc });}
     void AddTexParam(TEX_PARAM _Param, const string& _desc) { m_vecTexParam.push_back(tTexParam{_Param, _desc}); }
@@ -75,6 +75,6 @@ public:
 
 public:
     CGraphicsShader();
-    ~CGraphicsShader();
+    virtual ~CGraphicsShader() override;
 };
 

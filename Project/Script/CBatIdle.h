@@ -15,6 +15,6 @@ public:
 
 public:
     CBatIdle();
-    ~CBatIdle();
+    virtual ~CBatIdle() override;
 };
 

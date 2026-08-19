@@ -63,7 +63,7 @@ void CCamera::begin()
 {
 	if (-1 != m_iCamIdx)
 	{
-		CRenderMgr::GetInst()->RegisterCamera(this, m_iCamIdx); // camera begin ½Ã ÇØ´ç Ä«¸Ş¶ó ÀÎµ¦½º·Î µî·Ï
+		CRenderMgr::GetInst()->RegisterCamera(this, m_iCamIdx); // camera begin ì‹œ í•´ë‹¹ ì¹´ë©”ë¼ ì¸ë±ìŠ¤ë¡œ ë“±ë¡
 	}
 }
 
@@ -75,29 +75,29 @@ void CCamera::finaltick()
 
 	m_Frustum.finaltick();
 
-	// ¸¶¿ì½º¹æÇâ Á÷¼± °è»ê
+	// ë§ˆìš°ìŠ¤ë°©í–¥ ì§ì„  ê³„ì‚°
 	CalRay();
 }
 
 void CCamera::CalRay()
 {
-	// ¸¶¿ì½º ¹æÇâÀ» ÇâÇÏ´Â Ray ±¸ÇÏ±â
-	// SwapChain Å¸°ÙÀÇ ViewPort Á¤º¸
+	// ë§ˆìš°ìŠ¤ ë°©í–¥ì„ í–¥í•˜ëŠ” Ray êµ¬í•˜ê¸°
+	// SwapChain íƒ€ê²Ÿì˜ ViewPort ì •ë³´
 	CMRT* pMRT = CRenderMgr::GetInst()->GetMRT(MRT_TYPE::SWAPCHAIN);
 	D3D11_VIEWPORT tVP = pMRT->GetViewPort();
 
-	//  ÇöÀç ¸¶¿ì½º ÁÂÇ¥
+	//  í˜„ì¬ ë§ˆìš°ìŠ¤ ì¢Œí‘œ
 	Vec2 vMousePos = CKeyMgr::GetInst()->GetMousePos();
 
-	// Á÷¼±Àº Ä«¸Ş¶óÀÇ ÁÂÇ¥¸¦ ¹İµå½Ã Áö³­´Ù.
+	// ì§ì„ ì€ ì¹´ë©”ë¼ì˜ ì¢Œí‘œë¥¼ ë°˜ë“œì‹œ ì§€ë‚œë‹¤.
 	m_ray.vStart = Transform()->GetWorldPos();
 
-	// view space ¿¡¼­ÀÇ ¹æÇâ
+	// view space ì—ì„œì˜ ë°©í–¥
 	m_ray.vDir.x = ((((vMousePos.x - tVP.TopLeftX) * 2.f / tVP.Width) - 1.f) - m_matProj._31) / m_matProj._11;
 	m_ray.vDir.y = (-(((vMousePos.y - tVP.TopLeftY) * 2.f / tVP.Height) - 1.f) - m_matProj._32) / m_matProj._22;
 	m_ray.vDir.z = 1.f;
 
-	// world space ¿¡¼­ÀÇ ¹æÇâ
+	// world space ì—ì„œì˜ ë°©í–¥
 	m_ray.vDir = XMVector3TransformNormal(m_ray.vDir, m_matViewInv);
 	m_ray.vDir.Normalize();
 }
@@ -105,15 +105,15 @@ void CCamera::CalRay()
 void CCamera::CalcViewMat()
 {
 	// ==============
-	// View Çà·Ä °è»ê
+	// View í–‰ë ¬ ê³„ì‚°
 	// ==============
 	m_matView = XMMatrixIdentity();
 
-	// Ä«¸Ş¶ó ÁÂÇ¥¸¦ ¿øÁ¡À¸·Î ÀÌµ¿
+	// ì¹´ë©”ë¼ ì¢Œí‘œë¥¼ ì›ì ìœ¼ë¡œ ì´ë™
 	Vec3 vCamPos = Transform()->GetRelativePos();
 	Matrix matViewTrans = XMMatrixTranslation(-vCamPos.x, -vCamPos.y, -vCamPos.z);
 
-	// Ä«¸Ş¶ó°¡ ¹Ù¶óº¸´Â ¹æÇâÀ» Z Ãà°ú ÆòÇàÇÏ°Ô ¸¸µå´Â È¸Àü Çà·ÄÀ» Àû¿ë
+	// ì¹´ë©”ë¼ê°€ ë°”ë¼ë³´ëŠ” ë°©í–¥ì„ Z ì¶•ê³¼ í‰í–‰í•˜ê²Œ ë§Œë“œëŠ” íšŒì „ í–‰ë ¬ì„ ì ìš©
 	Matrix matViewRot = XMMatrixIdentity();
 
 	Vec3 vR = Transform()->GetWorldDir(DIR_TYPE::RIGHT);
@@ -131,23 +131,23 @@ void CCamera::CalcViewMat()
 void CCamera::CalcProjMat()
 {
 	// =============
-	// Åõ¿µ Çà·Ä °è»ê
+	// íˆ¬ì˜ í–‰ë ¬ ê³„ì‚°
 	// =============
 	m_matProj = XMMatrixIdentity();
 	
 	if (PROJ_TYPE::ORTHOGRAPHIC == m_ProjType)
 	{
-		// Á÷±³ Åõ¿µ
+		// ì§êµ íˆ¬ì˜
 		float fHeight = m_fWidth / m_fAspectRatio;
 		m_matProj =  XMMatrixOrthographicLH(m_fWidth * (1.f / m_fScale), fHeight * (1.f / m_fScale), 1.f, m_fFar);
 	}
 	else
 	{	
-		// ¿ø±Ù Åõ¿µ
+		// ì›ê·¼ íˆ¬ì˜
 		m_matProj = XMMatrixPerspectiveFovLH(XM_PI / 2.f, m_fAspectRatio, 1.f, m_fFar);
 	}
 
-	// Åõ¿µÇà·Ä ¿ªÇà·Ä
+	// íˆ¬ì˜í–‰ë ¬ ì—­í–‰ë ¬
 	m_matProjInv = XMMatrixInverse(nullptr, m_matProj);
 
 	
@@ -183,15 +183,15 @@ void CCamera::SetCameraIndex(int _idx)
 
 void CCamera::SortObject()
 {
-	// ÀÌÀü ÇÁ·¹ÀÓ ºĞ·ùÁ¤º¸ Á¦°Å
+	// ì´ì „ í”„ë ˆì„ ë¶„ë¥˜ì •ë³´ ì œê±°
 	clear();
 
-	// ÇöÀç ·¹º§ °¡Á®¿Í¼­ ºĞ·ù
+	// í˜„ì¬ ë ˆë²¨ ê°€ì ¸ì™€ì„œ ë¶„ë¥˜
 	CLevel* pCurLevel = CLevelMgr::GetInst()->GetCurLevel();
 
 	for (UINT i = 0; i < MAX_LAYER; ++i)
 	{
-		// ·¹ÀÌ¾î ¸¶½ºÅ© È®ÀÎ
+		// ë ˆì´ì–´ ë§ˆìŠ¤í¬ í™•ì¸
 		if (m_iLayerMask & (1 << i))
 		{
 			CLayer* pLayer = pCurLevel->GetLayer(i);
@@ -201,7 +201,7 @@ void CCamera::SortObject()
 			{
 				CRenderComponent* pRenderCom = vecObject[j]->GetRenderComponent();
 
-				// ·»´õ¸µ ±â´ÉÀÌ ¾ø´Â ¿ÀºêÁ§Æ®´Â Á¦¿Ü
+				// ë Œë”ë§ ê¸°ëŠ¥ì´ ì—†ëŠ” ì˜¤ë¸Œì íŠ¸ëŠ” ì œì™¸
 				if (nullptr == pRenderCom)
 					continue;
 
@@ -213,19 +213,19 @@ void CCamera::SortObject()
 						continue;
 				}
 
-				// ¸ŞÅ×¸®¾ó °³¼ö¸¸Å­ ¹İº¹
+				// ë©”í…Œë¦¬ì–¼ ê°œìˆ˜ë§Œí¼ ë°˜ë³µ
 				UINT iMtrlCount = pRenderCom->GetMtrlCount();
 
 				for (UINT iMtrl = 0; iMtrl < iMtrlCount; ++iMtrl)
 				{
-					// ÀçÁúÀÌ ¾ø°Å³ª, ÀçÁúÀÇ ½¦ÀÌ´õ°¡ ¼³Á¤ÀÌ ¾ÈµÈ °æ¿ì
+					// ì¬ì§ˆì´ ì—†ê±°ë‚˜, ì¬ì§ˆì˜ ì‰ì´ë”ê°€ ì„¤ì •ì´ ì•ˆëœ ê²½ìš°
 					if (nullptr == pRenderCom->GetMaterial(iMtrl)
 						|| nullptr == pRenderCom->GetMaterial(iMtrl)->GetShader())
 					{
 						continue;
 					}
 					
-					// ½¦ÀÌ´õ µµ¸ŞÀÎ¿¡ µû¸¥ ºĞ·ù
+					// ì‰ì´ë” ë„ë©”ì¸ì— ë”°ë¥¸ ë¶„ë¥˜
 					SHADER_DOMAIN eDomain = pRenderCom->GetMaterial(iMtrl)->GetShader()->GetDomain();
 					Ptr<CGraphicsShader> pShader = pRenderCom->GetMaterial(iMtrl)->GetShader();
 
@@ -235,7 +235,7 @@ void CCamera::SortObject()
 					case SHADER_DOMAIN::DOMAIN_OPAQUE:
 					case SHADER_DOMAIN::DOMAIN_MASK:
 					{
-						// Shader ÀÇ POV ¿¡ µû¶ó¼­ ÀÎ½ºÅÏ½Ì ±×·ìÀ» ºĞ·ùÇÑ´Ù.
+						// Shader ì˜ POV ì— ë”°ë¼ì„œ ì¸ìŠ¤í„´ì‹± ê·¸ë£¹ì„ ë¶„ë¥˜í•œë‹¤.
 						map<ULONG64, vector<tInstObj>>* pMap = NULL;
 						Ptr<CMaterial> pMtrl = pRenderCom->GetMaterial(iMtrl);
 
@@ -257,7 +257,7 @@ void CCamera::SortObject()
 						uInstID uID = {};
 						uID.llID = pRenderCom->GetInstID(iMtrl);
 
-						// ID °¡ 0 ´Ù ==> Mesh ³ª Material ÀÌ ¼ÂÆÃµÇÁö ¾Ê¾Ò´Ù.
+						// ID ê°€ 0 ë‹¤ ==> Mesh ë‚˜ Material ì´ ì…‹íŒ…ë˜ì§€ ì•Šì•˜ë‹¤.
 						if (0 == uID.llID)
 							continue;
 
@@ -317,21 +317,21 @@ void CCamera::SortShadowObject()
 
 void CCamera::render()
 {
-	// Çà·Ä ¾÷µ¥ÀÌÆ®
+	// í–‰ë ¬ ì—…ë°ì´íŠ¸
 	g_transform.matView = m_matView;
 	g_transform.matViewInv = m_matViewInv;
 	g_transform.matProj = m_matProj;
 
 	// =====================================
-	// ½¦ÀÌ´õ µµ¸ŞÀÎ¿¡ µû¶ó¼­ ¼øÂ÷ÀûÀ¸·Î ±×¸®±â
+	// ì‰ì´ë” ë„ë©”ì¸ì— ë”°ë¼ì„œ ìˆœì°¨ì ìœ¼ë¡œ ê·¸ë¦¬ê¸°
 	// =====================================
 	// Deferred Object
-	// Áö¿¬ Ãâ·ÂÀ¸·Î ¿øÇÏ´Â Á¤º¸¸¦ µû·Î ¹Ş´Â ÅØ½ºÃÄ¿¡ ¹Ş¾Æ¿È
+	// ì§€ì—° ì¶œë ¥ìœ¼ë¡œ ì›í•˜ëŠ” ì •ë³´ë¥¼ ë”°ë¡œ ë°›ëŠ” í…ìŠ¤ì³ì— ë°›ì•„ì˜´
 
 	if (m_bWaterCamera)
 	{
 		CRenderMgr::GetInst()->MRT_Clear(MRT_TYPE::WATER);
-		// Water MRT¿¡ ·£´õ
+		// Water MRTì— ëœë”
 		CRenderMgr::GetInst()->GetMRT(MRT_TYPE::WATER)->OMSet();
 		render_deferred();
 		render_water();
@@ -343,18 +343,18 @@ void CCamera::render()
 	{
 		CRenderMgr::GetInst()->GetMRT(MRT_TYPE::DEFERRED)->OMSet();
 		render_deferred();
-		render_transparent(); // ÆÄÆ¼Å¬
+		render_transparent(); // íŒŒí‹°í´
 
 		// Decal Render
-		// decal¿¡¼­ position tex¸¦ ÀÎÀÚ·Î ¹Ş±â À§ÇØ
-		// ±âÁ¸ÀÇ TargetÀ¸·Î ÁöÁ¤µÈ Tex¸¦ ¹ÙÀÎµù ÇØÁ¦ÇØÁà¾ß ÇÔ.
+		// decalì—ì„œ position texë¥¼ ì¸ìë¡œ ë°›ê¸° ìœ„í•´
+		// ê¸°ì¡´ì˜ Targetìœ¼ë¡œ ì§€ì •ëœ Texë¥¼ ë°”ì¸ë”© í•´ì œí•´ì¤˜ì•¼ í•¨.
 		CRenderMgr::GetInst()->GetMRT(MRT_TYPE::DECAL)->OMSet();
 		render_decal();
 
 		// Lighting
 		CRenderMgr::GetInst()->GetMRT(MRT_TYPE::LIGHT)->OMSet();
 
-		// LightObj ±âÁØ render 
+		// LightObj ê¸°ì¤€ render 
 		const vector<CLight3D*> vecLight3D = CRenderMgr::GetInst()->GetLight3D();//
 		for (size_t i = 0; i < vecLight3D.size(); ++i)
 		{
@@ -363,7 +363,7 @@ void CCamera::render()
 		render_blur();
 
 		// (Deferred + Light) Merge
-		// Áö¿¬ Ãâ·ÂÀÌ ³¡³­ ÈÄ SwapChain Ãâ·Â´ë»ó ÀçÁöÁ¤ ÈÄ Ãâ·Â
+		// ì§€ì—° ì¶œë ¥ì´ ëë‚œ í›„ SwapChain ì¶œë ¥ëŒ€ìƒ ì¬ì§€ì • í›„ ì¶œë ¥
 		CRenderMgr::GetInst()->GetMRT(MRT_TYPE::SWAPCHAIN)->OMSet();
 		render_merge();
 
@@ -372,7 +372,7 @@ void CCamera::render()
 		//render_mask();
 		render_forward();
 
-		//render_transparent(); // ÆÄÆ¼Å¬ ¿ø·¡´Â ¿©±â¼­ ÇÔ. 
+		//render_transparent(); // íŒŒí‹°í´ ì›ë˜ëŠ” ì—¬ê¸°ì„œ í•¨. 
 
 		// PostProcess
 		render_postprocess();
@@ -388,9 +388,9 @@ void CCamera::render()
 	}
 }
 
-void CCamera::render_depthmap()
+void CCamera::render_depthmap() const
 {
-	// ±¤¿ø Ä«¸Ş¶óÀÇ View, Proj ¼¼ÆÃ
+	// ê´‘ì› ì¹´ë©”ë¼ì˜ View, Proj ì„¸íŒ…
 	g_transform.matView = m_matView;
 	g_transform.matViewInv = m_matViewInv;
 	g_transform.matProj = m_matProj;
@@ -401,7 +401,7 @@ void CCamera::render_depthmap()
 	}
 }
 
-void CCamera::render_water()
+void CCamera::render_water() const
 {
 	Ptr<CTexture> pWaterTex = CResMgr::GetInst()->FindRes<CTexture>(L"WaterCameraTex");
 	CResMgr::GetInst()->FindRes<CMaterial>(L"WaterMtrl")->SetTexParam(TEX_0, pWaterTex);
@@ -433,18 +433,18 @@ void CCamera::render_deferred()
 
 	for (auto& pair : m_mapInstGroup_D)
 	{
-		// ±×·ì ¿ÀºêÁ§Æ®°¡ ¾ø°Å³ª, ½¦ÀÌ´õ°¡ ¾ø´Â °æ¿ì
+		// ê·¸ë£¹ ì˜¤ë¸Œì íŠ¸ê°€ ì—†ê±°ë‚˜, ì‰ì´ë”ê°€ ì—†ëŠ” ê²½ìš°
 		if (pair.second.empty())
 			continue;
 
-		// instancing °³¼ö Á¶°Ç ¹Ì¸¸ÀÌ°Å³ª
-		// Animation2D ¿ÀºêÁ§Æ®°Å³ª(½ºÇÁ¶óÀÌÆ® ¾Ö´Ï¸ŞÀÌ¼Ç ¿ÀºêÁ§Æ®)
-		// Shader °¡ Instancing À» Áö¿øÇÏÁö ¾Ê´Â°æ¿ì
+		// instancing ê°œìˆ˜ ì¡°ê±´ ë¯¸ë§Œì´ê±°ë‚˜
+		// Animation2D ì˜¤ë¸Œì íŠ¸ê±°ë‚˜(ìŠ¤í”„ë¼ì´íŠ¸ ì• ë‹ˆë©”ì´ì…˜ ì˜¤ë¸Œì íŠ¸)
+		// Shader ê°€ Instancing ì„ ì§€ì›í•˜ì§€ ì•ŠëŠ”ê²½ìš°
 		if (pair.second.size() <= 1
 			|| pair.second[0].pObj->Animator2D()
 			|| pair.second[0].pObj->GetRenderComponent()->GetMaterial(pair.second[0].iMtrlIdx)->GetShader()->GetVSInst() == nullptr)
 		{
-			// ÇØ´ç ¹°Ã¼µéÀº ´ÜÀÏ ·£´õ¸µÀ¸·Î ÀüÈ¯
+			// í•´ë‹¹ ë¬¼ì²´ë“¤ì€ ë‹¨ì¼ ëœë”ë§ìœ¼ë¡œ ì „í™˜
 			for (UINT i = 0; i < pair.second.size(); ++i)
 			{
 				map<INT_PTR, vector<tInstObj>>::iterator iter
@@ -464,7 +464,7 @@ void CCamera::render_deferred()
 		Ptr<CMesh> pMesh = pObj->GetRenderComponent()->GetMesh();
 		Ptr<CMaterial> pMtrl = pObj->GetRenderComponent()->GetMaterial(pair.second[0].iMtrlIdx);
 
-		// Instancing ¹öÆÛ Å¬¸®¾î
+		// Instancing ë²„í¼ í´ë¦¬ì–´
 		CInstancingBuffer::GetInst()->Clear();
 
 		int iRowIdx = 0;
@@ -488,27 +488,27 @@ void CCamera::render_deferred()
 			CInstancingBuffer::GetInst()->AddInstancingData(tInstData);
 		}
 
-		// ÀÎ½ºÅÏ½Ì¿¡ ÇÊ¿äÇÑ µ¥ÀÌÅÍ¸¦ ¼¼ÆÃ(SysMem -> GPU Mem)
+		// ì¸ìŠ¤í„´ì‹±ì— í•„ìš”í•œ ë°ì´í„°ë¥¼ ì„¸íŒ…(SysMem -> GPU Mem)
 		CInstancingBuffer::GetInst()->SetData();
 
 		if (bHasAnim3D)
 		{
-			pMtrl->SetAnim3D(true); // Animation Mesh ¾Ë¸®±â
+			pMtrl->SetAnim3D(true); // Animation Mesh ì•Œë¦¬ê¸°
 			pMtrl->SetBoneCount(pMesh->GetBoneCount());
 		}
 
 		pMtrl->UpdateData_Inst();
 		pMesh->render_instancing(pair.second[0].iMtrlIdx);
 
-		// Á¤¸®
+		// ì •ë¦¬
 		if (bHasAnim3D)
 		{
-			pMtrl->SetAnim3D(false); // Animation Mesh ¾Ë¸®±â
+			pMtrl->SetAnim3D(false); // Animation Mesh ì•Œë¦¬ê¸°
 			pMtrl->SetBoneCount(0);
 		}
 	}
 
-	// °³º° ·£´õ¸µ
+	// ê°œë³„ ëœë”ë§
 	for (auto& pair : m_mapSingleObj)
 	{
 		if (pair.second.empty())
@@ -528,7 +528,7 @@ void CCamera::render_deferred()
 	}
 }
 
-void CCamera::render_decal()
+void CCamera::render_decal() const
 {
 	for (size_t i = 0; i < m_vecDecal.size(); ++i)
 	{
@@ -536,7 +536,7 @@ void CCamera::render_decal()
 	}
 }
 
-void CCamera::render_blur()
+void CCamera::render_blur() const
 {
 	Ptr<CMesh> pMesh = CResMgr::GetInst()->FindRes<CMesh>(L"RectMesh");
 	Ptr<CMaterial> pMtrl = CResMgr::GetInst()->FindRes<CMaterial>(L"GaussianBlurMtrl");
@@ -548,7 +548,7 @@ void CCamera::render_blur()
 	pMesh->render(0);
 }
 
-void CCamera::render_merge()
+void CCamera::render_merge() const
 {
 	Ptr<CMesh> pMesh = CResMgr::GetInst()->FindRes<CMesh>(L"RectMesh");
 	Ptr<CMaterial> pMtrl = CResMgr::GetInst()->FindRes<CMaterial>(L"LightMergeMtrl");
@@ -574,18 +574,18 @@ void CCamera::render_forward()
 
 	for (auto& pair : m_mapInstGroup_F)
 	{
-		// ±×·ì ¿ÀºêÁ§Æ®°¡ ¾ø°Å³ª, ½¦ÀÌ´õ°¡ ¾ø´Â °æ¿ì
+		// ê·¸ë£¹ ì˜¤ë¸Œì íŠ¸ê°€ ì—†ê±°ë‚˜, ì‰ì´ë”ê°€ ì—†ëŠ” ê²½ìš°
 		if (pair.second.empty())
 			continue;
 
-		// instancing °³¼ö Á¶°Ç ¹Ì¸¸ÀÌ°Å³ª
-		// Animation2D ¿ÀºêÁ§Æ®°Å³ª(½ºÇÁ¶óÀÌÆ® ¾Ö´Ï¸ŞÀÌ¼Ç ¿ÀºêÁ§Æ®)
-		// Shader °¡ Instancing À» Áö¿øÇÏÁö ¾Ê´Â°æ¿ì
+		// instancing ê°œìˆ˜ ì¡°ê±´ ë¯¸ë§Œì´ê±°ë‚˜
+		// Animation2D ì˜¤ë¸Œì íŠ¸ê±°ë‚˜(ìŠ¤í”„ë¼ì´íŠ¸ ì• ë‹ˆë©”ì´ì…˜ ì˜¤ë¸Œì íŠ¸)
+		// Shader ê°€ Instancing ì„ ì§€ì›í•˜ì§€ ì•ŠëŠ”ê²½ìš°
 		if (pair.second.size() <= 1
 			|| pair.second[0].pObj->Animator2D()
 			|| pair.second[0].pObj->GetRenderComponent()->GetMaterial(pair.second[0].iMtrlIdx)->GetShader()->GetVSInst() == nullptr)
 		{
-			// ÇØ´ç ¹°Ã¼µéÀº ´ÜÀÏ ·£´õ¸µÀ¸·Î ÀüÈ¯
+			// í•´ë‹¹ ë¬¼ì²´ë“¤ì€ ë‹¨ì¼ ëœë”ë§ìœ¼ë¡œ ì „í™˜
 			for (UINT i = 0; i < pair.second.size(); ++i)
 			{
 				map<INT_PTR, vector<tInstObj>>::iterator iter
@@ -605,7 +605,7 @@ void CCamera::render_forward()
 		Ptr<CMesh> pMesh = pObj->GetRenderComponent()->GetMesh();
 		Ptr<CMaterial> pMtrl = pObj->GetRenderComponent()->GetMaterial(pair.second[0].iMtrlIdx);
 
-		// Instancing ¹öÆÛ Å¬¸®¾î
+		// Instancing ë²„í¼ í´ë¦¬ì–´
 		CInstancingBuffer::GetInst()->Clear();
 
 		int iRowIdx = 0;
@@ -629,27 +629,27 @@ void CCamera::render_forward()
 			CInstancingBuffer::GetInst()->AddInstancingData(tInstData);
 		}
 
-		// ÀÎ½ºÅÏ½Ì¿¡ ÇÊ¿äÇÑ µ¥ÀÌÅÍ¸¦ ¼¼ÆÃ(SysMem -> GPU Mem)
+		// ì¸ìŠ¤í„´ì‹±ì— í•„ìš”í•œ ë°ì´í„°ë¥¼ ì„¸íŒ…(SysMem -> GPU Mem)
 		CInstancingBuffer::GetInst()->SetData();
 
 		if (bHasAnim3D)
 		{
-			pMtrl->SetAnim3D(true); // Animation Mesh ¾Ë¸®±â
+			pMtrl->SetAnim3D(true); // Animation Mesh ì•Œë¦¬ê¸°
 			pMtrl->SetBoneCount(pMesh->GetBoneCount());
 		}
 
 		pMtrl->UpdateData_Inst();
 		pMesh->render_instancing(pair.second[0].iMtrlIdx);
 
-		// Á¤¸®
+		// ì •ë¦¬
 		if (bHasAnim3D)
 		{
-			pMtrl->SetAnim3D(false); // Animation Mesh ¾Ë¸®±â
+			pMtrl->SetAnim3D(false); // Animation Mesh ì•Œë¦¬ê¸°
 			pMtrl->SetBoneCount(0);
 		}
 	}
 
-	// °³º° ·£´õ¸µ
+	// ê°œë³„ ëœë”ë§
 	for (auto& pair : m_mapSingleObj)
 	{
 		if (pair.second.empty())
@@ -669,7 +669,7 @@ void CCamera::render_forward()
 	}
 }
 
-void CCamera::render_transparent()
+void CCamera::render_transparent() const
 {
 	for (size_t i = 0; i < m_vecTransparent.size(); ++i)
 	{
@@ -677,7 +677,7 @@ void CCamera::render_transparent()
 	}
 }
 
-void CCamera::render_postprocess()
+void CCamera::render_postprocess() const
 {
 	for (size_t i = 0; i < m_vecPost.size(); ++i)
 	{
@@ -686,7 +686,7 @@ void CCamera::render_postprocess()
 	}
 }
 
-void CCamera::render_ui()
+void CCamera::render_ui() const
 {
 	for (size_t i = 0; i < m_vecUI.size(); ++i)
 	{

@@ -16,7 +16,7 @@ void CGrimKnightBackStep::Enter()
 	//Stat status = GetOwnerScript()->GetStat();
 	GetOwner()->Animator3D()->Play(9, false);
 
-	//ÇÃ·¹ÀÌ¾î ¹Ý´ë ¹æÇâÀ¸·Î ÀÌµ¿
+	//í”Œë ˆì´ì–´ ë°˜ëŒ€ ë°©í–¥ìœ¼ë¡œ ì´ë™
 	Vec3 vPlayerPos = CLevelMgr::GetInst()->GetCurLevel()->FindObjectByName(L"Player")->Transform()->GetWorldPos();
 	Vec3 vDir = (GetOwner()->Transform()->GetWorldPos() - vPlayerPos).Normalize();
 	GetOwner()->Rigidbody()->AddVelocity(vDir * 150.f);

@@ -22,7 +22,7 @@ void CLurkerDeath::tick()
 
 	float fPlayRatio = m_fTime / GetOwner()->Animator3D()->GetCurClipTimeLength();
 
-	// ¾Ö´Ï¸ÞÀÌ¼ÇÀÌ ³¡³­ °æ¿ì »ç¸Á Paperburn È¿°ú ÁÖ±â.
+	// ì• ë‹ˆë©”ì´ì…˜ì´ ëë‚œ ê²½ìš° ì‚¬ë§ Paperburn íš¨ê³¼ ì£¼ê¸°.
 	if (fPlayRatio >= 0.8f && !m_bStartPaperBurn)
 	{
 		GetOwner()->GetScript<CLurkerScript>()->SetPaperBurnEffect(true);
@@ -33,7 +33,7 @@ void CLurkerDeath::tick()
 	if (m_bStartPaperBurn)
 		m_fPaperBurnTime += DT;
 
-	// Áö±Ý±îÁö Èå¸¥ ½Ã°£ÀÌ 3ÃÊ ÀÌ»óÀÌ¸é Destory.
+	// ì§€ê¸ˆê¹Œì§€ íë¥¸ ì‹œê°„ì´ 3ì´ˆ ì´ìƒì´ë©´ Destory.
 	if (m_fPaperBurnTime > 3.f && !GetOwner()->IsDead())
 	{
 		GetOwner()->GetScript<CLurkerScript>()->GetPlayer()->GetScript<CPlayerScript>()->AddMoney((UINT)200);

@@ -9,7 +9,7 @@
 #include <Engine/CPhysXMgr.h>
 
 CCrowBossScript::CCrowBossScript() :
-	CMonsterScript((UINT)SCRIPT_TYPE::CROWBOSSSCRIPT)
+	CMonsterScript(static_cast<UINT>(SCRIPT_TYPE::CROWBOSSSCRIPT))
 	, m_fPlayerDistance(0.f)
 	, m_bStarePlayer(false)
 	, m_fPrevHP(0.f)
@@ -19,7 +19,7 @@ CCrowBossScript::CCrowBossScript() :
 }
 
 CCrowBossScript::CCrowBossScript(const CCrowBossScript& _Other) :
-	CMonsterScript((UINT)SCRIPT_TYPE::CROWBOSSSCRIPT)
+	CMonsterScript(static_cast<UINT>(SCRIPT_TYPE::CROWBOSSSCRIPT))
 	, m_fPlayerDistance(0.f)
 	, m_bStarePlayer(false)
 	, m_fPrevHP(0.f)
@@ -35,7 +35,7 @@ void CCrowBossScript::begin()
 {
 	CMonsterScript::begin();
 	
-	// µø¿˚ ¿Á¡˙ ª˝º∫.
+	// ÎèôÏ†Å Ïû¨Ïßà ÏÉùÏÑ±.
 	int iMtrlCount = MeshRender()->GetMtrlCount();
 
 	for (int i = 0; i < iMtrlCount; ++i)
@@ -43,7 +43,7 @@ void CCrowBossScript::begin()
 		MeshRender()->GetDynamicMaterial(i);
 	}
 
-	// ªÛ≈¬ ≥÷æÓ¡÷±‚.
+	// ÏÉÅÌÉú ÎÑ£Ïñ¥Ï£ºÍ∏∞.
 	if (nullptr == m_pStateScript)
 	{
 		m_pStateScript = GetOwner()->GetScript<CStateScript>();
@@ -60,7 +60,7 @@ void CCrowBossScript::begin()
 		m_pStateScript->AddState(L"BatBullet",		new CCrowBossBatBullet);
 		m_pStateScript->ChangeState(L"Idle");
 
-		// √ ±‚ Ω∫≈» º≥¡§.
+		// Ï¥àÍ∏∞ Ïä§ÌÉØ ÏÑ§Ï†ï.
 		Stat NewStat;
 		NewStat.Max_HP = 500;
 		NewStat.HP = NewStat.Max_HP;
@@ -69,21 +69,21 @@ void CCrowBossScript::begin()
 		NewStat.Speed = 110.f;
 		m_pStateScript->SetStat(NewStat);
 
-		// ¿Ã¿¸ HP
+		// Ïù¥Ï†Ñ HP
 		m_fPrevHP = NewStat.Max_HP;
 	}
 
 	Rigidbody()->SetRigidPos({0.f, 0.f, 1500.f});
 	Rigidbody()->SetMass(50000.f);
 
-	m_pCrowBossFeather = CLevelSaveLoadInScript::SpawnandReturnPrefab(L"prefab\\CrowBossFeather.prefab", (int)LAYER::MONSTERPROJECTILE, GetOwner()->Transform()->GetWorldPos());
+	m_pCrowBossFeather = CLevelSaveLoadInScript::SpawnandReturnPrefab(L"prefab\\CrowBossFeather.prefab", static_cast<int>(LAYER::MONSTERPROJECTILE), GetOwner()->Transform()->GetWorldPos());
 }
 
 void CCrowBossScript::tick()
 {
 	CMonsterScript::tick();
 
-	// HP∞° 0 ¿Ã«œ∏È ªÁ∏¡.
+	// HPÍ∞Ä 0 Ïù¥ÌïòÎ©¥ ÏÇ¨Îßù.
 	if (m_pStateScript && m_pStateScript->GetStat().HP <= 0)
 	{
 		if (m_pStateScript->FindState(L"Death") != m_pStateScript->GetCurState())
@@ -98,7 +98,7 @@ void CCrowBossScript::tick()
 	m_vMonsterToPlayerDir.y /= m_fPlayerDistance;
 	m_vMonsterToPlayerDir.z /= m_fPlayerDistance;
 
-	// «√∑π¿ÃæÓ∏¶ πŸ∂Û∫∏¥¬ ∞ÊøÏ.
+	// ÌîåÎ†àÏù¥Ïñ¥Î•º Î∞îÎùºÎ≥¥Îäî Í≤ΩÏö∞.
 	if (m_bStarePlayer)
 	{
 		float fDir = GetSmoothDir(GetOwner(), m_pPlayer);
@@ -108,7 +108,7 @@ void CCrowBossScript::tick()
 
 	float fCurHP = m_pStateScript->GetStat().HP;
 
-	// √º∑¬¿Ã ¡Ÿæ˙¥Ÿ∏È.
+	// Ï≤¥Î†•Ïù¥ Ï§ÑÏóàÎã§Î©¥.
 	if (m_fPrevHP < fCurHP)
 	{
 		// Sound
@@ -124,8 +124,8 @@ void CCrowBossScript::tick()
 
 void CCrowBossScript::BeginOverlap(CCollider3D* _Other)
 {
-	// ««∞›Ω√ ±Ó∏∂±Õ ∏”∏Æ ª˝º∫.
-	if (_Other->GetOwner()->GetLayerIndex() == (int)LAYER::PLAYERPROJECTILE)
+	// ÌîºÍ≤©Ïãú ÍπåÎßàÍ∑Ä Î®∏Î¶¨ ÏÉùÏÑ±.
+	if (_Other->GetOwner()->GetLayerIndex() == static_cast<int>(LAYER::PLAYERPROJECTILE))
 	{
 		/*Vec3 CurPos = Transform()->GetWorldPos();
 

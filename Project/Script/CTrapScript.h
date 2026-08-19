@@ -18,6 +18,6 @@ public:
     CLONE(CTrapScript);
 public:
     CTrapScript();
-    ~CTrapScript();
+    virtual ~CTrapScript() override;
 
 };

@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "CGameObjectEx.h"
 
-#include <Engine\CComponent.h>
+#include <Engine/CComponent.h>
 
 void CGameObjectEx::finaltick()
 {

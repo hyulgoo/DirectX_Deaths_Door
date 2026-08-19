@@ -11,7 +11,7 @@ wchar_t CPathMgr::g_szExt[50] = L"";
 
 void CPathMgr::init()
 {
-	// Resources ∆˙¥ı±Ó¡ˆ¿« ∞Ê∑Œ∏¶ ±∏«—¥Ÿ.
+	// Resources Ìè¥ÎçîÍπåÏßÄÏùò Í≤ΩÎ°úÎ•º Íµ¨ÌïúÎã§.
 	GetCurrentDirectory(255, g_szSolutionPath);
 	
 	size_t iCount = 0;
@@ -33,7 +33,7 @@ void CPathMgr::init()
 	// -> bin -> Resources
 	wcscat_s(g_szResPath, L"OutputFile\\bin\\content\\");
 	
-	// Inc ∆˙¥ı ∞Ê∑Œ 
+	// Inc Ìè¥Îçî Í≤ΩÎ°ú 
 	GetCurrentDirectory(255, g_szIncPath);
 	
 	iCount = 0;
@@ -52,7 +52,7 @@ void CPathMgr::init()
 	wcscat_s(g_szIncPath, L"External\\Include\\");
 
 
-	// Proj ∆˙¥ı ∞Ê∑Œ 
+	// Proj Ìè¥Îçî Í≤ΩÎ°ú 
 	GetCurrentDirectory(255, g_szProjPath);
 
 	iCount = 0;

@@ -12,9 +12,9 @@ CRes::CRes(const CRes& _Other)
 	: CEntity(_Other)
 	, m_Type(_Other.m_Type)
 	, m_iRefCount(0)
-	, m_bEngine(_Other.m_bEngine)
 	, m_strKey(_Other.m_strKey)
 	, m_strRelativePath(_Other.m_strRelativePath)
+	, m_bEngine(_Other.m_bEngine)
 {
 }
 

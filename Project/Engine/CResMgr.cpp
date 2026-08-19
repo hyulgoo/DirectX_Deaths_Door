@@ -73,7 +73,7 @@ Ptr<CTexture> CResMgr::LoadTexture(const wstring& _strKey, const wstring& _strRe
 		return nullptr;
 	}	
 
-	m_arrRes[(UINT)RES_TYPE::TEXTURE].insert(make_pair(_strKey, pRes));
+	m_arrRes[static_cast<UINT>(RES_TYPE::TEXTURE)].insert(make_pair(_strKey, pRes));
 	m_Changed = true;
 
 	return pRes;
@@ -97,9 +97,9 @@ Ptr<CMeshData> CResMgr::LoadFBX(const wstring& _strPath)
 	pMeshData->SetKey(strName);
 	pMeshData->SetRelativePath(strName);
 	
-	m_arrRes[(UINT)RES_TYPE::MESHDATA].insert(make_pair(strName, pMeshData.Get()));
+	m_arrRes[static_cast<UINT>(RES_TYPE::MESHDATA)].insert(make_pair(strName, pMeshData.Get()));
 
-	// meshdata ∏¶ Ω«¡¶∆ƒ¿œ∑Œ ¿˙¿Â
+	// meshdata Î•º Ïã§Ï†úÌååÏùºÎ°ú Ï†ÄÏû•
 	pMeshData->Save(strName);
 
 	return pMeshData;
@@ -107,11 +107,11 @@ Ptr<CMeshData> CResMgr::LoadFBX(const wstring& _strPath)
 
 void CResMgr::DeleteRes(RES_TYPE _type, const wstring& _strKey)
 {
-	map<wstring, Ptr<CRes>>::iterator iter = m_arrRes[(UINT)_type].find(_strKey);
+	map<wstring, Ptr<CRes>>::iterator iter = m_arrRes[static_cast<UINT>(_type)].find(_strKey);
 
-	assert(!(iter == m_arrRes[(UINT)_type].end()));
+	assert(!(iter == m_arrRes[static_cast<UINT>(_type)].end()));
 
-	m_arrRes[(UINT)_type].erase(iter);	
+	m_arrRes[static_cast<UINT>(_type)].erase(iter);	
 
 	m_Changed = true;
 }
@@ -142,7 +142,7 @@ void CResMgr::AddInputLayout(DXGI_FORMAT _eFormat, const char* _strSemanticName,
 	m_vecLayoutInfo.push_back(LayoutDesc);
 
 
-	// Offset ¡ı∞°
+	// Offset Ï¶ùÍ∞Ä
 	if (0 == _iSlotNum)
 		m_iLayoutOffset_0 += GetSizeofFormat(_eFormat);
 	else if (1 == _iSlotNum)

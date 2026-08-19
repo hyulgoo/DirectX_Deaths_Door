@@ -14,6 +14,6 @@ public:
 
 public:
     CPlyWpDance();
-    ~CPlyWpDance();
+    virtual ~CPlyWpDance() override;
 };
 

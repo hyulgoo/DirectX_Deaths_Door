@@ -8,12 +8,12 @@ struct tVertex
 	Vec4 vColor;
 	Vec2 vUV;
 
-	// ¹æÇâ º¤ÅÍ
-	Vec3 vTangent;	// Á¢¼± º¤ÅÍ
-	Vec3 vNormal;	// ¹ı¼± º¤ÅÍ
-	Vec3 vBinormal; // Á¾¹ı¼± º¤ÅÍ
+	// ë°©í–¥ ë²¡í„°
+	Vec3 vTangent;	// ì ‘ì„  ë²¡í„°
+	Vec3 vNormal;	// ë²•ì„  ë²¡í„°
+	Vec3 vBinormal; // ì¢…ë²•ì„  ë²¡í„°
 
-	// Animation °¡ÁßÄ¡ ¹× ÀÎµ¦½º
+	// Animation ê°€ì¤‘ì¹˜ ë° ì¸ë±ìŠ¤
 	Vec4 vWeights;
 	Vec4 vIndices;
 };
@@ -46,22 +46,22 @@ struct tDebugShapeInfo
 
 struct tLightColor
 {
-	Vec4 vDiffuse;	// ºûÀÇ »ö»ó
-	Vec4 vAmbient;	// ÁÖº¯ ±¤(È¯°æ ±¤)
-	Vec4 vSpecular; // ¹İ»ç±¤ ¼¼±â
+	Vec4 vDiffuse;	// ë¹›ì˜ ìƒ‰ìƒ
+	Vec4 vAmbient;	// ì£¼ë³€ ê´‘(í™˜ê²½ ê´‘)
+	Vec4 vSpecular; // ë°˜ì‚¬ê´‘ ì„¸ê¸°
 };
 
 // LightInfo
 struct tLightInfo
 {
-	tLightColor Color;		 // ºûÀÇ »ö»ó
+	tLightColor Color;		 // ë¹›ì˜ ìƒ‰ìƒ
 
-	Vec4		vWorldPos;   // ±¤¿øÀÇ ¿ùµå ½ºÆäÀÌ½º À§Ä¡
-	Vec4		vWorldDir;	 // ºûÀ» º¸³»´Â ¹æÇâ
+	Vec4		vWorldPos;   // ê´‘ì›ì˜ ì›”ë“œ ìŠ¤í˜ì´ìŠ¤ ìœ„ì¹˜
+	Vec4		vWorldDir;	 // ë¹›ì„ ë³´ë‚´ëŠ” ë°©í–¥
 
-	UINT		LightType;   // ºûÀÇ Å¸ÀÔ(¹æÇâ¼º, Á¡, ½ºÆ÷Æ®)
-	float		Radius;		 // ºûÀÇ ¹İ°æ(»ç°Å¸®)
-	float		Angle;		 // ºûÀÇ °¢µµ
+	UINT		LightType;   // ë¹›ì˜ íƒ€ì…(ë°©í–¥ì„±, ì , ìŠ¤í¬íŠ¸)
+	float		Radius;		 // ë¹›ì˜ ë°˜ê²½(ì‚¬ê±°ë¦¬)
+	float		Angle;		 // ë¹›ì˜ ê°ë„
 	int			padding;
 };
 
@@ -86,82 +86,82 @@ struct tAnim2DFrm
 // Particle
 struct tParticle
 {
-	Vec4	vLocalPos;		// ¿ÀºêÁ§Æ®·ÎºÎÅÍ ¶³¾îÁø °Å¸®
-	Vec4	vWorldPos;		// ÆÄÆ¼Å¬ ÃÖÁ¾ ¿ùµåÀ§Ä¡
-	Vec4	vWorldScale;	// ÆÄÆ¼Å¬ Å©±â	
-	Vec4	vColor;			// ÆÄÆ¼Å¬ »ö»ó
-	Vec4	vVelocity;		// ÆÄÆ¼Å¬ ÇöÀç ¼Óµµ
-	Vec4	vForce;			// ÆÄÆ¼Å¬¿¡ ÁÖ¾îÁø Èû
-	Vec4	vRandomForce;	// ÆÄÆ¼Å¬¿¡ Àû¿ëµÇ´Â ·£´ı¹æÇâ Èû
+	Vec4	vLocalPos;		// ì˜¤ë¸Œì íŠ¸ë¡œë¶€í„° ë–¨ì–´ì§„ ê±°ë¦¬
+	Vec4	vWorldPos;		// íŒŒí‹°í´ ìµœì¢… ì›”ë“œìœ„ì¹˜
+	Vec4	vWorldScale;	// íŒŒí‹°í´ í¬ê¸°	
+	Vec4	vColor;			// íŒŒí‹°í´ ìƒ‰ìƒ
+	Vec4	vVelocity;		// íŒŒí‹°í´ í˜„ì¬ ì†ë„
+	Vec4	vForce;			// íŒŒí‹°í´ì— ì£¼ì–´ì§„ í˜
+	Vec4	vRandomForce;	// íŒŒí‹°í´ì— ì ìš©ë˜ëŠ” ëœë¤ë°©í–¥ í˜
 
-	float   Age;			// »ıÁ¸ ½Ã°£
-	float   PrevAge;		// ÀÌÀü ÇÁ·¹ÀÓ »ıÁ¸ ½Ã°£
-	float   NomalizedAge;	// ¼ö¸í´ëºñ »ıÁ¸½Ã°£À» 0~1·Î Á¤±ÔÈ­ ÇÑ °ª
-	float	LifeTime;		// ¼ö¸í
-	float	Mass;			// Áú·®
-	float   ScaleFactor;	// Ãß°¡ Å©±â ¹èÀ²
+	float   Age;			// ìƒì¡´ ì‹œê°„
+	float   PrevAge;		// ì´ì „ í”„ë ˆì„ ìƒì¡´ ì‹œê°„
+	float   NomalizedAge;	// ìˆ˜ëª…ëŒ€ë¹„ ìƒì¡´ì‹œê°„ì„ 0~1ë¡œ ì •ê·œí™” í•œ ê°’
+	float	LifeTime;		// ìˆ˜ëª…
+	float	Mass;			// ì§ˆëŸ‰
+	float   ScaleFactor;	// ì¶”ê°€ í¬ê¸° ë°°ìœ¨
 
-	int     Active;			// ÆÄÆ¼Å¬ È°¼ºÈ­ ¿©ºÎ
+	int     Active;			// íŒŒí‹°í´ í™œì„±í™” ì—¬ë¶€
 	int     pad;
 };
 
 struct tRWParticleBuffer
 {	
-	int		SpawnCount;			// ½ºÆù ½ÃÅ³ ÆÄÆ¼Å¬ °³¼ö
+	int		SpawnCount;			// ìŠ¤í° ì‹œí‚¬ íŒŒí‹°í´ ê°œìˆ˜
 	int		padding[3];
 };
 
 
 struct tParticleModule
 {
-	// ½ºÆù ¸ğµâ
+	// ìŠ¤í° ëª¨ë“ˆ
 	Vec4    vSpawnColor;
 	Vec4	vSpawnScaleMin;
 	Vec4	vSpawnScaleMax;
 	Vec3	vBoxShapeScale;	
 	float	fSphereShapeRadius;	
 	int		SpawnShapeType;		// 0 : BOX, 1 : Sphere
-	int		SpawnRate;			// ÃÊ´ç »ı¼º °³¼ö
-	int		Space;				// ÆÄÆ¼Å¬ ¾÷µ¥ÀÌÆ® ÁÂÇ¥°è ( 0 : World,  1 : Local)
-	float   MinLifeTime;		// ÃÖ¼Ò ¼ö¸í
-	float   MaxLifeTime;		// ÃÖ´ë ¼ö¸í
+	int		SpawnRate;			// ì´ˆë‹¹ ìƒì„± ê°œìˆ˜
+	int		Space;				// íŒŒí‹°í´ ì—…ë°ì´íŠ¸ ì¢Œí‘œê³„ ( 0 : World,  1 : Local)
+	float   MinLifeTime;		// ìµœì†Œ ìˆ˜ëª…
+	float   MaxLifeTime;		// ìµœëŒ€ ìˆ˜ëª…
 	int     spawnpad[3];
 
-	// Color Change ¸ğµâ
-	Vec4	vStartColor;		// ÃÊ±â »ö»ó
-	Vec4	vEndColor;			// ÃÖÁ¾ »ö»ó
+	// Color Change ëª¨ë“ˆ
+	Vec4	vStartColor;		// ì´ˆê¸° ìƒ‰ìƒ
+	Vec4	vEndColor;			// ìµœì¢… ìƒ‰ìƒ
 
-	// Scale Change ¸ğµâ
-	float	StartScale;			// ÃÊ±â ¹èÀ²
-	float	EndScale;			// ÃÖÁ¾ ¹èÀ²	
+	// Scale Change ëª¨ë“ˆ
+	float	StartScale;			// ì´ˆê¸° ë°°ìœ¨
+	float	EndScale;			// ìµœì¢… ë°°ìœ¨	
 
-	// ¹öÆÛ ÃÖ´ëÅ©±â
+	// ë²„í¼ ìµœëŒ€í¬ê¸°
 	int		iMaxParticleCount;
 	int		ipad;
 
-	// Add Velocity ¸ğµâ
+	// Add Velocity ëª¨ë“ˆ
 	Vec4	vVelocityDir;
 	int     AddVelocityType;	// 0 : From Center, 1: To Center, 2 : Fixed Direction	
 	float	OffsetAngle;		
 	float	Speed;
 	int     addvpad;
 
-	// Drag ¸ğµâ - ¼Óµµ Á¦ÇÑ
+	// Drag ëª¨ë“ˆ - ì†ë„ ì œí•œ
 	float	StartDrag;
 	float	EndDrag;
 
-	// NoiseForce ¸ğµâ - ·£´ı Èû Àû¿ë	
-	float	fNoiseTerm;		// ·£´ı Èû º¯°æ °£°İ
-	float	fNoiseForce;	// ·£´ı Èû Å©±â
+	// NoiseForce ëª¨ë“ˆ - ëœë¤ í˜ ì ìš©	
+	float	fNoiseTerm;		// ëœë¤ í˜ ë³€ê²½ ê°„ê²©
+	float	fNoiseForce;	// ëœë¤ í˜ í¬ê¸°
 
-	// Render ¸ğµâ
-	int		VelocityAlignment;	// 1 : ¼ÓµµÁ¤·Ä »ç¿ë(ÀÌµ¿ ¹æÇâÀ¸·Î È¸Àü) 0 : »ç¿ë ¾ÈÇÔ
-	int		VelocityScale;		// 1 : ¼Óµµ¿¡ µû¸¥ Å©±â º¯È­ »ç¿ë, 0 : »ç¿ë ¾ÈÇÔ	
-	float   vMaxSpeed;			// ÃÖ´ë Å©±â¿¡ µµ´ŞÇÏ´Â ¼Ó·Â
-	Vec4	vMaxVelocityScale;	// ¼Ó·Â¿¡ µû¸¥ Å©±â º¯È­·® ÃÖ´ëÄ¡
+	// Render ëª¨ë“ˆ
+	int		VelocityAlignment;	// 1 : ì†ë„ì •ë ¬ ì‚¬ìš©(ì´ë™ ë°©í–¥ìœ¼ë¡œ íšŒì „) 0 : ì‚¬ìš© ì•ˆí•¨
+	int		VelocityScale;		// 1 : ì†ë„ì— ë”°ë¥¸ í¬ê¸° ë³€í™” ì‚¬ìš©, 0 : ì‚¬ìš© ì•ˆí•¨	
+	float   vMaxSpeed;			// ìµœëŒ€ í¬ê¸°ì— ë„ë‹¬í•˜ëŠ” ì†ë ¥
+	Vec4	vMaxVelocityScale;	// ì†ë ¥ì— ë”°ë¥¸ í¬ê¸° ë³€í™”ëŸ‰ ìµœëŒ€ì¹˜
 	int		renderpad;
 
-	// Animation ¸ğµâ
+	// Animation ëª¨ë“ˆ
 	Vec2	vLeftTop;
 	Vec2	vSlice;
 	Vec2	vOffset;
@@ -169,18 +169,18 @@ struct tParticleModule
 	int		iXCount;
 
 	// Module Check
-	int		ModuleCheck[(UINT)PARTICLE_MODULE::END];
+	int		ModuleCheck[static_cast<UINT>(PARTICLE_MODULE::END)];
 };
 
 
-// ±¤¼± ±¸Á¶Ã¼
+// ê´‘ì„  êµ¬ì¡°ì²´
 struct tRay
 {
 	Vec3 vStart;
 	Vec3 vDir;
 };
 
-// RayCast °á°ú¸¦ ¹ŞÀ» ±¸Á¶Ã¼
+// RayCast ê²°ê³¼ë¥¼ ë°›ì„ êµ¬ì¡°ì²´
 struct tRaycastOut
 {
 	Vec2 vUV;
@@ -226,7 +226,7 @@ struct tInstancingData
 
 
 
-// Material °è¼ö
+// Material ê³„ìˆ˜
 struct tMtrlData
 {
 	Vec4 vDiff;
@@ -261,8 +261,8 @@ struct tMTBone
 	wstring				strBoneName;
 	int					iDepth;
 	int					iParentIndx;
-	Matrix				matOffset;	// Offset Çà·Ä(»À -> ·çÆ® ±îÁöÀÇ Çà·Ä)
-	Matrix				matBone;   // ÀÌ°Å ¾È¾¸
+	Matrix				matOffset;	// Offset í–‰ë ¬(ë¼ˆ -> ë£¨íŠ¸ ê¹Œì§€ì˜ í–‰ë ¬)
+	Matrix				matBone;   // ì´ê±° ì•ˆì”€
 	vector<tMTKeyFrame>	vecKeyFrame;
 };
 
@@ -276,7 +276,7 @@ struct tMTAnimClip
 	double			dStartTime;
 	double			dEndTime;
 	double			dTimeLength;
-	float			fUpdateTime; // ÀÌ°Å ¾È¾¸
+	float			fUpdateTime; // ì´ê±° ì•ˆì”€
 
 	FbxTime::EMode	eMode;
 };
@@ -284,7 +284,7 @@ struct tMTAnimClip
 
 
 // ===================
-// »ó¼ö¹öÆÛ ´ëÀÀ ±¸Á¶Ã¼
+// ìƒìˆ˜ë²„í¼ ëŒ€ì‘ êµ¬ì¡°ì²´
 // ===================
 struct tTransform
 {
@@ -312,9 +312,9 @@ struct tMtrlConst
 	Vec4 arrV4[4];
 	Matrix arrMat[4];
 
-	int arrTex[(UINT)TEX_PARAM::TEX_END];
+	int arrTex[static_cast<UINT>(TEX_PARAM::TEX_END)];
 
-	int	arrAnimData[4];	// 3D Animation Á¤º¸
+	int	arrAnimData[4];	// 3D Animation ì •ë³´
 };
 
 

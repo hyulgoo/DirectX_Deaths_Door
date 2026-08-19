@@ -16,6 +16,6 @@ public:
 
 public:
     CPlyDead();
-    ~CPlyDead();
+    virtual ~CPlyDead() override;
 };
 

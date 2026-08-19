@@ -16,6 +16,6 @@ public:
 
 public:
     CCrowBossStandingDeath();
-    ~CCrowBossStandingDeath();
+    virtual ~CCrowBossStandingDeath() override;
 };
 

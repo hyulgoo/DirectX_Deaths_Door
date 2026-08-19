@@ -3,8 +3,8 @@
 
 #include "ParamUI.h"
 
-#include <Engine\CResMgr.h>
-#include <Engine\CMaterial.h>
+#include <Engine/CResMgr.h>
+#include <Engine/CMaterial.h>
 
 MaterialUI::MaterialUI()
     : ResUI(RES_TYPE::MATERIAL)
@@ -20,7 +20,7 @@ int MaterialUI::render_update()
 {
     ResUI::render_update();
 
-    // Material ÀÌ¸§
+    // Material ì´ë¦„
     ImGui::Text("Material"); 
     ImGui::SameLine();
 
@@ -28,7 +28,7 @@ int MaterialUI::render_update()
     string strKey = string(pMtrl->GetKey().begin(), pMtrl->GetKey().end());
     ImGui::InputText("##MtrlUIName", (char*)strKey.c_str(), ImGuiInputTextFlags_::ImGuiInputTextFlags_ReadOnly);
 
-    // GraphicsShader ÀÌ¸§
+    // GraphicsShader ì´ë¦„
     ImGui::Text("Shader  ");
     ImGui::SameLine();
 
@@ -48,7 +48,7 @@ int MaterialUI::render_update()
     ImGui::Text("Parameter");
     
 
-    // Shader ¿¡¼­ ¿ä±¸ÇÏ´Â ScalarParameter ¸¦ UI ¿¡ ³ëÃâ
+    // Shader ì—ì„œ ìš”êµ¬í•˜ëŠ” ScalarParameter ë¥¼ UI ì— ë…¸ì¶œ
     if (nullptr == pShader)
         return 0;
 
@@ -58,18 +58,18 @@ int MaterialUI::render_update()
     {
         switch (vecScalarParam[i].eParam)
         {
-        // Shader Parameter °¡ Int Å¸ÀÔÀÎ °æ¿ì
+        // Shader Parameter ê°€ Int íƒ€ì…ì¸ ê²½ìš°
         case INT_0:
         case INT_1:
         case INT_2:
         case INT_3:
         {
-            // ÇöÀç ¸ÓÆ¼¸®¾ó¿¡ ¼¼ÆÃµÈ °ªÀ» Àü´Ş   
+            // í˜„ì¬ ë¨¸í‹°ë¦¬ì–¼ì— ì„¸íŒ…ëœ ê°’ì„ ì „ë‹¬   
             int data = 0;
             pMtrl->GetScalarParam(vecScalarParam[i].eParam, &data);
             if (ParamUI::Param_Int(vecScalarParam[i].strDesc, &data))
             {
-                // UI ÂÊ¿¡¼­ °ªÀÌ º¯°æµÇ¾úÀ¸¸é, ½ÇÁ¦ ¸ÓÆ¼¸®¾ó ¿¡µµ Àû¿ë
+                // UI ìª½ì—ì„œ ê°’ì´ ë³€ê²½ë˜ì—ˆìœ¼ë©´, ì‹¤ì œ ë¨¸í‹°ë¦¬ì–¼ ì—ë„ ì ìš©
                 pMtrl->SetScalarParam(vecScalarParam[i].eParam, &data);
             }
         }
@@ -79,12 +79,12 @@ int MaterialUI::render_update()
         case FLOAT_2:
         case FLOAT_3:
         {
-            // ÇöÀç ¸ÓÆ¼¸®¾ó¿¡ ¼¼ÆÃµÈ °ªÀ» Àü´Ş   
+            // í˜„ì¬ ë¨¸í‹°ë¦¬ì–¼ì— ì„¸íŒ…ëœ ê°’ì„ ì „ë‹¬   
             float data = 0;
             pMtrl->GetScalarParam(vecScalarParam[i].eParam, &data);
             if (ParamUI::Param_Float(vecScalarParam[i].strDesc, &data))
             {
-                // UI ÂÊ¿¡¼­ °ªÀÌ º¯°æµÇ¾úÀ¸¸é, ½ÇÁ¦ ¸ÓÆ¼¸®¾ó ¿¡µµ Àû¿ë
+                // UI ìª½ì—ì„œ ê°’ì´ ë³€ê²½ë˜ì—ˆìœ¼ë©´, ì‹¤ì œ ë¨¸í‹°ë¦¬ì–¼ ì—ë„ ì ìš©
                 pMtrl->SetScalarParam(vecScalarParam[i].eParam, &data);
             }
         }
@@ -94,12 +94,12 @@ int MaterialUI::render_update()
         case VEC2_2:
         case VEC2_3:
         {
-            // ÇöÀç ¸ÓÆ¼¸®¾ó¿¡ ¼¼ÆÃµÈ °ªÀ» Àü´Ş   
+            // í˜„ì¬ ë¨¸í‹°ë¦¬ì–¼ì— ì„¸íŒ…ëœ ê°’ì„ ì „ë‹¬   
             Vec2 data;
             pMtrl->GetScalarParam(vecScalarParam[i].eParam, &data);
             if (ParamUI::Param_Vec2(vecScalarParam[i].strDesc, &data))
             {
-                // UI ÂÊ¿¡¼­ °ªÀÌ º¯°æµÇ¾úÀ¸¸é, ½ÇÁ¦ ¸ÓÆ¼¸®¾ó ¿¡µµ Àû¿ë
+                // UI ìª½ì—ì„œ ê°’ì´ ë³€ê²½ë˜ì—ˆìœ¼ë©´, ì‹¤ì œ ë¨¸í‹°ë¦¬ì–¼ ì—ë„ ì ìš©
                 pMtrl->SetScalarParam(vecScalarParam[i].eParam, &data);
             }
         }
@@ -109,12 +109,12 @@ int MaterialUI::render_update()
         case VEC4_2:
         case VEC4_3:
         {
-            // ÇöÀç ¸ÓÆ¼¸®¾ó¿¡ ¼¼ÆÃµÈ °ªÀ» Àü´Ş   
+            // í˜„ì¬ ë¨¸í‹°ë¦¬ì–¼ì— ì„¸íŒ…ëœ ê°’ì„ ì „ë‹¬   
             Vec4 data;
             pMtrl->GetScalarParam(vecScalarParam[i].eParam, &data);
             if (ParamUI::Param_Vec4(vecScalarParam[i].strDesc, &data))
             {
-                // UI ÂÊ¿¡¼­ °ªÀÌ º¯°æµÇ¾úÀ¸¸é, ½ÇÁ¦ ¸ÓÆ¼¸®¾ó ¿¡µµ Àû¿ë
+                // UI ìª½ì—ì„œ ê°’ì´ ë³€ê²½ë˜ì—ˆìœ¼ë©´, ì‹¤ì œ ë¨¸í‹°ë¦¬ì–¼ ì—ë„ ì ìš©
                 pMtrl->SetScalarParam(vecScalarParam[i].eParam, &data);
             }
         }
@@ -127,7 +127,7 @@ int MaterialUI::render_update()
         }        
     }
 
-    // Shader ¿¡¼­ ¿ä±¸ÇÏ´Â Texture Parameter ¸¦ UI ¿¡ ³ëÃâ
+    // Shader ì—ì„œ ìš”êµ¬í•˜ëŠ” Texture Parameter ë¥¼ UI ì— ë…¸ì¶œ
     const vector<tTexParam>& vecTexParam = pShader->GetTexParam();
     for (size_t i = 0; i < vecTexParam.size(); ++i)
     {

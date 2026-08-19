@@ -21,7 +21,7 @@ CDevice::~CDevice()
 int CDevice::init(HWND _hWnd, UINT _iWidth, UINT _iHeight)
 {
     m_hWnd = _hWnd;    
-    m_vRenderResolution = Vec2((float)_iWidth, (float)_iHeight);
+    m_vRenderResolution = Vec2(static_cast<float>(_iWidth), static_cast<float>(_iHeight));
 
     GlobalData.Resolution = m_vRenderResolution;
 
@@ -43,23 +43,23 @@ int CDevice::init(HWND _hWnd, UINT _iWidth, UINT _iHeight)
         , m_Device.GetAddressOf(), &eLevel
         , m_Context.GetAddressOf())))
     {
-        MessageBox(nullptr, L"Device, Context »ı¼º ½ÇÆĞ", L"Device ÃÊ±âÈ­ ¿¡·¯", MB_OK);
+        MessageBox(nullptr, L"Device, Context ìƒì„± ì‹¤íŒ¨", L"Device ì´ˆê¸°í™” ì—ëŸ¬", MB_OK);
         return E_FAIL;
     }
 
     if (FAILED(CreateSwapChain()))
     {
-        MessageBox(nullptr, L"½ºÆÃ¼ÀÎ »ı¼º ½ÇÆĞ", L"Device ÃÊ±âÈ­ ¿¡·¯", MB_OK);
+        MessageBox(nullptr, L"ìŠ¤ì™šì²´ì¸ ìƒì„± ì‹¤íŒ¨", L"Device ì´ˆê¸°í™” ì—ëŸ¬", MB_OK);
         return E_FAIL;
     }
 
     if (FAILED(CreateView()))
     {
-        MessageBox(nullptr, L"View »ı¼º ½ÇÆĞ", L"Device ÃÊ±âÈ­ ¿¡·¯", MB_OK);
+        MessageBox(nullptr, L"View ìƒì„± ì‹¤íŒ¨", L"Device ì´ˆê¸°í™” ì—ëŸ¬", MB_OK);
         return E_FAIL;
     }
 
-    // ViewPort ¼³Á¤
+    // ViewPort ì„¤ì •
     m_ViewPort.TopLeftX = 0.f;
     m_ViewPort.TopLeftY = 0.f;
 
@@ -73,36 +73,36 @@ int CDevice::init(HWND _hWnd, UINT _iWidth, UINT _iHeight)
     m_Context->RSSetViewports(1, &m_ViewPort);
 
 
-    // RasterizerState »ı¼º
+    // RasterizerState ìƒì„±
     if (FAILED(CreateRasterizerState()))
     {
-        MessageBox(nullptr, L"·¹½ºÅÍ¶óÀÌÁ® ½ºÅ×ÀÌÆ® »ı¼º ½ÇÆĞ", L"Device ÃÊ±âÈ­ ¿¡·¯", MB_OK);
+        MessageBox(nullptr, L"ë ˆìŠ¤í„°ë¼ì´ì ¸ ìŠ¤í…Œì´íŠ¸ ìƒì„± ì‹¤íŒ¨", L"Device ì´ˆê¸°í™” ì—ëŸ¬", MB_OK);
         return E_FAIL;
     }
 
-    // DepthStencilState »ı¼º
+    // DepthStencilState ìƒì„±
     if (FAILED(CreateDepthStencilState()))
     {
-        MessageBox(nullptr, L"DepthStencilState »ı¼º ½ÇÆĞ", L"Device ÃÊ±âÈ­ ¿¡·¯", MB_OK);
+        MessageBox(nullptr, L"DepthStencilState ìƒì„± ì‹¤íŒ¨", L"Device ì´ˆê¸°í™” ì—ëŸ¬", MB_OK);
         return E_FAIL;
     }
 
-    // BlendState »ı¼º
+    // BlendState ìƒì„±
     if (FAILED(CreateBlendState()))
     {
-        MessageBox(nullptr, L"BlendState »ı¼º ½ÇÆĞ", L"Device ÃÊ±âÈ­ ¿¡·¯", MB_OK);
+        MessageBox(nullptr, L"BlendState ìƒì„± ì‹¤íŒ¨", L"Device ì´ˆê¸°í™” ì—ëŸ¬", MB_OK);
         return E_FAIL;
     }
 
-    // »ùÇÃ·¯ »ı¼º
+    // ìƒ˜í”ŒëŸ¬ ìƒì„±
     if (FAILED(CreateSampler()))
     {
-        MessageBox(nullptr, L"»ùÇÃ·¯ »ı¼º ½ÇÆĞ", L"Device ÃÊ±âÈ­ ¿¡·¯", MB_OK);
+        MessageBox(nullptr, L"ìƒ˜í”ŒëŸ¬ ìƒì„± ì‹¤íŒ¨", L"Device ì´ˆê¸°í™” ì—ëŸ¬", MB_OK);
         return E_FAIL;
     }
 
 
-    // »ó¼ö¹öÆÛ »ı¼º
+    // ìƒìˆ˜ë²„í¼ ìƒì„±
     CreateConstBuffer();
 
 
@@ -111,21 +111,21 @@ int CDevice::init(HWND _hWnd, UINT _iWidth, UINT _iHeight)
 
 int CDevice::CreateSwapChain()
 {
-    // ½ºÆÃ¼ÀÎ ¼³Á¤
+    // ìŠ¤ì™šì²´ì¸ ì„¤ì •
     DXGI_SWAP_CHAIN_DESC tDesc = {};
 
-    tDesc.OutputWindow = m_hWnd;    // Ãâ·Â À©µµ¿ì
-    tDesc.Windowed = true;          // Ã¢¸ğµå, ÀüÃ¼È­¸é ¸ğµå
+    tDesc.OutputWindow = m_hWnd;    // ì¶œë ¥ ìœˆë„ìš°
+    tDesc.Windowed = true;          // ì°½ëª¨ë“œ, ì „ì²´í™”ë©´ ëª¨ë“œ
 
-    tDesc.BufferCount = 1;              
-    tDesc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
-    tDesc.BufferDesc.Width = (UINT)m_vRenderResolution.x;
-    tDesc.BufferDesc.Height = (UINT)m_vRenderResolution.y;
-    tDesc.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
+    tDesc.BufferCount                        = 1;              
+    tDesc.BufferUsage                        = DXGI_USAGE_RENDER_TARGET_OUTPUT;
+    tDesc.BufferDesc.Width                   = static_cast<UINT>(m_vRenderResolution.x);
+    tDesc.BufferDesc.Height                  = static_cast<UINT>(m_vRenderResolution.y);
+    tDesc.BufferDesc.Format                  = DXGI_FORMAT_R8G8B8A8_UNORM;
     tDesc.BufferDesc.RefreshRate.Denominator = 1;
-    tDesc.BufferDesc.RefreshRate.Numerator = 60;
-    tDesc.BufferDesc.Scaling = DXGI_MODE_SCALING_UNSPECIFIED;
-    tDesc.BufferDesc.ScanlineOrdering = DXGI_MODE_SCANLINE_ORDER::DXGI_MODE_SCANLINE_ORDER_UNSPECIFIED;
+    tDesc.BufferDesc.RefreshRate.Numerator   = 60;
+    tDesc.BufferDesc.Scaling                 = DXGI_MODE_SCALING_UNSPECIFIED;
+    tDesc.BufferDesc.ScanlineOrdering        = DXGI_MODE_SCANLINE_ORDER::DXGI_MODE_SCANLINE_ORDER_UNSPECIFIED;
     
     tDesc.SwapEffect = DXGI_SWAP_EFFECT::DXGI_SWAP_EFFECT_DISCARD;
 
@@ -134,7 +134,7 @@ int CDevice::CreateSwapChain()
     tDesc.Flags = 0;
     
 
-    // ½ºÆÃ¼ÀÎ »ı¼º
+    // ìŠ¤ì™šì²´ì¸ ìƒì„±
     ComPtr<IDXGIDevice>  pDXGIDevice;
     ComPtr<IDXGIAdapter> pAdapter;
     ComPtr<IDXGIFactory> pFactory;
@@ -150,17 +150,17 @@ int CDevice::CreateSwapChain()
     return hr;
 }
 
-int CDevice::CreateView()
+int CDevice::CreateView() const
 {
     ComPtr<ID3D11Texture2D> tex2D;
     m_SwapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), (void**)tex2D.GetAddressOf());
     
-    // RenderTarget ¿ë ÅØ½ºÃÄ µî·Ï
+    // RenderTarget ìš© í…ìŠ¤ì³ ë“±ë¡
     CResMgr::GetInst()->CreateTexture(L"RenderTargetTex", tex2D);
 
-    // DepthStencil ¿ëµµ ÅØ½ºÃÄ »ı¼º
+    // DepthStencil ìš©ë„ í…ìŠ¤ì³ ìƒì„±
     CResMgr::GetInst()->CreateTexture(L"DepthStencilTex"
-        , (UINT)m_vRenderResolution.x, (UINT)m_vRenderResolution.y
+        , static_cast<UINT>(m_vRenderResolution.x), static_cast<UINT>(m_vRenderResolution.y)
         , DXGI_FORMAT_D24_UNORM_S8_UINT, D3D11_BIND_DEPTH_STENCIL, D3D11_USAGE_DEFAULT);
 
     return S_OK;
@@ -168,20 +168,20 @@ int CDevice::CreateView()
 
 int CDevice::CreateRasterizerState()
 {
-    m_RSState[(UINT)RS_TYPE::CULL_BACK] = nullptr;
+    m_RSState[static_cast<UINT>(RS_TYPE::CULL_BACK)] = nullptr;
 
     D3D11_RASTERIZER_DESC Desc = {};
     Desc.CullMode = D3D11_CULL_MODE::D3D11_CULL_FRONT;
     Desc.FillMode = D3D11_FILL_MODE::D3D11_FILL_SOLID;
-    DEVICE->CreateRasterizerState(&Desc, m_RSState[(UINT)RS_TYPE::CULL_FRONT].GetAddressOf());
+    DEVICE->CreateRasterizerState(&Desc, m_RSState[static_cast<UINT>(RS_TYPE::CULL_FRONT)].GetAddressOf());
 
     Desc.CullMode = D3D11_CULL_MODE::D3D11_CULL_NONE;
     Desc.FillMode = D3D11_FILL_MODE::D3D11_FILL_SOLID;
-    DEVICE->CreateRasterizerState(&Desc, m_RSState[(UINT)RS_TYPE::CULL_NONE].GetAddressOf());
+    DEVICE->CreateRasterizerState(&Desc, m_RSState[static_cast<UINT>(RS_TYPE::CULL_NONE)].GetAddressOf());
 
     Desc.CullMode = D3D11_CULL_MODE::D3D11_CULL_NONE;
     Desc.FillMode = D3D11_FILL_MODE::D3D11_FILL_WIREFRAME;
-    DEVICE->CreateRasterizerState(&Desc, m_RSState[(UINT)RS_TYPE::WIRE_FRAME].GetAddressOf());
+    DEVICE->CreateRasterizerState(&Desc, m_RSState[static_cast<UINT>(RS_TYPE::WIRE_FRAME)].GetAddressOf());
 
     return S_OK;
 }
@@ -189,7 +189,7 @@ int CDevice::CreateRasterizerState()
 int CDevice::CreateDepthStencilState()
 {
     // Less
-    m_DSState[(UINT)DS_TYPE::LESS] = nullptr;
+    m_DSState[static_cast<UINT>(DS_TYPE::LESS)] = nullptr;
 
     // Less Equal
     D3D11_DEPTH_STENCIL_DESC Desc = {};
@@ -197,34 +197,34 @@ int CDevice::CreateDepthStencilState()
     Desc.DepthFunc = D3D11_COMPARISON_LESS_EQUAL;
     Desc.StencilEnable = false;
     Desc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ALL;
-    DEVICE->CreateDepthStencilState(&Desc, m_DSState[(UINT)DS_TYPE::LESS_EQUAL].GetAddressOf());
+    DEVICE->CreateDepthStencilState(&Desc, m_DSState[static_cast<UINT>(DS_TYPE::LESS_EQUAL)].GetAddressOf());
     
     // Greater
     Desc.DepthEnable = true;
     Desc.DepthFunc = D3D11_COMPARISON_GREATER;
     Desc.StencilEnable = false;
     Desc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ALL;
-    DEVICE->CreateDepthStencilState(&Desc, m_DSState[(UINT)DS_TYPE::GREATER].GetAddressOf());
+    DEVICE->CreateDepthStencilState(&Desc, m_DSState[static_cast<UINT>(DS_TYPE::GREATER)].GetAddressOf());
 
     // Greater Equal
     Desc.DepthEnable = true;
     Desc.DepthFunc = D3D11_COMPARISON_GREATER_EQUAL;
     Desc.StencilEnable = false;
     Desc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ALL;
-    DEVICE->CreateDepthStencilState(&Desc, m_DSState[(UINT)DS_TYPE::GREATER_EQUAL].GetAddressOf());
+    DEVICE->CreateDepthStencilState(&Desc, m_DSState[static_cast<UINT>(DS_TYPE::GREATER_EQUAL)].GetAddressOf());
 
     // No Write
     Desc.DepthEnable = true;
     Desc.DepthFunc = D3D11_COMPARISON_LESS;
     Desc.StencilEnable = false;
     Desc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ZERO;
-    DEVICE->CreateDepthStencilState(&Desc, m_DSState[(UINT)DS_TYPE::NO_WRITE].GetAddressOf());
+    DEVICE->CreateDepthStencilState(&Desc, m_DSState[static_cast<UINT>(DS_TYPE::NO_WRITE)].GetAddressOf());
 
     // NoTest NoWrite
     Desc.DepthEnable = false;
     Desc.StencilEnable = false;
     Desc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ZERO;
-    DEVICE->CreateDepthStencilState(&Desc, m_DSState[(UINT)DS_TYPE::NO_TEST_NO_WRITE].GetAddressOf());
+    DEVICE->CreateDepthStencilState(&Desc, m_DSState[static_cast<UINT>(DS_TYPE::NO_TEST_NO_WRITE)].GetAddressOf());
 
 
 
@@ -234,7 +234,7 @@ int CDevice::CreateDepthStencilState()
 int CDevice::CreateBlendState()
 {
     // No Blend
-    m_BSState[(UINT)BS_TYPE::DEFAULT] = nullptr;
+    m_BSState[static_cast<UINT>(BS_TYPE::DEFAULT)] = nullptr;
 
     // Mask
     D3D11_BLEND_DESC Desc = {};
@@ -252,7 +252,7 @@ int CDevice::CreateBlendState()
 
     Desc.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
 
-    DEVICE->CreateBlendState(&Desc, m_BSState[(UINT)BS_TYPE::MASK].GetAddressOf());
+    DEVICE->CreateBlendState(&Desc, m_BSState[static_cast<UINT>(BS_TYPE::MASK)].GetAddressOf());
 
 
     // Alpha Blend
@@ -269,7 +269,7 @@ int CDevice::CreateBlendState()
     Desc.RenderTarget[0].DestBlendAlpha = D3D11_BLEND_ONE;
 
     Desc.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
-    DEVICE->CreateBlendState(&Desc, m_BSState[(UINT)BS_TYPE::ALPHA_BLEND].GetAddressOf());
+    DEVICE->CreateBlendState(&Desc, m_BSState[static_cast<UINT>(BS_TYPE::ALPHA_BLEND)].GetAddressOf());
 
 
 
@@ -288,7 +288,7 @@ int CDevice::CreateBlendState()
     Desc.RenderTarget[0].DestBlendAlpha = D3D11_BLEND_ZERO;
 
     Desc.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
-    DEVICE->CreateBlendState(&Desc, m_BSState[(UINT)BS_TYPE::ONE_ONE].GetAddressOf());
+    DEVICE->CreateBlendState(&Desc, m_BSState[static_cast<UINT>(BS_TYPE::ONE_ONE)].GetAddressOf());
 
     return S_OK;
 }
@@ -307,16 +307,16 @@ int CDevice::CreateSampler()
     tSamDesc.AddressV = D3D11_TEXTURE_ADDRESS_WRAP;
     tSamDesc.AddressW = D3D11_TEXTURE_ADDRESS_WRAP;
     tSamDesc.Filter   = D3D11_FILTER_ANISOTROPIC;    
-    // ÅØ½ºÃÄ¸¦ »ùÇÃ¸µÇÒ ¶§ »ç¿ëÇÒ ¹Ó·¹º§ ¼öÁØ ÁöÁ¤
+    // í…ìŠ¤ì³ë¥¼ ìƒ˜í”Œë§í•  ë•Œ ì‚¬ìš©í•  ë°‰ë ˆë²¨ ìˆ˜ì¤€ ì§€ì •
     tSamDesc.MaxLOD   = D3D11_FLOAT32_MAX;
-    DEVICE->CreateSamplerState(&tSamDesc, m_Sampler[0].GetAddressOf());//ÀÌÁß ÇÊÅÍ¸µ
+    DEVICE->CreateSamplerState(&tSamDesc, m_Sampler[0].GetAddressOf());//ì´ì¤‘ í•„í„°ë§
 
     tSamDesc.AddressU = D3D11_TEXTURE_ADDRESS_WRAP;
     tSamDesc.AddressV = D3D11_TEXTURE_ADDRESS_WRAP;
     tSamDesc.AddressW = D3D11_TEXTURE_ADDRESS_WRAP;
     tSamDesc.Filter   = D3D11_FILTER_MIN_MAG_MIP_POINT;
     tSamDesc.MaxLOD   = D3D11_FLOAT32_MAX;
-    DEVICE->CreateSamplerState(&tSamDesc, m_Sampler[1].GetAddressOf());//¹Î¸Ê
+    DEVICE->CreateSamplerState(&tSamDesc, m_Sampler[1].GetAddressOf());//ë¯¼ë§µ
 
     CONTEXT->VSSetSamplers(0, 1, m_Sampler[0].GetAddressOf());
     CONTEXT->HSSetSamplers(0, 1, m_Sampler[0].GetAddressOf());
@@ -338,12 +338,12 @@ int CDevice::CreateSampler()
 
 void CDevice::CreateConstBuffer()
 {
-    m_arrConstBuffer[(UINT)CB_TYPE::TRANSFORM] = new CConstBuffer((UINT)CB_TYPE::TRANSFORM);
-    m_arrConstBuffer[(UINT)CB_TYPE::TRANSFORM]->Create(sizeof(tTransform), 1);
+    m_arrConstBuffer[static_cast<UINT>(CB_TYPE::TRANSFORM)] = new CConstBuffer(static_cast<UINT>(CB_TYPE::TRANSFORM));
+    m_arrConstBuffer[static_cast<UINT>(CB_TYPE::TRANSFORM)]->Create(sizeof(tTransform), 1);
 
-    m_arrConstBuffer[(UINT)CB_TYPE::MATERIAL] = new CConstBuffer((UINT)CB_TYPE::MATERIAL);
-    m_arrConstBuffer[(UINT)CB_TYPE::MATERIAL]->Create(sizeof(tMtrlConst), 1);
+    m_arrConstBuffer[static_cast<UINT>(CB_TYPE::MATERIAL)] = new CConstBuffer(static_cast<UINT>(CB_TYPE::MATERIAL));
+    m_arrConstBuffer[static_cast<UINT>(CB_TYPE::MATERIAL)]->Create(sizeof(tMtrlConst), 1);
 
-    m_arrConstBuffer[(UINT)CB_TYPE::GLOBAL] = new CConstBuffer((UINT)CB_TYPE::GLOBAL);
-    m_arrConstBuffer[(UINT)CB_TYPE::GLOBAL]->Create(sizeof(tGlobal), 1);
+    m_arrConstBuffer[static_cast<UINT>(CB_TYPE::GLOBAL)] = new CConstBuffer(static_cast<UINT>(CB_TYPE::GLOBAL));
+    m_arrConstBuffer[static_cast<UINT>(CB_TYPE::GLOBAL)]->Create(sizeof(tGlobal), 1);
 }

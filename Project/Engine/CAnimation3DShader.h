@@ -24,11 +24,11 @@ public:
 	void SetOutputBuffer(CStructuredBuffer* _buffer) { m_pOutputBuffer = _buffer; }
 
 public:
-	virtual void UpdateData();
-	virtual void Clear();
+	virtual void UpdateData() override;
+	virtual void Clear() override;
 
 public:
 	CAnimation3DShader(UINT _iGroupPerThreadX, UINT _iGroupPerThreadY, UINT _iGroupPerThreadZ);
-	virtual ~CAnimation3DShader();
+	virtual ~CAnimation3DShader() override;
 };
 

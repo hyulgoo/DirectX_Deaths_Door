@@ -1,5 +1,5 @@
 #pragma once
-#include <Engine\CScript.h>
+#include <Engine/CScript.h>
 
 class CMonsterDetectRangeScript :
     public CScript
@@ -14,6 +14,6 @@ public:
 
 public:
     CMonsterDetectRangeScript();
-    ~CMonsterDetectRangeScript();
+    virtual ~CMonsterDetectRangeScript() override;
 };
 

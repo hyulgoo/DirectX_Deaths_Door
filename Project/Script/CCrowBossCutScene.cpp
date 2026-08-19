@@ -10,7 +10,7 @@ void CCrowBossCutScene::Enter()
 {
 	GetOwner()->Animator3D()->Play(1, false);
 
-	// TargetÀ» Owner·Î ¹Ù²Ù°í, MainCamÀ» CutScene ¸ðµå·Î º¯°æ.
+	// Targetì„ Ownerë¡œ ë°”ê¾¸ê³ , MainCamì„ CutScene ëª¨ë“œë¡œ ë³€ê²½.
 	CRenderMgr::GetInst()->GetMainCam()->GetOwner()->GetScript<CGameCameraScript>()->SetTarget(GetOwner());
 	CRenderMgr::GetInst()->GetMainCam()->GetOwner()->GetScript<CGameCameraScript>()->SetCutSceneView(true);
 	
@@ -44,7 +44,7 @@ void CCrowBossCutScene::tick()
 
 void CCrowBossCutScene::Exit()
 {
-	// TargetÀ» ´Ù½Ã Player·Î º¯°æÇÏ°í, MainCamÀ» ÀÏ¹Ý ¸ðµå·Î º¯°æ.
+	// Targetì„ ë‹¤ì‹œ Playerë¡œ ë³€ê²½í•˜ê³ , MainCamì„ ì¼ë°˜ ëª¨ë“œë¡œ ë³€ê²½.
 	CRenderMgr::GetInst()->GetMainCam()->GetOwner()->GetScript<CGameCameraScript>()->SetTargetPlayer();
 	CRenderMgr::GetInst()->GetMainCam()->GetOwner()->GetScript<CGameCameraScript>()->SetCutSceneView(false);
 }

@@ -23,7 +23,7 @@ void CLevelMgr::init()
 	m_pCurLevel->ChangeState(LEVEL_STATE::STOP);	
 }
 
-void CLevelMgr::tick()
+void CLevelMgr::tick() const
 {
 	m_pCurLevel->clear();
 
@@ -40,12 +40,12 @@ void CLevelMgr::tick()
 }
 
 
-CGameObject* CLevelMgr::FindObjectByName(const wstring& _strName)
+CGameObject* CLevelMgr::FindObjectByName(const wstring& _strName) const
 {
 	return m_pCurLevel->FindObjectByName(_strName);	
 }
 
-void CLevelMgr::FindObjectByName(const wstring& _strName, vector<CGameObject*>& _vec)
+void CLevelMgr::FindObjectByName(const wstring& _strName, vector<CGameObject*>& _vec) const
 {
 	m_pCurLevel->FindObjectByName(_strName, _vec);
 }
@@ -73,6 +73,6 @@ void CLevelMgr::ChangeLevel(CLevel* _NextLevel)
 	}
 	
 	m_pCurLevel = _NextLevel;
-	CPhysXMgr::GetInst()->ChangeLevel(((LEVEL_TYPE)m_pCurLevel->GetLevelType()));
-	CDetourMgr::GetInst()->ChangeLevel(((LEVEL_TYPE)m_pCurLevel->GetLevelType()));
+	CPhysXMgr::GetInst()->ChangeLevel(static_cast<LEVEL_TYPE>(m_pCurLevel->GetLevelType()));
+	CDetourMgr::GetInst()->ChangeLevel(static_cast<LEVEL_TYPE>(m_pCurLevel->GetLevelType()));
 }

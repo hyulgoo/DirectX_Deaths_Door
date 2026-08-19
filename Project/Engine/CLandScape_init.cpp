@@ -18,11 +18,11 @@ void CLandScape::init()
 
 	CreateTexture();
 
-	// Raycast °á°ú¸¦ ¹Ş´Â ¹öÆÛ
+	// Raycast ê²°ê³¼ë¥¼ ë°›ëŠ” ë²„í¼
 	m_pCrossBuffer = new CStructuredBuffer;
 	m_pCrossBuffer->Create(sizeof(tRaycastOut), 1, SB_TYPE::READ_WRITE, true);
 
-	// Å¸ÀÏ ÅØ½ºÃÄ(Color, Normal È¥ÇÕÀ¸·Î ÃÑ 6ÀåÀ» ¹ŞÀ½)
+	// íƒ€ì¼ í…ìŠ¤ì³(Color, Normal í˜¼í•©ìœ¼ë¡œ ì´ 6ì¥ì„ ë°›ìŒ)
 	m_pTileArrTex = CResMgr::GetInst()->FindRes<CTexture>(L"texture\\tile\\TILE_ARRR.dds");
 	m_pTileArrTex->GenerateMip(8);
 }
@@ -41,12 +41,12 @@ void CLandScape::CreateMesh()
 	{
 		for (UINT j = 0; j <= m_iFaceX; ++j)
 		{
-			v.vPos = Vec3((float)j, 0.f, (float)i);
-			v.vUV = Vec2((float)j, (float)m_iFaceZ - i);
-			v.vTangent = Vec3(1.f, 0.f, 0.f);
-			v.vNormal = Vec3(0.f, 1.f, 0.f);
+			v.vPos      = Vec3(static_cast<float>(j), 0.f, static_cast<float>(i));
+			v.vUV       = Vec2(static_cast<float>(j), static_cast<float>(m_iFaceZ) - i);
+			v.vTangent  = Vec3(1.f, 0.f, 0.f);
+			v.vNormal   = Vec3(0.f, 1.f, 0.f);
 			v.vBinormal = Vec3(0.f, 0.f, -1.f);
-			v.vColor = Vec4(1.f, 1.f, 1.f, 1.f);
+			v.vColor    = Vec4(1.f, 1.f, 1.f, 1.f);
 
 			vecVtx.push_back(v);
 		}
@@ -75,7 +75,7 @@ void CLandScape::CreateMesh()
 	}
 
 	Ptr<CMesh> pMesh = new CMesh;
-	pMesh->Create(vecVtx.data(), (UINT)vecVtx.size(), vecIdx.data(), (UINT)vecIdx.size());
+	pMesh->Create(vecVtx.data(), static_cast<UINT>(vecVtx.size()), vecIdx.data(), static_cast<UINT>(vecIdx.size()));
 	SetMesh(pMesh);
 
 	SetMaterial(CResMgr::GetInst()->FindRes<CMaterial>(L"LandScapeMtrl"), 0);
@@ -83,8 +83,8 @@ void CLandScape::CreateMesh()
 
 void CLandScape::CreateComputeShader()
 {
-	// ³ôÀÌ ¼öÁ¤ Compute Shader
-	m_pCSHeightMap = (CHeightMapShader*)CResMgr::GetInst()->FindRes<CComputeShader>(L"HeightMapShader").Get();
+	// ë†’ì´ ìˆ˜ì • Compute Shader
+	m_pCSHeightMap = static_cast<CHeightMapShader*>(CResMgr::GetInst()->FindRes<CComputeShader>(L"HeightMapShader").Get());
 	if (nullptr == m_pCSHeightMap)
 	{
 		m_pCSHeightMap = new CHeightMapShader(32, 32, 1);
@@ -92,8 +92,8 @@ void CLandScape::CreateComputeShader()
 		CResMgr::GetInst()->AddRes<CComputeShader>(L"HeightMapShader", m_pCSHeightMap.Get());
 	}
 
-	// ÁöÇü ÇÇÅ· Compute Shader
-	m_pCSRaycast = (CRaycastShader*)CResMgr::GetInst()->FindRes<CComputeShader>(L"RaycastShader").Get();
+	// ì§€í˜• í”¼í‚¹ Compute Shader
+	m_pCSRaycast = static_cast<CRaycastShader*>(CResMgr::GetInst()->FindRes<CComputeShader>(L"RaycastShader").Get());
 	if (nullptr == m_pCSRaycast)
 	{
 		m_pCSRaycast = new CRaycastShader(32, 32, 1);
@@ -101,8 +101,8 @@ void CLandScape::CreateComputeShader()
 		CResMgr::GetInst()->AddRes<CComputeShader>(L"RaycastShader", m_pCSRaycast.Get());
 	}
 
-	// °¡ÁßÄ¡ ¼öÁ¤ Compute Shader
-	m_pCSWeightMap = (CWeightMapShader*)CResMgr::GetInst()->FindRes<CComputeShader>(L"WeightMapShader").Get();
+	// ê°€ì¤‘ì¹˜ ìˆ˜ì • Compute Shader
+	m_pCSWeightMap = static_cast<CWeightMapShader*>(CResMgr::GetInst()->FindRes<CComputeShader>(L"WeightMapShader").Get());
 	if (nullptr == m_pCSWeightMap)
 	{
 		m_pCSWeightMap = new CWeightMapShader(32, 32, 1);
@@ -116,7 +116,7 @@ void CLandScape::CreateTexture()
 	m_pHeightMap = CResMgr::GetInst()->FindRes<CTexture>(L"HeightMap");
 	if(nullptr == m_pHeightMap)
 	{
-		// ³ôÀÌ¸Ê ÅØ½ºÃÄ
+		// ë†’ì´ë§µ í…ìŠ¤ì³
 		m_pHeightMap = CResMgr::GetInst()->CreateTexture(L"HeightMap"
 			, 2048, 2048
 			, DXGI_FORMAT_R32_FLOAT
@@ -126,7 +126,7 @@ void CLandScape::CreateTexture()
 
 	m_pBrushTex = CResMgr::GetInst()->FindRes<CTexture>(L"texture\\brush\\Brush_01.png");
 
-	// °¡ÁßÄ¡ ¹öÆÛ
+	// ê°€ì¤‘ì¹˜ ë²„í¼
 	m_iWeightWidth = 1024;
 	m_iWeightHeight = 1024;
 

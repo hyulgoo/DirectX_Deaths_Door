@@ -8,13 +8,13 @@ class CWeightMapShader :
     public CComputeShader
 {
 private:
-    CStructuredBuffer*  m_pWeightMap; // °¡ÁßÄ¡¸ÊÀº Tex°¡ ¾Æ´Ñ ±¸Á¶Ã¼¹öÆÛ·Î °¡ÁßÄ¡¸¦ Á¤º¸¸¦ °¡Áü
+    CStructuredBuffer*  m_pWeightMap; // ê°€ì¤‘ì¹˜ë§µì€ Texê°€ ì•„ë‹Œ êµ¬ì¡°ì²´ë²„í¼ë¡œ ê°€ì¤‘ì¹˜ë¥¼ ì •ë³´ë¥¼ ê°€ì§
     CStructuredBuffer*  m_pRaycastInfo;
 
     Ptr<CTexture>       m_pBrushArrTex;
     Vec2                m_vBrushScale;
     int                 m_iBrushIdx;
-    int                 m_iWeightIdx; // °¡ÁßÄ¡ ¼öÁ¤ÇÒ À§Ä¡
+    int                 m_iWeightIdx; // ê°€ì¤‘ì¹˜ ìˆ˜ì •í•  ìœ„ì¹˜
 
     int                 m_iWidth;
     int                 m_iHeight;
@@ -36,10 +36,10 @@ public:
 	void SetWeightIdx(int _iIdx) { m_iWeightIdx = _iIdx; }
 
 public:
-    virtual void UpdateData();
-    virtual void Clear();
+    virtual void UpdateData() override;
+    virtual void Clear() override;
 
 public:
     CWeightMapShader(UINT _iGroupPerThreadX, UINT _iGroupPerThreadY, UINT _iGroupPerThreadZ);
-    ~CWeightMapShader();
+    virtual ~CWeightMapShader() override;
 };

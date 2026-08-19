@@ -16,12 +16,12 @@ public:
     virtual void BeginOverlap(CCollider3D* _Other) override;
     Ptr<CSound> AddSound(wstring _filename,int _repeat, float _volume = 0.5f, bool _bOverlap = true);
     void SetIndex(int _iIdx) { m_iIdx = _iIdx; }
-    int GetIndex() { return m_iIdx; }
+    int GetIndex() const { return m_iIdx; }
 
     CLONE(CSoundScript);
 
 public:
     CSoundScript();
-    ~CSoundScript();
+    virtual ~CSoundScript() override;
 };
 

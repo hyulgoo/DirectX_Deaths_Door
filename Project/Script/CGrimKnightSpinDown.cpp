@@ -35,6 +35,6 @@ void CGrimKnightSpinDown::tick()
 
 void CGrimKnightSpinDown::Exit()
 {
-	CLevelSaveLoadInScript::SpawnPrefab(L"prefab\\JumpAttack.prefab", (int)LAYER::MONSTERPROJECTILE, GetOwner()->Transform()->GetWorldPos(), 0.2f);
+	CLevelSaveLoadInScript::SpawnPrefab(L"prefab\\JumpAttack.prefab", static_cast<int>(LAYER::MONSTERPROJECTILE), GetOwner()->Transform()->GetWorldPos(), 0.2f);
 	
 }

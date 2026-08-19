@@ -5,7 +5,7 @@
 #include "CSoundScript.h"
 
 CBazookaGasGrenadeScript::CBazookaGasGrenadeScript() :
-	CScript((UINT)SCRIPT_TYPE::BAZOOKAGASGRENADESCRIPT)
+	CScript(static_cast<UINT>(SCRIPT_TYPE::BAZOOKAGASGRENADESCRIPT))
 	, m_iState(0)
 	, m_pGasBulletParticle(nullptr)
 	, m_pGasCenterParticle(nullptr)
@@ -16,7 +16,7 @@ CBazookaGasGrenadeScript::CBazookaGasGrenadeScript() :
 }
 
 CBazookaGasGrenadeScript::CBazookaGasGrenadeScript(const CBazookaGasGrenadeScript& _Other) :
-	CScript((UINT)SCRIPT_TYPE::BAZOOKAGASGRENADESCRIPT)
+	CScript(static_cast<UINT>(SCRIPT_TYPE::BAZOOKAGASGRENADESCRIPT))
 	, m_iState(0)
 	, m_pGasBulletParticle(nullptr)
 	, m_pGasCenterParticle(nullptr)
@@ -49,8 +49,8 @@ CBazookaGasGrenadeScript::~CBazookaGasGrenadeScript()
 
 void CBazookaGasGrenadeScript::begin()
 {
-	// °¡½ºÅº ÆÄÆ¼Å¬ ÇÁ¸®Æé.
-	m_pGasBulletParticle = CLevelSaveLoadInScript::SpawnandReturnPrefab(L"prefab\\GasBulletParticle.prefab", (int)LAYER::DEFAULT, GetOwner()->Transform()->GetWorldPos());
+	// ê°€ìŠ¤íƒ„ íŒŒí‹°í´ í”„ë¦¬í©.
+	m_pGasBulletParticle = CLevelSaveLoadInScript::SpawnandReturnPrefab(L"prefab\\GasBulletParticle.prefab", static_cast<int>(LAYER::DEFAULT), GetOwner()->Transform()->GetWorldPos());
 	m_pGasBulletParticle->ParticleSystem()->SetEmissive(true);
 
 	m_fBulletTime = 0.f;
@@ -64,7 +64,7 @@ void CBazookaGasGrenadeScript::tick()
 {
 	m_fBulletTime += DT;
 	
-	// ³¯¾Æ°¡´Â Áß
+	// ë‚ ì•„ê°€ëŠ” ì¤‘
 	if (m_iState == 0)
 	{
 
@@ -80,21 +80,21 @@ void CBazookaGasGrenadeScript::tick()
 
 		Vec3 CurVelocity = GetOwner()->Rigidbody()->GetVelocity();
 
-		// ÀÌÀü ÇÁ·¹ÀÓ¿¡´Â ³«ÇÏÁßÀÎ °æ¿ì.
+		// ì´ì „ í”„ë ˆì„ì—ëŠ” ë‚™í•˜ì¤‘ì¸ ê²½ìš°.
 		if (m_vPrevVelocity.y < 0.f)
 		{
-			// ¶¥¿¡ Æ¨±ä°ÅÀÓ. 
+			// ë•…ì— íŠ•ê¸´ê±°ì„. 
 			if (CurVelocity.y >= 0.f)
 			{
 				GetOwner()->Rigidbody()->ClearForce();
 
-				// ÆÛÁö´Â µ¶°¡½º ÆÄÆ¼Å¬ ÇÁ¸®Æé.
-				m_pGasRoundParticle = CLevelSaveLoadInScript::SpawnandReturnPrefab(L"prefab\\GasRoundParticle.prefab", (int)LAYER::DEFAULT, GetOwner()->Transform()->GetRelativePos());
+				// í¼ì§€ëŠ” ë…ê°€ìŠ¤ íŒŒí‹°í´ í”„ë¦¬í©.
+				m_pGasRoundParticle = CLevelSaveLoadInScript::SpawnandReturnPrefab(L"prefab\\GasRoundParticle.prefab", static_cast<int>(LAYER::DEFAULT), GetOwner()->Transform()->GetRelativePos());
 				m_pGasRoundParticle->ParticleSystem()->SetEmissive(true);
-				m_pGasCenterParticle = CLevelSaveLoadInScript::SpawnandReturnPrefab(L"prefab\\GasCenterParticle.prefab", (int)LAYER::DEFAULT, GetOwner()->Transform()->GetRelativePos());
+				m_pGasCenterParticle = CLevelSaveLoadInScript::SpawnandReturnPrefab(L"prefab\\GasCenterParticle.prefab", static_cast<int>(LAYER::DEFAULT), GetOwner()->Transform()->GetRelativePos());
 				m_pGasCenterParticle->ParticleSystem()->SetEmissive(true);
 
-				// °¡½ºÅº »èÁ¦
+				// ê°€ìŠ¤íƒ„ ì‚­ì œ
 				DestroyObject(m_pGasBulletParticle);
 				m_pGasBulletParticle = nullptr;
 				m_iState = 1;
@@ -108,12 +108,12 @@ void CBazookaGasGrenadeScript::tick()
 		m_vPrevVelocity = CurVelocity;
 	}
 	
-	// ÆÛÁö´Â °æ¿ì
+	// í¼ì§€ëŠ” ê²½ìš°
 	else if (m_iState == 1)
 	{
 		m_fGasTime += DT;
 
-		// ÆÛÁö´Â µ¶°¡½º ÆÄÆ¼Å¬ ÇÁ¸®Æé.
+		// í¼ì§€ëŠ” ë…ê°€ìŠ¤ íŒŒí‹°í´ í”„ë¦¬í©.
 		GetOwner()->Rigidbody()->ClearForce();
 
 		if (m_fGasTime >= 1.f)

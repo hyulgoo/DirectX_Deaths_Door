@@ -1,5 +1,5 @@
 #pragma once
-#include <Engine\CScript.h>
+#include <Engine/CScript.h>
 class CWaterScript :
     public CScript
 {
@@ -18,6 +18,6 @@ public:
 
 public:
     CWaterScript();
-    ~CWaterScript();
+    virtual ~CWaterScript() override;
 };
 

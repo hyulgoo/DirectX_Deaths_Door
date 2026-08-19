@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "ListUI.h"
 
-#include <Engine\CKeyMgr.h>
+#include <Engine/CKeyMgr.h>
 
 ListUI::ListUI()
     : UI("##List")
@@ -17,19 +17,19 @@ void ListUI::finaltick()
 {
     UI::finaltick();
 
-    // Esc ´­¸®¸é ºñÈ°¼ºÈ­
+    // Esc ëˆŒë¦¬ë©´ ë¹„í™œì„±í™”
     if (KEY_TAP(KEY::ESC))
     {
         SetActive(false);
 
-        // ¸ðµç UI Æ÷Ä¿½º ÇØÁ¦
+        // ëª¨ë“  UI í¬ì»¤ìŠ¤ í•´ì œ
         ImGui::SetWindowFocus(nullptr); 
     }
 }
 
 int ListUI::render_update()
 {    
-    // ÃÖ±Ù UI ÀÇ ÀÛ¾÷¿µ¿ª »çÀÌÁî¸¦ ¾Ë¾Æ³½´Ù.
+    // ìµœê·¼ UI ì˜ ìž‘ì—…ì˜ì—­ ì‚¬ì´ì¦ˆë¥¼ ì•Œì•„ë‚¸ë‹¤.
     ImVec2 ListUIContentSize = ImGui::GetContentRegionAvail();
         
     if (ImGui::BeginListBox("##list", ListUIContentSize))
@@ -38,20 +38,20 @@ int ListUI::render_update()
         {
             const bool is_selected = (m_iSelectedIdx == i);
 
-            // ¸®½ºÆ® ¾ÆÀÌÅÛ Ãâ·Â, ¹ÝÈ¯°ªÀº Å¬¸¯ True/ False
+            // ë¦¬ìŠ¤íŠ¸ ì•„ì´í…œ ì¶œë ¥, ë°˜í™˜ê°’ì€ í´ë¦­ True/ False
             if (ImGui::Selectable(m_vecStrData[i].c_str(), is_selected))
             {
                 m_iSelectedIdx = i;
             }
 
-            // Æ¯Á¤ ¾ÆÀÌÅÛ(ÀÎµ¦½º i) À§¿¡¼­ ´õºíÅ¬¸¯ÀÌ ¹ß»ýÇÏ¸é
+            // íŠ¹ì • ì•„ì´í…œ(ì¸ë±ìŠ¤ i) ìœ„ì—ì„œ ë”ë¸”í´ë¦­ì´ ë°œìƒí•˜ë©´
             if (ImGui::IsItemHovered() && 
                 ImGui::IsMouseDoubleClicked(ImGuiMouseButton_::ImGuiMouseButton_Left))
             {
                 SetActive(false);                
                 ImGui::SetWindowFocus(nullptr);
 
-                // Select Delegate °¡ µî·ÏµÇ¾îÀÖ´Ù¸é È£ÃâÇØ ÁØ´Ù.
+                // Select Delegate ê°€ ë“±ë¡ë˜ì–´ìžˆë‹¤ë©´ í˜¸ì¶œí•´ ì¤€ë‹¤.
                 if (m_SelectInst && m_SelectDelegate)
                 {
                     (m_SelectInst->*m_SelectDelegate)((DWORD_PTR)m_vecStrData[i].c_str());
@@ -79,7 +79,7 @@ void ListUI::Reset(const string& _strName, ImVec2 _vSize)
 
     SetActive(true);
 
-    // À§Ä¡ Á¶Á¤
+    // ìœ„ì¹˜ ì¡°ì •
     HWND hWnd = ImGuiMgr::GetInst()->GetMainHwnd();
 
     RECT rt = {};

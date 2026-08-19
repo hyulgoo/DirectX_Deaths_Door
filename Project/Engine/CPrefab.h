@@ -10,15 +10,15 @@ private:
 	CGameObject*	m_ProtoObj;
 
 public:
-	CGameObject* Instantiate();
+	CGameObject* Instantiate() const;
 	
 private:
-	virtual int Load(const wstring& _strFilePath);
+	virtual int Load(const wstring& _strFilePath) override;
 
 public:
-	virtual int Save(const wstring& _strRelativePath);
+	virtual int Save(const wstring& _strRelativePath) override;
 	
-	CGameObject* GetProtoObj();
+	CGameObject* GetProtoObj() const;
 private:
 	void SaveProtoObj(CGameObject* _Obj, FILE* _File);
 	CGameObject* LoadProtoObj(FILE* _File);
@@ -28,7 +28,7 @@ public:
 
 public:
 	CPrefab();
-	~CPrefab();
+    virtual ~CPrefab() override;
 
 	friend class PrefabUI;
 };

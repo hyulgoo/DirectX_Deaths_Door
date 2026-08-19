@@ -77,33 +77,33 @@ void CFBXLoader::LoadFbx(const wstring & _strPath)
 
 	m_pScene->GetGlobalSettings().SetAxisSystem(FbxAxisSystem::Max);
 
-	// Bone Á¤º¸ ÀĞ±â
+	// Bone ì •ë³´ ì½ê¸°
 	LoadSkeleton(m_pScene->GetRootNode());
 
-	// Animation ÀÌ¸§Á¤º¸ 
+	// Animation ì´ë¦„ì •ë³´ 
 	m_pScene->FillAnimStackNameArray(m_arrAnimName);
 
-	// Animation Clip Á¤º¸
+	// Animation Clip ì •ë³´
 	LoadAnimationClip();
 
-	// »ï°¢È­(Triangulate)
+	// ì‚¼ê°í™”(Triangulate)
 	Triangulate(m_pScene->GetRootNode());
 
-	// ¸Ş½¬ µ¥ÀÌÅÍ ¾ò±â
+	// ë©”ì‰¬ ë°ì´í„° ì–»ê¸°
 	LoadMeshDataFromNode(m_pScene->GetRootNode());
 
 	m_pImporter->Destroy();
 	
-	// ÇÊ¿äÇÑ ÅØ½ºÃÄ ·Îµå
+	// í•„ìš”í•œ í…ìŠ¤ì³ ë¡œë“œ
 	LoadTexture();
 
-	// ÇÊ¿äÇÑ ¸ŞÅ×¸®¾ó »ı¼º
+	// í•„ìš”í•œ ë©”í…Œë¦¬ì–¼ ìƒì„±
 	CreateMaterial();
 }
 
 void CFBXLoader::LoadMeshDataFromNode(FbxNode * _pNode)
 {
-	// ³ëµåÀÇ ¸Ş½¬Á¤º¸ ÀĞ±â
+	// ë…¸ë“œì˜ ë©”ì‰¬ì •ë³´ ì½ê¸°
 	FbxNodeAttribute* pAttr = _pNode->GetNodeAttribute();
 	
 
@@ -117,7 +117,7 @@ void CFBXLoader::LoadMeshDataFromNode(FbxNode * _pNode)
 			LoadMesh(pMesh);
 	}
 
-	// ÇØ´ç ³ëµåÀÇ ÀçÁúÁ¤º¸ ÀĞ±â
+	// í•´ë‹¹ ë…¸ë“œì˜ ì¬ì§ˆì •ë³´ ì½ê¸°
 	UINT iMtrlCnt = _pNode->GetMaterialCount();
 	if (iMtrlCnt > 0)
 	{
@@ -128,7 +128,7 @@ void CFBXLoader::LoadMeshDataFromNode(FbxNode * _pNode)
 		}
 	}
 
-	// ÀÚ½Ä ³ëµå Á¤º¸ ÀĞ±â
+	// ìì‹ ë…¸ë“œ ì •ë³´ ì½ê¸°
 	int iChildCnt = _pNode->GetChildCount();
 	for (int i = 0; i < iChildCnt; ++i)
 	{
@@ -151,34 +151,34 @@ void CFBXLoader::LoadMesh(FbxMesh * _pFbxMesh)
 
 	for (int i = 0; i < iVtxCnt; ++i)
 	{
-		Container.vecPos[i].x = (float)pFbxPos[i].mData[0];
-		Container.vecPos[i].y = (float)pFbxPos[i].mData[2];
-		Container.vecPos[i].z = (float)pFbxPos[i].mData[1];
+		Container.vecPos[i].x = static_cast<float>(pFbxPos[i].mData[0]);
+		Container.vecPos[i].y = static_cast<float>(pFbxPos[i].mData[2]);
+		Container.vecPos[i].z = static_cast<float>(pFbxPos[i].mData[1]);
 	}
 
-	// Æú¸®°ï °³¼ö
+	// í´ë¦¬ê³¤ ê°œìˆ˜
 	int iPolyCnt = _pFbxMesh->GetPolygonCount();
 
-	// ÀçÁúÀÇ °³¼ö ( ==> SubSet °³¼ö ==> Index Buffer Count)
+	// ì¬ì§ˆì˜ ê°œìˆ˜ ( ==> SubSet ê°œìˆ˜ ==> Index Buffer Count)
 	int iMtrlCnt = _pFbxMesh->GetNode()->GetMaterialCount();
 	Container.vecIdx.resize(iMtrlCnt);	
 
-	// Á¤Á¡ Á¤º¸°¡ ¼ÓÇÑ subset À» ¾Ë±âÀ§ÇØ¼­...
+	// ì •ì  ì •ë³´ê°€ ì†í•œ subset ì„ ì•Œê¸°ìœ„í•´ì„œ...
 	FbxGeometryElementMaterial* pMtrl = _pFbxMesh->GetElementMaterial();
 
-	// Æú¸®°ïÀ» ±¸¼ºÇÏ´Â Á¤Á¡ °³¼ö
+	// í´ë¦¬ê³¤ì„ êµ¬ì„±í•˜ëŠ” ì •ì  ê°œìˆ˜
 	int iPolySize = _pFbxMesh->GetPolygonSize(0);
 	if (3 != iPolySize)
-		assert(NULL); // Polygon ±¸¼º Á¤Á¡ÀÌ 3°³°¡ ¾Æ´Ñ °æ¿ì
+		assert(NULL); // Polygon êµ¬ì„± ì •ì ì´ 3ê°œê°€ ì•„ë‹Œ ê²½ìš°
 
 	UINT arrIdx[3] = {};
-	UINT iVtxOrder = 0; // Æú¸®°ï ¼ø¼­·Î Á¢±ÙÇÏ´Â ¼ø¹ø
+	UINT iVtxOrder = 0; // í´ë¦¬ê³¤ ìˆœì„œë¡œ ì ‘ê·¼í•˜ëŠ” ìˆœë²ˆ
 
 	for (int i = 0; i < iPolyCnt; ++i)
 	{
 		for (int j = 0; j < iPolySize; ++j)
 		{
-			// i ¹øÂ° Æú¸®°ï¿¡, j ¹øÂ° Á¤Á¡
+			// i ë²ˆì§¸ í´ë¦¬ê³¤ì—, j ë²ˆì§¸ ì •ì 
 			int iIdx = _pFbxMesh->GetPolygonVertex(i, j);
 			arrIdx[j] = iIdx;
 
@@ -237,14 +237,14 @@ void CFBXLoader::LoadMaterial(FbxSurfaceMaterial * _pMtrlSur)
 
 void CFBXLoader::GetTangent(FbxMesh * _pMesh
 	, tContainer * _pContainer
-	, int _iIdx		 /*ÇØ´ç Á¤Á¡ÀÇ ÀÎµ¦½º*/
-	, int _iVtxOrder /*Æú¸®°ï ´ÜÀ§·Î Á¢±ÙÇÏ´Â ¼ø¼­*/)
+	, int _iIdx		 /*í•´ë‹¹ ì •ì ì˜ ì¸ë±ìŠ¤*/
+	, int _iVtxOrder /*í´ë¦¬ê³¤ ë‹¨ìœ„ë¡œ ì ‘ê·¼í•˜ëŠ” ìˆœì„œ*/) const
 {
 	int iTangentCnt = _pMesh->GetElementTangentCount();
 	if (1 != iTangentCnt)
-		assert(NULL); // Á¤Á¡ 1°³°¡ Æ÷ÇÔÇÏ´Â ÅºÁ¨Æ® Á¤º¸°¡ 2°³ ÀÌ»óÀÌ´Ù.
+		assert(NULL); // ì •ì  1ê°œê°€ í¬í•¨í•˜ëŠ” íƒ„ì  íŠ¸ ì •ë³´ê°€ 2ê°œ ì´ìƒì´ë‹¤.
 
-	// ÅºÁ¨Æ® data ÀÇ ½ÃÀÛ ÁÖ¼Ò
+	// íƒ„ì  íŠ¸ data ì˜ ì‹œì‘ ì£¼ì†Œ
 	FbxGeometryElementTangent* pTangent = _pMesh->GetElementTangent();
 	UINT iTangentIdx = 0;
 	
@@ -265,18 +265,18 @@ void CFBXLoader::GetTangent(FbxMesh * _pMesh
 
 	FbxVector4 vTangent = pTangent->GetDirectArray().GetAt(iTangentIdx);
 	
-	_pContainer->vecTangent[_iIdx].x = (float)vTangent.mData[0];
-	_pContainer->vecTangent[_iIdx].y = (float)vTangent.mData[2];
-	_pContainer->vecTangent[_iIdx].z = (float)vTangent.mData[1];
+	_pContainer->vecTangent[_iIdx].x = static_cast<float>(vTangent.mData[0]);
+	_pContainer->vecTangent[_iIdx].y = static_cast<float>(vTangent.mData[2]);
+	_pContainer->vecTangent[_iIdx].z = static_cast<float>(vTangent.mData[1]);
 }
 
-void CFBXLoader::GetBinormal(FbxMesh * _pMesh, tContainer * _pContainer, int _iIdx, int _iVtxOrder)
+void CFBXLoader::GetBinormal(FbxMesh * _pMesh, tContainer * _pContainer, int _iIdx, int _iVtxOrder) const
 {
 	int iBinormalCnt = _pMesh->GetElementBinormalCount();
 	if (1 != iBinormalCnt)
-		assert(NULL); // Á¤Á¡ 1°³°¡ Æ÷ÇÔÇÏ´Â Á¾¹ı¼± Á¤º¸°¡ 2°³ ÀÌ»óÀÌ´Ù.
+		assert(NULL); // ì •ì  1ê°œê°€ í¬í•¨í•˜ëŠ” ì¢…ë²•ì„  ì •ë³´ê°€ 2ê°œ ì´ìƒì´ë‹¤.
 
-	// Á¾¹ı¼± data ÀÇ ½ÃÀÛ ÁÖ¼Ò
+	// ì¢…ë²•ì„  data ì˜ ì‹œì‘ ì£¼ì†Œ
 	FbxGeometryElementBinormal* pBinormal = _pMesh->GetElementBinormal();
 	UINT iBinormalIdx = 0;
 
@@ -297,18 +297,18 @@ void CFBXLoader::GetBinormal(FbxMesh * _pMesh, tContainer * _pContainer, int _iI
 
 	FbxVector4 vBinormal = pBinormal->GetDirectArray().GetAt(iBinormalIdx);
 
-	_pContainer->vecBinormal[_iIdx].x = (float)vBinormal.mData[0];
-	_pContainer->vecBinormal[_iIdx].y = (float)vBinormal.mData[2];
-	_pContainer->vecBinormal[_iIdx].z = (float)vBinormal.mData[1];
+	_pContainer->vecBinormal[_iIdx].x = static_cast<float>(vBinormal.mData[0]);
+	_pContainer->vecBinormal[_iIdx].y = static_cast<float>(vBinormal.mData[2]);
+	_pContainer->vecBinormal[_iIdx].z = static_cast<float>(vBinormal.mData[1]);
 }
 
-void CFBXLoader::GetNormal(FbxMesh * _pMesh, tContainer * _pContainer, int _iIdx, int _iVtxOrder)
+void CFBXLoader::GetNormal(FbxMesh * _pMesh, tContainer * _pContainer, int _iIdx, int _iVtxOrder) const
 {
 	int iNormalCnt = _pMesh->GetElementNormalCount();
 	if (1 != iNormalCnt)
-		assert(NULL); // Á¤Á¡ 1°³°¡ Æ÷ÇÔÇÏ´Â Á¾¹ı¼± Á¤º¸°¡ 2°³ ÀÌ»óÀÌ´Ù.
+		assert(NULL); // ì •ì  1ê°œê°€ í¬í•¨í•˜ëŠ” ì¢…ë²•ì„  ì •ë³´ê°€ 2ê°œ ì´ìƒì´ë‹¤.
 
-					  // Á¾¹ı¼± data ÀÇ ½ÃÀÛ ÁÖ¼Ò
+					  // ì¢…ë²•ì„  data ì˜ ì‹œì‘ ì£¼ì†Œ
 	FbxGeometryElementNormal* pNormal = _pMesh->GetElementNormal();
 	UINT iNormalIdx = 0;
 
@@ -329,12 +329,12 @@ void CFBXLoader::GetNormal(FbxMesh * _pMesh, tContainer * _pContainer, int _iIdx
 
 	FbxVector4 vNormal = pNormal->GetDirectArray().GetAt(iNormalIdx);
 
-	_pContainer->vecNormal[_iIdx].x = (float)vNormal.mData[0];
-	_pContainer->vecNormal[_iIdx].y = (float)vNormal.mData[2];
-	_pContainer->vecNormal[_iIdx].z = (float)vNormal.mData[1];
+	_pContainer->vecNormal[_iIdx].x = static_cast<float>(vNormal.mData[0]);
+	_pContainer->vecNormal[_iIdx].y = static_cast<float>(vNormal.mData[2]);
+	_pContainer->vecNormal[_iIdx].z = static_cast<float>(vNormal.mData[1]);
 }
 
-void CFBXLoader::GetUV(FbxMesh * _pMesh, tContainer * _pContainer, int _iIdx, int _iUVIndex)
+void CFBXLoader::GetUV(FbxMesh * _pMesh, tContainer * _pContainer, int _iIdx, int _iUVIndex) const
 {
 	FbxGeometryElementUV* pUV = _pMesh->GetElementUV();
 
@@ -344,15 +344,15 @@ void CFBXLoader::GetUV(FbxMesh * _pMesh, tContainer * _pContainer, int _iIdx, in
 	else
 		iUVIdx = pUV->GetIndexArray().GetAt(_iIdx);
 
-	iUVIdx = _iUVIndex;
-	FbxVector2 vUV = pUV->GetDirectArray().GetAt(iUVIdx);
-	_pContainer->vecUV[_iIdx].x = (float)vUV.mData[0];
-	_pContainer->vecUV[_iIdx].y = 1.f - (float)vUV.mData[1]; // fbx uv ÁÂÇ¥°è´Â ÁÂÇÏ´ÜÀÌ 0,0
+	iUVIdx                      = _iUVIndex;
+	FbxVector2 vUV              = pUV->GetDirectArray().GetAt(iUVIdx);
+	_pContainer->vecUV[_iIdx].x = static_cast<float>(vUV.mData[0]);
+	_pContainer->vecUV[_iIdx].y = 1.f - static_cast<float>(vUV.mData[1]); // fbx uv ì¢Œí‘œê³„ëŠ” ì¢Œí•˜ë‹¨ì´ 0,0
 }
 
 Vec4 CFBXLoader::GetMtrlData(FbxSurfaceMaterial * _pSurface
 	, const char * _pMtrlName
-	, const char * _pMtrlFactorName)
+	, const char * _pMtrlFactorName) const
 {
 	FbxDouble3  vMtrl;
 	FbxDouble	dFactor = 0.;
@@ -366,11 +366,11 @@ Vec4 CFBXLoader::GetMtrlData(FbxSurfaceMaterial * _pSurface
 		dFactor = tMtrlFactorProperty.Get<FbxDouble>();
 	}
 
-	Vec4 vRetVal = Vec4((float)vMtrl.mData[0] * (float)dFactor, (float)vMtrl.mData[1] * (float)dFactor, (float)vMtrl.mData[2] * (float)dFactor, (float)dFactor);
+	Vec4 vRetVal = Vec4(static_cast<float>(vMtrl.mData[0]) * static_cast<float>(dFactor), static_cast<float>(vMtrl.mData[1]) * static_cast<float>(dFactor), static_cast<float>(vMtrl.mData[2]) * static_cast<float>(dFactor), static_cast<float>(dFactor));
 	return vRetVal;
 }
 
-wstring CFBXLoader::GetMtrlTextureName(FbxSurfaceMaterial * _pSurface, const char * _pMtrlProperty)
+wstring CFBXLoader::GetMtrlTextureName(FbxSurfaceMaterial * _pSurface, const char * _pMtrlProperty) const
 {
 	string strName;
 
@@ -454,7 +454,7 @@ void CFBXLoader::CreateMaterial()
 	{
 		for (UINT j = 0; j < m_vecContainer[i].vecMtrl.size(); ++j)
 		{	
-			// Material ÀÌ¸§Áş±â
+			// Material ì´ë¦„ì§“ê¸°
 			strMtrlName = m_vecContainer[i].vecMtrl[j].strMtrlName;
 			if (strMtrlName.empty())
 				strMtrlName = path(m_vecContainer[i].vecMtrl[j].strDiff).stem();
@@ -462,17 +462,17 @@ void CFBXLoader::CreateMaterial()
 			strPath = L"material\\";
 			strPath += strMtrlName + L".mtrl";
 
-			// ÀçÁú ÀÌ¸§
+			// ì¬ì§ˆ ì´ë¦„
 			m_vecContainer[i].vecMtrl[j].strMtrlName = strPath;
 
-			// ÀÌ¹Ì ·ÎµùµÈ ÀçÁúÀÌ¸é ·ÎµùµÈ °ÍÀ» »ç¿ë
+			// ì´ë¯¸ ë¡œë”©ëœ ì¬ì§ˆì´ë©´ ë¡œë”©ëœ ê²ƒì„ ì‚¬ìš©
 			Ptr<CMaterial> pMaterial = CResMgr::GetInst()->FindRes<CMaterial>(strPath);
 			if (nullptr != pMaterial)
 				continue;
 
 			pMaterial = new CMaterial;
 
-			// »ó´ë°æ·Î°¡ °ğ Å°
+			// ìƒëŒ€ê²½ë¡œê°€ ê³§ í‚¤
 			pMaterial->SetKey(strPath);
 			pMaterial->SetRelativePath(strPath);
 
@@ -538,7 +538,7 @@ void CFBXLoader::LoadSkeleton_Re(FbxNode * _pNode, int _iDepth, int _iIdx, int _
 	int iChildCount = _pNode->GetChildCount();
 	for (int i = 0; i < iChildCount; ++i)
 	{
-		LoadSkeleton_Re(_pNode->GetChild(i), _iDepth, (int)m_vecBone.size(), _iIdx);
+		LoadSkeleton_Re(_pNode->GetChild(i), _iDepth, static_cast<int>(m_vecBone.size()), _iIdx);
 	}
 }
 
@@ -597,27 +597,27 @@ void CFBXLoader::Triangulate(FbxNode * _pNode)
 	}
 }
 
-void CFBXLoader::LoadAnimationData(FbxMesh * _pMesh, tContainer * _pContainer)
+void CFBXLoader::LoadAnimationData(FbxMesh * _pMesh, tContainer * _pContainer) const
 {
-	// Animation Data ·ÎµåÇÒ ÇÊ¿ä°¡ ¾øÀ½
+	// Animation Data ë¡œë“œí•  í•„ìš”ê°€ ì—†ìŒ
 	int iSkinCount = _pMesh->GetDeformerCount(FbxDeformer::eSkin);
 	if (iSkinCount <= 0 || m_vecAnimClip.empty())
 		return;
 
 	_pContainer->bAnimation = true;
 
-	// Skin °³¼ö¸¸Å­ ¹İº¹À»ÇÏ¸ç ÀĞ´Â´Ù.	
+	// Skin ê°œìˆ˜ë§Œí¼ ë°˜ë³µì„í•˜ë©° ì½ëŠ”ë‹¤.	
 	for (int i = 0; i < iSkinCount; ++i)
 	{
-		FbxSkin* pSkin = (FbxSkin*)_pMesh->GetDeformer(i, FbxDeformer::eSkin);
+		FbxSkin* pSkin = static_cast<FbxSkin*>(_pMesh->GetDeformer(i, FbxDeformer::eSkin));
 
 		if (pSkin)
 		{
 			FbxSkin::EType eType = pSkin->GetSkinningType();
 			if (FbxSkin::eRigid == eType || FbxSkin::eLinear)
 			{
-				// Cluster ¸¦ ¾ò¾î¿Â´Ù
-				// Cluster == Joint == °üÀı
+				// Cluster ë¥¼ ì–»ì–´ì˜¨ë‹¤
+				// Cluster == Joint == ê´€ì ˆ
 				int iClusterCount = pSkin->GetClusterCount();
 				
 				for (int j = 0; j < iClusterCount; ++j)
@@ -627,20 +627,20 @@ void CFBXLoader::LoadAnimationData(FbxMesh * _pMesh, tContainer * _pContainer)
 					if (!pCluster->GetLink())
 						continue;
 
-					// ÇöÀç º» ÀÎµ¦½º¸¦ ¾ò¾î¿Â´Ù.
+					// í˜„ì¬ ë³¸ ì¸ë±ìŠ¤ë¥¼ ì–»ì–´ì˜¨ë‹¤.
 					int iBoneIdx = FindBoneIndex(pCluster->GetLink()->GetName());
 					if (-1 == iBoneIdx)
 						assert(NULL);
 					
 					FbxAMatrix matNodeTransform = GetTransform(_pMesh->GetNode());
 
-					// Weights And Indices Á¤º¸¸¦ ÀĞ´Â´Ù.
+					// Weights And Indices ì •ë³´ë¥¼ ì½ëŠ”ë‹¤.
 					LoadWeightsAndIndices(pCluster, iBoneIdx, _pContainer);
 
-					// Bone ÀÇ OffSet Çà·Ä ±¸ÇÑ´Ù.
+					// Bone ì˜ OffSet í–‰ë ¬ êµ¬í•œë‹¤.
 					LoadOffsetMatrix(pCluster, matNodeTransform, iBoneIdx, _pContainer);
 
-					// Bone KeyFrame º° Çà·ÄÀ» ±¸ÇÑ´Ù.
+					// Bone KeyFrame ë³„ í–‰ë ¬ì„ êµ¬í•œë‹¤.
 					LoadKeyframeTransform(_pMesh->GetNode(), pCluster, matNodeTransform, iBoneIdx, _pContainer);
 				}
 			}
@@ -650,7 +650,7 @@ void CFBXLoader::LoadAnimationData(FbxMesh * _pMesh, tContainer * _pContainer)
 }
 
 
-void CFBXLoader::CheckWeightAndIndices(FbxMesh* _pMesh, tContainer * _pContainer)
+void CFBXLoader::CheckWeightAndIndices(FbxMesh* _pMesh, tContainer * _pContainer) const
 {
 	vector<vector<tWeightsAndIndices>>::iterator iter = _pContainer->vecWI.begin();
 
@@ -659,7 +659,7 @@ void CFBXLoader::CheckWeightAndIndices(FbxMesh* _pMesh, tContainer * _pContainer
 	{
 		if ((*iter).size() > 1)
 		{
-			// °¡ÁßÄ¡ °ª ¼øÀ¸·Î ³»¸²Â÷¼ø Á¤·Ä
+			// ê°€ì¤‘ì¹˜ ê°’ ìˆœìœ¼ë¡œ ë‚´ë¦¼ì°¨ìˆœ ì •ë ¬
 			sort((*iter).begin(), (*iter).end()
 				, [](const tWeightsAndIndices& left, const tWeightsAndIndices& right)
 			{
@@ -673,7 +673,7 @@ void CFBXLoader::CheckWeightAndIndices(FbxMesh* _pMesh, tContainer * _pContainer
 				dWeight += (*iter)[i].dWeight;
 			}
 
-			// °¡ÁßÄ¡ÀÇ ÇÕÀÌ 1ÀÌ ³Ñ¾î°¡¸é Ã³À½ºÎºĞ¿¡ ´õÇØÁØ´Ù.
+			// ê°€ì¤‘ì¹˜ì˜ í•©ì´ 1ì´ ë„˜ì–´ê°€ë©´ ì²˜ìŒë¶€ë¶„ì— ë”í•´ì¤€ë‹¤.
 			double revision = 0.f;
 			if (dWeight > 1.0)
 			{
@@ -687,14 +687,14 @@ void CFBXLoader::CheckWeightAndIndices(FbxMesh* _pMesh, tContainer * _pContainer
 			}
 		}
 
-		// Á¤Á¡ Á¤º¸·Î º¯È¯, 
+		// ì •ì  ì •ë³´ë¡œ ë³€í™˜, 
 		float fWeights[4] = {};
 		float fIndices[4] = {};
 
 		for (UINT i = 0; i < (*iter).size(); ++i)
 		{
-			fWeights[i] = (float)(*iter)[i].dWeight;
-			fIndices[i] = (float)(*iter)[i].iBoneIdx;
+			fWeights[i] = static_cast<float>((*iter)[i].dWeight);
+			fIndices[i] = static_cast<float>((*iter)[i].iBoneIdx);
 		}
 
 		memcpy(&_pContainer->vecWeights[iVtxIdx], fWeights, sizeof(Vec4));
@@ -703,7 +703,7 @@ void CFBXLoader::CheckWeightAndIndices(FbxMesh* _pMesh, tContainer * _pContainer
 }
 
 void CFBXLoader::LoadKeyframeTransform(FbxNode * _pNode, FbxCluster * _pCluster
-	, const FbxAMatrix & _matNodeTransform, int _iBoneIdx, tContainer * _pContainer)
+	, const FbxAMatrix & _matNodeTransform, int _iBoneIdx, tContainer * _pContainer) const
 {
 	if (m_vecAnimClip.empty())
 		return;
@@ -745,7 +745,7 @@ void CFBXLoader::LoadKeyframeTransform(FbxNode * _pNode, FbxCluster * _pCluster
 
 void CFBXLoader::LoadOffsetMatrix(FbxCluster * _pCluster
 	, const FbxAMatrix & _matNodeTransform
-	, int _iBoneIdx, tContainer* _pContainer)
+	, int _iBoneIdx, tContainer* _pContainer) const
 {
 	FbxAMatrix matClusterTrans;
 	FbxAMatrix matClusterLinkTrans;
@@ -775,7 +775,7 @@ void CFBXLoader::LoadOffsetMatrix(FbxCluster * _pCluster
 
 void CFBXLoader::LoadWeightsAndIndices(FbxCluster * _pCluster
 	, int _iBoneIdx
-	, tContainer * _pContainer)
+	, tContainer * _pContainer) const
 {
 	int iIndicesCount = _pCluster->GetControlPointIndicesCount();
 
@@ -783,7 +783,7 @@ void CFBXLoader::LoadWeightsAndIndices(FbxCluster * _pCluster
 	{
 		tWeightsAndIndices tWI = {};
 
-		// °¢ Á¤Á¡¿¡°Ô º» ÀÎµ¦½º Á¤º¸¿Í, °¡ÁßÄ¡ °ªÀ» ¾Ë¸°´Ù.
+		// ê° ì •ì ì—ê²Œ ë³¸ ì¸ë±ìŠ¤ ì •ë³´ì™€, ê°€ì¤‘ì¹˜ ê°’ì„ ì•Œë¦°ë‹¤.
 		tWI.iBoneIdx = _iBoneIdx;
 		tWI.dWeight = _pCluster->GetControlPointWeights()[i];
 
@@ -795,7 +795,7 @@ void CFBXLoader::LoadWeightsAndIndices(FbxCluster * _pCluster
 
 
 
-int CFBXLoader::FindBoneIndex(string _strBoneName)
+int CFBXLoader::FindBoneIndex(string _strBoneName) const
 {
 	wstring strBoneName = wstring(_strBoneName.begin(), _strBoneName.end());
 
@@ -808,7 +808,7 @@ int CFBXLoader::FindBoneIndex(string _strBoneName)
 	return -1;
 }
 
-FbxAMatrix CFBXLoader::GetTransform(FbxNode * _pNode)
+FbxAMatrix CFBXLoader::GetTransform(FbxNode * _pNode) const
 {
 	const FbxVector4 vT = _pNode->GetGeometricTranslation(FbxNode::eSourcePivot);
 	const FbxVector4 vR = _pNode->GetGeometricRotation(FbxNode::eSourcePivot);

@@ -11,7 +11,7 @@ void CLurkerIdle::tick()
 {
 	CGameObject* pPlayer = GetOwner()->GetScript<CLurkerScript>()->GetPlayer();
 
-	// Detect »óÅÂ¶ó¸é Notify »óÅÂ·Î ÀüÈ¯.
+	// Detect ìƒíƒœë¼ë©´ Notify ìƒíƒœë¡œ ì „í™˜.
 	if (GetOwner()->GetScript<CLurkerScript>()->IsDetect())
 	{
 		ChangeState(L"Notify");

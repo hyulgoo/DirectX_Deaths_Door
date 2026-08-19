@@ -32,7 +32,7 @@ int CSound::Play(int _iRoopCount, float _fVolume, int _iIdx, bool _bOverlap)
 		assert(nullptr);
 	}
 
-	// Àç»ıµÇ°í ÀÖ´Â Ã¤³ÎÀÌ ÀÖ´Âµ¥, Áßº¹Àç»ıÀ» Çã¿ëÇÏÁö ¾Ê¾Ò´Ù -> Àç»ı ¾ÈÇÔ
+	// ì¬ìƒë˜ê³  ìˆëŠ” ì±„ë„ì´ ìˆëŠ”ë°, ì¤‘ë³µì¬ìƒì„ í—ˆìš©í•˜ì§€ ì•Šì•˜ë‹¤ -> ì¬ìƒ ì•ˆí•¨
 	if (!_bOverlap && !m_listChannel.empty())
 	{
 		return -1;
@@ -63,7 +63,7 @@ int CSound::PlayBGM(int _iRoopCount, float _fVolume, int _iIdx, bool _bOverlap )
 		assert(nullptr);
 	}
 
-	// Àç»ıµÇ°í ÀÖ´Â Ã¤³ÎÀÌ ÀÖ´Âµ¥, Áßº¹Àç»ıÀ» Çã¿ëÇÏÁö ¾Ê¾Ò´Ù -> Àç»ı ¾ÈÇÔ
+	// ì¬ìƒë˜ê³  ìˆëŠ” ì±„ë„ì´ ìˆëŠ”ë°, ì¤‘ë³µì¬ìƒì„ í—ˆìš©í•˜ì§€ ì•Šì•˜ë‹¤ -> ì¬ìƒ ì•ˆí•¨
 	if (!_bOverlap && !m_listChannel.empty())
 	{
 		return -1;
@@ -98,7 +98,7 @@ int CSound::PlaySFX(int _iRoopCount, float _fVolume, int _iIdx, bool _bOverlap)
 		assert(nullptr);
 	}
 
-	// Àç»ıµÇ°í ÀÖ´Â Ã¤³ÎÀÌ ÀÖ´Âµ¥, Áßº¹Àç»ıÀ» Çã¿ëÇÏÁö ¾Ê¾Ò´Ù -> Àç»ı ¾ÈÇÔ
+	// ì¬ìƒë˜ê³  ìˆëŠ” ì±„ë„ì´ ìˆëŠ”ë°, ì¤‘ë³µì¬ìƒì„ í—ˆìš©í•˜ì§€ ì•Šì•˜ë‹¤ -> ì¬ìƒ ì•ˆí•¨
 	if (!_bOverlap && !m_listChannel.empty())
 	{
 		return -1;
@@ -126,7 +126,7 @@ int CSound::PlaySFX(int _iRoopCount, float _fVolume, int _iIdx, bool _bOverlap)
 
 	return _iIdx;
 }
-int CSound::pause()
+int CSound::pause() const
 {
 	m_channel[0].setPaused(true);
 
@@ -183,7 +183,7 @@ void CSound::SetVolume(float _f, int _iChannelIdx)
 	}
 }
 
-bool CSound::IsChannelPlaying(FMOD::Channel* channel)
+bool CSound::IsChannelPlaying(FMOD::Channel* channel) const
 {
 	bool isPlaying = false;
 	if (channel) {

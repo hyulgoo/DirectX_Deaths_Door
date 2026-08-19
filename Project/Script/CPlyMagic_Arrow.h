@@ -18,6 +18,6 @@ public:
 
 public:
     CPlyMagic_Arrow();
-    ~CPlyMagic_Arrow();
+    virtual ~CPlyMagic_Arrow() override;
 };
 

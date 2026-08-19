@@ -22,7 +22,7 @@ CRenderMgr::CRenderMgr()
 {
     Vec2 vResolution = CDevice::GetInst()->GetRenderResolution();
     m_RTCopyTex = CResMgr::GetInst()->CreateTexture(L"RTCopyTex"
-                                                    , (UINT)vResolution.x, (UINT)vResolution.y
+                                                    , static_cast<UINT>(vResolution.x), static_cast<UINT>(vResolution.y)
                                                     , DXGI_FORMAT_R8G8B8A8_UNORM, D3D11_BIND_SHADER_RESOURCE
                                                     , D3D11_USAGE_DEFAULT);
 
@@ -46,12 +46,12 @@ CRenderMgr::~CRenderMgr()
     Safe_Del_Array(m_MRT);
 }
 
-void CRenderMgr::render_clear()
+void CRenderMgr::render_clear() const
 {
     MRT_Clear();
 
     // Texture Register Clear
-    for (UINT i = 0; i < (UINT)TEX_PARAM::TEX_END; ++i)
+    for (UINT i = 0; i < static_cast<UINT>(TEX_PARAM::TEX_END); ++i)
     {
         CTexture::Clear(i);
     }    
@@ -59,30 +59,27 @@ void CRenderMgr::render_clear()
 
 void CRenderMgr::render()
 {
-    // Ãâ·Â ´ë»óÀÌ Device°¡ °®°íÀÖ´Â SwapChainÀÇ RT°¡ ¾Æ´Ñ MRTÀÇ RT°¡ µÆÀ¸¹Ç·Î
-    // MRT¿¡¼­ Clear ¹× OMSetÀ» ÇÏµµ·Ï ÇÔ.
-    // ·»´õ¸µ ½ÃÀÛ
+    // ì¶œë ¥ ëŒ€ìƒì´ Deviceê°€ ê°–ê³ ìˆëŠ” SwapChainì˜ RTê°€ ì•„ë‹Œ MRTì˜ RTê°€ ëìœ¼ë¯€ë¡œ
+    // MRTì—ì„œ Clear ë° OMSetì„ í•˜ë„ë¡ í•¨.
+    // ë Œë”ë§ ì‹œì‘
     render_clear();
 
-    // ±¤¿ø ¹× Àü¿ª µ¥ÀÌÅÍ ¾÷µ¥ÀÌÆ® ¹× ¹ÙÀÎµù
+    // ê´‘ì› ë° ì „ì—­ ë°ì´í„° ì—…ë°ì´íŠ¸ ë° ë°”ì¸ë”©
     UpdateData();
 
-    // ·»´õ ÇÔ¼ö È£Ãâ
+    // ë Œë” í•¨ìˆ˜ í˜¸ì¶œ
     (this->*RENDER_FUNC)();
     
-    // ±¤¿ø ÇØÁ¦
+    // ê´‘ì› í•´ì œ
     Clear();
 }
 
-
-
-
 void CRenderMgr::render_play()
 {
-    // Àü¿ª±¤¿ø ½ÃÁ¡¿¡¼­ shadow¸ÊÇÎÀ» À§ÇÑ DepthMap »ı¼º
+    // ì „ì—­ê´‘ì› ì‹œì ì—ì„œ shadowë§µí•‘ì„ ìœ„í•œ DepthMap ìƒì„±
     render_dynamic_shadowdepth();
 
-    // Ä«¸Ş¶ó ±âÁØ ·»´õ¸µ
+    // ì¹´ë©”ë¼ ê¸°ì¤€ ë Œë”ë§
     for (size_t i = 0; i < m_vecCam.size(); ++i)
     {
         if (nullptr == m_vecCam[i])
@@ -95,16 +92,16 @@ void CRenderMgr::render_play()
 
 void CRenderMgr::render_editor()
 {
-    // Directional ±¤¿ø ½ÃÁ¡¿¡¼­ Shadow¸ÊÇÎÀ» À§ÇÑ DepthMap »ı¼º
+    // Directional ê´‘ì› ì‹œì ì—ì„œ Shadowë§µí•‘ì„ ìœ„í•œ DepthMap ìƒì„±
     render_dynamic_shadowdepth();
 
     m_pEditorCam->SortObject();
     m_pEditorCam->render();    
 }
 
-void CRenderMgr::render_dynamic_shadowdepth()
+void CRenderMgr::render_dynamic_shadowdepth() const
 {
-    m_MRT[(UINT)MRT_TYPE::SHADOW]->OMSet();
+    m_MRT[static_cast<UINT>(MRT_TYPE::SHADOW)]->OMSet();
 
     for (size_t i = 0; i < m_vecLight3D.size(); ++i)
     {
@@ -112,9 +109,6 @@ void CRenderMgr::render_dynamic_shadowdepth()
             m_vecLight3D[i]->render_depthmap();
     }
 }
-
-
-
 
 int CRenderMgr::RegisterCamera(CCamera* _Cam, int _idx)
 {
@@ -135,7 +129,7 @@ void CRenderMgr::SetRenderFunc(bool _IsPlay)
         RENDER_FUNC = &CRenderMgr::render_editor;
 }
 
-CCamera* CRenderMgr::GetMainCam()
+CCamera* CRenderMgr::GetMainCam() const
 {
     if (CLevelMgr::GetInst()->GetCurLevel()->GetState() == LEVEL_STATE::PLAY)
     {
@@ -143,41 +137,41 @@ CCamera* CRenderMgr::GetMainCam()
             return nullptr;
         return m_vecCam[0];
     }
-    else
-        return m_pEditorCam;
+    
+    return m_pEditorCam;
 }
 
-void CRenderMgr::CopyRenderTarget()
+void CRenderMgr::CopyRenderTarget() const
 {
     Ptr<CTexture> pRTTex = CResMgr::GetInst()->FindRes<CTexture>(L"RenderTargetTex");
     CONTEXT->CopyResource(m_RTCopyTex->GetTex2D().Get(), pRTTex->GetTex2D().Get());
 }
 
-void CRenderMgr::MRT_Clear()
+void CRenderMgr::MRT_Clear() const
 {
-    for (UINT i = 0; i < (UINT)MRT_TYPE::END; ++i)
+    for (UINT i = 0; i < static_cast<UINT>(MRT_TYPE::END); ++i)
     {
-        if (i == (UINT)MRT_TYPE::WATER)
+        if (i == static_cast<UINT>(MRT_TYPE::WATER))
             continue;
         m_MRT[i]->Clear();
     }
 }
 
-void CRenderMgr::MRT_Clear(MRT_TYPE _Type)
+void CRenderMgr::MRT_Clear(MRT_TYPE _Type) const
 {
-    m_MRT[(UINT)_Type]->Clear();
+    m_MRT[static_cast<UINT>(_Type)]->Clear();
 }
 
-void CRenderMgr::UpdateData()
+void CRenderMgr::UpdateData() const
 {
-    // GlobalData ¿¡ ±¤¿ø °³¼öÁ¤º¸ ¼¼ÆÃ
-    GlobalData.Light2DCount = (UINT)m_vecLight2D.size();
-    GlobalData.Light3DCount = (UINT)m_vecLight3D.size();
+    // GlobalData ì— ê´‘ì› ê°œìˆ˜ì •ë³´ ì„¸íŒ…
+    GlobalData.Light2DCount = static_cast<UINT>(m_vecLight2D.size());
+    GlobalData.Light3DCount = static_cast<UINT>(m_vecLight3D.size());
 
-    // ±¸Á¶È­¹öÆÛÀÇ Å©±â°¡ ¸ğÀÚ¶ó¸é ´õ Å©°Ô »õ·Î ¸¸µç´Ù.
+    // êµ¬ì¡°í™”ë²„í¼ì˜ í¬ê¸°ê°€ ëª¨ìë¼ë©´ ë” í¬ê²Œ ìƒˆë¡œ ë§Œë“ ë‹¤.
     if (m_Light2DBuffer->GetElementCount() < m_vecLight2D.size())
     {
-        m_Light2DBuffer->Create(sizeof(tLightInfo), (UINT)m_vecLight2D.size(), SB_TYPE::READ_ONLY, true);
+        m_Light2DBuffer->Create(sizeof(tLightInfo), static_cast<UINT>(m_vecLight2D.size()), SB_TYPE::READ_ONLY, true);
     }
 
     static vector<tLightInfo> vecLight2DInfo;
@@ -188,14 +182,14 @@ void CRenderMgr::UpdateData()
         vecLight2DInfo.push_back(m_vecLight2D[i]->GetLightInfo());
     }
 
-    // ±¸Á¶È­¹öÆÛ·Î ±¤¿ø µ¥ÀÌÅÍ¸¦ ¿Å±ä´Ù.
-    m_Light2DBuffer->SetData(vecLight2DInfo.data(), sizeof(tLightInfo) * (UINT)vecLight2DInfo.size());
+    // êµ¬ì¡°í™”ë²„í¼ë¡œ ê´‘ì› ë°ì´í„°ë¥¼ ì˜®ê¸´ë‹¤.
+    m_Light2DBuffer->SetData(vecLight2DInfo.data(), sizeof(tLightInfo) * static_cast<UINT>(vecLight2DInfo.size()));
     m_Light2DBuffer->UpdateData(12, PIPELINE_STAGE::PS_PIXEL);
 
-    // ±¸Á¶È­¹öÆÛÀÇ Å©±â°¡ ¸ğÀÚ¶ó¸é ´õ Å©°Ô »õ·Î ¸¸µç´Ù.
+    // êµ¬ì¡°í™”ë²„í¼ì˜ í¬ê¸°ê°€ ëª¨ìë¼ë©´ ë” í¬ê²Œ ìƒˆë¡œ ë§Œë“ ë‹¤.
     if (m_Light3DBuffer->GetElementCount() < m_vecLight3D.size())
     {
-        m_Light3DBuffer->Create(sizeof(tLightInfo), (UINT)m_vecLight3D.size(), SB_TYPE::READ_ONLY, true);
+        m_Light3DBuffer->Create(sizeof(tLightInfo), static_cast<UINT>(m_vecLight3D.size()), SB_TYPE::READ_ONLY, true);
     }
 
     static vector<tLightInfo> vecLight3DInfo;
@@ -206,11 +200,11 @@ void CRenderMgr::UpdateData()
         vecLight3DInfo.push_back(m_vecLight3D[i]->GetLightInfo());
     }
 
-    // ±¸Á¶È­¹öÆÛ·Î ±¤¿ø µ¥ÀÌÅÍ¸¦ ¿Å±ä´Ù.
-    m_Light3DBuffer->SetData(vecLight3DInfo.data(), sizeof(tLightInfo) * (UINT)vecLight3DInfo.size());
+    // êµ¬ì¡°í™”ë²„í¼ë¡œ ê´‘ì› ë°ì´í„°ë¥¼ ì˜®ê¸´ë‹¤.
+    m_Light3DBuffer->SetData(vecLight3DInfo.data(), sizeof(tLightInfo) * static_cast<UINT>(vecLight3DInfo.size()));
     m_Light3DBuffer->UpdateData(13, PIPELINE_STAGE::PS_PIXEL);
 
-    // Àü¿ª »ó¼ö µ¥ÀÌÅÍ ¹ÙÀÎµù
+    // ì „ì—­ ìƒìˆ˜ ë°ì´í„° ë°”ì¸ë”©
     CConstBuffer* pGlobalBuffer = CDevice::GetInst()->GetConstBuffer(CB_TYPE::GLOBAL);
     pGlobalBuffer->SetData(&GlobalData, sizeof(tGlobal));
     pGlobalBuffer->UpdateData();

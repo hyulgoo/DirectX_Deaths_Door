@@ -28,13 +28,13 @@ void CRaycastShader::UpdateData()
 	m_Const.arrV4[0] = m_ray.vStart;
 	m_Const.arrV4[1] = m_ray.vDir;
 
-	// ³ôÀÌ¸Ê (SRV)
+	// ë†’ì´ë§µ (SRV)
 	m_pHeightMap->UpdateData_CS(0, true);
 
-	// Ãâ·Â ¹öÆÛ	(UAV)
+	// ì¶œë ¥ ë²„í¼	(UAV)
 	m_pOutput->UpdateData_CS(0, false);
 
-	// ±×·ì ¼ö °è»ê
+	// ê·¸ë£¹ ìˆ˜ ê³„ì‚°
 	m_iGroupX = ((m_iXFace * 2) / m_iGroupPerThreadX) + 1;
 	m_iGroupY = (m_iZFace / m_iGroupPerThreadY) + 1;
 	m_iGroupZ = 1;

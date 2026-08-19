@@ -8,7 +8,7 @@ CFrustum::CFrustum(CCamera* _pOwner)
 	, m_arrFace{}
 	, m_bDebugShape(false)
 {
-	// Åõ¿µ°ø°£ ÁÂÇ¥
+	// íˆ¬ì˜ê³µê°„ ì¢Œí‘œ
 	//     4 ------ 5
 	//     |        |  Far
 	//   / |        |
@@ -36,7 +36,7 @@ void CFrustum::finaltick()
 {
 	Vec3 vWorldPos[8] = {};
 
-	// MDC ±âÁØÀ¸·Î Àâ¾Æ³õÀº Æò¸éÁÂÇ¥¸¦ Åõ¿µ, ºäÇà·ÄÀÇ ¿ªÇà·ÄÀ» °öÇØ ¿ùµåÁÂÇ¥°è·Î º¯È¯½ÃÅ³ °Í
+	// MDC ê¸°ì¤€ìœ¼ë¡œ ìž¡ì•„ë†“ì€ í‰ë©´ì¢Œí‘œë¥¼ íˆ¬ì˜, ë·°í–‰ë ¬ì˜ ì—­í–‰ë ¬ì„ ê³±í•´ ì›”ë“œì¢Œí‘œê³„ë¡œ ë³€í™˜ì‹œí‚¬ ê²ƒ
 	Matrix matInv = m_pOwner->GetProjMatInv() * m_pOwner->GetViewMatInv();
 
 	for (int i = 0; i < 8; ++i)
@@ -44,7 +44,7 @@ void CFrustum::finaltick()
 		vWorldPos[i] = XMVector3TransformCoord(m_arrProj[i], matInv);
 	}
 
-	// 3°³ÀÇ Á¡À» ÀÌ¿ëÇØ ÇØ´ç Á¡À» ÀÌÀº Æò¸é°ú ¼öÁ÷ÇÏ´Â ¹ý¼±º¤ÅÍ¸¦ ¸¸µê
+	// 3ê°œì˜ ì ì„ ì´ìš©í•´ í•´ë‹¹ ì ì„ ì´ì€ í‰ë©´ê³¼ ìˆ˜ì§í•˜ëŠ” ë²•ì„ ë²¡í„°ë¥¼ ë§Œë“¦
 	m_arrFace[FT_NEAR]  = XMPlaneFromPoints(vWorldPos[0], vWorldPos[1], vWorldPos[2]);
 	m_arrFace[FT_FAR]   = XMPlaneFromPoints(vWorldPos[6], vWorldPos[5], vWorldPos[4]);
 	m_arrFace[FT_LEFT]  = XMPlaneFromPoints(vWorldPos[4], vWorldPos[0], vWorldPos[7]);
@@ -52,7 +52,7 @@ void CFrustum::finaltick()
 	m_arrFace[FT_TOP]	= XMPlaneFromPoints(vWorldPos[4], vWorldPos[5], vWorldPos[1]);
 	m_arrFace[FT_BOT]	= XMPlaneFromPoints(vWorldPos[2], vWorldPos[6], vWorldPos[7]); 
 
-	// Ä«¸Þ¶ó ½Ã¾ß Debug Render
+	// ì¹´ë©”ë¼ ì‹œì•¼ Debug Render
 	if (m_bDebugShape)
 	{
 		DrawDebugFrustum(matInv, Vec4(0.f, 1.f, 0.f, 1.f));
@@ -63,16 +63,16 @@ bool CFrustum::FrustumCheckByPoint(Vec3 _vWorldPos)
 {	
 	for (int i = 0; i < FT_END; ++i)
 	{
-		// ÀÓÀÇÀÇ Á¡°ú ÇØ´ç Æò¸éÀÇ ¹ý¼±º¤ÅÍ¿Í ³»Àû
+		// ìž„ì˜ì˜ ì ê³¼ í•´ë‹¹ í‰ë©´ì˜ ë²•ì„ ë²¡í„°ì™€ ë‚´ì 
 		Vec3 vNormal = m_arrFace[i];
 		vNormal.Normalize();
 		float fDot = vNormal.Dot(_vWorldPos);
 
-		// ³»ÀûÇÑ °ª°ú ¿øÁ¡¿¡¼­ ÇØ´ç Æò¸é±îÁöÀÇ ÃÖ´Ü°Å¸®(D) ¿Í ºñ±³
-		// a, b, c°¡ ¹ý¼±º¤ÅÍÀÇ xyz¶ó°í ÇÒ ¶§ 
-		// ax + by + cz + d = 0 ÀÌ ÇØ´ç Æò¸é¿¡ Á¸ÀçÇÒ ¶§ ¼º¸³µÇ´Â Æò¸éÀÇ ¹æÁ¤½Ä
-		// xyz´Â WorldPosÀÌ¹Ç·Î ax+ by + cz + d°¡ 0º¸´Ù Å©´Ù¸é ÇØ´ç Æò¸éº¸´Ù ¹Û¿¡ ÀÖ´Ù´Â °Í
-		// ÇöÀç ¸ðµç ¹ý¼±º¤ÅÍ¸¦ ½Ã¾ß¹üÀ§ ¹Ù±ù¹æÇâÀ¸·Î ÇßÀ¸¹Ç·Î false ¹ÝÈ¯
+		// ë‚´ì í•œ ê°’ê³¼ ì›ì ì—ì„œ í•´ë‹¹ í‰ë©´ê¹Œì§€ì˜ ìµœë‹¨ê±°ë¦¬(D) ì™€ ë¹„êµ
+		// a, b, cê°€ ë²•ì„ ë²¡í„°ì˜ xyzë¼ê³  í•  ë•Œ 
+		// ax + by + cz + d = 0 ì´ í•´ë‹¹ í‰ë©´ì— ì¡´ìž¬í•  ë•Œ ì„±ë¦½ë˜ëŠ” í‰ë©´ì˜ ë°©ì •ì‹
+		// xyzëŠ” WorldPosì´ë¯€ë¡œ ax+ by + cz + dê°€ 0ë³´ë‹¤ í¬ë‹¤ë©´ í•´ë‹¹ í‰ë©´ë³´ë‹¤ ë°–ì— ìžˆë‹¤ëŠ” ê²ƒ
+		// í˜„ìž¬ ëª¨ë“  ë²•ì„ ë²¡í„°ë¥¼ ì‹œì•¼ë²”ìœ„ ë°”ê¹¥ë°©í–¥ìœ¼ë¡œ í–ˆìœ¼ë¯€ë¡œ false ë°˜í™˜
 		if (fDot + m_arrFace[i].w > 0)
 			return false;
 	}
@@ -84,13 +84,13 @@ bool CFrustum::FrustumCheckBySphere(Vec3 _vWorldPos, float _fRadius)
 {
 	for (int i = 0; i < FT_END; ++i)
 	{
-		// ÀÓÀÇÀÇ Á¡°ú ÇØ´ç Æò¸éÀÇ ¹ý¼±º¤ÅÍ¿Í ³»Àû
+		// ìž„ì˜ì˜ ì ê³¼ í•´ë‹¹ í‰ë©´ì˜ ë²•ì„ ë²¡í„°ì™€ ë‚´ì 
 		Vec3 vNormal = m_arrFace[i];
 		vNormal.Normalize();
 		float fDot = vNormal.Dot(_vWorldPos);
 
-		// ³»ÀûÇÑ °ª°ú ¿øÁ¡¿¡¼­ ÇØ´ç Æò¸é±îÁöÀÇ ÃÖ´Ü°Å¸®(D) ¿Í ºñ±³
-		// ¹ÝÁö¸§º¸´Ù ´õ ¹Ù±ùÀ¸·Î ¹þ¾î³µ¾î¾ß È­¸é¿¡ °ÉÄ¡´Â ºÎºÐÀÌ ¾ø´Â °Í
+		// ë‚´ì í•œ ê°’ê³¼ ì›ì ì—ì„œ í•´ë‹¹ í‰ë©´ê¹Œì§€ì˜ ìµœë‹¨ê±°ë¦¬(D) ì™€ ë¹„êµ
+		// ë°˜ì§€ë¦„ë³´ë‹¤ ë” ë°”ê¹¥ìœ¼ë¡œ ë²—ì–´ë‚¬ì–´ì•¼ í™”ë©´ì— ê±¸ì¹˜ëŠ” ë¶€ë¶„ì´ ì—†ëŠ” ê²ƒ
 		if (fDot + m_arrFace[i].w > _fRadius)
 			return false;
 	}

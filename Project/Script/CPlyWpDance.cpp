@@ -14,7 +14,7 @@ CPlyWpDance::~CPlyWpDance()
 void CPlyWpDance::Enter()
 {
 	GetOwner()->Transform()->SetRelativeScale(0.f, 0.f, 0.f);
-	GetOwner()->Animator3D()->Play((int)PLAYERANIM_TYPE::DANCE, false);
+	GetOwner()->Animator3D()->Play(static_cast<int>(PLAYERANIM_TYPE::DANCE), false);
 }
 
 void CPlyWpDance::tick()

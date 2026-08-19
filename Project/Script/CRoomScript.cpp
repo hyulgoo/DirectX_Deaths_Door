@@ -6,7 +6,7 @@
 #include "CFenceScript.h"
 
 CRoomScript::CRoomScript()
-	: CScript((UINT)SCRIPT_TYPE::ROOMSCRIPT)
+	: CScript(static_cast<UINT>(SCRIPT_TYPE::ROOMSCRIPT))
 	, m_iRoomNum(-1)
 	, m_iRemainMst(0)
 	, m_iRemainGimmik(0)
@@ -19,7 +19,7 @@ CRoomScript::CRoomScript()
 }
 
 CRoomScript::CRoomScript(const CRoomScript& _Other)
-	: CScript((UINT)SCRIPT_TYPE::ROOMSCRIPT)
+	: CScript(static_cast<UINT>(SCRIPT_TYPE::ROOMSCRIPT))
 	, m_iRoomNum(_Other.m_iRoomNum)
 	, m_iRemainMst(-1)
 	, m_iRemainGimmik(-1)
@@ -50,7 +50,7 @@ void CRoomScript::tick()
 
 void CRoomScript::SpawnMst()
 {
-	//ÇöÀç ¿şÀÌºêÀÇ ¸ó½ºÅÍ ¼ö¸¦ È®ÀÎÇØ¼­ ½ºÆùÇÏ°í m_iRemainMst¿¡ ¼ö Ç¥½Ã
+	//í˜„ì¬ ì›¨ì´ë¸Œì˜ ëª¬ìŠ¤í„° ìˆ˜ë¥¼ í™•ì¸í•´ì„œ ìŠ¤í°í•˜ê³  m_iRemainMstì— ìˆ˜ í‘œì‹œ
 	for (size_t i = 0; i < m_vecWave[m_iCurWaveNum].size(); ++i)
 	{
 		CGameObject* pSpawnDoor = CLevelSaveLoadInScript::SpawnandReturnPrefab(L"prefab\\DoorPink.prefab", 8, m_vecWave[m_iCurWaveNum][i].SpawnPos);
@@ -103,7 +103,7 @@ void CRoomScript::ReduceGimmickCount()
 
 void CRoomScript::AddWaveMst(int _iWavwNum, wstring _wstrPrefName, Vec3 _vSpawnPos)
 {
-	//¿şÀÌºê vector¿¡ ¸ó½ºÅÍ Á¤º¸¸¦ ÀÔ·Â
+	//ì›¨ì´ë¸Œ vectorì— ëª¬ìŠ¤í„° ì •ë³´ë¥¼ ì…ë ¥
 	SpawnInfo Info;
 	Info.PrefabName = _wstrPrefName;
 	Info.SpawnPos = _vSpawnPos;

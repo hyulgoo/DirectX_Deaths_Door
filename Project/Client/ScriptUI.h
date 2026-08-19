@@ -1,7 +1,7 @@
 #pragma once
 #include "ComponentUI.h"
 
-#include <Engine\CScript.h>
+#include <Engine/CScript.h>
 
 class ScriptUI :
     public ComponentUI

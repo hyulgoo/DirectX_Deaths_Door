@@ -31,7 +31,7 @@ void CGrimKnightGuardStay::Enter()
 void CGrimKnightGuardStay::tick()
 {
 	GetOwner()->Rigidbody()->ClearForce();
-	//5¹ø °ø°Ý ¹ÞÀ¸¸é Guard Break
+	//5ë²ˆ ê³µê²© ë°›ìœ¼ë©´ Guard Break
 	int a = GetOwner()->GetScript<CGrimKnightScript>()->GetHitCount();
 	if (GetOwner()->GetScript<CGrimKnightScript>()->GetHitCount() >= 5)
 	{

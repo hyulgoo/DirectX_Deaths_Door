@@ -5,9 +5,9 @@
 #include "ListUI.h"
 #include "TreeUI.h"
 
-#include <Engine\CResMgr.h>
+#include <Engine/CResMgr.h>
 
-// Á¤Àû¸É¹ö ÃÊ±âÈ­
+// ì •ì ë§´ë²„ ì´ˆê¸°í™”
 UINT ParamUI::g_NextId = 0;
 
 
@@ -182,10 +182,10 @@ int ParamUI::Param_Tex(const string& _strDesc, Ptr<CTexture>& _Tex, UI* _UI, UI_
         ImGui::Image((ImTextureID)_Tex->GetSRV().Get(), ImVec2(150, 150), uv_min, uv_max, tint_col, border_col);
     }
     
-    // µå¶ø Ã¼Å©
+    // ë“œë ì²´í¬
     if (ImGui::BeginDragDropTarget())
     {
-        // ÇØ´ç ³ëµå¿¡¼­ ¸¶¿ì½º ¶¾ °æ¿ì, ÁöÁ¤ÇÑ PayLoad Å°°ªÀÌ ÀÏÄ¡ÇÑ °æ¿ì
+        // í•´ë‹¹ ë…¸ë“œì—ì„œ ë§ˆìš°ìŠ¤ ë—€ ê²½ìš°, ì§€ì •í•œ PayLoad í‚¤ê°’ì´ ì¼ì¹˜í•œ ê²½ìš°
         const ImGuiPayload* pPayLoad = ImGui::AcceptDragDropPayload("Resource");
         if (pPayLoad)
         {
@@ -218,7 +218,7 @@ int ParamUI::Param_Tex(const string& _strDesc, Ptr<CTexture>& _Tex, UI* _UI, UI_
             pListUI->AddItem(string(pair.first.begin(), pair.first.end()));
         }
 
-        // Ç×¸ñ ¼±ÅÃ½Ã È£Ãâ¹ŞÀ» µ¨¸®°ÔÀÌÆ® µî·Ï
+        // í•­ëª© ì„ íƒì‹œ í˜¸ì¶œë°›ì„ ë¸ë¦¬ê²Œì´íŠ¸ ë“±ë¡
         pListUI->AddDynamic_Select(_UI, _Func);
 
         return 1;

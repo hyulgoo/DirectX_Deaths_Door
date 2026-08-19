@@ -31,7 +31,7 @@ void CFontMgr::init()
 	}
 }
 
-void CFontMgr::DrawFont(const wchar_t* _pStr, float _fPosX, float _fPosY, float _fFontSize, UINT _Color)
+void CFontMgr::DrawFont(const wchar_t* _pStr, float _fPosX, float _fPosY, float _fFontSize, UINT _Color) const
 {
 	m_pFontWrapper->DrawString(
 		CONTEXT,

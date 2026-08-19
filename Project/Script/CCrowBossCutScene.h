@@ -16,6 +16,6 @@ public:
 
 public:
     CCrowBossCutScene();
-    ~CCrowBossCutScene();
+    virtual ~CCrowBossCutScene() override;
 };
 

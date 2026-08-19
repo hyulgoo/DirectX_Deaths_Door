@@ -37,7 +37,7 @@ void CHitStoneScript::tick()
 
 void CHitStoneScript::BeginOverlap(CCollider3D* _Other)
 {
-	if (_Other->GetOwner()->GetLayerIndex() == (int)LAYER::PLAYERPROJECTILE)
+	if (_Other->GetOwner()->GetLayerIndex() == static_cast<int>(LAYER::PLAYERPROJECTILE))
 	{
 		m_bHit = true;
 		m_vStartPos = Transform()->GetWorldPos();

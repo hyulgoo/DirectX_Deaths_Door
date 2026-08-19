@@ -6,7 +6,7 @@
 #include "CMonsterScript.h"
 
 CMagic_FireScript::CMagic_FireScript()
-	: CScript((UINT)SCRIPT_TYPE::MAGIC_FIRESCRIPT)
+	: CScript(static_cast<UINT>(SCRIPT_TYPE::MAGIC_FIRESCRIPT))
 	, m_vStartPos{}
 	, m_vDir{}
 	, m_fDamage(0.f)
@@ -42,7 +42,7 @@ void CMagic_FireScript::BeginOverlap(CCollider3D* _Other)
 		return;
 	if (_Other->GetOwner()->GetScript<CStateScript>())
 	{
-		if (_Other->GetOwner()->GetLayerIndex() == (int)LAYER::MONSTER)
+		if (_Other->GetOwner()->GetLayerIndex() == static_cast<int>(LAYER::MONSTER))
 		{
 			Stat CurStat = _Other->GetOwner()->GetScript<CStateScript>()->GetStat();
 			CurStat.HP -= m_fDamage;
@@ -50,7 +50,7 @@ void CMagic_FireScript::BeginOverlap(CCollider3D* _Other)
 			_Other->GetOwner()->GetScript<CMonsterScript>()->SetLastHitTime();
 			Destroy();
 
-			CLevelSaveLoadInScript::SpawnPrefab(L"prefab\\HitEffect.prefab", (int)LAYER::DEFAULT, Transform()->GetRelativePos(), 0.2f);
+			CLevelSaveLoadInScript::SpawnPrefab(L"prefab\\HitEffect.prefab", static_cast<int>(LAYER::DEFAULT), Transform()->GetRelativePos(), 0.2f);
 
 			CSoundScript* soundscript = CLevelMgr::GetInst()->FindObjectByName(L"SoundUI")->GetScript<CSoundScript>();
 			Ptr<CSound> pSound = soundscript->AddSound(L"Sound\\Player\\FireBallFire4.mp3", 1, 0.1f);

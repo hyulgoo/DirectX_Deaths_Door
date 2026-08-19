@@ -1,5 +1,5 @@
 #pragma once
-#include <Engine\CScript.h>
+#include <Engine/CScript.h>
 
 class CCameraMoveScript :
     public CScript
@@ -17,6 +17,6 @@ private:
     CLONE(CCameraMoveScript);
 public:
     CCameraMoveScript();
-    ~CCameraMoveScript();
+    virtual ~CCameraMoveScript() override;
 };
 

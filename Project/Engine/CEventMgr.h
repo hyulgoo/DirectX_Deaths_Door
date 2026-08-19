@@ -15,7 +15,7 @@ private:
 
 public:
     void AddEvent(const tEvent& _evn) { m_vecEvent.push_back(_evn); }
-    bool IsLevelChanged() { return m_LevelChanged; }
+    bool IsLevelChanged() const { return m_LevelChanged; }
 
 private:
     void GC_Clear();

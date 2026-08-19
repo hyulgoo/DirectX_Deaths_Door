@@ -30,7 +30,7 @@ void CAnim2D::finaltick()
 
 		if (m_vecFrm.size() <= m_iCurFrm)
 		{
-			m_iCurFrm = (int)m_vecFrm.size() - 1;
+			m_iCurFrm = static_cast<int>(m_vecFrm.size()) - 1;
 			m_bFinish = true;
 		}
 	}
@@ -53,9 +53,9 @@ void CAnim2D::Create(const wstring& _strAnimName, Ptr<CTexture> _AtlasTex
 	{
 		tAnim2DFrm frm = {};
 
-		frm.fDuration = 1.f / (float)_FPS;
+		frm.fDuration = 1.f / static_cast<float>(_FPS);
 		frm.LeftTopUV = Vec2(_vLeftTop.x + _vSlice.x * i, _vLeftTop.y) / vResolution;
-		frm.SliceUV = _vSlice / vResolution;
+		frm.SliceUV   = _vSlice / vResolution;
 
 		m_vecFrm.push_back(frm);
 	}

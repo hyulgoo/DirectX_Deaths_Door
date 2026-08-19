@@ -26,7 +26,7 @@ int DecalUI::render_update()
 	if (FALSE == ComponentUI::render_update())
 		return FALSE;
 
-	//  µğ¹ö±× ÇÁ·¹ÀÓ
+	//  ë””ë²„ê·¸ í”„ë ˆì„
 	static bool bDebug = false;
 	ImGui::Text("DebugMode ");
 	ImGui::SameLine();
@@ -35,14 +35,14 @@ int DecalUI::render_update()
 
 	ImGui::SameLine();
 
-	// Emissive ¼³Á¤
+	// Emissive ì„¤ì •
 	static bool bLight = GetTarget()->Decal()->IsSetAsLight();
 	ImGui::Text("LightMode ");
 	ImGui::SameLine();
 	if (ImGui::Checkbox("##LightMode", &bLight))
 		GetTarget()->Decal()->SetAsLight(bLight);
 
-	// EmissiveÀÏ ¶§¸¸ °ü·Ã ¼³Á¤ Ãâ·Â
+	// Emissiveì¼ ë•Œë§Œ ê´€ë ¨ ì„¤ì • ì¶œë ¥
 	if(bLight)
 	{
 		ImGui::Text("LightAlpha");

@@ -31,7 +31,7 @@ void CKnightRunAttack::tick()
 	float fRatio = m_fDelay / GetOwner()->Animator3D()->GetCurClipTimeLength();
 	if (fRatio > 0.8f && !m_bAttack)
 	{
-		CLevelSaveLoadInScript::SpawnPrefab(L"prefab\\JumpAttack.prefab", (int)LAYER::MONSTERPROJECTILE, GetOwner()->Transform()->GetWorldPos(), 0.1f);
+		CLevelSaveLoadInScript::SpawnPrefab(L"prefab\\JumpAttack.prefab", static_cast<int>(LAYER::MONSTERPROJECTILE), GetOwner()->Transform()->GetWorldPos(), 0.1f);
 		m_bAttack = true;
 	}
 	if (GetOwner()->Animator3D()->IsFinish())

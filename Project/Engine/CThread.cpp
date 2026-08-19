@@ -16,18 +16,18 @@ CThread::~CThread()
     DeleteCriticalSection(&m_CRT);
 }
 
-//¾²·¹µå ÀÏ½ÃÁ¤Áö
+//ì“°ë ˆë“œ ì¼ì‹œì •ì§€
 void CThread::Suspend()
 {
     CSync   sync(&m_CRT);
 
-    // ³»ºÎÀûÀ¸·Î suspend count¸¦ °®°í ÀÖ´Âµ¥, SuspendThread()¸¦ È£ÃâÇÏ¸é 1 Áõ°¡. ResumeThread()¸¦ ÇÏ¸é 1 °¨¼Ò. 0ÀÌ µÇ¾î¾ßÁö¸¸ Àç½ÃÀÛÀÌ µÊ. 
+    // ë‚´ë¶€ì ìœ¼ë¡œ suspend countë¥¼ ê°–ê³  ìˆëŠ”ë°, SuspendThread()ë¥¼ í˜¸ì¶œí•˜ë©´ 1 ì¦ê°€. ResumeThread()ë¥¼ í•˜ë©´ 1 ê°ì†Œ. 0ì´ ë˜ì–´ì•¼ì§€ë§Œ ì¬ì‹œì‘ì´ ë¨. 
     SuspendThread(m_Thread);
 
     m_Suspend = true;
 }
 
-// ¾²·¹µå Àç½ÃÀÛ
+// ì“°ë ˆë“œ ì¬ì‹œì‘
 void CThread::Resume()
 {
     CSync   sync(&m_CRT);
@@ -38,7 +38,7 @@ void CThread::Resume()
         m_Suspend = false;
 }
 
-// Suspend Count°¡ 0ÀÌ µÉ¶§±îÁö ResumeThread¸¦ È£ÃâÇÏ¿© ¹«Á¶°Ç Àç½ÃÀÛ ½ÃÄÑÁÖ´Â ÇÔ¼ö.
+// Suspend Countê°€ 0ì´ ë ë•Œê¹Œì§€ ResumeThreadë¥¼ í˜¸ì¶œí•˜ì—¬ ë¬´ì¡°ê±´ ì¬ì‹œì‘ ì‹œì¼œì£¼ëŠ” í•¨ìˆ˜.
 void CThread::ReStart()
 {
     CSync   sync(&m_CRT);
@@ -61,14 +61,14 @@ void CThread::Stop()
         Start();
         ReStart();
 
-        // ½º·¹µå°¡ Á¾·áµÉ¶§±îÁö ±â´Ù¸°´Ù.
+        // ìŠ¤ë ˆë“œê°€ ì¢…ë£Œë ë•Œê¹Œì§€ ê¸°ë‹¤ë¦°ë‹¤.
         WaitForSingleObject(m_Thread, INFINITE);
         CloseHandle(m_Thread);
         m_Thread = 0;
     }
 }
 
-void CThread::Start()
+void CThread::Start() const
 {
     SetEvent(m_StartEvent);
 }
@@ -87,9 +87,9 @@ bool CThread::Init()
 
 unsigned int __stdcall CThread::ThreadFunction(void* Arg)
 {
-    CThread* Thread = (CThread*)Arg;
+    CThread* Thread = static_cast<CThread*>(Arg);
 
-    // ÁöÁ¤µÈ °³Ã¼
+    // ì§€ì •ëœ ê°œì²´
     WaitForSingleObject(Thread->m_StartEvent, INFINITE);
 
     do

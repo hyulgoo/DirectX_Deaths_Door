@@ -19,7 +19,7 @@ void CCrowBossJump::Enter()
 
 void CCrowBossJump::tick()
 {
-	// ¾Ö´Ï¸ÞÀÌ¼Ç Àç»ý½Ã°£µ¿¾È ÇÃ·¹ÀÌ¾îÀÇ À§Ä¡±îÁö µµ´ÞÇÏ±â À§ÇÑ Velocity.
+	// ì• ë‹ˆë©”ì´ì…˜ ìž¬ìƒì‹œê°„ë™ì•ˆ í”Œë ˆì´ì–´ì˜ ìœ„ì¹˜ê¹Œì§€ ë„ë‹¬í•˜ê¸° ìœ„í•œ Velocity.
 	Vec3 Velocity = m_Dir * ((m_fDistance / GetOwner()->Animator3D()->GetCurClipTimeLength()) / 2.f);
 	Velocity *= DT;
 	float fSpeed = GetOwnerScript()->GetStat().Speed;
@@ -27,11 +27,11 @@ void CCrowBossJump::tick()
 
 	GetOwner()->Rigidbody()->AddVelocity(Velocity);
 
-	// ¾Ö´Ï¸ÞÀÌ¼ÇÀÌ ³¡³­ °æ¿ì.
+	// ì• ë‹ˆë©”ì´ì…˜ì´ ëë‚œ ê²½ìš°.
 	if (GetOwner()->Animator3D()->IsFinish())
 	{
 		ChangeState(L"Stomp");
-		CCrowBossStomp* pCrowBossStomp = (CCrowBossStomp*)GetOwnerScript()->FindState(L"Stomp");
+		CCrowBossStomp* pCrowBossStomp = static_cast<CCrowBossStomp*>(GetOwnerScript()->FindState(L"Stomp"));
 		pCrowBossStomp->SetDir(m_Dir);
 		pCrowBossStomp->SetDistance(m_fDistance / 2.f);
 	}

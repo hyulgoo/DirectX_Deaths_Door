@@ -16,10 +16,10 @@ CMRT::~CMRT()
 
 void CMRT::Create(Ptr<CTexture>(&_RTArr)[8], Vec4(&_Clear)[8], Ptr<CTexture> _DSTex)
 {
-	// MRT ª˝º∫
+	// MRT ÏÉùÏÑ±
 	for (UINT i = 0; i < 8; ++i)
 	{
-		// RT∏¶ ¿÷¥¬ ∏∏≈≠ ∞°¡Æø¿¥Ÿ∞° æ¯¿∏∏È ∞≥ºˆ∏¶ ¿˙¿Â«œ∞Ì ¡ﬂ¥‹
+		// RTÎ•º ÏûàÎäî ÎßåÌÅº Í∞ÄÏ†∏Ïò§Îã§Í∞Ä ÏóÜÏúºÎ©¥ Í∞úÏàòÎ•º Ï†ÄÏû•ÌïòÍ≥† Ï§ëÎã®
 		if (nullptr == _RTArr[i])
 		{
 			m_RTCount = i;
@@ -33,7 +33,7 @@ void CMRT::Create(Ptr<CTexture>(&_RTArr)[8], Vec4(&_Clear)[8], Ptr<CTexture> _DS
 
 	m_DSTex = _DSTex;
 
-	// ViewPort º≥¡§	
+	// ViewPort ÏÑ§Ï†ï	
 	m_tViewPort.TopLeftX = 0;
 	m_tViewPort.TopLeftY = 0;
 
@@ -44,7 +44,7 @@ void CMRT::Create(Ptr<CTexture>(&_RTArr)[8], Vec4(&_Clear)[8], Ptr<CTexture> _DS
 	m_tViewPort.MaxDepth = 1;
 }
 
-void CMRT::OMSet()
+void CMRT::OMSet() const
 {
 	ID3D11RenderTargetView* RTView[8] = {};
 	for (UINT i = 0; i < m_RTCount; ++i)
@@ -52,18 +52,18 @@ void CMRT::OMSet()
 		RTView[i] = m_RT[i]->GetRTV().Get();
 	}
 
-	// SwapChainø°º≠ ª˝º∫µ» RT∏∏ RenderTarget¿∏∑Œ ¡ˆ¡§«ﬂæ˙¡ˆ∏∏
-	// MRT∞° ø©∑Ø ∞≥¿« RT∏¶ ∞°¡ˆ∞‘ µ∆¿∏π«∑Œ ±◊ ∞≥ºˆøÕ πËø≠¿« ¡÷º“∏¶ ≥÷æÓ¡‹.
+	// SwapChainÏóêÏÑú ÏÉùÏÑ±Îêú RTÎßå RenderTargetÏúºÎ°ú ÏßÄÏ†ïÌñàÏóàÏßÄÎßå
+	// MRTÍ∞Ä Ïó¨Îü¨ Í∞úÏùò RTÎ•º Í∞ÄÏßÄÍ≤å ÎêêÏúºÎØÄÎ°ú Í∑∏ Í∞úÏàòÏôÄ Î∞∞Ïó¥Ïùò Ï£ºÏÜåÎ•º ÎÑ£Ïñ¥Ï§å.
 	if (nullptr != m_DSTex)
 		CONTEXT->OMSetRenderTargets(m_RTCount, RTView, m_DSTex->GetDSV().Get());
 	else
 		CONTEXT->OMSetRenderTargets(m_RTCount, RTView, nullptr);
 
-	// ∫‰∆˜∆Æ º≥¡§
+	// Î∑∞Ìè¨Ìä∏ ÏÑ§Ï†ï
 	CONTEXT->RSSetViewports(1, &m_tViewPort);
 }
 
-void CMRT::Clear()
+void CMRT::Clear() const
 {
 	for (UINT i = 0; i < m_RTCount; ++i)
 	{

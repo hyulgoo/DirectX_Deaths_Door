@@ -11,25 +11,25 @@
 
 void CRenderMgr::init()
 {
-    // Light2DBuffer ±∏¡∂»≠ πˆ∆€ ª˝º∫
+    // Light2DBuffer Íµ¨Ï°∞Ìôî Î≤ÑÌçº ÏÉùÏÑ±
     m_Light2DBuffer = new CStructuredBuffer;
     m_Light2DBuffer->Create(sizeof(tLightInfo), 10, SB_TYPE::READ_ONLY, true);
 
-    // Light3DBuffer ±∏¡∂»≠ πˆ∆€ ª˝º∫
+    // Light3DBuffer Íµ¨Ï°∞Ìôî Î≤ÑÌçº ÏÉùÏÑ±
     m_Light3DBuffer = new CStructuredBuffer;
     m_Light3DBuffer->Create(sizeof(tLightInfo), 10, SB_TYPE::READ_ONLY, true);
 
 
     // ==================
-    // SwapChain MRT ª˝º∫
+    // SwapChain MRT ÏÉùÏÑ±
     // ==================
     {
         Ptr<CTexture> arrRTTex[8] = { CResMgr::GetInst()->FindRes<CTexture>(L"RenderTargetTex"), };
         Vec4          arrClear[8] = { Vec4(0.2f, 0.2f, 0.2f, 1.f) , };
         Ptr<CTexture> DSTex = CResMgr::GetInst()->FindRes<CTexture>(L"DepthStencilTex");
 
-        m_MRT[(UINT)MRT_TYPE::SWAPCHAIN] = new CMRT;
-        m_MRT[(UINT)MRT_TYPE::SWAPCHAIN]->Create(arrRTTex, arrClear, DSTex);
+        m_MRT[static_cast<UINT>(MRT_TYPE::SWAPCHAIN)] = new CMRT;
+        m_MRT[static_cast<UINT>(MRT_TYPE::SWAPCHAIN)]->Create(arrRTTex, arrClear, DSTex);
     }
 
     // ============
@@ -40,27 +40,27 @@ void CRenderMgr::init()
 
         Ptr<CTexture> arrRTTex[8] = {
               CResMgr::GetInst()->CreateTexture(L"ColorTargetTex"
-                , (UINT)vRenderResolution.x, (UINT)vRenderResolution.y
+                , static_cast<UINT>(vRenderResolution.x), static_cast<UINT>(vRenderResolution.y)
                 , DXGI_FORMAT_R8G8B8A8_UNORM, D3D11_BIND_RENDER_TARGET | D3D11_BIND_SHADER_RESOURCE
                 , D3D11_USAGE_DEFAULT),
 
               CResMgr::GetInst()->CreateTexture(L"NormalTargetTex"
-                , (UINT)vRenderResolution.x, (UINT)vRenderResolution.y
+                , static_cast<UINT>(vRenderResolution.x), static_cast<UINT>(vRenderResolution.y)
                 , DXGI_FORMAT_R32G32B32A32_FLOAT, D3D11_BIND_RENDER_TARGET | D3D11_BIND_SHADER_RESOURCE
                 , D3D11_USAGE_DEFAULT),
 
              CResMgr::GetInst()->CreateTexture(L"PositionTargetTex"
-                , (UINT)vRenderResolution.x, (UINT)vRenderResolution.y
+                , static_cast<UINT>(vRenderResolution.x), static_cast<UINT>(vRenderResolution.y)
                 , DXGI_FORMAT_R32G32B32A32_FLOAT, D3D11_BIND_RENDER_TARGET | D3D11_BIND_SHADER_RESOURCE
                 , D3D11_USAGE_DEFAULT),
 
              CResMgr::GetInst()->CreateTexture(L"DataTargetTex"
-                , (UINT)vRenderResolution.x, (UINT)vRenderResolution.y
+                , static_cast<UINT>(vRenderResolution.x), static_cast<UINT>(vRenderResolution.y)
                 , DXGI_FORMAT_R32G32B32A32_FLOAT, D3D11_BIND_RENDER_TARGET | D3D11_BIND_SHADER_RESOURCE
                 , D3D11_USAGE_DEFAULT),
 
             CResMgr::GetInst()->CreateTexture(L"EmissiveTargetTex"
-                , (UINT)vRenderResolution.x, (UINT)vRenderResolution.y
+                , static_cast<UINT>(vRenderResolution.x), static_cast<UINT>(vRenderResolution.y)
                 , DXGI_FORMAT_R32G32B32A32_FLOAT, D3D11_BIND_RENDER_TARGET | D3D11_BIND_SHADER_RESOURCE
                 , D3D11_USAGE_DEFAULT),
         };
@@ -69,8 +69,8 @@ void CRenderMgr::init()
 
         Ptr<CTexture> DSTex = CResMgr::GetInst()->FindRes<CTexture>(L"DepthStencilTex");
 
-        m_MRT[(UINT)MRT_TYPE::DEFERRED] = new CMRT;
-        m_MRT[(UINT)MRT_TYPE::DEFERRED]->Create(arrRTTex, arrClear, DSTex);
+        m_MRT[static_cast<UINT>(MRT_TYPE::DEFERRED)] = new CMRT;
+        m_MRT[static_cast<UINT>(MRT_TYPE::DEFERRED)]->Create(arrRTTex, arrClear, DSTex);
     }
 
     // =========
@@ -87,8 +87,8 @@ void CRenderMgr::init()
 
         Ptr<CTexture> DSTex = nullptr;
 
-        m_MRT[(UINT)MRT_TYPE::DECAL] = new CMRT;
-        m_MRT[(UINT)MRT_TYPE::DECAL]->Create(arrRTTex, arrClear, DSTex);
+        m_MRT[static_cast<UINT>(MRT_TYPE::DECAL)] = new CMRT;
+        m_MRT[static_cast<UINT>(MRT_TYPE::DECAL)]->Create(arrRTTex, arrClear, DSTex);
     }
 
     // =========
@@ -99,20 +99,20 @@ void CRenderMgr::init()
 
         Ptr<CTexture> arrRTTex[8] = {
               CResMgr::GetInst()->CreateTexture(L"DiffuseTargetTex"
-                , (UINT)vRenderResolution.x, (UINT)vRenderResolution.y
+                , static_cast<UINT>(vRenderResolution.x), static_cast<UINT>(vRenderResolution.y)
                 , DXGI_FORMAT_R32G32B32A32_FLOAT, D3D11_BIND_RENDER_TARGET | D3D11_BIND_SHADER_RESOURCE
                 , D3D11_USAGE_DEFAULT),
 
               CResMgr::GetInst()->CreateTexture(L"SpecularTargetTex"
-                , (UINT)vRenderResolution.x, (UINT)vRenderResolution.y
+                , static_cast<UINT>(vRenderResolution.x), static_cast<UINT>(vRenderResolution.y)
                 , DXGI_FORMAT_R32G32B32A32_FLOAT, D3D11_BIND_RENDER_TARGET | D3D11_BIND_SHADER_RESOURCE
                 , D3D11_USAGE_DEFAULT),
         };
 
         Vec4          arrClear[8] = { Vec4(0.f, 0.f, 0.f, 0.f) , };
 
-        m_MRT[(UINT)MRT_TYPE::LIGHT] = new CMRT;
-        m_MRT[(UINT)MRT_TYPE::LIGHT]->Create(arrRTTex, arrClear, nullptr);
+        m_MRT[static_cast<UINT>(MRT_TYPE::LIGHT)] = new CMRT;
+        m_MRT[static_cast<UINT>(MRT_TYPE::LIGHT)]->Create(arrRTTex, arrClear, nullptr);
     }
 
     // =============
@@ -123,7 +123,7 @@ void CRenderMgr::init()
 
         Ptr<CTexture> arrRTTex[8] = {
               CResMgr::GetInst()->CreateTexture(L"WaterCameraTex"
-                , (UINT)vRenderResolution.x, (UINT)vRenderResolution.y
+                , static_cast<UINT>(vRenderResolution.x), static_cast<UINT>(vRenderResolution.y)
                 , DXGI_FORMAT_R8G8B8A8_UNORM, D3D11_BIND_RENDER_TARGET | D3D11_BIND_SHADER_RESOURCE
                 , D3D11_USAGE_DEFAULT),
         };
@@ -132,8 +132,8 @@ void CRenderMgr::init()
 
         Ptr<CTexture> DSTex = nullptr;
 
-        m_MRT[(UINT)MRT_TYPE::WATER] = new CMRT;
-        m_MRT[(UINT)MRT_TYPE::WATER]->Create(arrRTTex, arrClear, DSTex);
+        m_MRT[static_cast<UINT>(MRT_TYPE::WATER)] = new CMRT;
+        m_MRT[static_cast<UINT>(MRT_TYPE::WATER)]->Create(arrRTTex, arrClear, DSTex);
     }
 
     // =============
@@ -149,11 +149,11 @@ void CRenderMgr::init()
 
         Vec4 arrClear[8] = { Vec4(0.f, 0.f, 0.f, 0.f) , };
 
-        // Depth Stencil Texture ∏∏µÈ±‚
+        // Depth Stencil Texture ÎßåÎì§Í∏∞
         Ptr<CTexture> DSTex = CResMgr::GetInst()->CreateTexture(L"DepthMapDSTex", 4096, 4096
                                                                 , DXGI_FORMAT_D32_FLOAT, D3D11_BIND_DEPTH_STENCIL, D3D11_USAGE_DEFAULT);
 
-        m_MRT[(UINT)MRT_TYPE::SHADOW] = new CMRT;
-        m_MRT[(UINT)MRT_TYPE::SHADOW]->Create(arrRTTex, arrClear, DSTex);
+        m_MRT[static_cast<UINT>(MRT_TYPE::SHADOW)] = new CMRT;
+        m_MRT[static_cast<UINT>(MRT_TYPE::SHADOW)]->Create(arrRTTex, arrClear, DSTex);
     }
 }

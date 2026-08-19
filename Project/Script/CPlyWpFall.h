@@ -12,6 +12,6 @@ public:
 
 public:
     CPlyWpFall();
-    ~CPlyWpFall();
+    virtual ~CPlyWpFall() override;
 };
 

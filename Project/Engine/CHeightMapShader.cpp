@@ -22,27 +22,27 @@ CHeightMapShader::~CHeightMapShader()
 
 void CHeightMapShader::UpdateData()
 {
-	m_Const.arrInt[0] = (int)m_pHeightMap->Width();
-	m_Const.arrInt[1] = (int)m_pHeightMap->Height();
-	m_Const.arrInt[2] = m_iBrushIdx;
+	m_Const.arrInt[0]   = static_cast<int>(m_pHeightMap->Width());
+	m_Const.arrInt[1]   = static_cast<int>(m_pHeightMap->Height());
+	m_Const.arrInt[2]   = m_iBrushIdx;
 	m_Const.arrFloat[0] = m_fVelocity;
-	m_Const.arrV2[0] = m_vScale;
+	m_Const.arrV2[0]    = m_vScale;
 
-	// ³ôÀÌ¸Ê
+	// ë†’ì´ë§µ
 	m_pHeightMap->UpdateData_CS(0, false);
 
-	// ºê·¯½¬
+	// ë¸ŒëŸ¬ì‰¬
 	m_pBrushTex->UpdateData_CS(0, true);
 
-	// ÇÇÅ·Á¤º¸
+	// í”¼í‚¹ì •ë³´
 	if (nullptr != m_pInput)
 	{
 		m_pInput->UpdateData_CS(16, true);
 	}
 
-	// ½ÇÇà ½ÃÅ³ ½º·¹µå ±×·ì ¼ö ÁöÁ¤
-	m_iGroupX = ((UINT)m_pHeightMap->Width() / m_iGroupPerThreadX) + 1;
-	m_iGroupY = ((UINT)m_pHeightMap->Height() / m_iGroupPerThreadY) + 1;
+	// ì‹¤í–‰ ì‹œí‚¬ ìŠ¤ë ˆë“œ ê·¸ë£¹ ìˆ˜ ì§€ì •
+	m_iGroupX = (static_cast<UINT>(m_pHeightMap->Width()) / m_iGroupPerThreadX) + 1;
+	m_iGroupY = (static_cast<UINT>(m_pHeightMap->Height()) / m_iGroupPerThreadY) + 1;
 	m_iGroupZ = 1;
 }
 

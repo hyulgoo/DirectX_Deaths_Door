@@ -12,7 +12,7 @@ CMoneyCountScript::~CMoneyCountScript()
 
 void CMoneyCountScript::begin()
 {
-	// µ¿Àû ÀçÁú »ý¼º.
+	// ë™ì  ìž¬ì§ˆ ìƒì„±.
 	int iMtrlCount = MeshRender()->GetMtrlCount();
 
 	for (int i = 0; i < iMtrlCount; ++i)

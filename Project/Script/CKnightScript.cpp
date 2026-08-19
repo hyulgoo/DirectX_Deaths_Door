@@ -10,7 +10,7 @@
 
 
 CKnightScript::CKnightScript() 
-	: CMonsterScript((UINT)SCRIPT_TYPE::KNIGHTSCRIPT)
+	: CMonsterScript(static_cast<UINT>(SCRIPT_TYPE::KNIGHTSCRIPT))
 	, m_bRecognizeCheck(false)
 {
 }
@@ -22,7 +22,7 @@ CKnightScript::~CKnightScript()
 void CKnightScript::begin()
 {
 	CMonsterScript::begin();
-	// µ¿Àû ÀçÁú »ý¼º.
+	// ë™ì  ìž¬ì§ˆ ìƒì„±.
 	int iMtrlCount = MeshRender()->GetMtrlCount();
 
 	for (int i = 0; i < iMtrlCount; ++i)
@@ -30,7 +30,7 @@ void CKnightScript::begin()
 		MeshRender()->GetDynamicMaterial(i);
 	}
 
-	// »óÅÂ ¼³Á¤
+	// ìƒíƒœ ì„¤ì •
 	if (nullptr == m_pStateScript)
 	{
 		m_pStateScript = GetOwner()->GetScript<CStateScript>();
@@ -56,7 +56,7 @@ void CKnightScript::begin()
 
 	Rigidbody()->SetRigidPos({3075.f, 935.f, 2702.f});
 
-	// ÃÊ±â ½ºÅÈ ¼³Á¤.
+	// ì´ˆê¸° ìŠ¤íƒ¯ ì„¤ì •.
 	Stat tInitStat;
 	tInitStat.HP = 400;
 	tInitStat.Max_HP = 400;
@@ -81,7 +81,7 @@ void CKnightScript::tick()
 		m_pStateScript->ChangeState(L"Trace");
 	}
 
-	//HP°¡ 0 ÀÌ¸é »ç¸Á Ã³¸®
+	//HPê°€ 0 ì´ë©´ ì‚¬ë§ ì²˜ë¦¬
 	if (m_pStateScript->GetStat().HP <= 0)
 	{
 		if (m_pStateScript->FindState(L"Death") != m_pStateScript->GetCurState())

@@ -16,7 +16,7 @@ public:
     virtual int render_update() override;
 
 public:
-    void Reload(); // Content Æú´õ¿¡ ÀÖ´Â ¸®¼Ò½º¸¦ ·Îµù
+    void Reload(); // Content í´ë”ì— ìˆëŠ” ë¦¬ì†ŒìŠ¤ë¥¼ ë¡œë”©
     void ResetContent();
     void SetTargetToInspector(DWORD_PTR _SelectedNode);
 

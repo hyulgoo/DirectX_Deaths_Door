@@ -18,6 +18,6 @@ public:
 
 public:
     CBrazierScript();
-    ~CBrazierScript();
+    virtual ~CBrazierScript() override;
 };
 

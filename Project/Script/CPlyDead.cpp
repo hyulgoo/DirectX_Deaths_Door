@@ -17,7 +17,7 @@ CPlyDead::~CPlyDead()
 
 void CPlyDead::Enter()
 {
-	GetOwner()->Animator3D()->Play((int)PLAYERANIM_TYPE::HIT_IDLE, false);
+	GetOwner()->Animator3D()->Play(static_cast<int>(PLAYERANIM_TYPE::HIT_IDLE), false);
 	GetOwner()->GetScript<CPlayerScript>()->SetInvincible(true);
 }
 
@@ -37,29 +37,29 @@ void CPlyDead::tick()
 			m_pDeathTex->MeshRender()->SetMaterial(CResMgr::GetInst()->FindRes<CMaterial>(L"Std2DMtrl"), 0);
 			m_pDeathTex->MeshRender()->GetDynamicMaterial(0)->SetTexParam(TEX_0, CResMgr::GetInst()->LoadTexture(L"texture\\HUD\\DeathFilter.png", L"texture\\HUD\\DeathFilter.png", 0));
 
-			SpawnGameObject(m_pDeathTex, Vec3(0.f), (int)LAYER::UI);
+			SpawnGameObject(m_pDeathTex, Vec3(0.f), static_cast<int>(LAYER::UI));
 		}
 		if (m_fTimetoStartPoint <= 0.f)
 		{
 			g_tPlayerStat.HP = g_tPlayerStat.Max_HP;
 			g_tPlayerStat.MP = g_tPlayerStat.Max_MP;
 
-			// »ç¸Á ÅØ½ºÃÄ Ãâ·Â ½Ã°£ÀÌ ³¡³ª¸é ÇöÀç·¹º§À» ´Ù½Ã ½ÃÀÛÇÔ.
+			// ì‚¬ë§ í…ìŠ¤ì³ ì¶œë ¥ ì‹œê°„ì´ ëë‚˜ë©´ í˜„ìž¬ë ˆë²¨ì„ ë‹¤ì‹œ ì‹œìž‘í•¨.
 			int iCurLevelType = CLevelMgr::GetInst()->GetCurLevel()->GetLevelType();
-			g_tNextLevel = (LEVEL_TYPE)iCurLevelType;
-			CLevel* NewLevel = CLevelSaveLoadInScript::Stop(L"Level\\LLL.lv", LEVEL_STATE::STOP);
+			g_tNextLevel      = static_cast<LEVEL_TYPE>(iCurLevelType);
+			CLevel* NewLevel  = CLevelSaveLoadInScript::Stop(L"Level\\LLL.lv", LEVEL_STATE::STOP);
 			NewLevel->SetName(L"LevelLoading");
-			NewLevel->SetLevelType((int)LEVEL_TYPE::LOADING);
+			NewLevel->SetLevelType(static_cast<int>(LEVEL_TYPE::LOADING));
 			tEvent evn = {};
 			evn.Type = EVENT_TYPE::LEVEL_CHANGE;
 			evn.wParam = (DWORD_PTR)NewLevel;
-			evn.lParam = (DWORD_PTR)NewLevel->GetLevelType();
+			evn.lParam = static_cast<DWORD_PTR>(NewLevel->GetLevelType());
 			CEventMgr::GetInst()->AddEvent(evn);
 
 			m_pDeathTex->SetLifeSpan(0.f);
 		}
 	}
-	// »ç¸Á ±Û¾¾·Î È­¸éÀÌ µ¤È÷¸é¼­ Hall Level¿¡¼­ ´Ù½Ã ÀÔÀå
+	// ì‚¬ë§ ê¸€ì”¨ë¡œ í™”ë©´ì´ ë®ížˆë©´ì„œ Hall Levelì—ì„œ ë‹¤ì‹œ ìž…ìž¥
 	GetOwner()->Rigidbody()->ClearForce();
 }
 

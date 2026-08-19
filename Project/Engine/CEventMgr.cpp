@@ -34,7 +34,7 @@ void CEventMgr::tick()
 		case EVENT_TYPE::CREATE_OBJECT:
 		{
 			CGameObject* NewObject = (CGameObject*)m_vecEvent[i].wParam;
-			int iLayerIdx = (int)m_vecEvent[i].lParam;
+			int iLayerIdx = static_cast<int>(m_vecEvent[i].lParam);
 			CLevelMgr::GetInst()->GetCurLevel()->AddGameObject(NewObject, iLayerIdx, false);
 			if (CLevelMgr::GetInst()->GetCurLevel()->GetState() == LEVEL_STATE::PLAY)
 			{
@@ -62,14 +62,14 @@ void CEventMgr::tick()
 			CGameObject* pDestObj = (CGameObject*)m_vecEvent[i].wParam;
 			CGameObject* pSrcObj = (CGameObject*)m_vecEvent[i].lParam;
 
-			// ºÎ¸ð·Î ÁöÁ¤µÈ ¿ÀºêÁ§Æ®°¡ ¾øÀ¸¸é, Child ¿ÀºêÁ§Æ®°¡ ÃÖ»óÀ§ ºÎ¸ð ¿ÀºêÁ§Æ®°¡ µÈ´Ù.
+			// ë¶€ëª¨ë¡œ ì§€ì •ëœ ì˜¤ë¸Œì íŠ¸ê°€ ì—†ìœ¼ë©´, Child ì˜¤ë¸Œì íŠ¸ê°€ ìµœìƒìœ„ ë¶€ëª¨ ì˜¤ë¸Œì íŠ¸ê°€ ëœë‹¤.
 			if (nullptr == pDestObj)
 			{
 				if (pSrcObj->GetParent())
 				{
-					// ±âÁ¸ ºÎ¸ð¿ÍÀÇ ¿¬°á ÇØÁ¦
+					// ê¸°ì¡´ ë¶€ëª¨ì™€ì˜ ì—°ê²° í•´ì œ
 					pSrcObj->DisconnectFromParent();
-					// ÃÖ»óÀ§ ºÎ¸ð ¿ÀºêÁ§Æ®·Î, ¼Ò¼Ó ·¹ÀÌ¾î¿¡ µî·Ï
+					// ìµœìƒìœ„ ë¶€ëª¨ ì˜¤ë¸Œì íŠ¸ë¡œ, ì†Œì† ë ˆì´ì–´ì— ë“±ë¡
 					pSrcObj->AddParentList();
 				}
 			}
@@ -87,8 +87,8 @@ void CEventMgr::tick()
 		case EVENT_TYPE::DELETE_RESOURCE:
 			// wParam : RES_TYPE, lParam : Resource Adress
 		{
-			RES_TYPE type = (RES_TYPE)m_vecEvent[i].wParam;
-			CRes* pRes = (CRes*)m_vecEvent[i].lParam;
+			RES_TYPE type = static_cast<RES_TYPE>(m_vecEvent[i].wParam);
+			CRes*    pRes = (CRes*)m_vecEvent[i].lParam;
 			CResMgr::GetInst()->DeleteRes(type, pRes->GetKey());
 		}
 
@@ -99,7 +99,7 @@ void CEventMgr::tick()
 			// lParam : Level Type
 			CRenderMgr::GetInst()->ClearCamera();
 			CLevel* Level = (CLevel*)m_vecEvent[i].wParam;
-			Level->SetLevelType((int)m_vecEvent[i].lParam);
+			Level->SetLevelType(static_cast<int>(m_vecEvent[i].lParam));
 			CLevelMgr::GetInst()->ChangeLevel(Level);
 			m_LevelChanged = true;
 		}
@@ -117,7 +117,7 @@ void CEventMgr::GC_Clear()
 	{
 		if (nullptr != m_vecGC[i])
 		{
-			// ÀÚ½Ä Å¸ÀÔ ¿ÀºêÁ§Æ®ÀÎ °æ¿ì
+			// ìžì‹ íƒ€ìž… ì˜¤ë¸Œì íŠ¸ì¸ ê²½ìš°
 			if (m_vecGC[i]->GetParent())			
 				m_vecGC[i]->DisconnectFromParent();
 			

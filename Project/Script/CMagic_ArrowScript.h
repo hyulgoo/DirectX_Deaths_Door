@@ -29,6 +29,6 @@ public:
 
 public:
     CMagic_ArrowScript();
-    ~CMagic_ArrowScript();
+    virtual ~CMagic_ArrowScript() override;
 };
 

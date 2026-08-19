@@ -24,7 +24,7 @@ CLevel::~CLevel()
 }
 
 
-void CLevel::begin()
+void CLevel::begin() const
 {
 	for (UINT i = 0; i < MAX_LAYER; ++i)
 	{
@@ -32,7 +32,7 @@ void CLevel::begin()
 	}
 }
 
-void CLevel::tick()
+void CLevel::tick() const
 {
 	for (UINT i = 0; i < MAX_LAYER; ++i)
 	{
@@ -40,7 +40,7 @@ void CLevel::tick()
 	}
 }
 
-void CLevel::finaltick()
+void CLevel::finaltick() const
 {
 	for (UINT i = 0; i < MAX_LAYER; ++i)
 	{
@@ -48,7 +48,7 @@ void CLevel::finaltick()
 	}
 }
 
-CLayer* CLevel::FindLayerByName(const wstring& _strName)
+CLayer* CLevel::FindLayerByName(const wstring& _strName) const
 {
 	for (int i = 0; i < MAX_LAYER; ++i)
 	{
@@ -60,12 +60,12 @@ CLayer* CLevel::FindLayerByName(const wstring& _strName)
 }
 
 
-void CLevel::AddGameObject(CGameObject* _Object, int _iLayerIdx, bool _bMove)
+void CLevel::AddGameObject(CGameObject* _Object, int _iLayerIdx, bool _bMove) const
 {
 	m_arrLayer[_iLayerIdx]->AddGameObject(_Object, _bMove);
 }
 
-void CLevel::AddGameObject(CGameObject* _Object, const wstring& _LayerName, bool _Move)
+void CLevel::AddGameObject(CGameObject* _Object, const wstring& _LayerName, bool _Move) const
 {
 	CLayer* pLayer = FindLayerByName(_LayerName);
 	assert(pLayer);
@@ -85,21 +85,18 @@ void CLevel::ChangeState(LEVEL_STATE _State)
 	else
 	{
 		CRenderMgr::GetInst()->SetRenderFunc(false);
-		
 	}
 }
 
 
-void CLevel::clear()
+void CLevel::clear() const
 {
 	for (int i = 0; i < MAX_LAYER; ++i)
-	{
 		m_arrLayer[i]->m_vecObject.clear();
-	}	
 }
 
 
-CGameObject* CLevel::FindObjectByName(const wstring& _Name)
+CGameObject* CLevel::FindObjectByName(const wstring& _Name) const
 {
 	for (UINT i = 0; i < MAX_LAYER; ++i)
 	{
@@ -114,7 +111,7 @@ CGameObject* CLevel::FindObjectByName(const wstring& _Name)
 	return nullptr;
 }
 
-void CLevel::FindObjectByName(const wstring& _Name, vector<CGameObject*>& _Out)
+void CLevel::FindObjectByName(const wstring& _Name, vector<CGameObject*>& _Out) const
 {
 	for (UINT i = 0; i < MAX_LAYER; ++i)
 	{

@@ -9,7 +9,7 @@ void CBazookaAim::Enter()
 
 void CBazookaAim::tick()
 {
-	// Á¶ÁØ Áß¿¡ ÇÃ·¹ÀÌ¾î°¡ ³Ê¹« °¡±õ´Ù¸é µµ¸Á°¡°Å³ª, ±ÙÁ¢ °ø°ÝÀ» ÇØ¾ß ÇÑ´Ù. 
+	// ì¡°ì¤€ ì¤‘ì— í”Œë ˆì´ì–´ê°€ ë„ˆë¬´ ê°€ê¹ë‹¤ë©´ ë„ë§ê°€ê±°ë‚˜, ê·¼ì ‘ ê³µê²©ì„ í•´ì•¼ í•œë‹¤. 
 	Vec3 PlayerPos = GetOwner()->GetScript<CMonsterScript>()->GetPlayer()->Transform()->GetWorldPos();
 
 	float fDistance = GetOwner()->GetScript<CBazookaScript>()->GetPlayerDistance();

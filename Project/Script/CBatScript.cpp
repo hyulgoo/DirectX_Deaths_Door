@@ -10,7 +10,7 @@
 #include "BatStates.h"
 
 CBatScript::CBatScript()	
-	: CMonsterScript((UINT)SCRIPT_TYPE::BATSCRIPT)
+	: CMonsterScript(static_cast<UINT>(SCRIPT_TYPE::BATSCRIPT))
 	, m_bRecognizeCheck(false)
 {
 }
@@ -24,7 +24,7 @@ void CBatScript::begin()
 	CMonsterScript::begin();
 
 	Transform()->SetRelativeScale(Vec3(0.35f));
-	// µ¿Àû ÀçÁú »ý¼º.
+	// ë™ì  ìž¬ì§ˆ ìƒì„±.
 	int iMtrlCount = MeshRender()->GetMtrlCount();
 
 	for (int i = 0; i < iMtrlCount; ++i)
@@ -32,7 +32,7 @@ void CBatScript::begin()
 		MeshRender()->GetDynamicMaterial(i);
 	}
 
-	// »óÅÂ ¼³Á¤
+	// ìƒíƒœ ì„¤ì •
 	if (nullptr == m_pStateScript)
 	{
 		m_pStateScript = GetOwner()->GetScript<CStateScript>();
@@ -44,7 +44,7 @@ void CBatScript::begin()
 		m_pStateScript->ChangeState(L"Idle");
 	}
 
-	// ÃÊ±â ½ºÅÈ ¼³Á¤.
+	// ì´ˆê¸° ìŠ¤íƒ¯ ì„¤ì •.
 	Stat tInitStat;
 	tInitStat.HP = 100;
 	tInitStat.Max_HP = 100;
@@ -56,7 +56,7 @@ void CBatScript::tick()
 {	
 	CMonsterScript::tick();
 	
-	// µ¿Àû ÀçÁú »ý¼º.
+	// ë™ì  ìž¬ì§ˆ ìƒì„±.
 	int iMtrlCount = MeshRender()->GetMtrlCount();
 
 	for (int i = 0; i < iMtrlCount; ++i)
@@ -64,7 +64,7 @@ void CBatScript::tick()
 		MeshRender()->GetDynamicMaterial(i);
 	}
 
-	//2.HP°¡ 0 ÀÌ¸é Death
+	//2.HPê°€ 0 ì´ë©´ Death
 	if (m_pStateScript->GetStat().HP <= 0)
 	{
 		if (m_pStateScript->FindState(L"Death") != m_pStateScript->GetCurState())

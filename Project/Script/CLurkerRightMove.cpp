@@ -16,7 +16,7 @@ void CLurkerRightMove::tick()
 {
 	m_fTime += DT;
 
-	// ÇÃ·¹ÀÌ¾î¸¦ ±âÁØÀ¸·Î ¿ÞÂÊÀ¸·Î ÀÌµ¿.
+	// í”Œë ˆì´ì–´ë¥¼ ê¸°ì¤€ìœ¼ë¡œ ì™¼ìª½ìœ¼ë¡œ ì´ë™.
 	Vec3 Velocity = GetOwner()->GetScript<CLurkerScript>()->GetMonsterToPlayerDir();
 	float fSpeed = GetOwnerScript()->GetStat().Speed;
 	Velocity *= fSpeed;
@@ -25,7 +25,7 @@ void CLurkerRightMove::tick()
 
 	GetOwner()->Rigidbody()->SetVelocity(Velocity);
 
-	// ÀÏÁ¤ ½Ã°£ µ¿¾È ÀÌµ¿ÇÏ°í ³¡.
+	// ì¼ì • ì‹œê°„ ë™ì•ˆ ì´ë™í•˜ê³  ë.
 	if (m_fTime > 1.f)
 	{
 		GetOwner()->Rigidbody()->SetVelocity(Vec3(0.f, 0.f, 0.f));

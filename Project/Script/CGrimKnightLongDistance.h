@@ -12,6 +12,6 @@ public:
 
 public:
     CGrimKnightLongDistance();
-    ~CGrimKnightLongDistance();
+    virtual ~CGrimKnightLongDistance() override;
 };
 

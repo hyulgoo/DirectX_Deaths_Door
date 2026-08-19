@@ -16,6 +16,6 @@ public:
 
 public:
     CCrowBossRun();
-    ~CCrowBossRun();
+    virtual ~CCrowBossRun() override;
 };
 

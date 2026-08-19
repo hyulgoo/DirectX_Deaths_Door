@@ -1,8 +1,8 @@
 #pragma once
 #include "UI.h"
 
-#include <Engine\ptr.h>
-#include <Engine\CRes.h>
+#include <Engine/ptr.h>
+#include <Engine/CRes.h>
 
 class ResUI :
     public UI

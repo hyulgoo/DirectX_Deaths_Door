@@ -10,16 +10,16 @@ private:
     Vec3    m_vRelativeRot;
     Vec3    m_vPrevPos;
 
-    bool    m_bAbsolute;    // »ó´ë ÀÌµ¿, Å©±â¸¦ Àı´ë°ªÀ¸·Î ÁöÁ¤    
+    bool    m_bAbsolute;    // ìƒëŒ€ ì´ë™, í¬ê¸°ë¥¼ ì ˆëŒ€ê°’ìœ¼ë¡œ ì§€ì •    
 
     Vec3    m_vRelativeDir[3];
     Vec3    m_vWorldDir[3];
 
-    Matrix  m_matWorldScale;    // ¿ùµå Å©±â Çà·Ä
-    Matrix	m_matRelativeRot;   // ¿ùµå È¸Àü Çà·Ä
+    Matrix  m_matWorldScale;    // ì›”ë“œ í¬ê¸° í–‰ë ¬
+    Matrix	m_matRelativeRot;   // ì›”ë“œ íšŒì „ í–‰ë ¬
 
-    Matrix  m_matWorld;         // Å©±â, È¸Àü, ÀÌµ¿ Á¤º¸¸¦ ÇÕÃÄ³õÀ½
-    Matrix  m_matWorldInv;      // ¿ùµå ¿ªÇà·Ä
+    Matrix  m_matWorld;         // í¬ê¸°, íšŒì „, ì´ë™ ì •ë³´ë¥¼ í•©ì³ë†“ìŒ
+    Matrix  m_matWorldInv;      // ì›”ë“œ ì—­í–‰ë ¬
 
 public:
     void SetRelativePos(Vec3 _vPos) { m_vRelativePos = _vPos; }
@@ -30,28 +30,28 @@ public:
     void SetRelativeScale(float _x, float _y, float _z) { m_vRelativeScale = Vec3(_x, _y, _z); }
     void SetRelativeRot(float _x, float _y, float _z) { m_vRelativeRot = Vec3(_x, _y, _z);  }
 
-    // »ó´ë ÀÌµ¿, Å©±â¸¦ Àı´ë°ªÀ¸·Î ÁöÁ¤  
-    bool IsAbsolute() { return m_bAbsolute; }
+    // ìƒëŒ€ ì´ë™, í¬ê¸°ë¥¼ ì ˆëŒ€ê°’ìœ¼ë¡œ ì§€ì •  
+    bool IsAbsolute() const { return m_bAbsolute; }
     void SetAbsolute(bool _Set) { m_bAbsolute = _Set; }    
 
     const Vec3& GetRelativePos() const { return m_vRelativePos; }
     const Vec3& GetRelativeScale() const { return m_vRelativeScale; }
     const Vec3& GetRelativeRot() const { return m_vRelativeRot; }
-    const Vec3& GetXZDir()
+    const Vec3& GetXZDir() const
     {
-        Vec3 WorldDir = m_vWorldDir[(UINT)DIR_TYPE::FRONT];
-        WorldDir.y = 0.f;
+        Vec3 WorldDir = m_vWorldDir[static_cast<UINT>(DIR_TYPE::FRONT)];
+        WorldDir.y    = 0.f;
         WorldDir.Normalize();
         return WorldDir;
     }
-    Vec3 GetRelativeDir(DIR_TYPE _type) const { return m_vRelativeDir[(UINT)_type]; }
-    Vec3 GetWorldDir(DIR_TYPE _type) const { { return m_vWorldDir[(UINT)_type]; } }
-    const Vec3& GetWorldPos() { return m_matWorld.Translation(); }
-    Vec3 GetPrevPos() { return m_vPrevPos; }
+    Vec3        GetRelativeDir(DIR_TYPE _type) const { return m_vRelativeDir[static_cast<UINT>(_type)]; }
+    Vec3        GetWorldDir(DIR_TYPE _type) const { { return m_vWorldDir[static_cast<UINT>(_type)]; } }
+    const Vec3& GetWorldPos() const { return m_matWorld.Translation(); }
+    Vec3        GetPrevPos() const { return m_vPrevPos; }
 
-    Matrix GetWorldRotation();
+    Matrix GetWorldRotation() const;
 
-    const Matrix& GetWorldScaleMat() { return m_matWorldScale; }
+    const Matrix& GetWorldScaleMat() const { return m_matWorldScale; }
     const Matrix& GetWorldMat() const { return m_matWorld; }
     const Matrix& GetWorldInvMat() const { return m_matWorldInv; }
 
@@ -59,8 +59,8 @@ public:
 
 public:
     virtual void finaltick() override;    
-    void UpdateData();
-    void CalcDir();
+    void         UpdateData() const;
+    void         CalcDir();
 
 public:
     virtual void SaveToLevelFile(FILE* _File) override;
@@ -69,6 +69,6 @@ public:
     CLONE(CTransform);
 public:
     CTransform();
-    ~CTransform();
+    virtual ~CTransform() override;
 };
 

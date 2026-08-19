@@ -16,6 +16,6 @@ public:
 
 public:
     CGruntDeath();
-    ~CGruntDeath();
+    virtual ~CGruntDeath() override;
 };
 

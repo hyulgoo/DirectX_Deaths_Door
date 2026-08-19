@@ -16,6 +16,6 @@ public:
 
 public:
     CKnightWalk();
-    ~CKnightWalk();
+    virtual ~CKnightWalk() override;
 };
 

@@ -2,14 +2,14 @@
 #include "CEditorObjMgr.h"
 
 #include "CGameObjectEx.h"
-#include <Engine\components.h>
+#include <Engine/components.h>
 
-#include <Engine\CResMgr.h>
-#include <Engine\CRenderMgr.h>
-#include <Engine\CTimeMgr.h>
-#include <Engine\CKeyMgr.h>
+#include <Engine/CResMgr.h>
+#include <Engine/CRenderMgr.h>
+#include <Engine/CTimeMgr.h>
+#include <Engine/CKeyMgr.h>
 
-#include <Script\CCameraMoveScript.h>
+#include <Script/CCameraMoveScript.h>
 
 CEditorObjMgr::CEditorObjMgr()
 	: m_DebugShape{}
@@ -25,7 +25,7 @@ CEditorObjMgr::~CEditorObjMgr()
 
 void CEditorObjMgr::init()
 {
-	// µð¹ö±× ½¦ÀÌÇÁ »ý¼º
+	// ë””ë²„ê·¸ ì‰ì´í”„ ìƒì„±
 	m_DebugShape[(UINT)
 		
 	SHAPE_TYPE::RECT] = new CGameObjectEx;
@@ -58,7 +58,7 @@ void CEditorObjMgr::init()
 	m_DebugShape[(UINT)SHAPE_TYPE::FRUSTUM]->MeshRender()->SetMesh(CResMgr::GetInst()->FindRes<CMesh>(L"DebugFrustumMesh"));
 	m_DebugShape[(UINT)SHAPE_TYPE::FRUSTUM]->MeshRender()->SetMaterial(CResMgr::GetInst()->FindRes<CMaterial>(L"DebugShapeMtrl"), 0);
 
-	// EditorObject »ý¼º
+	// EditorObject ìƒì„±
 	CGameObjectEx* pEditorCamObj = new CGameObjectEx;
 	pEditorCamObj->AddComponent(new CTransform);
 	pEditorCamObj->AddComponent(new CCamera);
@@ -77,7 +77,7 @@ void CEditorObjMgr::init()
 
 void CEditorObjMgr::progress()
 {
-	// DebugShape Á¤º¸ °¡Á®¿À±â
+	// DebugShape ì •ë³´ ê°€ì ¸ì˜¤ê¸°
 	vector<tDebugShapeInfo>& vecInfo = CRenderMgr::GetInst()->GetDebugShapeInfo();
 	m_DebugShapeInfo.insert(m_DebugShapeInfo.end(), vecInfo.begin(), vecInfo.end());
 	vecInfo.clear();

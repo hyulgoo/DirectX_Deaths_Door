@@ -12,6 +12,6 @@ public:
 
 public:
     CKnightSpinAttackCombo();
-    ~CKnightSpinAttackCombo();
+    virtual ~CKnightSpinAttackCombo() override;
 };
 

@@ -34,5 +34,5 @@ public:
 
 public:
     CParticleUpdateShader(UINT _iGroupPerThreadX, UINT _iGroupPerThreadY, UINT _iGroupPerThreadZ);
-    ~CParticleUpdateShader();
+    virtual ~CParticleUpdateShader() override;
 };

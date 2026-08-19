@@ -2,7 +2,7 @@
 #include "CGameCameraScript.h"
 
 CGameCameraScript::CGameCameraScript()
-	: CScript((UINT)SCRIPT_TYPE::GAMECAMERASCRIPT)
+	: CScript(static_cast<UINT>(SCRIPT_TYPE::GAMECAMERASCRIPT))
 	, m_pTarget(nullptr)
     , m_fMoveTime(0.f)
     , m_fPrevMoveTime(0.f)
@@ -58,7 +58,7 @@ void CGameCameraScript::tick()
 	
 	else
 	{
-		// CutSceneÀÌ ¾Æ´Ñ °æ¿ì. Å¸°ÙÀÇ ¸Ó¸®À§¿¡¼­ ÂïÀ½.
+		// CutSceneì´ ì•„ë‹Œ ê²½ìš°. íƒ€ê²Ÿì˜ ë¨¸ë¦¬ìœ„ì—ì„œ ì°ìŒ.
 		if (!m_bCutSceneView)
 		{
 			Vec3 CurTargetPos = m_pTarget->Transform()->GetWorldPos();
@@ -69,7 +69,7 @@ void CGameCameraScript::tick()
 			Transform()->SetRelativeRot(XM_PI / 4.f, 0.f, 0.f);
 		}
 		
-		// CutSceneÀÎ °æ¿ì. Å¸°ÙÀ» Á¤¸é¿¡¼­ ÂïÀ½. È¸ÀüµÈ °÷ÀÇ ¹æÇâÀ¸·Î ÀÏÁ¤ °Å¸®¸¸Å­ ÀÌµ¿ÇÏ°í, Ä«¸Þ¶óÀÇ ¹æÇâÀº ¹Ý´ë ¹æÇâÀ¸·Î Áà¾ß ÇÔ. 
+		// CutSceneì¸ ê²½ìš°. íƒ€ê²Ÿì„ ì •ë©´ì—ì„œ ì°ìŒ. íšŒì „ëœ ê³³ì˜ ë°©í–¥ìœ¼ë¡œ ì¼ì • ê±°ë¦¬ë§Œí¼ ì´ë™í•˜ê³ , ì¹´ë©”ë¼ì˜ ë°©í–¥ì€ ë°˜ëŒ€ ë°©í–¥ìœ¼ë¡œ ì¤˜ì•¼ í•¨. 
 		else
 		{
 			Vec3 CurTargetPos = m_pTarget->Transform()->GetWorldPos();
@@ -144,13 +144,13 @@ void CGameCameraScript::SetCutSceneView(bool _bCutSceneView)
 {
 	m_bCutSceneView = _bCutSceneView;
 
-	// CutScene ¸ðµå ÀÏ¶§´Â PERSPECTIVE·Î.
+	// CutScene ëª¨ë“œ ì¼ë•ŒëŠ” PERSPECTIVEë¡œ.
 	if (_bCutSceneView)
 	{
 		Camera()->SetProjType(PROJ_TYPE::PERSPECTIVE);
 	}
 
-	// Normal ¸ðµå ÀÏ¶§´Â ORTHOGRAPHIC·Î.
+	// Normal ëª¨ë“œ ì¼ë•ŒëŠ” ORTHOGRAPHICë¡œ.
 	else
 	{
 		Camera()->SetProjType(PROJ_TYPE::ORTHOGRAPHIC);

@@ -1,11 +1,11 @@
 #include "pch.h"
 #include "CCameraMoveScript.h"
 
-#include <Engine\CTransform.h>
-#include <Engine\CCamera.h>
+#include <Engine/CTransform.h>
+#include <Engine/CCamera.h>
 
 CCameraMoveScript::CCameraMoveScript()
-	: CScript((UINT)SCRIPT_TYPE::CAMERAMOVESCRIPT)
+	: CScript(static_cast<UINT>(SCRIPT_TYPE::CAMERAMOVESCRIPT))
 	, m_fCamSpeed(1000.f)
 {
 }
@@ -24,7 +24,7 @@ void CCameraMoveScript::tick()
 
 void CCameraMoveScript::Camera2DMove()
 {
-	// Å° ÀÔ·Â¿¡ µû¸¥ Ä«¸Þ¶ó ÀÌµ¿
+	// í‚¤ ìž…ë ¥ì— ë”°ë¥¸ ì¹´ë©”ë¼ ì´ë™
 	Vec3 vPos = Transform()->GetRelativePos();
 
 	float fSpeed = m_fCamSpeed;

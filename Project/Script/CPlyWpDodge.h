@@ -12,6 +12,6 @@ public:
 
 public:
     CPlyWpDodge();
-    ~CPlyWpDodge();
+    virtual ~CPlyWpDodge() override;
 };
 

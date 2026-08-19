@@ -12,9 +12,9 @@ CPlyHit::~CPlyHit()
 
 void CPlyHit::Enter()
 {
-	// Hit Anim Àç»ý ³¡³ª¸é ¹Ù·Î Idle·Î µ¹¾Æ°¡¾ß ÇÏ¹Ç·Î ¹Ýº¹Àç»ý false;
-	GetOwner()->Animator3D()->Play((int)PLAYERANIM_TYPE::HIT, false);
-	// ÀÌ¹Ì HitÀÌ¹Ç·Î ¹«Àû È°¼ºÈ­
+	// Hit Anim ìž¬ìƒ ëë‚˜ë©´ ë°”ë¡œ Idleë¡œ ëŒì•„ê°€ì•¼ í•˜ë¯€ë¡œ ë°˜ë³µìž¬ìƒ false;
+	GetOwner()->Animator3D()->Play(static_cast<int>(PLAYERANIM_TYPE::HIT), false);
+	// ì´ë¯¸ Hitì´ë¯€ë¡œ ë¬´ì  í™œì„±í™”
 	GetOwner()->GetScript<CPlayerScript>()->SetInvincible(true);
 }
 
@@ -23,9 +23,9 @@ void CPlyHit::tick()
 	GetOwner()->Rigidbody()->ClearForce();
 	if(GetOwner()->Animator3D()->IsFinish())
 	{
-		if (GetOwner()->Animator3D()->GetCurClip() == (int)PLAYERANIM_TYPE::HIT)
+		if (GetOwner()->Animator3D()->GetCurClip() == static_cast<int>(PLAYERANIM_TYPE::HIT))
 		{
-			GetOwner()->Animator3D()->Play((int)PLAYERANIM_TYPE::HIT_RECOVER, false);
+			GetOwner()->Animator3D()->Play(static_cast<int>(PLAYERANIM_TYPE::HIT_RECOVER), false);
 		}
 		else
 		{
@@ -36,7 +36,7 @@ void CPlyHit::tick()
 
 void CPlyHit::Exit()
 {
-	// ¹«Àû ºñÈ°¼ºÈ­
+	// ë¬´ì  ë¹„í™œì„±í™”
 	GetOwner()->GetScript<CPlayerScript>()->SetInvincible(false);
 	GetOwner()->Rigidbody()->ClearForce();
 }

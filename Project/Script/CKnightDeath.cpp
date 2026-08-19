@@ -25,7 +25,7 @@ void CKnightDeath::Enter()
 
 void CKnightDeath::tick()
 {
-    // ¾Ö´Ï¸ÞÀÌ¼ÇÀÌ ³¡³­ °æ¿ì »ç¸Á Paperburn È¿°ú ÁÖ±â.
+    // ì• ë‹ˆë©”ì´ì…˜ì´ ëë‚œ ê²½ìš° ì‚¬ë§ Paperburn íš¨ê³¼ ì£¼ê¸°.
     if (GetOwner()->Animator3D()->IsFinish())
     {
         GetOwner()->GetScript<CKnightScript>()->SetPaperBurnEffect(true);
@@ -40,10 +40,10 @@ void CKnightDeath::tick()
         GetOwner()->GetScript<CKnightScript>()->GetPlayer()->GetScript<CPlayerScript>()->AddMoney((UINT)600);
         CLevelSaveLoadInScript script;
         script.MoneyCount(600);
-        CGameObject* pDoor = CLevelSaveLoadInScript::SpawnandReturnPrefab(L"prefab\\LevelChangeDoor.prefab",(int)LAYER::LEVELCHANGEDOOR,Vec3(3200.f, 1200.f, 2880.f));
+        CGameObject* pDoor = CLevelSaveLoadInScript::SpawnandReturnPrefab(L"prefab\\LevelChangeDoor.prefab",static_cast<int>(LAYER::LEVELCHANGEDOOR),Vec3(3200.f, 1200.f, 2880.f));
         pDoor->Transform()->SetRelativePos(Vec3(3200.f, 1050.f, 2880.f));
         pDoor->Transform()->SetRelativeRot({ 0.f, 45.f, 0.f });
-        pDoor->GetScript<CLevelChangeDoorScript>()->SetLevelType((int)LEVEL_TYPE::HALL);
+        pDoor->GetScript<CLevelChangeDoorScript>()->SetLevelType(static_cast<int>(LEVEL_TYPE::HALL));
         GetOwnerScript()->Destroy();
     }
     GetOwner()->Rigidbody()->ClearForce();

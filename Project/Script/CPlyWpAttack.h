@@ -4,7 +4,7 @@ class CPlyWpAttack :
     public CState
 {
 private:
-    UINT    m_iAttackCount;         // ÇöÀç °ø°İÈ½¼ö(ÃÑ 3È¸±îÁö)
+    UINT    m_iAttackCount;         // í˜„ì¬ ê³µê²©íšŸìˆ˜(ì´ 3íšŒê¹Œì§€)
 
 public:
     virtual void tick() override;
@@ -17,6 +17,6 @@ public:
 
 public:
     CPlyWpAttack();
-    ~CPlyWpAttack();
+    virtual ~CPlyWpAttack() override;
 };
 

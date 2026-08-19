@@ -12,6 +12,6 @@ public:
 
 public:
     CKnightJumpFinish();
-    ~CKnightJumpFinish();
+    virtual ~CKnightJumpFinish() override;
 };
 

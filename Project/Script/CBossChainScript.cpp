@@ -5,7 +5,7 @@
 #include "CSoundScript.h"
 
 CBossChainScript::CBossChainScript()
-	: CScript((UINT)SCRIPT_TYPE::BOSSCHAINSCRIPT)
+	: CScript(static_cast<UINT>(SCRIPT_TYPE::BOSSCHAINSCRIPT))
 	, m_pChainScript(nullptr)
 	, m_pSlidingScript(nullptr)
 	, m_vecChain{}
@@ -46,7 +46,7 @@ void CBossChainScript::begin()
 
 void CBossChainScript::tick()
 {
-	// ´øÁöÁö ¾Ê¾Ò´Ù¸é return
+	// ë˜ì§€ì§€ ì•Šì•˜ë‹¤ë©´ return
 	if (!m_bActive)
 		return;
 	if (m_fDelay >= 0.f)
@@ -70,7 +70,7 @@ void CBossChainScript::tick()
 
 	PaveChain();
 
-	// µ¹¾Æ¿À´Â µµÁß¿¡ ½ÃÀÛÁöÁ¡°ú °¡±îÀÌ ¿Ô´Ù¸é Hook Á¾·á	
+	// ëŒì•„ì˜¤ëŠ” ë„ì¤‘ì— ì‹œì‘ì§€ì ê³¼ ê°€ê¹Œì´ ì™”ë‹¤ë©´ Hook ì¢…ë£Œ	
 	if (m_fDistancetoTarget >= m_fThrowDistance)
 	{
 		if (m_bMulti)
@@ -87,7 +87,7 @@ void CBossChainScript::tick()
 		Vec3 CurPos = Transform()->GetRelativePos();
 		CurPos += m_vThrownDir * 4000.f * DT;
 		Transform()->SetRelativePos(CurPos);
-		// ½ÃÀÛÁöÁ¡°úÀÇ °Å¸®¸¸Å­ ChainÀ» È°¼ºÈ­
+		// ì‹œì‘ì§€ì ê³¼ì˜ ê±°ë¦¬ë§Œí¼ Chainì„ í™œì„±í™”
 	}
 
 }
@@ -121,10 +121,10 @@ void CBossChainScript::Active(bool _bActive, bool _bMulti, float _fDelay = 0)
 	m_fDelay = _fDelay;
 }
 
-void CBossChainScript::PaveChain()
+void CBossChainScript::PaveChain() const
 {
-	int ChainCount = (int)m_vecChain.size();
-	// Ã¼ÀÎ 1°³º¸´Ù HookÀÌ ¸Ö¸® ³ª°¡¸é ChainÀ» °Å¸®¸¸Å­ º¸ÀÌ°Ô ÇÔ.
+	int ChainCount = static_cast<int>(m_vecChain.size());
+	// ì²´ì¸ 1ê°œë³´ë‹¤ Hookì´ ë©€ë¦¬ ë‚˜ê°€ë©´ Chainì„ ê±°ë¦¬ë§Œí¼ ë³´ì´ê²Œ í•¨.
 	if (m_fDistancetoTarget >= m_fChainSpacing)
 	{
 		int ActiveChain = m_fDistancetoTarget / m_fChainSpacing;

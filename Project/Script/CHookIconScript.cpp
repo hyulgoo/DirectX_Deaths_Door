@@ -25,7 +25,7 @@ void CHookIconScript::tick()
 	{
 		CPlayerScript* pScript = CLevelMgr::GetInst()->FindObjectByName(L"Player")->GetScript<CPlayerScript>();
 		UINT magicState = pScript->GetUseMagic();
-		if (magicState == (UINT)PLAYER_MAGIC::HOOK)
+		if (magicState == static_cast<UINT>(PLAYER_MAGIC::HOOK))
 		{
 			Transform()->SetRelativePos(Vec3(-651.f, 199.f, 0.f));
 			Transform()->SetRelativeScale(Vec3(100, 116.f, 0.f));

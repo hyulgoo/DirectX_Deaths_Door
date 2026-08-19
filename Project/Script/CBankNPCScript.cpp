@@ -39,24 +39,24 @@ void CBankNPCScript::OnOverlap(CCollider3D* _Other)
 		
 		if (KEY_TAP(KEY::E) && LEVEL_STATE::PLAY == CLevelMgr::GetInst()->GetCurLevel()->GetState())
 		{
-			// »óÁ¡ ÀÌ¿ë ½Ã PlayerÀÇ ÀÌµ¿À» ¸·À½.
+			// ìƒì  ì´ìš© ì‹œ Playerì˜ ì´ë™ì„ ë§‰ìŒ.
 			_Other->GetOwner()->GetScript<CPlayerScript>()->ChangeState(L"Idle");
 			_Other->GetOwner()->GetScript<CPlayerScript>()->SetMoveAble(false);
 
 			m_pTalkSign->Transform()->SetRelativeScale(Vec3(0.f));
 
-			//»óÁ¡ Frame & Upgrade ½ºÅÝ spawn
+			//ìƒì  Frame & Upgrade ìŠ¤í…Ÿ spawn
 			
 			if (!CLevelMgr::GetInst()->FindObjectByName(L"BankUIFrame"))
 			{
-				CGameObject* BankUIFrame = CLevelSaveLoadInScript::SpawnandReturnPrefab(L"prefab\\BankUIFrame.prefab", (int)LAYER::UI, Vec3(0.f, 0.f, 100.f));
+				CGameObject* BankUIFrame = CLevelSaveLoadInScript::SpawnandReturnPrefab(L"prefab\\BankUIFrame.prefab", static_cast<int>(LAYER::UI), Vec3(0.f, 0.f, 100.f));
 			}
 			if (!CLevelMgr::GetInst()->FindObjectByName(L"BankUIUpgrade"))
 			{
-				CGameObject* BankUIUpgrade = CLevelSaveLoadInScript::SpawnandReturnPrefab(L"prefab\\BankUIUpgrade.prefab", (int)LAYER::UI, Vec3(0.f));
+				CGameObject* BankUIUpgrade = CLevelSaveLoadInScript::SpawnandReturnPrefab(L"prefab\\BankUIUpgrade.prefab", static_cast<int>(LAYER::UI), Vec3(0.f));
 			}
 
-			//Main Cam °¢µµ º¯°æ
+			//Main Cam ê°ë„ ë³€ê²½
 			CGameObject* mainCam = CLevelMgr::GetInst()->FindObjectByName(L"MainCamera");
 			mainCam->Transform()->SetRelativePos(Vec3(1698.f, 1443.f, 3470.f));
 			Vec3 rot = (Vec3(8.f, -62.f, 0.f) / 180.f) * XM_PI;
@@ -71,7 +71,7 @@ void CBankNPCScript::OnOverlap(CCollider3D* _Other)
 			if(UIUpgrade)
 				UIUpgrade->SetLifeSpan(0.f);
 			
-			// PlayerÀÇ ÀÌµ¿Á¦ÇÑ ÇØÁ¦
+			// Playerì˜ ì´ë™ì œí•œ í•´ì œ
 			_Other->GetOwner()->GetScript<CPlayerScript>()->SetMoveAble(true);
 		}
 	}

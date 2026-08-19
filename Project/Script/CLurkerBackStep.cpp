@@ -16,9 +16,9 @@ void CLurkerBackStep::Enter()
 
 void CLurkerBackStep::tick()
 {
-	float AnimLength = (float)GetOwner()->Animator3D()->GetCurClipTimeLength();
-	m_fTime += DT;
-	float CurRatio = m_fTime / AnimLength;
+	float AnimLength = static_cast<float>(GetOwner()->Animator3D()->GetCurClipTimeLength());
+	m_fTime          += DT;
+	float CurRatio   = m_fTime / AnimLength;
 
 	if (CurRatio <= 0.5f)
 	{
@@ -30,7 +30,7 @@ void CLurkerBackStep::tick()
 		GetOwner()->Rigidbody()->AddVelocity(Velocity);
 	}
 
-	// ¾Ö´Ï¸ÞÀÌ¼ÇÀÌ ³¡³ª¸é Notify·Î ´Ù½Ã º¯°æ.
+	// ì• ë‹ˆë©”ì´ì…˜ì´ ëë‚˜ë©´ Notifyë¡œ ë‹¤ì‹œ ë³€ê²½.
 	if (GetOwner()->Animator3D()->IsFinish())
 		ChangeState(L"Notify");
 }

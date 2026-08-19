@@ -1,12 +1,12 @@
 #pragma once
 
-#include <Engine\ptr.h>
-#include <Engine\CTexture.h>
+#include <Engine/ptr.h>
+#include <Engine/CTexture.h>
 
 class ParamUI
 {
 private:
-	static UINT		g_NextId;	// ÆÄ¶ó¹ÌÅÍ UI µéÀÇ ID
+	static UINT		g_NextId;	// íŒŒë¼ë¯¸í„° UI ë“¤ì˜ ID
 
 public:
 	static int Param_Int(const string& _strDesc, int* _pData, bool _bDrag = false);

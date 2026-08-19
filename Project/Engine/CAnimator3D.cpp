@@ -65,42 +65,42 @@ void CAnimator3D::finaltick()
 
 	m_dCurTime = 0.f;
 
-	// ÇöÀç Àç»ıÁßÀÎ Clip ÀÇ ½Ã°£À» ÁøÇàÇÑ´Ù.
+	// í˜„ì¬ ì¬ìƒì¤‘ì¸ Clip ì˜ ì‹œê°„ì„ ì§„í–‰í•œë‹¤.
 	m_vecClipUpdateTime[m_iCurClip] += DT;
 
-	// ÇöÀç ¾Ö´Ï¸ŞÀÌ¼Ç Àç»ı½Ã°£ÀÌ ³¡³µÀ¸¸é, ´Ù½Ã ½ÃÀÛ ºÎºĞÀ¸·Î µ¹·Á¼­ ¹İº¹ ½ÃÅ´.
+	// í˜„ì¬ ì• ë‹ˆë©”ì´ì…˜ ì¬ìƒì‹œê°„ì´ ëë‚¬ìœ¼ë©´, ë‹¤ì‹œ ì‹œì‘ ë¶€ë¶„ìœ¼ë¡œ ëŒë ¤ì„œ ë°˜ë³µ ì‹œí‚´.
 	if (m_vecClipUpdateTime[m_iCurClip] >= m_pVecClip->at(m_iCurClip).dTimeLength)
 	{
-		// ¹İº¹ Àç»ıÀÌ¸é Ã³À½ºÎÅÍ ´Ù½Ã Àç»ı
+		// ë°˜ë³µ ì¬ìƒì´ë©´ ì²˜ìŒë¶€í„° ë‹¤ì‹œ ì¬ìƒ
 		if (m_bRepeat)
 			m_vecClipUpdateTime[m_iCurClip] = 0.f;
 		
-		// 1È¸ Àç»ıÀÌ¸é 
+		// 1íšŒ ì¬ìƒì´ë©´ 
 		else
 			m_bCurClipFinish = true;
 	}
 
-	// ¾Ö´Ï¸ŞÀÌ¼Ç Àç»ıÀÌ ³¡³ªÁö ¾ÊÀº °æ¿ì.
+	// ì• ë‹ˆë©”ì´ì…˜ ì¬ìƒì´ ëë‚˜ì§€ ì•Šì€ ê²½ìš°.
 	if (!m_bCurClipFinish)
 	{
-		// Å¬¸³ ³»¿¡¼­ ÇöÀç ¾Ö´Ï¸ŞÀÌ¼Ç ½ÃÀÛ ½Ã°£ + ÇöÀç ¾Ö´Ï¸ŞÀÌ¼ÇÀÌ Áö±İ±îÁö Àç»ıµÈ ½Ã°£ = ÇöÀç Å¬¸³ ³»¿¡¼­ÀÇ ½Ã°£.
+		// í´ë¦½ ë‚´ì—ì„œ í˜„ì¬ ì• ë‹ˆë©”ì´ì…˜ ì‹œì‘ ì‹œê°„ + í˜„ì¬ ì• ë‹ˆë©”ì´ì…˜ì´ ì§€ê¸ˆê¹Œì§€ ì¬ìƒëœ ì‹œê°„ = í˜„ì¬ í´ë¦½ ë‚´ì—ì„œì˜ ì‹œê°„.
 		m_dCurTime = m_pVecClip->at(m_iCurClip).dStartTime + m_vecClipUpdateTime[m_iCurClip];
 
-		// ÇöÀç ÇÁ·¹ÀÓ ÀÎµ¦½º ±¸ÇÏ±â
-		double dFrameIdx = m_dCurTime * (double)m_iFrameCount;
-		m_iFrameIdx = (int)(dFrameIdx);
+		// í˜„ì¬ í”„ë ˆì„ ì¸ë±ìŠ¤ êµ¬í•˜ê¸°
+		double dFrameIdx = m_dCurTime * static_cast<double>(m_iFrameCount);
+		m_iFrameIdx      = static_cast<int>(dFrameIdx);
 
-		// ´ÙÀ½ ÇÁ·¹ÀÓ ÀÎµ¦½º
-		// Å¬¸³ 1°³¸¸ ¾²´Ï±î 0 ³Ö´Â°Å°í °Å±â¼­ ¸Ç µÚ ÇÁ·¹ÀÓÀÌ¸é. 
+		// ë‹¤ìŒ í”„ë ˆì„ ì¸ë±ìŠ¤
+		// í´ë¦½ 1ê°œë§Œ ì“°ë‹ˆê¹Œ 0 ë„£ëŠ”ê±°ê³  ê±°ê¸°ì„œ ë§¨ ë’¤ í”„ë ˆì„ì´ë©´. 
 		if (m_iFrameIdx >= m_pVecClip->at(m_iCurClip).iEndFrame)
-			m_iNextFrameIdx = m_iFrameIdx;	// ³¡ÀÌ¸é ÇöÀç ÀÎµ¦½º¸¦ À¯Áö
+			m_iNextFrameIdx = m_iFrameIdx;	// ëì´ë©´ í˜„ì¬ ì¸ë±ìŠ¤ë¥¼ ìœ ì§€
 		else
 			m_iNextFrameIdx = m_iFrameIdx + 1;
 
-		// ÇÁ·¹ÀÓ°£ÀÇ ½Ã°£¿¡ µû¸¥ ºñÀ²À» ±¸ÇØÁØ´Ù.
-		m_fRatio = (float)(dFrameIdx - (double)m_iFrameIdx);
+		// í”„ë ˆì„ê°„ì˜ ì‹œê°„ì— ë”°ë¥¸ ë¹„ìœ¨ì„ êµ¬í•´ì¤€ë‹¤.
+		m_fRatio = static_cast<float>(dFrameIdx - (double)m_iFrameIdx);
 
-		// ÄÄÇ»Æ® ½¦ÀÌ´õ ¿¬»ê¿©ºÎ
+		// ì»´í“¨íŠ¸ ì‰ì´ë” ì—°ì‚°ì—¬ë¶€
 		m_bFinalMatUpdate = false;
 	}
 }
@@ -117,7 +117,7 @@ void CAnimator3D::UpdateData()
 	if (!m_bFinalMatUpdate)
 	{
 		// Animation3D Update Compute Shader
-		CAnimation3DShader* pUpdateShader = (CAnimation3DShader*)CResMgr::GetInst()->FindRes<CComputeShader>(L"Animation3DUpdateCS").Get();
+		CAnimation3DShader* pUpdateShader = static_cast<CAnimation3DShader*>(CResMgr::GetInst()->FindRes<CComputeShader>(L"Animation3DUpdateCS").Get());
 
 		// Bone Data
 		Ptr<CMesh> pMesh = MeshRender()->GetMesh();
@@ -127,7 +127,7 @@ void CAnimator3D::UpdateData()
 		pUpdateShader->SetOffsetMatBuffer(pMesh->GetBoneOffsetBuffer());
 		pUpdateShader->SetOutputBuffer(m_pBoneFinalMatBuffer);
 
-		UINT iBoneCount = (UINT)m_pVecBones->size();
+		UINT iBoneCount = static_cast<UINT>(m_pVecBones->size());
 		pUpdateShader->SetBoneCount(iBoneCount);
 		pUpdateShader->SetFrameIndex(m_iFrameIdx);
 		pUpdateShader->SetNextFrameIdx(m_iNextFrameIdx);
@@ -136,13 +136,13 @@ void CAnimator3D::UpdateData()
 		pUpdateShader->SetBlendFrameIdx(m_iFrameIdx);
 		pUpdateShader->SetBlendRatio(0.5f);
 
-		// ¾÷µ¥ÀÌÆ® ½¦ÀÌ´õ ½ÇÇà
+		// ì—…ë°ì´íŠ¸ ì‰ì´ë” ì‹¤í–‰
 		pUpdateShader->Execute();
 
 		m_bFinalMatUpdate = true;
 	}
 
-	// t30 ·¹Áö½ºÅÍ¿¡ ÃÖÁ¾Çà·Ä µ¥ÀÌÅÍ(±¸Á¶¹öÆÛ) ¹ÙÀÎµù		
+	// t30 ë ˆì§€ìŠ¤í„°ì— ìµœì¢…í–‰ë ¬ ë°ì´í„°(êµ¬ì¡°ë²„í¼) ë°”ì¸ë”©		
 	m_pBoneFinalMatBuffer->UpdateData(30, PIPELINE_STAGE::PS_VERTEX);
 }
 
@@ -151,7 +151,7 @@ void CAnimator3D::Play(int _iClipIdx, bool _bRepeat)
 	if (_iClipIdx >= 0 && _iClipIdx < m_pVecClip->size()) 
 		m_iCurClip = _iClipIdx; 
 
-	// ÇöÀç Àç»ıÇÏ´Â ¾Ö´Ï¸ŞÀÌ¼Ç Å¬¸³À» º¯°æÇÏ¸é ÇØ´ç ¾Ö´Ï¸ŞÀÌ¼ÇÀÇ Àç»ı½Ã°£À» 0À¸·Î ÃÊ±âÈ­.
+	// í˜„ì¬ ì¬ìƒí•˜ëŠ” ì• ë‹ˆë©”ì´ì…˜ í´ë¦½ì„ ë³€ê²½í•˜ë©´ í•´ë‹¹ ì• ë‹ˆë©”ì´ì…˜ì˜ ì¬ìƒì‹œê°„ì„ 0ìœ¼ë¡œ ì´ˆê¸°í™”.
 	m_vecClipUpdateTime[_iClipIdx] = 0.f;
 	m_bCurClipFinish = false;
 	m_bRepeat = _bRepeat;
@@ -169,7 +169,7 @@ void CAnimator3D::ClearData()
 		if (nullptr == pMtrl)
 			continue;
 
-		pMtrl->SetAnim3D(false); // Animation Mesh ¾Ë¸®±â
+		pMtrl->SetAnim3D(false); // Animation Mesh ì•Œë¦¬ê¸°
 		pMtrl->SetBoneCount(0);
 	}
 }
@@ -178,12 +178,12 @@ void CAnimator3D::SaveMeshAnimationClip()
 {
 	Ptr<CMesh> pMesh = MeshRender()->GetMesh();
 
-	pMesh->ChangeAnimClip(m_pVecClip);	// MeshÀÇ AnimClipÀ» ÇöÀç Animator3DÀÇ AnimClipÀ¸·Î º¯°æ.
+	pMesh->ChangeAnimClip(m_pVecClip);	// Meshì˜ AnimClipì„ í˜„ì¬ Animator3Dì˜ AnimClipìœ¼ë¡œ ë³€ê²½.
 
-	pMesh->Save(pMesh->GetKey());		// Mesh¿¡´Â Key °ªÀ¸·Î °æ·Î°¡ ÀúÀåµÇ¾î ÀÖÀ» °ÍÀÌ´Ù. 
+	pMesh->Save(pMesh->GetKey());		// Meshì—ëŠ” Key ê°’ìœ¼ë¡œ ê²½ë¡œê°€ ì €ì¥ë˜ì–´ ìˆì„ ê²ƒì´ë‹¤. 
 }
 
-void CAnimator3D::check_mesh(Ptr<CMesh> _pMesh)
+void CAnimator3D::check_mesh(Ptr<CMesh> _pMesh) const
 {
 	UINT iBoneCount = _pMesh->GetBoneCount();
 	if (m_pBoneFinalMatBuffer->GetElementCount() != iBoneCount)

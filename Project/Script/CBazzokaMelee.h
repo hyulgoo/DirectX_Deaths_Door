@@ -12,5 +12,5 @@ public:
 
 public:
     CBazzokaMelee();
-    ~CBazzokaMelee();
+    virtual ~CBazzokaMelee() override;
 };

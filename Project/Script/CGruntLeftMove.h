@@ -12,6 +12,6 @@ public:
 
 public:
     CGruntLeftMove();
-    ~CGruntLeftMove();
+    virtual ~CGruntLeftMove() override;
 };
 

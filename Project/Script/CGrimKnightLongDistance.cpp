@@ -36,8 +36,8 @@ void CGrimKnightLongDistance::Enter()
 	CSoundScript* pSoundscript = CLevelMgr::GetInst()->FindObjectByName(L"SoundUI")->GetScript<CSoundScript>();
 	Ptr<CSound> pSound = pSoundscript->AddSound(L"Sound\\Monster\\Grim\\GrimaceBullet.ogg", 1, 0.1f);
 
-	//Ghost prefab »ı¼º
-	CGameObject* pGhost = CLevelSaveLoadInScript::SpawnandReturnPrefab(L"prefab\\Ghost.prefab", (int)LAYER::MONSTERPROJECTILE, GetOwner()->Transform()->GetWorldPos(), 5.f);
+	//Ghost prefab ìƒì„±
+	CGameObject* pGhost = CLevelSaveLoadInScript::SpawnandReturnPrefab(L"prefab\\Ghost.prefab", static_cast<int>(LAYER::MONSTERPROJECTILE), GetOwner()->Transform()->GetWorldPos(), 5.f);
 	pGhost->AddComponent(new CGhostScript);
 	pGhost->AddComponent(new CStateScript);
 	pGhost->AddComponent(new CRigidbody);

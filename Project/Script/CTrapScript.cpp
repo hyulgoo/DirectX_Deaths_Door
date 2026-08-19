@@ -33,12 +33,12 @@ void CTrapScript::BeginOverlap(CCollider3D* _Other)
 	CLevel* curLevel = CLevelMgr::GetInst()->GetCurLevel();
 	if (_Other->GetOwner()->GetName() == L"Player")
 	{
-		if (curLevel->GetLevelType() == (int)LEVEL_TYPE::CASTLE_FIELD)
+		if (curLevel->GetLevelType() == static_cast<int>(LEVEL_TYPE::CASTLE_FIELD))
 		{
 			if (GetOwner()->GetName() == L"Trap1")
 			{
 				GetOwner()->GetScript<CRoomScript>()->SetRoomNum(1);
-				GetOwner()->GetScript<CRoomScript>()->SetWaveCount(1);//ÃÖ´ë ¿şÀÌºê ¼ö
+				GetOwner()->GetScript<CRoomScript>()->SetWaveCount(1);//ìµœëŒ€ ì›¨ì´ë¸Œ ìˆ˜
 				
 				vector<SpawnInfo> wave0 = {};
 				SpawnInfo info;
@@ -80,7 +80,7 @@ void CTrapScript::BeginOverlap(CCollider3D* _Other)
 				CSpawnMgr::GetInst()->RegisterRoom(1, GetOwner()->GetScript<CRoomScript>());
 				CSpawnMgr::GetInst()->SpawnMonster(1);
 				
-				//trapped µÇ¾úÀ¸¸é fence¸¦ ¿ÀÇÂÇÏ°í rigidbody PhysX¼³Á¤ÇØÁØ´Ù
+				//trapped ë˜ì—ˆìœ¼ë©´ fenceë¥¼ ì˜¤í”ˆí•˜ê³  rigidbody PhysXì„¤ì •í•´ì¤€ë‹¤
 				
 				CGameObject* door1 = CLevelMgr::GetInst()->FindObjectByName(L"Fence1");
 				door1->GetScript<CFenceScript>()->SetRoomNum(1);
@@ -97,12 +97,12 @@ void CTrapScript::BeginOverlap(CCollider3D* _Other)
 				CSpawnMgr::GetInst()->RegisterFence(1, door1->GetScript<CFenceScript>());
 				CSpawnMgr::GetInst()->RegisterFence(1, door2->GetScript<CFenceScript>());
 				CSpawnMgr::GetInst()->RegisterFence(1, door3->GetScript<CFenceScript>());
-				CSpawnMgr::GetInst()->ActivateFence(1, true);//¿¬´Ù					
+				CSpawnMgr::GetInst()->ActivateFence(1, true);//ì—°ë‹¤					
 			}
 			else if (GetOwner()->GetName() == L"Trap2")
 			{
 				GetOwner()->GetScript<CRoomScript>()->SetRoomNum(2);
-				GetOwner()->GetScript<CRoomScript>()->SetWaveCount(2);//ÃÖ´ë ¿şÀÌºê ¼ö
+				GetOwner()->GetScript<CRoomScript>()->SetWaveCount(2);//ìµœëŒ€ ì›¨ì´ë¸Œ ìˆ˜
 
 				vector<SpawnInfo> wave0 = {};
 				SpawnInfo info;
@@ -136,21 +136,21 @@ void CTrapScript::BeginOverlap(CCollider3D* _Other)
 				CSpawnMgr::GetInst()->RegisterRoom(2, GetOwner()->GetScript<CRoomScript>());
 				CSpawnMgr::GetInst()->SpawnMonster(2);
 
-				//trapped µÇ¾úÀ¸¸é fence¸¦ ¿ÀÇÂÇÏ°í rigidbody PhysX¼³Á¤ÇØÁØ´Ù
+				//trapped ë˜ì—ˆìœ¼ë©´ fenceë¥¼ ì˜¤í”ˆí•˜ê³  rigidbody PhysXì„¤ì •í•´ì¤€ë‹¤
 
 				CGameObject* door4 = CLevelMgr::GetInst()->FindObjectByName(L"Fence4");
 				door4->GetScript<CFenceScript>()->SetRoomNum(2);
 				door4->MeshRender()->SetDynamicShadow(true);
 
 				CSpawnMgr::GetInst()->RegisterFence(2, door4->GetScript<CFenceScript>());
-				CSpawnMgr::GetInst()->ActivateFence(2, true);//¿¬´Ù				
+				CSpawnMgr::GetInst()->ActivateFence(2, true);//ì—°ë‹¤				
 			}
 		}
-		else if (curLevel->GetLevelType() == (int)LEVEL_TYPE::FOREST_FIELD)
+		else if (curLevel->GetLevelType() == static_cast<int>(LEVEL_TYPE::FOREST_FIELD))
 		{
 			if (GetOwner()->GetName() == L"Trap1")
 			{
-				CGameObject* door = CLevelSaveLoadInScript::SpawnandReturnPrefab(L"prefab\\Fence.prefab", (int)LAYER::ITEM, Vec3(5942.f, 549.f, 3636.f));
+				CGameObject* door = CLevelSaveLoadInScript::SpawnandReturnPrefab(L"prefab\\Fence.prefab", static_cast<int>(LAYER::ITEM), Vec3(5942.f, 549.f, 3636.f));
 				door->Transform()->SetRelativeScale(Vec3(1.f, 1.f, 1.f));
 				Vec3 rot = (Vec3(270.f, 89.f, 0.f) / 180.f) * XM_PI;
 				door->SetName(L"Fence");
@@ -160,7 +160,7 @@ void CTrapScript::BeginOverlap(CCollider3D* _Other)
 				door->MeshRender()->SetDynamicShadow(true);
 				//CPhysXMgr::GetInst()->CreateStaticCube(Vec3(5942.f, 549.f, 3636.f), Vec3(500.f, 500.f, 500.f), door);
 
-				CGameObject* door1 = CLevelSaveLoadInScript::SpawnandReturnPrefab(L"prefab\\Fence.prefab", (int)LAYER::ITEM, Vec3(5811.f, 550.f, 6159.f));
+				CGameObject* door1 = CLevelSaveLoadInScript::SpawnandReturnPrefab(L"prefab\\Fence.prefab", static_cast<int>(LAYER::ITEM), Vec3(5811.f, 550.f, 6159.f));
 				door1->Transform()->SetRelativeScale(Vec3(0.4f, 0.4f, 0.4f));
 				Vec3 rot1 = (Vec3(270.f, 89.f, 0.f) / 180.f) * XM_PI;
 				door1->SetName(L"Fence1");

@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "SkyBoxUI.h"
 
-#include <Engine\CResMgr.h>
+#include <Engine/CResMgr.h>
 
 #include "ImGuiMgr.h"
 #include "ListUI.h"
@@ -34,15 +34,15 @@ int SkyBoxUI::render_update()
 	ImGui::SliderInt("##Type", &m_iType, 0, 1, strTypeName.c_str());
 
 
-	// TEX_Param Texture Ãâ·Â 
+	// TEX_Param Texture ì¶œë ¥ 
 	Ptr<CTexture> pTEX = GetTarget()->SkyBox()->GetSkyTex();
 
 	ImGui::Spacing();
 	ImGui::Text("SkyTex");
 	ImGui::SameLine();
 
-	// Sphere´Â Tex¸¦ Ãâ·Â
-	// CubeÀÇ °æ¿ì dds¶ó¼­ Ãâ·ÂÀÌ ¾î·Á¿ì¹Ç·Î ÀÌ¸§¸¸ Ãâ·Â
+	// SphereëŠ” Texë¥¼ ì¶œë ¥
+	// Cubeì˜ ê²½ìš° ddsë¼ì„œ ì¶œë ¥ì´ ì–´ë ¤ìš°ë¯€ë¡œ ì´ë¦„ë§Œ ì¶œë ¥
 	if (SKYBOX_TYPE::SPHERE == (SKYBOX_TYPE)m_iType)
 	{
 		ImGui::Image((ImTextureID)pTEX->GetSRV().Get(), ImVec2(75.f, 75.f));

@@ -17,7 +17,7 @@ CPlyMagic_Hook::CPlyMagic_Hook()
 {
 	if (nullptr == m_pHook)
 	{
-		m_pHook = CLevelSaveLoadInScript::SpawnandReturnPrefab(L"prefab\\Hook.prefab", (int)LAYER::PLAYERPROJECTILE, Vec3(0.f, 0.f, 0.f));
+		m_pHook = CLevelSaveLoadInScript::SpawnandReturnPrefab(L"prefab\\Hook.prefab", static_cast<int>(LAYER::PLAYERPROJECTILE), Vec3(0.f, 0.f, 0.f));
 		m_pHook->Transform()->SetRelativeScale(0.f, 0.f, 0.f);
 		m_pHook->GetScript<CMagic_HookScript>()->SetHookScript(this);
 		m_pHook->Collider3D()->SetAbsolute(true);
@@ -28,7 +28,7 @@ CPlyMagic_Hook::CPlyMagic_Hook()
 	{
 		for (int i = 0; i < 40; ++i)
 		{
-			CGameObject* Chain = CLevelSaveLoadInScript::SpawnandReturnPrefab(L"prefab\\Chain.prefab", (int)LAYER::DEFAULT, Vec3(0.f, 0.f, 0.f));
+			CGameObject* Chain = CLevelSaveLoadInScript::SpawnandReturnPrefab(L"prefab\\Chain.prefab", static_cast<int>(LAYER::DEFAULT), Vec3(0.f, 0.f, 0.f));
 			Chain->Transform()->SetRelativeScale(0.f, 0.f, 0.f);
 			m_vecChain.push_back(Chain);
 			m_pHook->GetScript<CMagic_HookScript>()->SetChain(m_vecChain);
@@ -42,9 +42,9 @@ CPlyMagic_Hook::~CPlyMagic_Hook()
 
 void CPlyMagic_Hook::Enter()
 {
-	GetOwner()->Animator3D()->Play((int)PLAYERANIM_TYPE::HOOK, false);
-	// Hooking Stateø° HookObj µÓ∑œ
-	CPlyMagic_Hooking* pHookingState = (CPlyMagic_Hooking*)GetOwnerScript()->FindState(L"Hooking");
+	GetOwner()->Animator3D()->Play(static_cast<int>(PLAYERANIM_TYPE::HOOK), false);
+	// Hooking StateÏóê HookObj Îì±Î°ù
+	CPlyMagic_Hooking* pHookingState = static_cast<CPlyMagic_Hooking*>(GetOwnerScript()->FindState(L"Hooking"));
 	pHookingState->SetHook(m_pHook);
 	pHookingState->SetChain(m_vecChain);
 	m_pHook->GetScript<CMagic_HookScript>()->SetHookingScript(pHookingState);
@@ -57,7 +57,7 @@ void CPlyMagic_Hook::tick()
 {
 	if(m_bThrow)
 	{
-		// ∞•∞Ì∏Æ∏¶ ∞…æ˙¥Ÿ∏È Hooking¿∏∑Œ ¿¸»Ø«œ∞Ì ∞•∞Ì∏Æ∞° ∞…∏∞ ∞˜¿« ¿ßƒ°∏¶ ¡ˆ¡§
+		// Í∞àÍ≥†Î¶¨Î•º Í±∏ÏóàÎã§Î©¥ HookingÏúºÎ°ú Ï†ÑÌôòÌïòÍ≥† Í∞àÍ≥†Î¶¨Í∞Ä Í±∏Î¶∞ Í≥≥Ïùò ÏúÑÏπòÎ•º ÏßÄÏ†ï
 		if (m_bHooked)
 		{
 			GetOwner()->GetScript<CPlayerScript>()->ChangeState(L"Hooking");
@@ -67,7 +67,7 @@ void CPlyMagic_Hook::tick()
 	}
 	else
 	{
-		// ¬˜¡ˆ ¡ﬂø°¥¬ πÊ«‚¿¸»Ø ¿⁄¿Ø∑”∞‘
+		// Ï∞®ÏßÄ Ï§ëÏóêÎäî Î∞©Ìñ•Ï†ÑÌôò ÏûêÏú†Î°≠Í≤å
 		if (KEY_PRESSED(KEY::RBTN))
 		{
 			CalcDir();
@@ -76,7 +76,7 @@ void CPlyMagic_Hook::tick()
 		{
 			CalcDir();
 			m_bThrow = true;
-			// øÏ≈¨∏Ø¿ª «ÿ¡¶«œ∏È ∞•∞Ì∏Æ πﬂªÁ
+			// Ïö∞ÌÅ¥Î¶≠ÏùÑ Ìï¥Ï†úÌïòÎ©¥ Í∞àÍ≥†Î¶¨ Î∞úÏÇ¨
 			Vec3 CurPos = GetOwner()->Transform()->GetWorldPos();
 			Vec3 vDir = GetOwner()->Transform()->GetXZDir();
 			Vec3 vSpawnPos = Vec3(CurPos.x, CurPos.y + 40.f, CurPos.z) + vDir * 40.f;

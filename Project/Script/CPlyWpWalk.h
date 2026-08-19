@@ -12,6 +12,6 @@ public:
 
 public:
     CPlyWpWalk();
-    ~CPlyWpWalk();
+    virtual ~CPlyWpWalk() override;
 };
 

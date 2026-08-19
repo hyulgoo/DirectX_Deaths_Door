@@ -37,12 +37,12 @@ CLight3D::~CLight3D()
 
 void CLight3D::SetLightType(LIGHT_TYPE _Type)
 {
-	m_LightInfo.LightType = (UINT)_Type;
+	m_LightInfo.LightType = static_cast<UINT>(_Type);
 
 	if (LIGHT_TYPE::DIRECTIONAL == _Type)
 	{
-		// Directional Light´Â Àü¿ªÀ» ºñÃß±â ¶§¹®¿¡ È­¸é ÀüÃ¼¸¦ È£ÃâÇØ¾ß ÇÏ¹Ç·Î
-		// Local Á¤Á¡ À§Ä¡¸¦ È®ÀåÇÏ¸é È­¸é ÀüÃ¼ ÇÈ¼¿À» È£ÃâÇÒ ¼ö ÀÖ´Â RectMesh¸¦ »ç¿ë
+		// Directional LightëŠ” ì „ì—­ì„ ë¹„ì¶”ê¸° ë•Œë¬¸ì— í™”ë©´ ì „ì²´ë¥¼ í˜¸ì¶œí•´ì•¼ í•˜ë¯€ë¡œ
+		// Local ì •ì  ìœ„ì¹˜ë¥¼ í™•ì¥í•˜ë©´ í™”ë©´ ì „ì²´ í”½ì…€ì„ í˜¸ì¶œí•  ìˆ˜ ìˆëŠ” RectMeshë¥¼ ì‚¬ìš©
 		m_VolumeMesh = CResMgr::GetInst()->FindRes<CMesh>(L"RectMesh");
 		m_LightMtrl = CResMgr::GetInst()->FindRes<CMaterial>(L"DirLightMtrl"); 
 
@@ -67,11 +67,11 @@ void CLight3D::SetLightType(LIGHT_TYPE _Type)
 
 void CLight3D::SetLightDirection(Vec3 _vDir)
 {
-	// ¹ŞÀº ¹æÇâÀ» Á¤±ÔÈ­
+	// ë°›ì€ ë°©í–¥ì„ ì •ê·œí™”
 	m_LightInfo.vWorldDir = _vDir;
 	m_LightInfo.vWorldDir.Normalize();
 
-	// ¹æÇâÀ» zÃàÀ¸·Î »ï¾Æ ±¤¿ø ±âÁØ Ãà °è»ê
+	// ë°©í–¥ì„ zì¶•ìœ¼ë¡œ ì‚¼ì•„ ê´‘ì› ê¸°ì¤€ ì¶• ê³„ì‚°
 	Vec3 vFront = m_LightInfo.vWorldDir;
 	Vec3 vUp = Vec3(0.f, 1.f, 0.f);
 	Vec3 vRight = XMVector3Cross(vUp, vFront);
@@ -79,16 +79,16 @@ void CLight3D::SetLightDirection(Vec3 _vDir)
 	vUp = XMVector3Cross(vFront, vRight);
 	vUp.Normalize();
 
-	// ¾òÀº ÃàÀ» È¸ÀüÇà·Ä·Î ¸¸µê
+	// ì–»ì€ ì¶•ì„ íšŒì „í–‰ë ¬ë¡œ ë§Œë“¦
 	Matrix matRot = XMMatrixIdentity();
 	matRot._11 = vRight.x;	matRot._12 = vRight.y;	matRot._13 = vRight.z;
 	matRot._21 = vUp.x;		matRot._22 = vUp.y;		matRot._23 = vUp.z;
 	matRot._31 = vFront.x;	matRot._32 = vFront.y;	matRot._33 = vFront.z;
 
-	// ¸¸µç È¸ÀüÇà·Ä·Î Ãàº° È¸Àü Á¤µµ¸¦ Vec3·Î ¾ò¾î³¿
+	// ë§Œë“  íšŒì „í–‰ë ¬ë¡œ ì¶•ë³„ íšŒì „ ì •ë„ë¥¼ Vec3ë¡œ ì–»ì–´ëƒ„
 	Vec3 vRot = DecomposeRotMat(matRot);
 
-	// ±¤¿øÀÌ °¡¸®Å°´Â ¹æÇâÀÌ Transform ÀÇ Front °¡ µÇµµ·Ï È¸Àü½ÃÄÑÁØ´Ù.
+	// ê´‘ì›ì´ ê°€ë¦¬í‚¤ëŠ” ë°©í–¥ì´ Transform ì˜ Front ê°€ ë˜ë„ë¡ íšŒì „ì‹œì¼œì¤€ë‹¤.
 	Transform()->SetRelativeRot(vRot);
 }
 
@@ -98,7 +98,7 @@ void CLight3D::finaltick()
 	m_LightInfo.vWorldDir = Transform()->GetWorldDir(DIR_TYPE::FRONT);
 	Transform()->SetRelativeScale(Vec3(m_LightInfo.Radius * 2.f, m_LightInfo.Radius * 2.f, m_LightInfo.Radius * 2.f));
 
-	// ±¤¿øÀÇ Ä«¸Ş¶óµµ ±¤¿ø°ú µ¿ÀÏÇÑ Transform ÀÌ µÇµµ·Ï ¾÷µ¥ÀÌÆ® ÇÑ´Ù.
+	// ê´‘ì›ì˜ ì¹´ë©”ë¼ë„ ê´‘ì›ê³¼ ë™ì¼í•œ Transform ì´ ë˜ë„ë¡ ì—…ë°ì´íŠ¸ í•œë‹¤.
 	m_pLightCam->Transform()->SetRelativePos(Transform()->GetWorldPos());
 	m_pLightCam->Transform()->SetRelativeRot(DecomposeRotMat(Transform()->GetWorldRotation()));
 	m_pLightCam->finaltick_module();
@@ -114,14 +114,14 @@ void CLight3D::render()
 
 	Transform()->UpdateData();
 
-	// ½¦ÀÌ´õ func¿¡¼­ CalcLight3D ½Ã LightIdx¸¦ ¿ä±¸ÇÔ
+	// ì‰ì´ë” funcì—ì„œ CalcLight3D ì‹œ LightIdxë¥¼ ìš”êµ¬í•¨
 	m_LightMtrl->SetScalarParam(INT_0, &m_iLightIdx);
-	// Light ¿©ºÎ ¹× ¼¼±â¸¦ °è»êÇÏ´Â µ¥¿¡ ÇÊ¿äÇÑ À§Ä¡ ¹× ³ë¸»°ªÀ» ±â·ÏÇÑ Tex¸¦ º¸³»ÁÜ
+	// Light ì—¬ë¶€ ë° ì„¸ê¸°ë¥¼ ê³„ì‚°í•˜ëŠ” ë°ì— í•„ìš”í•œ ìœ„ì¹˜ ë° ë…¸ë§ê°’ì„ ê¸°ë¡í•œ Texë¥¼ ë³´ë‚´ì¤Œ
 	m_LightMtrl->SetTexParam(TEX_0, CResMgr::GetInst()->FindRes<CTexture>(L"PositionTargetTex"));
 	m_LightMtrl->SetTexParam(TEX_1, CResMgr::GetInst()->FindRes<CTexture>(L"NormalTargetTex"));
 	
-	// ¹æÇâ¼º ±¤¿øÀÎ °æ¿ì ±×¸²ÀÚ Ã³¸®¸¦ À§ÇØ¼­ ±¤¿øÄ«¸Ş¶ó·Î Åõ¿µ½ÃÅ³ ¼ö ÀÖ°Ô View * Proj Çà·ÄÀ» Àü´Ş
-	if (LIGHT_TYPE::DIRECTIONAL == (LIGHT_TYPE)m_LightInfo.LightType)
+	// ë°©í–¥ì„± ê´‘ì›ì¸ ê²½ìš° ê·¸ë¦¼ì ì²˜ë¦¬ë¥¼ ìœ„í•´ì„œ ê´‘ì›ì¹´ë©”ë¼ë¡œ íˆ¬ì˜ì‹œí‚¬ ìˆ˜ ìˆê²Œ View * Proj í–‰ë ¬ì„ ì „ë‹¬
+	if (LIGHT_TYPE::DIRECTIONAL == static_cast<LIGHT_TYPE>(m_LightInfo.LightType))
 	{
 		Matrix matLightVP = m_pLightCam->Camera()->GetViewMat() * m_pLightCam->Camera()->GetProjMat();
 		m_LightMtrl->SetScalarParam(MAT_0, &matLightVP);
@@ -133,7 +133,7 @@ void CLight3D::render()
 	m_VolumeMesh->render(0);
 }
 
-void CLight3D::render_depthmap()
+void CLight3D::render_depthmap() const
 {
 	m_pLightCam->Camera()->SortShadowObject();
 	m_pLightCam->Camera()->render_depthmap();
@@ -148,7 +148,7 @@ void CLight3D::LoadFromLevelFile(FILE* _File)
 {
 	fread(&m_LightInfo, sizeof(tLightInfo), 1, _File);
 
-	SetLightType((LIGHT_TYPE)m_LightInfo.LightType);
+	SetLightType(static_cast<LIGHT_TYPE>(m_LightInfo.LightType));
 	SetRadius(m_LightInfo.Radius);
 	SetAngle(m_LightInfo.Angle);
 	SetLightDiffuse(m_LightInfo.Color.vDiffuse);

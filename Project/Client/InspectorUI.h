@@ -6,8 +6,8 @@ class ComponentUI;
 class RenderComponentUI;
 class ResUI;
 
-#include <Engine\ptr.h>
-#include <Engine\CRes.h>
+#include <Engine/ptr.h>
+#include <Engine/CRes.h>
 
 class ScriptUI;
 

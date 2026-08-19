@@ -15,6 +15,6 @@ public:
 
 public:
     CGrimKnightDeath();
-    ~CGrimKnightDeath();
+    virtual ~CGrimKnightDeath() override;
 };
 

@@ -15,10 +15,20 @@ CPathMgr::~CPathMgr()
 
 void CPathMgr::init()
 {
-	GetCurrentDirectory(256, m_szContentPath);	
+	HMODULE hModule = GetModuleHandleW(nullptr);
+	GetModuleFileName(hModule, m_szContentPath, 256);
 
-	// »óÀ§Æú´õ·Î °¨
-	int iLen = (int)wcslen(m_szContentPath);
+	// ìƒìœ„í´ë”ë¡œ ê°
+	int iLen = static_cast<int>(wcslen(m_szContentPath));
+
+	for (int i = iLen - 1; i >= 0; --i)
+	{
+		if (L'\\' == m_szContentPath[i])
+		{
+			m_szContentPath[i] = 0;
+			break;
+		}
+	}
 
 	for (int i = iLen - 1; i >= 0; --i)
 	{

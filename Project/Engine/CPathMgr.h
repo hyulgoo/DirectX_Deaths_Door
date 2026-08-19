@@ -12,6 +12,6 @@ public:
 	void init();
 	
 public:
-	const wchar_t* GetContentPath() { return m_szContentPath; }
+	const wchar_t* GetContentPath() const { return m_szContentPath; }
 };
 

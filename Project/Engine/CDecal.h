@@ -12,13 +12,13 @@ private:
 
 public:
     void SetAsLight(bool _bLight) { m_Light = _bLight; }
-    bool IsSetAsLight() { return m_Light; }
+    bool IsSetAsLight() const { return m_Light; }
 
     void SetOutputTexture(Ptr<CTexture> _Tex) { m_DecalTex = _Tex;}
     Ptr<CTexture> GetOutputTexture() { return m_DecalTex; }
 
-    float GetAlpha() { return m_LightAlpha; }
-    void SetAlpha(float _fAlpha) { m_LightAlpha = _fAlpha; }
+    float GetAlpha() const { return m_LightAlpha; }
+    void  SetAlpha(float _fAlpha) { m_LightAlpha = _fAlpha; }
 
     void SetShowDebug(bool _bShow) {m_bShowDebug = _bShow;}
 
@@ -33,6 +33,6 @@ public:
 
 public:
     CDecal();
-    ~CDecal();
+    virtual ~CDecal() override;
 };
 

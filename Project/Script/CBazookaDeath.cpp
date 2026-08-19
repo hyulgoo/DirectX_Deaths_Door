@@ -9,7 +9,7 @@ void CBazookaDeath::Enter()
 {
 	GetOwner()->GetScript<CBazookaScript>()->SetPaperBurnEffect(true);
 	GetOwner()->GetScript<CBazookaScript>()->SetStarePlayer(false);
-	// ¸ó½ºÅÍ »ç¸Á½Ã ÇöÀç±îÁö Èå¸¥ ½Ã°£À» ÀúÀå.
+	// ëª¬ìŠ¤í„° ì‚¬ë§ì‹œ í˜„ìž¬ê¹Œì§€ íë¥¸ ì‹œê°„ì„ ì €ìž¥.
 	m_bStartPaperBurn = true;
 	GetOwner()->Animator3D()->SetStop(true);
 
@@ -25,7 +25,7 @@ void CBazookaDeath::tick()
 	if (m_bStartPaperBurn)
 		m_fPaperBurnTime += DT;
 
-	// Áö±Ý±îÁö Èå¸¥ ½Ã°£ÀÌ 3ÃÊ ÀÌ»óÀÌ¸é Destory.
+	// ì§€ê¸ˆê¹Œì§€ íë¥¸ ì‹œê°„ì´ 3ì´ˆ ì´ìƒì´ë©´ Destory.
 	if (m_fPaperBurnTime > 3.f && !GetOwner()->IsDead())
 	{
 		GetOwner()->GetScript<CBazookaScript>()->GetPlayer()->GetScript<CPlayerScript>()->AddMoney((UINT)600);

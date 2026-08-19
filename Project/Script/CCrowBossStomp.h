@@ -22,6 +22,6 @@ public:
 
 public:
     CCrowBossStomp();
-    ~CCrowBossStomp();
+    virtual ~CCrowBossStomp() override;
 };
 

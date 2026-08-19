@@ -27,7 +27,7 @@ void CSpawnMgr::RegisterRoom(int _iRoomNum, CRoomScript* _pRoom)
 	m_mapRoom.insert(make_pair(_iRoomNum, _pRoom));
 }
 
-void CSpawnMgr::SpawnMonster(int _iRoomNum)
+void CSpawnMgr::SpawnMonster(int _iRoomNum) const
 {
 	assert(_iRoomNum != -1);
 	m_mapRoom.find(m_iCurRoomNum)->second->SpawnMst();
@@ -46,13 +46,13 @@ void CSpawnMgr::ActivateFence(int _iRoomNum, bool _bOpen)
 	}
 }
 
-void CSpawnMgr::ReduceMonsterCount()
+void CSpawnMgr::ReduceMonsterCount() const
 {
 	//assert(m_iCurRoomNum != -1);
 	m_mapRoom.find(m_iCurRoomNum)->second->ReduceMonsterCount();
 }
 
-void CSpawnMgr::ReduceGimmickCount()
+void CSpawnMgr::ReduceGimmickCount() const
 {
 	assert(m_iCurRoomNum != -1);
 	m_mapRoom.find(m_iCurRoomNum)->second->ReduceGimmickCount();

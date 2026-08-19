@@ -22,7 +22,7 @@ void CCrowBossSliding::Enter()
 {
 	GetOwner()->Animator3D()->Play(3, false);
 
-	// Ã¹ ¹æÇâÀ» ¼³Á¤
+	// ì²« ë°©í–¥ì„ ì„¤ì •
 	Vec3 vStartPos = GetOwner()->Transform()->GetWorldPos();
 	Vec3 vTargetPos = m_qTargetPos.front();
 	if (!m_qStartPos.empty())
@@ -45,8 +45,8 @@ void CCrowBossSliding::Enter()
 
 void CCrowBossSliding::tick()
 {
-	// °ø°İ Ãæµ¹Ã¼ ÇÁ¸®Æé
-	CGameObject* MonsterAtack = CLevelSaveLoadInScript::SpawnandReturnPrefab(L"prefab\\MonsterAttack.prefab", (int)LAYER::MONSTERPROJECTILE, GetOwner()->Transform()->GetWorldPos(), 0.f);
+	// ê³µê²© ì¶©ëŒì²´ í”„ë¦¬í©
+	CGameObject* MonsterAtack = CLevelSaveLoadInScript::SpawnandReturnPrefab(L"prefab\\MonsterAttack.prefab", static_cast<int>(LAYER::MONSTERPROJECTILE), GetOwner()->Transform()->GetWorldPos(), 0.f);
 
 	MonsterAtack->Collider3D()->SetOffsetPos(GetOwner()->Collider3D()->GetOffsetPos());
 	MonsterAtack->Collider3D()->SetOffsetScale(GetOwner()->Collider3D()->GetOffsetScale());
@@ -58,7 +58,7 @@ void CCrowBossSliding::tick()
 	vDiff.y = 0.f;
 	float fDiff = vDiff.Length();
 
-	// Ãß°¡µÈ ¸ñÀûÁö¸¦ µµÂøÇÒ ¶§¸¶´Ù ¸ñÀûÁö¸¦ »èÁ¦ÇÔ
+	// ì¶”ê°€ëœ ëª©ì ì§€ë¥¼ ë„ì°©í•  ë•Œë§ˆë‹¤ ëª©ì ì§€ë¥¼ ì‚­ì œí•¨
 	if (fDiff < 100.f)
 	{
 		ArriveToTarget();
@@ -122,7 +122,7 @@ void CCrowBossSliding::SlidingToTargetPos()
 
 	Vec3 CrowMoveDist = GetOwner()->Transform()->GetRelativePos() - GetOwner()->Transform()->GetPrevPos();
 	
-	// ¼ø°£ÀÌµ¿ÀÌ ¾Æ´Ñ ½½¶óÀÌµù ½Ã Å¸°í ÀÖ´Â »ç½½À» °°ÀÌ ¹Ğ¾î³¿
+	// ìˆœê°„ì´ë™ì´ ì•„ë‹Œ ìŠ¬ë¼ì´ë”© ì‹œ íƒ€ê³  ìˆëŠ” ì‚¬ìŠ¬ì„ ê°™ì´ ë°€ì–´ëƒ„
 	if(CrowMoveDist.Length() < 100.f)
 	{
 		Vec3 vCurHookPos = m_vecHook[iSlidingCount - m_iSliderCount]->Transform()->GetRelativePos();
@@ -140,8 +140,8 @@ void CCrowBossSliding::ArriveToTarget()
 {
 	--m_iSliderCount;
 	m_qTargetPos.pop(); 		
-	// TargetPos°¡ ¾ø´Ù¸é ´Ù¸¥ ÆĞÅÏÀ¸·Î ÀüÈ¯
-	// ¾Æ´Ï¶ó¸é µµÂøÇÑ ¸ñÀûÁö¿¡ ÀÖ´ø »ç½½À» ºñÈ°¼ºÈ­
+	// TargetPosê°€ ì—†ë‹¤ë©´ ë‹¤ë¥¸ íŒ¨í„´ìœ¼ë¡œ ì „í™˜
+	// ì•„ë‹ˆë¼ë©´ ë„ì°©í•œ ëª©ì ì§€ì— ìˆë˜ ì‚¬ìŠ¬ì„ ë¹„í™œì„±í™”
 	if (!m_qTargetPos.empty())
 	{
 		int iSlidingCount = 0;
@@ -158,7 +158,7 @@ void CCrowBossSliding::ArriveToTarget()
 			break;
 		}
 		Vec3 vStartPos = GetOwner()->Transform()->GetRelativePos();
-		// ¿©·¯ °³ÀÇ °¥°í¸®¸¦ ´øÁö´Â ÆĞÅÏÀ» °æ¿ì StartPos·Î ÀÌµ¿°ú ÇÔ²² È¸Àü
+		// ì—¬ëŸ¬ ê°œì˜ ê°ˆê³ ë¦¬ë¥¼ ë˜ì§€ëŠ” íŒ¨í„´ì„ ê²½ìš° StartPosë¡œ ì´ë™ê³¼ í•¨ê»˜ íšŒì „
 		if(CHAINPATERN::ONE != m_tChainPatern)
 		{
 			vStartPos = m_qStartPos.front();

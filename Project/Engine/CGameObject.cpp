@@ -34,8 +34,8 @@ CGameObject::CGameObject(const CGameObject& _Other)
 	, m_CurLifeTime(0.f)
 	, m_bLifeSpan(false)
 {
-	// Component ∫πªÁ
-	for (UINT i = 0; i < (UINT)COMPONENT_TYPE::END; ++i)
+	// Component Î≥µÏÇ¨
+	for (UINT i = 0; i < static_cast<UINT>(COMPONENT_TYPE::END); ++i)
 	{
 		if (_Other.m_arrCom[i])
 		{
@@ -43,13 +43,13 @@ CGameObject::CGameObject(const CGameObject& _Other)
 		}
 	}
 
-	// Script ∫πªÁ
+	// Script Î≥µÏÇ¨
 	for (size_t i = 0; i < _Other.m_vecScript.size(); ++i)
 	{
 		AddComponent(_Other.m_vecScript[i]->Clone());
 	}
 
-	// ¿⁄Ωƒ ø¿∫Í¡ß∆Æ ∫πªÁ
+	// ÏûêÏãù Ïò§Î∏åÏ†ùÌä∏ Î≥µÏÇ¨
 	for (size_t i = 0; i < _Other.m_vecChild.size(); ++i)
 	{
 		AddChild(_Other.m_vecChild[i]->Clone());
@@ -63,9 +63,9 @@ CGameObject::~CGameObject()
 	Safe_Del_Vec(m_vecChild);
 }
 
-void CGameObject::begin()
+void CGameObject::begin() const
 {
-	for (UINT i = 0; i < (UINT)COMPONENT_TYPE::END; ++i)
+	for (UINT i = 0; i < static_cast<UINT>(COMPONENT_TYPE::END); ++i)
 	{
 		if (nullptr != m_arrCom[i])
 			m_arrCom[i]->begin();
@@ -82,9 +82,9 @@ void CGameObject::begin()
 	}
 }
 
-void CGameObject::tick()
+void CGameObject::tick() const
 {
-	for (UINT i = 0; i < (UINT)COMPONENT_TYPE::END; ++i)
+	for (UINT i = 0; i < static_cast<UINT>(COMPONENT_TYPE::END); ++i)
 	{
 		if (nullptr != m_arrCom[i])
 			m_arrCom[i]->tick();
@@ -112,7 +112,7 @@ void CGameObject::finaltick()
 		}
 	}
 
-	for (UINT i = 0; i < (UINT)COMPONENT_TYPE::SCRIPT; ++i)
+	for (UINT i = 0; i < static_cast<UINT>(COMPONENT_TYPE::SCRIPT); ++i)
 	{
 		if (nullptr != m_arrCom[i])
 			m_arrCom[i]->finaltick();
@@ -123,10 +123,10 @@ void CGameObject::finaltick()
 		m_vecChild[i]->finaltick();
 	}
 		
-	// º“º” ∑π¿ÃæÓ∞° æ¯¥¬µ• finaltick ¿Ã »£√‚µ«æ˙¥Ÿ.
+	// ÏÜåÏÜç Î†àÏù¥Ïñ¥Í∞Ä ÏóÜÎäîÎç∞ finaltick Ïù¥ Ìò∏Ï∂úÎêòÏóàÎã§.
 	assert(-1 != m_iLayerIdx); 
 
-	// ∑π¿ÃæÓ µÓ∑œ
+	// Î†àÏù¥Ïñ¥ Îì±Î°ù
 	CLayer* pCurLayer = CLevelMgr::GetInst()->GetCurLevel()->GetLayer(m_iLayerIdx);
 	pCurLayer->RegisterObject(this);
 }
@@ -134,7 +134,7 @@ void CGameObject::finaltick()
 void CGameObject::finaltick_module()
 {	
 	// Component
-	for (UINT i = 0; i < (UINT)COMPONENT_TYPE::SCRIPT; ++i)
+	for (UINT i = 0; i < static_cast<UINT>(COMPONENT_TYPE::SCRIPT); ++i)
 	{
 		if (nullptr != m_arrCom[i])
 			m_arrCom[i]->finaltick_module();
@@ -149,7 +149,7 @@ void CGameObject::finaltick_module()
 
 
 
-void CGameObject::render()
+void CGameObject::render() const
 {
 	if (nullptr != m_RenderCom)
 		m_RenderCom->render();
@@ -159,51 +159,51 @@ void CGameObject::AddComponent(CComponent* _Component)
 {
 	_Component->m_pOwner = this;
 
-	// ƒƒ∆˜≥Õ∆Æ∞° Ω∫≈©∏≥∆Æ¿Œ ∞ÊøÏ
+	// Ïª¥Ìè¨ÎÑåÌä∏Í∞Ä Ïä§ÌÅ¨Î¶ΩÌä∏Ïù∏ Í≤ΩÏö∞
 	if (COMPONENT_TYPE::SCRIPT == _Component->GetType())
 	{
-		m_vecScript.push_back((CScript*)_Component);
+		m_vecScript.push_back(static_cast<CScript*>(_Component));
 	}
 
-	// Ω∫≈©∏≥∆Æ∏¶ ¡¶ø‹«— ¿œπ› ƒƒ∆˜≥Õ∆Æ¿Œ ∞ÊøÏ
+	// Ïä§ÌÅ¨Î¶ΩÌä∏Î•º Ï†úÏô∏Ìïú ÏùºÎ∞ò Ïª¥Ìè¨ÎÑåÌä∏Ïù∏ Í≤ΩÏö∞
 	else
 	{		
-		// ¿ÃπÃ ∫∏¿Ø«œ∞Ì ¿÷¥¬ ƒƒ∆˜≥Õ∆Æ¿Œ ∞ÊøÏ
-		assert(!m_arrCom[(UINT)_Component->GetType()]);
+		// Ïù¥ÎØ∏ Î≥¥Ïú†ÌïòÍ≥† ÏûàÎäî Ïª¥Ìè¨ÎÑåÌä∏Ïù∏ Í≤ΩÏö∞
+		assert(!m_arrCom[static_cast<UINT>(_Component->GetType())]);
 
-		m_arrCom[(UINT)_Component->GetType()] = _Component;
+		m_arrCom[static_cast<UINT>(_Component->GetType())] = _Component;
 
-		// RenderComponent »Æ¿Œ
+		// RenderComponent ÌôïÏù∏
 		if (COMPONENT_TYPE::MESHRENDER <= _Component->GetType()
 			&& _Component->GetType() <= COMPONENT_TYPE::DECAL)
 		{
 			assert(!m_RenderCom);
-			m_RenderCom = (CRenderComponent*)_Component;
+			m_RenderCom = static_cast<CRenderComponent*>(_Component);
 		}
 	}
 }
 
 void CGameObject::DeleteComponent(COMPONENT_TYPE _Type)
 {
-	delete m_arrCom[(UINT)_Type];
-	m_arrCom[(UINT)_Type] = nullptr;
+	delete m_arrCom[static_cast<UINT>(_Type)];
+	m_arrCom[static_cast<UINT>(_Type)] = nullptr;
 }
 
 void CGameObject::AddChild(CGameObject* _Object)
 {
 	if (_Object->m_Parent)
 	{
-		// ±‚¡∏ ∫Œ∏∞° ¿÷¿∏∏È ø¨∞· «ÿ¡¶ »ƒ ø¨∞·
+		// Í∏∞Ï°¥ Î∂ÄÎ™®Í∞Ä ÏûàÏúºÎ©¥ Ïó∞Í≤∞ Ìï¥Ï†ú ÌõÑ Ïó∞Í≤∞
 		_Object->DisconnectFromParent();
 	}	
 	else
 	{
-		// ±‚¡∏ ∫Œ∏∞° æ¯¿∏∏È, º“º” ∑π¿ÃæÓø°º≠ √÷ªÛ¿ß∫Œ∏ ∏Ò∑œø°º≠ ¡¶∞≈µ» »ƒ ø¨∞·
+		// Í∏∞Ï°¥ Î∂ÄÎ™®Í∞Ä ÏóÜÏúºÎ©¥, ÏÜåÏÜç Î†àÏù¥Ïñ¥ÏóêÏÑú ÏµúÏÉÅÏúÑÎ∂ÄÎ™® Î™©Î°ùÏóêÏÑú Ï†úÍ±∞Îêú ÌõÑ Ïó∞Í≤∞
 		_Object->ChangeToChildType();
 	}
 	
 
-	// ∫Œ∏ ¿⁄Ωƒ ø¨∞·
+	// Î∂ÄÎ™® ÏûêÏãù Ïó∞Í≤∞
 	_Object->m_Parent = this;
 	m_vecChild.push_back(_Object);
 }
@@ -212,23 +212,23 @@ void CGameObject::AddChild(CGameObject* _Object, int _iLayer)
 {
 	if (_Object->m_Parent)
 	{
-		// ±‚¡∏ ∫Œ∏∞° ¿÷¿∏∏È ø¨∞· «ÿ¡¶ »ƒ ø¨∞·
+		// Í∏∞Ï°¥ Î∂ÄÎ™®Í∞Ä ÏûàÏúºÎ©¥ Ïó∞Í≤∞ Ìï¥Ï†ú ÌõÑ Ïó∞Í≤∞
 		_Object->DisconnectFromParent();
 	}
 	else
 	{
-		// ±‚¡∏ ∫Œ∏∞° æ¯¿∏∏È, º“º” ∑π¿ÃæÓø°º≠ √÷ªÛ¿ß∫Œ∏ ∏Ò∑œø°º≠ ¡¶∞≈µ» »ƒ ø¨∞·
+		// Í∏∞Ï°¥ Î∂ÄÎ™®Í∞Ä ÏóÜÏúºÎ©¥, ÏÜåÏÜç Î†àÏù¥Ïñ¥ÏóêÏÑú ÏµúÏÉÅÏúÑÎ∂ÄÎ™® Î™©Î°ùÏóêÏÑú Ï†úÍ±∞Îêú ÌõÑ Ïó∞Í≤∞
 		_Object->ChangeToChildType(_iLayer);
 	}
 
 
-	// ∫Œ∏ ¿⁄Ωƒ ø¨∞·
+	// Î∂ÄÎ™® ÏûêÏãù Ïó∞Í≤∞
 	_Object->m_Parent = this;
 	m_vecChild.push_back(_Object);
 }
 
 
-bool CGameObject::IsAncestor(CGameObject* _Target)
+bool CGameObject::IsAncestor(CGameObject* _Target) const
 {
 	CGameObject* pParent = m_Parent;
 	while (pParent)

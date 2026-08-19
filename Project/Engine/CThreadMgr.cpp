@@ -31,7 +31,7 @@ CThreadMgr::~CThreadMgr()
 
 		for (; iter != iterEnd; ++iter)
 		{
-			// Àü¿ªÇÔ¼ö¸¦ È£ÃâÇÏ°Ú´Ù´Â ÀÇ¹ÌÀÌ´Ù.
+			// ì „ì—­í•¨ìˆ˜ë¥¼ í˜¸ì¶œí•˜ê² ë‹¤ëŠ” ì˜ë¯¸ì´ë‹¤.
 			::DeleteCriticalSection(iter->second);
 
 			if (iter->second)
@@ -47,7 +47,7 @@ CThreadMgr::~CThreadMgr()
 
 bool CThreadMgr::init()
 {
-	// ·Îµù¿ë Å©¸®Æ¼ÄÃ ¼½¼Ç »ı¼º
+	// ë¡œë”©ìš© í¬ë¦¬í‹°ì»¬ ì„¹ì…˜ ìƒì„±
 	CreateCriticalSection("Loading");
 
 	return true;

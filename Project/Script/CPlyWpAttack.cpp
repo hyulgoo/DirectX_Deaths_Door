@@ -12,7 +12,7 @@ CPlyWpAttack::~CPlyWpAttack()
 
 void CPlyWpAttack::Enter()
 {
-	GetOwner()->Animator3D()->Play((int)PLAYERANIM_TYPE::SLASH_R, false);
+	GetOwner()->Animator3D()->Play(static_cast<int>(PLAYERANIM_TYPE::SLASH_R), false);
 }
 
 void CPlyWpAttack::tick()
@@ -29,7 +29,7 @@ void CPlyWpAttack::SetAttackCount(UINT _iAttackCount)
 { 
 	m_iAttackCount = _iAttackCount; 
 		if (1 == m_iAttackCount)
-		GetOwner()->Animator3D()->Play((int)PLAYERANIM_TYPE::SLASH_L, false);
+		GetOwner()->Animator3D()->Play(static_cast<int>(PLAYERANIM_TYPE::SLASH_L), false);
 	else
-		GetOwner()->Animator3D()->Play((int)PLAYERANIM_TYPE::SLASH_R, false);
+		GetOwner()->Animator3D()->Play(static_cast<int>(PLAYERANIM_TYPE::SLASH_R), false);
 }

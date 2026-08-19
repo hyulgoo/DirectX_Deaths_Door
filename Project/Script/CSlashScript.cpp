@@ -8,7 +8,7 @@
 #include "CGameCameraScript.h"
 
 CSlashScript::CSlashScript()
-	: CScript((UINT)SCRIPT_TYPE::SLASHSCRIPT)
+	: CScript(static_cast<UINT>(SCRIPT_TYPE::SLASHSCRIPT))
 {
 }
 
@@ -28,7 +28,7 @@ void CSlashScript::BeginOverlap(CCollider3D* _Other)
 		_Other->GetOwner()->GetScript<CStateScript>()->SetStat(CurStat);
 		_Other->GetOwner()->GetScript<CMonsterScript>()->SetLastHitTime();
 
-		CLevelSaveLoadInScript::SpawnPrefab(L"prefab\\HitEffect.prefab", (int)LAYER::DEFAULT, Transform()->GetWorldPos(), 0.2f);
+		CLevelSaveLoadInScript::SpawnPrefab(L"prefab\\HitEffect.prefab", static_cast<int>(LAYER::DEFAULT), Transform()->GetWorldPos(), 0.2f);
 
 		CAMERASHAKE(3.f, 800.f, 0.1f);
 

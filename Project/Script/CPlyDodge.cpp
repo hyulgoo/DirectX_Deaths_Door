@@ -15,7 +15,7 @@ void CPlyDodge::Enter()
 {
 	float fSpeed = GetOwnerScript()->GetStat().Speed;
 	Dodge(fSpeed);
-	GetOwner()->Animator3D()->Play((int)PLAYERANIM_TYPE::DODGE, false);
+	GetOwner()->Animator3D()->Play(static_cast<int>(PLAYERANIM_TYPE::DODGE), false);
 	GetOwner()->GetScript<CPlayerScript>()->SetInvincible(true);
 
 	CSoundScript* soundscript = CLevelMgr::GetInst()->FindObjectByName(L"SoundUI")->GetScript<CSoundScript>();

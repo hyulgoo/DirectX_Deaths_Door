@@ -12,6 +12,6 @@ public:
 
 public:
     CCrowBossBatBullet();
-    ~CCrowBossBatBullet();
+    virtual ~CCrowBossBatBullet() override;
 };
 

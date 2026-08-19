@@ -4,7 +4,7 @@
 #include "CLevelSaveLoadInScript.h"
 
 CLadderScript::CLadderScript()
-	: CScript((UINT)SCRIPT_TYPE::LADDERSCRIPT)
+	: CScript(static_cast<UINT>(SCRIPT_TYPE::LADDERSCRIPT))
 	, m_pInterectionImage(nullptr)
 	, m_fHeight(0.f)
 {

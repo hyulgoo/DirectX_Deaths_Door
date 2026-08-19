@@ -5,7 +5,7 @@ class CBazzokaMove :
 {
 private:
     float   m_fLastRenewal;
-    float   m_fRenewal_Trace; // ÃßÀû °æ·Î¸¦ °»½ÅÇÏ´Â ÁÖ±â
+    float   m_fRenewal_Trace; // ì¶”ì  ê²½ë¡œë¥¼ ê°±ì‹ í•˜ëŠ” ì£¼ê¸°
     Vec3    m_vActualPath[256];
     int     m_iActualPathCount;
     int     m_iCurrentPathIndex;
@@ -20,5 +20,5 @@ public:
 
 public:
     CBazzokaMove();
-    ~CBazzokaMove();
+    virtual ~CBazzokaMove() override;
 };

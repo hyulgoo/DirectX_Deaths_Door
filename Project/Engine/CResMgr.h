@@ -19,7 +19,7 @@ class CResMgr :
 {
     SINGLE(CResMgr)
 private:
-    map<wstring, Ptr<CRes>> m_arrRes[(UINT)RES_TYPE::END];
+    map<wstring, Ptr<CRes>> m_arrRes[static_cast<UINT>(RES_TYPE::END)];
     bool                    m_Changed;
 
     vector<D3D11_INPUT_ELEMENT_DESC>	m_vecLayoutInfo;
@@ -31,7 +31,7 @@ public:
     void tick();
 
 private:
-    void InitSound();
+    void InitSound() const;
     void CreateDefaultMesh();
     void CreateDefaultGraphicsShader();
     void CreateDefaultComputeShader();
@@ -40,7 +40,7 @@ private:
     void AddInputLayout(DXGI_FORMAT _eFormat, const char* _strSemanticName, UINT _iSlotNum, UINT _iSemanticIdx);
 
 public:
-    const map<wstring, Ptr<CRes>>& GetResources(RES_TYPE _Type) { return m_arrRes[(UINT)_Type]; }
+    const map<wstring, Ptr<CRes>>& GetResources(RES_TYPE _Type) { return m_arrRes[static_cast<UINT>(_Type)]; }
 
     // _BindFlag = D3D11_BIND_FLAG
     Ptr<CTexture> CreateTexture(const wstring& _strKey, UINT _Width, UINT _Height
@@ -51,7 +51,7 @@ public:
 
     const vector<D3D11_INPUT_ELEMENT_DESC>& GetInputLayoutInfo() { return m_vecLayoutInfo; }
 
-    bool IsResourceChanged() { return m_Changed; }
+    bool IsResourceChanged() const { return m_Changed; }
 
     template<typename T>
     Ptr<T> FindRes(const wstring& _strKey);
@@ -106,22 +106,22 @@ inline Ptr<T> CResMgr::FindRes(const wstring& _strKey)
 {
     RES_TYPE type = GetResType<T>();
       
-    map<wstring, Ptr<CRes>>::iterator iter = m_arrRes[(UINT)type].find(_strKey);
-    if (iter == m_arrRes[(UINT)type].end())
+    map<wstring, Ptr<CRes>>::iterator iter = m_arrRes[static_cast<UINT>(type)].find(_strKey);
+    if (iter == m_arrRes[static_cast<UINT>(type)].end())
         return nullptr;
 
-    return (T*)iter->second.Get();    
+    return static_cast<T*>(iter->second.Get());    
 }
 
 
 template<typename T>
 inline void CResMgr::AddRes(const wstring& _strKey, Ptr<T> _Res)
 {
-    // Áßº¹Å°·Î ¸®¼Ò½º Ãß°¡ÇÏ·Á´Â °æ¿ì
+    // ì¤‘ë³µí‚¤ë¡œ ë¦¬ì†ŒìŠ¤ ì¶”ê°€í•˜ë ¤ëŠ” ê²½ìš°
     assert( ! FindRes<T>(_strKey).Get() );
 
     RES_TYPE type = GetResType<T>();
-    m_arrRes[(UINT)type].insert(make_pair(_strKey, _Res.Get()));
+    m_arrRes[static_cast<UINT>(type)].insert(make_pair(_strKey, _Res.Get()));
     _Res->SetKey(_strKey);
 
     m_Changed = true;
@@ -133,9 +133,9 @@ inline Ptr<T> CResMgr::Load(const wstring& _strKey, const wstring& _strRelativeP
 {
     Ptr<CRes> pRes = FindRes<T>(_strKey).Get();
     
-    // ÀÌ¹Ì ÇØ´ç Å°·Î ¸®¼Ò½º°¡ ÀÖ´Ù¸é, ¹İÈ¯
+    // ì´ë¯¸ í•´ë‹¹ í‚¤ë¡œ ë¦¬ì†ŒìŠ¤ê°€ ìˆë‹¤ë©´, ë°˜í™˜
     if (nullptr != pRes)
-        return (T*)pRes.Get();
+        return static_cast<T*>(pRes.Get());
             
     pRes = new T;
     pRes->SetKey(_strKey);
@@ -150,10 +150,10 @@ inline Ptr<T> CResMgr::Load(const wstring& _strKey, const wstring& _strRelativeP
     }
 
     RES_TYPE type = GetResType<T>();
-    m_arrRes[(UINT)type].insert(make_pair(_strKey, pRes));
+    m_arrRes[static_cast<UINT>(type)].insert(make_pair(_strKey, pRes));
 
 
     m_Changed = true;
 
-    return (T*)pRes.Get();
+    return static_cast<T*>(pRes.Get());
 }

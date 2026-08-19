@@ -14,6 +14,6 @@ public:
 
 public:
     CArrowIconScript();
-    ~CArrowIconScript();
+    virtual ~CArrowIconScript() override;
 };
 

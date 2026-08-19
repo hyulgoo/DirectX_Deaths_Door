@@ -14,6 +14,6 @@ public:
 
 public:
     CBombIconScript();
-    ~CBombIconScript();
+    virtual ~CBombIconScript() override;
 };
 

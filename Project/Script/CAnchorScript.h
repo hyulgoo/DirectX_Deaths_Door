@@ -18,6 +18,6 @@ public:
 
 public:
     CAnchorScript();
-    ~CAnchorScript();
+    virtual ~CAnchorScript() override;
 };
 

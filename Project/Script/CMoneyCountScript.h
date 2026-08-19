@@ -11,6 +11,6 @@ public:
 
 public:
     CMoneyCountScript();
-    ~CMoneyCountScript();
+    virtual ~CMoneyCountScript() override;
 };
 

@@ -10,8 +10,8 @@ void CCrowBossRun::Enter()
 
 void CCrowBossRun::tick()
 {
-	// °ø°İ Ãæµ¹Ã¼ ÇÁ¸®Æé
-	CGameObject* MonsterAtack = CLevelSaveLoadInScript::SpawnandReturnPrefab(L"prefab\\MonsterAttack.prefab", (int)LAYER::MONSTERPROJECTILE, GetOwner()->Transform()->GetWorldPos(), 0.f);
+	// ê³µê²© ì¶©ëŒì²´ í”„ë¦¬í©
+	CGameObject* MonsterAtack = CLevelSaveLoadInScript::SpawnandReturnPrefab(L"prefab\\MonsterAttack.prefab", static_cast<int>(LAYER::MONSTERPROJECTILE), GetOwner()->Transform()->GetWorldPos(), 0.f);
 
 	MonsterAtack->Collider3D()->SetOffsetPos(GetOwner()->Collider3D()->GetOffsetPos());
 	MonsterAtack->Collider3D()->SetOffsetScale(GetOwner()->Collider3D()->GetOffsetScale());
@@ -24,13 +24,13 @@ void CCrowBossRun::tick()
 
 	GetOwner()->Rigidbody()->AddVelocity(Velocity);
 
-	// ¾Ö´Ï¸ŞÀÌ¼ÇÀÌ ³¡³­ °æ¿ì.
+	// ì• ë‹ˆë©”ì´ì…˜ì´ ëë‚œ ê²½ìš°.
 	if (GetOwner()->Animator3D()->IsFinish())
 	{
 		++m_iTime;
 		GetOwner()->Animator3D()->Play(14, false);
 
-		// ¾Ö´Ï¸ŞÀÌ¼Ç 4¹ø Àç»ı ÈÄ ´Ù¸¥ State·Î
+		// ì• ë‹ˆë©”ì´ì…˜ 4ë²ˆ ì¬ìƒ í›„ ë‹¤ë¥¸ Stateë¡œ
 		if (m_iTime>=3)
 		{
 			ChangeState(L"RightSpin");

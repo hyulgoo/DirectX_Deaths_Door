@@ -21,7 +21,7 @@ CGraphicsShader::~CGraphicsShader()
 
 void CGraphicsShader::CreateVertexShader(const wstring& _strFileName, const string& _strFuncName)
 {
-	// Shader ÆÄÀÏ °æ·Î
+	// Shader íŒŒì¼ ê²½ë¡œ
 	wstring strShaderFile = CPathMgr::GetInst()->GetContentPath();
 	strShaderFile += _strFileName;
 
@@ -29,17 +29,17 @@ void CGraphicsShader::CreateVertexShader(const wstring& _strFileName, const stri
 	if (FAILED(D3DCompileFromFile(strShaderFile.c_str(), nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE
 		, _strFuncName.c_str(), "vs_5_0", 0, 0, m_VSBlob.GetAddressOf(), m_ErrBlob.GetAddressOf())))
 	{
-		MessageBoxA(nullptr, (const char*)m_ErrBlob->GetBufferPointer()
+		MessageBoxA(nullptr, static_cast<const char*>(m_ErrBlob->GetBufferPointer())
 			, "Vertex Shader Compile Failed!!", MB_OK);
 	}
 
-	// ÄÄÆÄÀÏµÈ °´Ã¼·Î VertexShader ¸¦ ¸¸µç´Ù.
+	// ì»´íŒŒì¼ëœ ê°ì²´ë¡œ VertexShader ë¥¼ ë§Œë“ ë‹¤.
 	HRESULT hr = DEVICE->CreateVertexShader(m_VSBlob->GetBufferPointer(), m_VSBlob->GetBufferSize()
 											, nullptr, m_VS.GetAddressOf());
 
 	const vector<D3D11_INPUT_ELEMENT_DESC>& vecLayout = CResMgr::GetInst()->GetInputLayoutInfo();
 
-	hr = DEVICE->CreateInputLayout(vecLayout.data(), (UINT)vecLayout.size()
+	hr = DEVICE->CreateInputLayout(vecLayout.data(), static_cast<UINT>(vecLayout.size())
 		, m_VSBlob->GetBufferPointer(), m_VSBlob->GetBufferSize()
 		, m_Layout.GetAddressOf());
 
@@ -48,16 +48,16 @@ void CGraphicsShader::CreateVertexShader(const wstring& _strFileName, const stri
 		assert(nullptr);
 	}
 
-	// Vertex Inst Shader ÄÄÆÄÀÏ ÇÏ±â
+	// Vertex Inst Shader ì»´íŒŒì¼ í•˜ê¸°
 	hr = D3DCompileFromFile(strShaderFile.c_str(), nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE
 		, (_strFuncName + "_Inst").c_str(), "vs_5_0", 0, 0, m_VSInstBlob.GetAddressOf(), m_ErrBlob.GetAddressOf());
 
 	if (SUCCEEDED(hr))
 	{
-		// ÄÄÆÄÀÏ µÈ ÄÚµå·Î Vertex Instancing Shader °´Ã¼ ¸¸µé±â
+		// ì»´íŒŒì¼ ëœ ì½”ë“œë¡œ Vertex Instancing Shader ê°ì²´ ë§Œë“¤ê¸°
 		DEVICE->CreateVertexShader(m_VSInstBlob->GetBufferPointer(), m_VSInstBlob->GetBufferSize(), nullptr, m_VSInst.GetAddressOf());
 
-		hr = DEVICE->CreateInputLayout(vecLayout.data(), (UINT)vecLayout.size()
+		hr = DEVICE->CreateInputLayout(vecLayout.data(), static_cast<UINT>(vecLayout.size())
 			, m_VSInstBlob->GetBufferPointer(), m_VSInstBlob->GetBufferSize()
 			, m_LayoutInst.GetAddressOf());
 		assert(!FAILED(hr));
@@ -66,7 +66,7 @@ void CGraphicsShader::CreateVertexShader(const wstring& _strFileName, const stri
 
 void CGraphicsShader::CreateHullShader(const wstring& _strFileName, const string& _strFuncName)
 {
-	// Shader ÆÄÀÏ °æ·Î
+	// Shader íŒŒì¼ ê²½ë¡œ
 	wstring strShaderFile = CPathMgr::GetInst()->GetContentPath();
 	strShaderFile += _strFileName;
 
@@ -74,18 +74,18 @@ void CGraphicsShader::CreateHullShader(const wstring& _strFileName, const string
 	if (FAILED(D3DCompileFromFile(strShaderFile.c_str(), nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE
 		, _strFuncName.c_str(), "hs_5_0", 0, 0, m_HSBlob.GetAddressOf(), m_ErrBlob.GetAddressOf())))
 	{
-		MessageBoxA(nullptr, (const char*)m_ErrBlob->GetBufferPointer()
+		MessageBoxA(nullptr, static_cast<const char*>(m_ErrBlob->GetBufferPointer())
 			, "Shader Compile Failed!!", MB_OK);
 	}
 
-	// ÄÄÆÄÀÏµÈ °´Ã¼·Î Shader ¸¦ ¸¸µç´Ù.
+	// ì»´íŒŒì¼ëœ ê°ì²´ë¡œ Shader ë¥¼ ë§Œë“ ë‹¤.
 	DEVICE->CreateHullShader(m_HSBlob->GetBufferPointer(), m_HSBlob->GetBufferSize()
 		, nullptr, m_HS.GetAddressOf());
 }
 
 void CGraphicsShader::CreateDomainShader(const wstring& _strFileName, const string& _strFuncName)
 {
-	// Shader ÆÄÀÏ °æ·Î
+	// Shader íŒŒì¼ ê²½ë¡œ
 	wstring strShaderFile = CPathMgr::GetInst()->GetContentPath();
 	strShaderFile += _strFileName;
 
@@ -93,18 +93,18 @@ void CGraphicsShader::CreateDomainShader(const wstring& _strFileName, const stri
 	if (FAILED(D3DCompileFromFile(strShaderFile.c_str(), nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE
 		, _strFuncName.c_str(), "ds_5_0", 0, 0, m_DSBlob.GetAddressOf(), m_ErrBlob.GetAddressOf())))
 	{
-		MessageBoxA(nullptr, (const char*)m_ErrBlob->GetBufferPointer()
+		MessageBoxA(nullptr, static_cast<const char*>(m_ErrBlob->GetBufferPointer())
 			, "Shader Compile Failed!!", MB_OK);
 	}
 
-	// ÄÄÆÄÀÏµÈ °´Ã¼·Î Shader ¸¦ ¸¸µç´Ù.
+	// ì»´íŒŒì¼ëœ ê°ì²´ë¡œ Shader ë¥¼ ë§Œë“ ë‹¤.
 	DEVICE->CreateDomainShader(m_DSBlob->GetBufferPointer(), m_DSBlob->GetBufferSize()
 		, nullptr, m_DS.GetAddressOf());
 }
 
 void CGraphicsShader::CreateGeometryShader(const wstring& _strFileName, const string& _strFuncName)
 {
-	// Shader ÆÄÀÏ °æ·Î
+	// Shader íŒŒì¼ ê²½ë¡œ
 	wstring strShaderFile = CPathMgr::GetInst()->GetContentPath();
 	strShaderFile += _strFileName;
 
@@ -112,18 +112,18 @@ void CGraphicsShader::CreateGeometryShader(const wstring& _strFileName, const st
 	if (FAILED(D3DCompileFromFile(strShaderFile.c_str(), nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE
 		, _strFuncName.c_str(), "gs_5_0", 0, 0, m_GSBlob.GetAddressOf(), m_ErrBlob.GetAddressOf())))
 	{
-		MessageBoxA(nullptr, (const char*)m_ErrBlob->GetBufferPointer()
+		MessageBoxA(nullptr, static_cast<const char*>(m_ErrBlob->GetBufferPointer())
 			, "Shader Compile Failed!!", MB_OK);
 	}
 
-	// ÄÄÆÄÀÏµÈ °´Ã¼·Î Shader ¸¦ ¸¸µç´Ù.
+	// ì»´íŒŒì¼ëœ ê°ì²´ë¡œ Shader ë¥¼ ë§Œë“ ë‹¤.
 	DEVICE->CreateGeometryShader(m_GSBlob->GetBufferPointer(), m_GSBlob->GetBufferSize()
 		, nullptr, m_GS.GetAddressOf());
 }
 
 void CGraphicsShader::CreatePixelShader(const wstring& _strFileName, const string& _strFuncName)
 {
-	// Shader ÆÄÀÏ °æ·Î
+	// Shader íŒŒì¼ ê²½ë¡œ
 	wstring strShaderFile = CPathMgr::GetInst()->GetContentPath();
 	strShaderFile += _strFileName;
 
@@ -132,16 +132,16 @@ void CGraphicsShader::CreatePixelShader(const wstring& _strFileName, const strin
 	if (FAILED(D3DCompileFromFile(strShaderFile.c_str(), nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE
 		, _strFuncName.c_str(), "ps_5_0", 0, 0, m_PSBlob.GetAddressOf(), m_ErrBlob.GetAddressOf())))
 	{
-		MessageBoxA(nullptr, (const char*)m_ErrBlob->GetBufferPointer()
+		MessageBoxA(nullptr, static_cast<const char*>(m_ErrBlob->GetBufferPointer())
 			, "Pixel Shader Compile Failed!!", MB_OK);
 	}
 
-	// ÄÄÆÄÀÏµÈ °´Ã¼·Î PixelShader ¸¦ ¸¸µç´Ù.
+	// ì»´íŒŒì¼ëœ ê°ì²´ë¡œ PixelShader ë¥¼ ë§Œë“ ë‹¤.
 	DEVICE->CreatePixelShader(m_PSBlob->GetBufferPointer(), m_PSBlob->GetBufferSize()
 		, nullptr, m_PS.GetAddressOf());
 }
 
-void CGraphicsShader::UpdateData()
+void CGraphicsShader::UpdateData() const
 {
 	CONTEXT->IASetInputLayout(m_Layout.Get());
 	CONTEXT->IASetPrimitiveTopology(m_eTopology);
@@ -157,7 +157,7 @@ void CGraphicsShader::UpdateData()
 	CONTEXT->OMSetBlendState(CDevice::GetInst()->GetBSState(m_BSType).Get(), Vec4(0.f, 0.f, 0.f, 0.f), 0xffffffff);
 }
 
-void CGraphicsShader::UpdateData_Inst()
+void CGraphicsShader::UpdateData_Inst() const
 {
 	CONTEXT->IASetInputLayout(m_LayoutInst.Get());
 	CONTEXT->IASetPrimitiveTopology(m_eTopology);

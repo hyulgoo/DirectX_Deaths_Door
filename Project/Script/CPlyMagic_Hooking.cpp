@@ -15,9 +15,9 @@ CPlyMagic_Hooking::~CPlyMagic_Hooking()
 
 void CPlyMagic_Hooking::Enter()
 {
-	GetOwner()->Animator3D()->Play((int)PLAYERANIM_TYPE::HOOKING, true);
+	GetOwner()->Animator3D()->Play(static_cast<int>(PLAYERANIM_TYPE::HOOKING), true);
 
-	// ³¯¾Æ°¡´Â ¹æÇâÀ¸·Î Dir ¼³Á¤
+	// ë‚ ì•„ê°€ëŠ” ë°©í–¥ìœ¼ë¡œ Dir ì„¤ì •
 	Vec3 vPlayerPos = GetOwner()->Transform()->GetWorldPos();
 	m_vDir = m_vHookPos - vPlayerPos;
 	m_vDir.Normalize();
@@ -27,8 +27,8 @@ void CPlyMagic_Hooking::Enter()
 
 void CPlyMagic_Hooking::tick()
 {
-	// PlayerÀÇ À§Ä¡¿Í HookPosÀÇ °Å¸®¿Í ¹æÇâÀ» ±¸ÇÏ°í
-	// °Å¸®°¡ ÀÏÁ¤°Å¸®º¸´Ù Å©´Ù¸é ÀÛÀ» ¶§±îÁö ¹æÇâÀ¸·Î ¼Óµµ¸¦ ÁÜ.
+	// Playerì˜ ìœ„ì¹˜ì™€ HookPosì˜ ê±°ë¦¬ì™€ ë°©í–¥ì„ êµ¬í•˜ê³ 
+	// ê±°ë¦¬ê°€ ì¼ì •ê±°ë¦¬ë³´ë‹¤ í¬ë‹¤ë©´ ìž‘ì„ ë•Œê¹Œì§€ ë°©í–¥ìœ¼ë¡œ ì†ë„ë¥¼ ì¤Œ.
 	Vec3 vPlayerPos = GetOwner()->Transform()->GetWorldPos();
 	Vec3 DifftoHooked = m_vHookPos - vPlayerPos;
 	DifftoHooked.y = 0.f;

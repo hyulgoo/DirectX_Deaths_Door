@@ -16,6 +16,6 @@ public:
 
 public:
     CLurkerBackStep();
-    ~CLurkerBackStep();
+    virtual ~CLurkerBackStep() override;
 };
 

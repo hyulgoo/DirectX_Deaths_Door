@@ -6,7 +6,7 @@
 #include "CMonsterScript.h"
 
 CSpawnDoorScript::CSpawnDoorScript()
-	: CScript((UINT)SCRIPT_TYPE::SPAWNDOORSCRIPT)
+	: CScript(static_cast<UINT>(SCRIPT_TYPE::SPAWNDOORSCRIPT))
 	, m_strSpawnMstName{}
 	, m_fDelay(0.f)
 	, m_bSpawn(false)
@@ -34,11 +34,11 @@ void CSpawnDoorScript::tick()
 		wstring SpawnName = L"prefab\\";
 		SpawnName += m_strSpawnMstName;
 		SpawnName += L".prefab";
-		CGameObject* pMonster = CLevelSaveLoadInScript::SpawnandReturnPrefab(SpawnName, (int)LAYER::MONSTER, GetOwner()->Transform()->GetWorldPos());
+		CGameObject* pMonster = CLevelSaveLoadInScript::SpawnandReturnPrefab(SpawnName, static_cast<int>(LAYER::MONSTER), GetOwner()->Transform()->GetWorldPos());
 		pMonster->Rigidbody()->SetRigidPos(Transform()->GetWorldPos()); //rigidbody global pos setup
 		pMonster->GetScript<CMonsterScript>()->SpawnByDoor();
 
-		// ÆäÀÌÆÛ¹øÀ» ÁÖ°í »ç¶óÁú °Ív
+		// í˜ì´í¼ë²ˆì„ ì£¼ê³  ì‚¬ë¼ì§ˆ ê²ƒv
 		SetLifeSpan(0.2f);
 		m_bSpawn = true;
 	}

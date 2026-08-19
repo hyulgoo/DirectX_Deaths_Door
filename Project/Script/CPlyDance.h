@@ -15,6 +15,6 @@ public:
 
 public:
     CPlyDance();
-    ~CPlyDance();
+    virtual ~CPlyDance() override;
 };
 

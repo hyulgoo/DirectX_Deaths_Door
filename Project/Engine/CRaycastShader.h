@@ -8,17 +8,17 @@ class CRaycastShader :
     public CComputeShader
 {
 private:
-    // ÁöÇüÀÇ ³ôÀÌ Á¤º¸
+    // ì§€í˜•ì˜ ë†’ì´ ì •ë³´
     Ptr<CTexture>       m_pHeightMap;
 
-    // ÁöÇü ¸é °³¼ö
+    // ì§€í˜• ë©´ ê°œìˆ˜
     UINT                m_iXFace;
     UINT                m_iZFace;
 
-    // Ä«¸Ş¶ó Ray Á¤º¸
+    // ì¹´ë©”ë¼ Ray ì •ë³´
     tRay                m_ray;
 
-    // ±³Á¡À§Ä¡ Ãâ·Â ¹öÆÛ
+    // êµì ìœ„ì¹˜ ì¶œë ¥ ë²„í¼
     CStructuredBuffer* m_pOutput;
 
 public:
@@ -28,11 +28,11 @@ public:
     void SetHeightMap(Ptr<CTexture> _ptex) { m_pHeightMap = _ptex; }
 
 protected:
-    virtual void UpdateData();
-    virtual void Clear();
+    virtual void UpdateData() override;
+    virtual void Clear() override;
 
 public:
     CRaycastShader(UINT _iGroupPerThreadX, UINT _iGroupPerThreadY, UINT _iGroupPerThreadZ);
-    ~CRaycastShader();
+    virtual ~CRaycastShader() override;
 };
 

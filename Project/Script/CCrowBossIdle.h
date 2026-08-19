@@ -12,6 +12,6 @@ public:
 
 public:
     CCrowBossIdle();
-    ~CCrowBossIdle();
+    virtual ~CCrowBossIdle() override;
 };
 

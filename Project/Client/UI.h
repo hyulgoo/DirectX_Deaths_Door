@@ -6,17 +6,17 @@
 class UI
 {
 private:
-	string			m_strName;		// Å¸ÀÌÆ² ÀÌ¸§, 
-	string			m_strID;		// ID ÀÌ¸§
+	string			m_strName;		// íƒ€ì´í‹€ ì´ë¦„, 
+	string			m_strID;		// ID ì´ë¦„
 
-	ImVec2			m_vSize;		// UI Å©±â
-	ImVec2			m_vPopupPos;	// UI À§Ä¡
+	ImVec2			m_vSize;		// UI í¬ê¸°
+	ImVec2			m_vPopupPos;	// UI ìœ„ì¹˜
 
-	UI*				m_ParentUI;		// ºÎ¸ğ UI
-	vector<UI*>		m_vecChildUI;	// ÀÚ½Ä UI ¸ñ·Ï
+	UI*				m_ParentUI;		// ë¶€ëª¨ UI
+	vector<UI*>		m_vecChildUI;	// ìì‹ UI ëª©ë¡
 
-	bool			m_Modal;		// ¸ğ´Ş or ¸ğ´Ş¸®½º
-	bool			m_Active;		// UI È°¼ºÈ­ Ã¼Å©
+	bool			m_Modal;		// ëª¨ë‹¬ or ëª¨ë‹¬ë¦¬ìŠ¤
+	bool			m_Active;		// UI í™œì„±í™” ì²´í¬
 
 public:
 	virtual void init() {}

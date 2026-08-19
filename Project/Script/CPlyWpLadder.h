@@ -12,6 +12,6 @@ public:
 
 public:
     CPlyWpLadder();
-    ~CPlyWpLadder();
+    virtual ~CPlyWpLadder() override;
 };
 

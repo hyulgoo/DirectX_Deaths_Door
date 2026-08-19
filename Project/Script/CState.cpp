@@ -10,7 +10,7 @@ CState::~CState()
 {
 }
 
-void CState::ChangeState(wstring _strStateName)
+void CState::ChangeState(wstring _strStateName) const
 {
 	m_pOwnerScript->ChangeState(_strStateName);
 }

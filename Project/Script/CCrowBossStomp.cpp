@@ -31,19 +31,19 @@ void CCrowBossStomp::tick()
 		m_bCameraShake = true;
 	}
 
-	// °ø°İ Ãæµ¹Ã¼ ÇÁ¸®Æé
-	CGameObject* MonsterAtack = CLevelSaveLoadInScript::SpawnandReturnPrefab(L"prefab\\MonsterAttack.prefab", (int)LAYER::MONSTERPROJECTILE, GetOwner()->Transform()->GetWorldPos(), 0.2f);
+	// ê³µê²© ì¶©ëŒì²´ í”„ë¦¬í©
+	CGameObject* MonsterAtack = CLevelSaveLoadInScript::SpawnandReturnPrefab(L"prefab\\MonsterAttack.prefab", static_cast<int>(LAYER::MONSTERPROJECTILE), GetOwner()->Transform()->GetWorldPos(), 0.2f);
 
 	MonsterAtack->Collider3D()->SetOffsetPos(GetOwner()->Collider3D()->GetOffsetPos());
 	MonsterAtack->Collider3D()->SetOffsetScale(GetOwner()->Collider3D()->GetOffsetScale());
 
-	// ¾Ö´Ï¸ŞÀÌ¼Ç Àç»ı½Ã°£µ¿¾È ÇÃ·¹ÀÌ¾îÀÇ À§Ä¡±îÁö µµ´ŞÇÏ±â À§ÇÑ Velocity.
-	Vec3 Velocity = m_Dir * (m_fDistance / (float)GetOwner()->Animator3D()->GetCurClipTimeLength());
-	Velocity *= DT;
+	// ì• ë‹ˆë©”ì´ì…˜ ì¬ìƒì‹œê°„ë™ì•ˆ í”Œë ˆì´ì–´ì˜ ìœ„ì¹˜ê¹Œì§€ ë„ë‹¬í•˜ê¸° ìœ„í•œ Velocity.
+	Vec3 Velocity = m_Dir * (m_fDistance / static_cast<float>(GetOwner()->Animator3D()->GetCurClipTimeLength()));
+	Velocity      *= DT;
 
 	GetOwner()->Rigidbody()->AddVelocity(Velocity);
 
-	// ¾Ö´Ï¸ŞÀÌ¼ÇÀÌ ³¡³­ °æ¿ì.
+	// ì• ë‹ˆë©”ì´ì…˜ì´ ëë‚œ ê²½ìš°.
 	if (GetOwner()->Animator3D()->IsFinish())
 	{
 		ChangeState(L"RightSpin");

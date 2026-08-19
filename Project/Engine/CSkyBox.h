@@ -20,7 +20,7 @@ public:
     void SetType(SKYBOX_TYPE _Type);
     void SetSkyTexture(Ptr<CTexture> _SkyTex) { m_SkyTex = _SkyTex;}
 
-    SKYBOX_TYPE GetType() { return m_Type; }
+    SKYBOX_TYPE   GetType() const { return m_Type; }
     Ptr<CTexture> GetSkyTex() { return m_SkyTex; }
 
 public:
@@ -34,6 +34,6 @@ public:
     CLONE(CSkyBox);
 public:
     CSkyBox();
-    ~CSkyBox();
+    virtual ~CSkyBox() override;
 };
 

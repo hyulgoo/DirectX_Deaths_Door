@@ -15,7 +15,7 @@ void CPlyIdle::tick()
 
 	GetOwner()->Rigidbody()->ClearForce();
 
-	// »óÁ¡ ÀÌ¿ë ÁßÀÌ¶ó ÀÌµ¿ÀÌ ¸·ÇôÀÖ´Ù¸é »óÅÂ¸¦ ÀüÈ¯ÇÏÁö ¾ÊÀ½.
+	// ìƒì  ì´ìš© ì¤‘ì´ë¼ ì´ë™ì´ ë§‰í˜€ìžˆë‹¤ë©´ ìƒíƒœë¥¼ ì „í™˜í•˜ì§€ ì•ŠìŒ.
 	if (!GetOwner()->GetScript<CPlayerScript>()->IsAbleMove())
 		return;
 
@@ -27,7 +27,7 @@ void CPlyIdle::tick()
 	{
 		GetOwner()->GetScript<CPlayerScript>()->ChangeMagicState();
 	}
-	// ÀÌµ¿Å°¸¦ ´­·¶´Ù¸é Walk »óÅÂ·Î ÀüÈ¯
+	// ì´ë™í‚¤ë¥¼ ëˆŒë €ë‹¤ë©´ Walk ìƒíƒœë¡œ ì „í™˜
 	else if (KEY_PRESSED(KEY::W) || KEY_PRESSED(KEY::S) || KEY_PRESSED(KEY::A) || KEY_PRESSED(KEY::D))
 	{
 		GetOwner()->GetScript<CPlayerScript>()->ChangeState(L"Run");
@@ -40,8 +40,8 @@ void CPlyIdle::tick()
 
 void CPlyIdle::Enter()
 {
-	// Idle ÁøÀÔ ½Ã Idle Anim ¹Ýº¹Àç»ý
-	GetOwner()->Animator3D()->Play((int)PLAYERANIM_TYPE::IDLE, true);
+	// Idle ì§„ìž… ì‹œ Idle Anim ë°˜ë³µìž¬ìƒ
+	GetOwner()->Animator3D()->Play(static_cast<int>(PLAYERANIM_TYPE::IDLE), true);
 }
 
 void CPlyIdle::Exit()
@@ -54,6 +54,6 @@ void CPlyIdle::BeginOverlap(CCollider3D* _Other)
 
 void CPlyIdle::OnOverlap(CCollider3D* _Other)
 {
-	if (_Other->GetOwner()->GetLayerIndex() == (int)LAYER::LADDER && KEY_PRESSED(KEY::E))
+	if (_Other->GetOwner()->GetLayerIndex() == static_cast<int>(LAYER::LADDER) && KEY_PRESSED(KEY::E))
 		GetOwner()->GetScript<CPlayerScript>()->ChangeState(L"Ladder");
 }

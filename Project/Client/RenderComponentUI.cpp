@@ -4,7 +4,7 @@
 #include <Engine/components.h>
 
 #include <Engine/CRenderMgr.h>
-#include <Engine\CResMgr.h>
+#include <Engine/CResMgr.h>
 
 #include "ImGuiMgr.h"
 #include "ListUI.h"
@@ -51,10 +51,10 @@ int RenderComponentUI::render_update()
 		memcpy(szBuff, strMeshKey.data(), sizeof(char) * strMeshKey.length());
 		ImGui::InputText("##MeshName", szBuff, 50, ImGuiInputTextFlags_ReadOnly);
 
-		// Mesh µå¶ø Ã¼Å©
+		// Mesh ë“œë ì²´í¬
 		if (ImGui::BeginDragDropTarget())
 		{
-			// ÇØ´ç ³ëµå¿¡¼­ ¸¶¿ì½º ¶¾ °æ¿ì, ÁöÁ¤ÇÑ PayLoad Å°°ªÀÌ ÀÏÄ¡ÇÑ °æ¿ì
+			// í•´ë‹¹ ë…¸ë“œì—ì„œ ë§ˆìš°ìŠ¤ ë—€ ê²½ìš°, ì§€ì •í•œ PayLoad í‚¤ê°’ì´ ì¼ì¹˜í•œ ê²½ìš°
 			const ImGuiPayload* pPayLoad = ImGui::AcceptDragDropPayload("Resource");
 			if (pPayLoad)
 			{
@@ -71,7 +71,7 @@ int RenderComponentUI::render_update()
 
 
 		ImGui::SameLine();
-		// Mesh ¼±ÅÃ
+		// Mesh ì„ íƒ
 		if (ImGui::Button("##MeshSelectBtn", ImVec2(18, 18)))
 		{
 			const map<wstring, Ptr<CRes>>& mapMesh = CResMgr::GetInst()->GetResources(RES_TYPE::MESH);
@@ -88,7 +88,7 @@ int RenderComponentUI::render_update()
 
 	if (nullptr != pMtrl)
 	{
-		// Mtrl ÀÌ¸§
+		// Mtrl ì´ë¦„
 		ImGui::Text("Material");
 		ImGui::SameLine();
 
@@ -99,7 +99,7 @@ int RenderComponentUI::render_update()
 
 		if (ImGui::BeginDragDropTarget())
 		{
-			// ÇØ´ç ³ëµå¿¡¼­ ¸¶¿ì½º ¶¾ °æ¿ì, ÁöÁ¤ÇÑ PayLoad Å°°ªÀÌ ÀÏÄ¡ÇÑ °æ¿ì
+			// í•´ë‹¹ ë…¸ë“œì—ì„œ ë§ˆìš°ìŠ¤ ë—€ ê²½ìš°, ì§€ì •í•œ PayLoad í‚¤ê°’ì´ ì¼ì¹˜í•œ ê²½ìš°
 			const ImGuiPayload* pPayLoad = ImGui::AcceptDragDropPayload("Resource");
 			if (pPayLoad)
 			{
@@ -117,7 +117,7 @@ int RenderComponentUI::render_update()
 
 		ImGui::SameLine();
 
-		// Mtrl ¼±ÅÃ 
+		// Mtrl ì„ íƒ 
 		if (ImGui::Button("##MtrlSelectBtn", ImVec2(18, 18)))
 		{
 			const map<wstring, Ptr<CRes>>& mapMtrl = CResMgr::GetInst()->GetResources(RES_TYPE::MATERIAL);
@@ -129,11 +129,11 @@ int RenderComponentUI::render_update()
 				pListUI->AddItem(string(pair.first.begin(), pair.first.end()));
 			}
 
-			// Ç×¸ñ ¼±ÅÃ½Ã È£Ãâ¹ŞÀ» µ¨¸®°ÔÀÌÆ® µî·Ï
+			// í•­ëª© ì„ íƒì‹œ í˜¸ì¶œë°›ì„ ë¸ë¦¬ê²Œì´íŠ¸ ë“±ë¡
 			pListUI->AddDynamic_Select(this, (UI_DELEGATE_1)&RenderComponentUI::SelectMaterial);
 		}
 
-		// Ãâ·ÂÇÒ TEX_PARAM ÁöÁ¤
+		// ì¶œë ¥í•  TEX_PARAM ì§€ì •
 		ImGui::Text("TEXPARAM");
 		ImGui::SameLine();
 		static int iTexparam = 0;
@@ -142,7 +142,7 @@ int RenderComponentUI::render_update()
 		string strTexParamName = strTex[iTexparam];
 		ImGui::SliderInt("##TexParm", &iTexparam, 0, 11, strTexParamName.c_str());
 
-		// TEX_0 Texture Ãâ·Â ¹× ¼±ÅÃ
+		// TEX_0 Texture ì¶œë ¥ ë° ì„ íƒ
 		Ptr<CTexture> pTEX = pMtrl->GetTexParam((TEX_PARAM)iTexparam);
 
 		ImGui::Spacing();

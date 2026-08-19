@@ -175,18 +175,18 @@ void DrawDebugSphere(const Matrix& _matWorld, Vec4 _vColor, float _fTime)
 
 const char* ToString(RES_TYPE type)
 {
-	return RES_TYPE_STR[(UINT)type];
+	return RES_TYPE_STR[static_cast<UINT>(type)];
 }
 
 const wchar_t* ToWString(RES_TYPE type)
 {
-	return RES_TYPE_WSTR[(UINT)type];
+	return RES_TYPE_WSTR[static_cast<UINT>(type)];
 }
 
 
 const char* ToString(COMPONENT_TYPE type)
 {
-	return COMPONENT_TYPE_STR[(UINT)type];
+	return COMPONENT_TYPE_STR[static_cast<UINT>(type)];
 }
 
 wstring GetRelativePath(const wstring& _strBase, const wstring& _strPath)
@@ -210,7 +210,7 @@ Matrix GetMatrixFromFbxMatrix(FbxAMatrix& _mat)
 	{
 		for (int j = 0; j < 4; ++j)
 		{
-			mat.m[i][j] = (float)_mat.Get(i, j);
+			mat.m[i][j] = static_cast<float>(_mat.Get(i, j));
 		}
 	}
 	return mat;
@@ -219,7 +219,7 @@ Matrix GetMatrixFromFbxMatrix(FbxAMatrix& _mat)
 
 void SaveWString(const wstring& _str, FILE* _File)
 {	
-	UINT iLen = (UINT)_str.length();
+	UINT iLen = static_cast<UINT>(_str.length());
 	fwrite(&iLen, sizeof(UINT), 1, _File);
 	fwrite(_str.c_str(), sizeof(wchar_t), _str.length(), _File);
 }
@@ -253,7 +253,7 @@ void SaveResRef(Ptr<CRes> _Res, FILE* _File)
 
 const wchar_t* ToWString(COMPONENT_TYPE type)
 {
-	return COMPONENT_TYPE_WSTR[(UINT)type];
+	return COMPONENT_TYPE_WSTR[static_cast<UINT>(type)];
 }
 
 void DrawDebugFrustum(const Matrix& _matWorld, Vec4 _vColor, float _fTime)
@@ -276,7 +276,7 @@ bool closeEnough(const float& a, const float& b
 
 Vec3 DecomposeRotMat(const Matrix& _matRot)
 {
-	// _mat À» ºĞÇØ ÈÄ ´Ù½Ã Çà·Ä ¸¸µé±â	
+	// _mat ì„ ë¶„í•´ í›„ ë‹¤ì‹œ í–‰ë ¬ ë§Œë“¤ê¸°	
 	Vec4 vMat[4];
 
 	vMat[0] = Vec4(_matRot._11, _matRot._12, _matRot._13, _matRot._14);
@@ -337,7 +337,7 @@ float GetDistance(Vec3 _Vec1, Vec3 _Vec2)
 
 float GetDir(Vec3 _vStart, Vec3 _vTarget, bool _degree)
 {
-	// ¾Æ·¡ÃàÀ» ±âÁØÀ¸·Î CurPos¿¡¼­ TargetPos¸¦ ¹Ù¶óº¸´Â angle ¹İÈ¯
+	// ì•„ë˜ì¶•ì„ ê¸°ì¤€ìœ¼ë¡œ CurPosì—ì„œ TargetPosë¥¼ ë°”ë¼ë³´ëŠ” angle ë°˜í™˜
 	Vec3 CurPos = _vStart;
 	Vec2 vDefault = Vec2(0.f, -1.f);
 	Vec3 TargetPos = _vTarget;

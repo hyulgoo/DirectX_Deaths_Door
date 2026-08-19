@@ -11,7 +11,7 @@
 #include "CSoundScript.h"
 
 CGrimKnightScript::CGrimKnightScript()	
-	: CMonsterScript((UINT)SCRIPT_TYPE::GRIMKNIGHTSCRIPT)
+	: CMonsterScript(static_cast<UINT>(SCRIPT_TYPE::GRIMKNIGHTSCRIPT))
 	, m_bRecognizeCheck(false)
 	, m_bRetrace(false)
 	, m_bOnCollision(false)
@@ -28,7 +28,7 @@ void CGrimKnightScript::begin()
 	CMonsterScript::begin();
 
 
-	// µ¿Àû ÀçÁú »ı¼º.
+	// ë™ì  ì¬ì§ˆ ìƒì„±.
 	int iMtrlCount = MeshRender()->GetMtrlCount();
 
 	for (int i = 0; i < iMtrlCount; ++i)
@@ -36,7 +36,7 @@ void CGrimKnightScript::begin()
 		MeshRender()->GetDynamicMaterial(i);
 	}
 
-	// »óÅÂ ¼³Á¤
+	// ìƒíƒœ ì„¤ì •
 	if (nullptr == m_pStateScript)
 	{
 		m_pStateScript = GetOwner()->GetScript<CStateScript>();
@@ -57,7 +57,7 @@ void CGrimKnightScript::begin()
 	}
 	if(nullptr == m_pPlayer)
 		m_pPlayer = CLevelMgr::GetInst()->GetCurLevel()->FindObjectByName(L"Player");
-	// ÃÊ±â ½ºÅÈ ¼³Á¤.
+	// ì´ˆê¸° ìŠ¤íƒ¯ ì„¤ì •.
 	Stat tInitStat;
 	tInitStat.HP = 300;
 	tInitStat.Max_HP = 300;
@@ -92,20 +92,20 @@ void CGrimKnightScript::CalcDir()
 
 void CGrimKnightScript::BeginOverlap(CCollider3D* _Other)
 {
-	//4.°Ë, È­»ì, ºÒ, ÆøÅº, °¥°í¸®¿Í Ãæµ¹ÇÏ¸é
-	if ((int)LAYER::PLAYER == _Other->GetOwner()->GetLayerIndex() && m_bOnCollision == false)
+	//4.ê²€, í™”ì‚´, ë¶ˆ, í­íƒ„, ê°ˆê³ ë¦¬ì™€ ì¶©ëŒí•˜ë©´
+	if (static_cast<int>(LAYER::PLAYER) == _Other->GetOwner()->GetLayerIndex() && m_bOnCollision == false)
 	{
 		m_pStateScript->ChangeState(L"Attack");
 		m_bOnCollision = true;
 	}
-	if ((int)LAYER::PLAYERPROJECTILE == _Other->GetOwner()->GetLayerIndex())
+	if (static_cast<int>(LAYER::PLAYERPROJECTILE) == _Other->GetOwner()->GetLayerIndex())
 	{
 		if(m_pStateScript->GetCurState() == m_pStateScript->FindState(L"GuardStay"))
 			m_iHitCount++;
 	}
 	else if (L"Ghost" == _Other->GetName())
 	{
-		//Ã¼·Â--
+		//ì²´ë ¥--
 	}
 }
 

@@ -11,7 +11,7 @@ void CCrowBossIdle::tick()
 {
 	CGameObject* pPlayer = GetOwner()->GetScript<CCrowBossScript>()->GetPlayer();
 
-	// Detect »óÅÂ¶ó¸é Notify »óÅÂ·Î ÀüÈ¯.
+	// Detect ìƒíƒœë¼ë©´ Notify ìƒíƒœë¡œ ì „í™˜.
 	if (1000.f > abs((pPlayer->Transform()->GetWorldPos() - GetOwner()->Transform()->GetWorldPos()).Length()))
 	{
 		ChangeState(L"CutScene");

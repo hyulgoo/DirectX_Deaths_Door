@@ -21,6 +21,6 @@ public:
 
 public:
     CLevelChangeDoorScript();
-    ~CLevelChangeDoorScript();
+    virtual ~CLevelChangeDoorScript() override;
 };
 

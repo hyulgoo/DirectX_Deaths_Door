@@ -27,13 +27,13 @@ int MeshDataUI::render_update()
     ImGui::SameLine();
     ImGui::Text((char*)strpath.c_str());
 
-    //»ç¿ëÇÏ´Â Mesh Key Á¤º¸
+    //ì‚¬ìš©í•˜ëŠ” Mesh Key ì •ë³´
     Ptr<CMeshData> mdat = CResMgr::GetInst()->LoadFBX(GetTargetRes()->GetRelativePath());
     ImGui::TextColored(ImVec4(0.4, 0, 0.4, 1), "Mesh Key     ");
     string meshkey = string(mdat->GetMesh()->GetKey().begin(), mdat->GetMesh()->GetKey().end());
     ImGui::Text((char*)meshkey.c_str());
 
-    //»ç¿ëÇÏ´Â Materials Key Á¤º¸
+    //ì‚¬ìš©í•˜ëŠ” Materials Key ì •ë³´
     ImGui::TextColored(ImVec4(0.4,0,0.4,1),"Mtrl Key     ");
     for (size_t i = 0; i < mdat->GetMaterials().size(); i++)
     {

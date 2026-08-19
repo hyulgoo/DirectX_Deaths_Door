@@ -12,6 +12,6 @@ public:
 
 public:
     CPlyWpRun();
-    ~CPlyWpRun();
+    virtual ~CPlyWpRun() override;
 };
 

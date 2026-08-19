@@ -16,6 +16,6 @@ public:
 
 public:
     CGruntNailAttack();
-    ~CGruntNailAttack();
+    virtual ~CGruntNailAttack() override;
 };
 

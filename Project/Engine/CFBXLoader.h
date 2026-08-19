@@ -35,7 +35,7 @@ struct tContainer
 	vector<vector<UINT>>				vecIdx;
 	vector<tFbxMaterial>				vecMtrl;
 
-	// Animation °ü·Ã Á¤º¸
+	// Animation ê´€ë ¨ ì •ë³´
 	bool								bAnimation;
 	vector<vector<tWeightsAndIndices>>	vecWI;
 
@@ -61,9 +61,9 @@ struct tKeyFrame
 struct tBone
 {
 	wstring				strBoneName;
-	int					iDepth;			// °èÃþ±¸Á¶ ±íÀÌ
-	int					iParentIndx;	// ºÎ¸ð Bone ÀÇ ÀÎµ¦½º
-	FbxAMatrix			matOffset;		// Offset Çà·Ä( -> »Ñ¸® -> Local)
+	int					iDepth;			// ê³„ì¸µêµ¬ì¡° ê¹Šì´
+	int					iParentIndx;	// ë¶€ëª¨ Bone ì˜ ì¸ë±ìŠ¤
+	FbxAMatrix			matOffset;		// Offset í–‰ë ¬( -> ë¿Œë¦¬ -> Local)
 	FbxAMatrix			matBone;
 	vector<tKeyFrame>	vecKeyFrame;
 };
@@ -101,9 +101,9 @@ public:
 	void LoadFbx(const wstring& _strPath);
 
 public:
-	int GetContainerCount() { return (int)m_vecContainer.size(); }	
-	const tContainer& GetContainer(int _iIdx) { return m_vecContainer[_iIdx]; }
-	vector<tBone*>& GetBones() {return m_vecBone;}
+	int                 GetContainerCount() const { return static_cast<int>(m_vecContainer.size()); }	
+	const tContainer&   GetContainer(int _iIdx) { return m_vecContainer[_iIdx]; }
+	vector<tBone*>&     GetBones() {return m_vecBone;}
 	vector<tAnimClip*>& GetAnimClip() { return m_vecAnimClip; }
 	
 private:
@@ -111,13 +111,13 @@ private:
 	void LoadMesh(FbxMesh* _pFbxMesh);
 	void LoadMaterial(FbxSurfaceMaterial* _pMtrlSur);
 
-	void GetTangent(FbxMesh* _pMesh, tContainer* _pContainer, int _iIdx, int _iVtxOrder);
-	void GetBinormal(FbxMesh* _pMesh, tContainer* _pContainer, int _iIdx, int _iVtxOrder);
-	void GetNormal(FbxMesh* _pMesh, tContainer* _pContainer, int _iIdx, int _iVtxOrder);
-	void GetUV(FbxMesh* _pMesh, tContainer* _pContainer, int _iIdx, int _iVtxOrder);
+	void GetTangent(FbxMesh* _pMesh, tContainer* _pContainer, int _iIdx, int _iVtxOrder) const;
+	void GetBinormal(FbxMesh* _pMesh, tContainer* _pContainer, int _iIdx, int _iVtxOrder) const;
+	void GetNormal(FbxMesh* _pMesh, tContainer* _pContainer, int _iIdx, int _iVtxOrder) const;
+	void GetUV(FbxMesh* _pMesh, tContainer* _pContainer, int _iIdx, int _iVtxOrder) const;
 
-	Vec4 GetMtrlData(FbxSurfaceMaterial * _pSurface, const char* _pMtrlName, const char* _pMtrlFactorName);
-	wstring GetMtrlTextureName(FbxSurfaceMaterial * _pSurface, const char* _pMtrlProperty);
+	Vec4    GetMtrlData(FbxSurfaceMaterial * _pSurface, const char* _pMtrlName, const char* _pMtrlFactorName) const;
+	wstring GetMtrlTextureName(FbxSurfaceMaterial * _pSurface, const char* _pMtrlProperty) const;
 
 	void LoadTexture();
 	void CreateMaterial();
@@ -128,16 +128,16 @@ private:
 	void LoadAnimationClip();
 	void Triangulate(FbxNode* _pNode);
 
-	void LoadAnimationData(FbxMesh* _pMesh, tContainer* _pContainer);
-	void LoadWeightsAndIndices(FbxCluster* _pCluster, int _iBoneIdx, tContainer* _pContainer);
-	void LoadOffsetMatrix(FbxCluster* _pCluster, const FbxAMatrix& _matNodeTransform, int _iBoneIdx, tContainer* _pContainer);
-	void LoadKeyframeTransform(FbxNode* _pNode, FbxCluster* _pCluster, const FbxAMatrix& _matNodeTransform
-		, int _iBoneIdx, tContainer* _pContainer);
+	void LoadAnimationData(FbxMesh* _pMesh, tContainer* _pContainer) const;
+	void LoadWeightsAndIndices(FbxCluster* _pCluster, int _iBoneIdx, tContainer* _pContainer) const;
+	void LoadOffsetMatrix(FbxCluster* _pCluster, const FbxAMatrix& _matNodeTransform, int _iBoneIdx, tContainer* _pContainer) const;
+	void LoadKeyframeTransform(FbxNode* _pNode, FbxCluster*    _pCluster, const FbxAMatrix& _matNodeTransform
+		, int                           _iBoneIdx, tContainer* _pContainer) const;
 
-	int FindBoneIndex(string _strBoneName);
-	FbxAMatrix GetTransform(FbxNode* _pNode);
+	int        FindBoneIndex(string _strBoneName) const;
+	FbxAMatrix GetTransform(FbxNode* _pNode) const;
 
-	void CheckWeightAndIndices(FbxMesh* _pMesh, tContainer * _pContainer);
+	void CheckWeightAndIndices(FbxMesh* _pMesh, tContainer * _pContainer) const;
 public:
 	CFBXLoader();
 	~CFBXLoader();

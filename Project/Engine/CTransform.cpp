@@ -48,7 +48,7 @@ void CTransform::finaltick()
 		m_vWorldDir[i] = m_vRelativeDir[i] = XMVector3TransformNormal(vDefaultDir[i], m_matRelativeRot);
 	}
 
-	// ºÎ¸ð ¿ÀºêÁ§Æ® È®ÀÎ
+	// ë¶€ëª¨ ì˜¤ë¸Œì íŠ¸ í™•ì¸
 	CGameObject* pParent = GetOwner()->GetParent();
 	if (pParent)
 	{
@@ -58,7 +58,7 @@ void CTransform::finaltick()
 			Matrix matParentScale = pParent->Transform()->m_matWorldScale;
 			Matrix matParentScaleInv = XMMatrixInverse(nullptr, matParentScale);
 
-			// ¿ùµå = ·ÎÄÃ¿ùµå * ºÎ¸ðÅ©±â ¿ª * ºÎ¸ð ¿ùµå(Å©±â/È¸Àü/ÀÌµ¿)
+			// ì›”ë“œ = ë¡œì»¬ì›”ë“œ * ë¶€ëª¨í¬ê¸° ì—­ * ë¶€ëª¨ ì›”ë“œ(í¬ê¸°/íšŒì „/ì´ë™)
 			m_matWorld = m_matWorld * matParentScaleInv * matParentWorld;
 		}
 		else
@@ -75,13 +75,13 @@ void CTransform::finaltick()
 		}
 	}
 
-	// DecalÀ» À§ÇØ ¿ùµå ¿ªÇà·ÄÀ» ³Ñ°ÜÁÜ.
+	// Decalì„ ìœ„í•´ ì›”ë“œ ì—­í–‰ë ¬ì„ ë„˜ê²¨ì¤Œ.
 	m_matWorldInv = XMMatrixInverse(nullptr, m_matWorld);
 }
 
-void CTransform::UpdateData()
+void CTransform::UpdateData() const
 {
-	// À§Ä¡°ªÀ» »ó¼ö¹öÆÛ¿¡ Àü´Þ ¹× ¹ÙÀÎµù		
+	// ìœ„ì¹˜ê°’ì„ ìƒìˆ˜ë²„í¼ì— ì „ë‹¬ ë° ë°”ì¸ë”©		
 	CConstBuffer* pTransformBuffer = CDevice::GetInst()->GetConstBuffer(CB_TYPE::TRANSFORM);
 
 	g_transform.matWorld = m_matWorld;
@@ -129,7 +129,7 @@ void CTransform::CalcDir()
 }
 
 
-Matrix CTransform::GetWorldRotation()
+Matrix CTransform::GetWorldRotation() const
 {
 	Matrix matWorldRot = m_matRelativeRot;
 

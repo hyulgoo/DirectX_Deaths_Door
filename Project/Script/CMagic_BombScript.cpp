@@ -7,7 +7,7 @@
 #include "CSoundScript.h"
 
 CMagic_BombScript::CMagic_BombScript()
-	: CScript((UINT)SCRIPT_TYPE::MAGIC_BOMBSCRIPT)
+	: CScript(static_cast<UINT>(SCRIPT_TYPE::MAGIC_BOMBSCRIPT))
 	, m_fDamage(0.f)
 	, m_fSpeed(800.f)
 	, m_vDir{}
@@ -52,13 +52,13 @@ void CMagic_BombScript::tick()
 		float CurVelocityRatio = vCurVelocity.x / vCurVelocity.z;
 		if (m_fPrevDirRatio && abs(m_fPrevDirRatio - CurVelocityRatio) > 0.0001f)
 		{
-			// ¹æÇâÀÌ ¹Ù²î¸é(º®ÀÌ³ª ±âÅ¸ ÇÇÁ÷½º ¹°Ã¼¿¡ ºÎµúÈû) È÷Æ® ÀÌÆåÆ® ¹× »èÁ¦
+			// ë°©í–¥ì´ ë°”ë€Œë©´(ë²½ì´ë‚˜ ê¸°íƒ€ í”¼ì§ìŠ¤ ë¬¼ì²´ì— ë¶€ë”ªíž˜) ížˆíŠ¸ ì´íŽ™íŠ¸ ë° ì‚­ì œ
 			m_bCollided = true;
 
 			Collider3D()->SetOffsetScale(Vec3(500.f));
 
 			CRenderMgr::GetInst()->GetMainCam()->GetOwner()->GetScript<CGameCameraScript>()->CameraShake(5.f, 1000.f, 0.3f);
-			// È÷Æ® ÀÌÆåÆ® Ãß°¡ÇÒ °Í		
+			// ížˆíŠ¸ ì´íŽ™íŠ¸ ì¶”ê°€í•  ê²ƒ		
 		}
 		m_fPrevDirRatio = CurVelocityRatio;
 		Vec3 Velocity = m_vDir * m_fSpeed;
@@ -72,7 +72,7 @@ void CMagic_BombScript::BeginOverlap(CCollider3D* _Other)
 		return;
 	if (_Other->GetOwner()->GetScript<CStateScript>())
 	{
-		if (_Other->GetOwner()->GetLayerIndex() == (int)LAYER::MONSTER)
+		if (_Other->GetOwner()->GetLayerIndex() == static_cast<int>(LAYER::MONSTER))
 		{
 			Stat CurStat = _Other->GetOwner()->GetScript<CStateScript>()->GetStat();
 			CurStat.HP -= m_fDamage;
@@ -82,10 +82,10 @@ void CMagic_BombScript::BeginOverlap(CCollider3D* _Other)
 
 			Collider3D()->SetOffsetScale(Vec3(500.f));
 
-			// È÷Æ® ÀÌÆåÆ® Ãß°¡ÇÒ °Í
+			// ížˆíŠ¸ ì´íŽ™íŠ¸ ì¶”ê°€í•  ê²ƒ
 			CRenderMgr::GetInst()->GetMainCam()->GetOwner()->GetScript<CGameCameraScript>()->CameraShake(5.f, 1000.f, 0.5f);
 
-			CLevelSaveLoadInScript::SpawnPrefab(L"prefab\\HitEffect.prefab", (int)LAYER::DEFAULT, Transform()->GetRelativePos(), 0.2f);
+			CLevelSaveLoadInScript::SpawnPrefab(L"prefab\\HitEffect.prefab", static_cast<int>(LAYER::DEFAULT), Transform()->GetRelativePos(), 0.2f);
 
 			CSoundScript* soundscript = CLevelMgr::GetInst()->FindObjectByName(L"SoundUI")->GetScript<CSoundScript>();
 			Ptr<CSound> pSound = soundscript->AddSound(L"Sound\\Player\\BombHit.ogg", 1, 0.1f);

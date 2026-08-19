@@ -12,6 +12,6 @@ public:
 
 public:
     CPower();
-    ~CPower();
+    virtual ~CPower() override;
 };
 

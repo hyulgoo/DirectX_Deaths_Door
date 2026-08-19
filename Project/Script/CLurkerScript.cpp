@@ -7,7 +7,7 @@
 #include <Engine/CDetourMgr.h>
 
 CLurkerScript::CLurkerScript() :
-	CMonsterScript((UINT)SCRIPT_TYPE::LURKERSCRIPT)
+	CMonsterScript(static_cast<UINT>(SCRIPT_TYPE::LURKERSCRIPT))
 	, m_fPlayerDistance(0.f)
 	, m_fBackStepRange(250.f)
 	, m_fAttackRange(500.f)
@@ -19,7 +19,7 @@ CLurkerScript::CLurkerScript() :
 }
 
 CLurkerScript::CLurkerScript(const CLurkerScript& _Other) :
-	CMonsterScript((UINT)SCRIPT_TYPE::LURKERSCRIPT)
+	CMonsterScript(static_cast<UINT>(SCRIPT_TYPE::LURKERSCRIPT))
 	, m_fPlayerDistance(_Other.m_fPlayerDistance)
 	, m_fBackStepRange(_Other.m_fBackStepRange)
 	, m_fAttackRange(_Other.m_fAttackRange)
@@ -36,7 +36,7 @@ void CLurkerScript::begin()
 {
 	CMonsterScript::begin();
 
-	// ªÛ≈¬ ≥÷æÓ¡÷±‚.
+	// ÏÉÅÌÉú ÎÑ£Ïñ¥Ï£ºÍ∏∞.
 	if (nullptr == m_pStateScript)
 	{
 		m_pStateScript = GetOwner()->GetScript<CStateScript>();
@@ -52,7 +52,7 @@ void CLurkerScript::begin()
 		m_pStateScript->AddState(L"Trace", new CLurkerTrace);
 		m_pStateScript->ChangeState(L"Idle");
 
-		// √ ±‚ Ω∫≈» º≥¡§.
+		// Ï¥àÍ∏∞ Ïä§ÌÉØ ÏÑ§Ï†ï.
 		Stat NewStat;
 		NewStat.Max_HP = 100;
 		NewStat.HP = NewStat.Max_HP;
@@ -61,7 +61,7 @@ void CLurkerScript::begin()
 		NewStat.Speed = 100.f;
 		m_pStateScript->SetStat(NewStat);
 
-		// ¿Ã¿¸ HP
+		// Ïù¥Ï†Ñ HP
 		m_fPrevHP = NewStat.Max_HP;
 	}
 }
@@ -70,7 +70,7 @@ void CLurkerScript::tick()
 {
 	CMonsterScript::tick();
 
-	// HP∞° 0 ¿Ã«œ∏È ªÁ∏¡.
+	// HPÍ∞Ä 0 Ïù¥ÌïòÎ©¥ ÏÇ¨Îßù.
 	if (m_pStateScript && m_pStateScript->GetStat().HP <= 0)
 	{
 		if (m_pStateScript->FindState(L"Death") != m_pStateScript->GetCurState())
@@ -85,7 +85,7 @@ void CLurkerScript::tick()
 	m_vMonsterToPlayerDir.y /= m_fPlayerDistance;
 	m_vMonsterToPlayerDir.z /= m_fPlayerDistance;
 
-	// «√∑π¿ÃæÓ∏¶ πŸ∂Û∫∏¥¬ ∞ÊøÏ.
+	// ÌîåÎ†àÏù¥Ïñ¥Î•º Î∞îÎùºÎ≥¥Îäî Í≤ΩÏö∞.
 	if (m_bStarePlayer)
 	{
 		float fDir = GetSmoothDir(GetOwner(), m_pPlayer);
@@ -95,7 +95,7 @@ void CLurkerScript::tick()
 
 	float fCurHP = m_pStateScript->GetStat().HP;
 
-	// √º∑¬¿Ã ¡Ÿæ˙¥Ÿ∏È.
+	// Ï≤¥Î†•Ïù¥ Ï§ÑÏóàÎã§Î©¥.
 	if (m_fPrevHP < fCurHP)
 	{
 		// Sound

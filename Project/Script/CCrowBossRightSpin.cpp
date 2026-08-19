@@ -14,28 +14,28 @@ void CCrowBossRightSpin::Enter()
 
 void CCrowBossRightSpin::tick()
 {
-	// Player ÀÀ½Ã
+	// Player ì‘ì‹œ
 	GetOwner()->GetScript<CCrowBossScript>()->SetStarePlayer(true);
 
 	if (GetOwner()->Animator3D()->IsFinish())
 	{
-		// ÆÐÅÏ ¼±ÅÃ. ´Þ¸®±â, Á¡ÇÁ, »ç½½.
+		// íŒ¨í„´ ì„ íƒ. ë‹¬ë¦¬ê¸°, ì í”„, ì‚¬ìŠ¬.
 		srand(time(0));
 		int iRandom = rand() % 3;
 
-		// ´Þ¸®±â
+		// ë‹¬ë¦¬ê¸°
 		if (iRandom == 0)
 		{
 			GetOwner()->GetScript<CCrowBossScript>()->SetStarePlayer(true);
 			ChangeState(L"Run");
 		}
-		// Á¡ÇÁ
+		// ì í”„
 		else if (iRandom == 1)
 		{
 			GetOwner()->GetScript<CCrowBossScript>()->SetStarePlayer(false);
 			ChangeState(L"Jump");
 		}
-		// »ç½½
+		// ì‚¬ìŠ¬
 		else if (iRandom == 2)
 		{
 			Vec3 vPlayerPos = CLevelMgr::GetInst()->FindObjectByName(L"Player")->Transform()->GetWorldPos();

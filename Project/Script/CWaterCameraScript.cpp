@@ -2,23 +2,23 @@
 #include "CWaterCameraScript.h"
 #include "CGameCameraScript.h"
 
-#include <Engine\CRenderMgr.h>
-#include <Engine\CDevice.h>
+#include <Engine/CRenderMgr.h>
+#include <Engine/CDevice.h>
 
 void CWaterCameraScript::begin()
 {
-	// MainCamera ÂüÁ¶.
+	// MainCamera ì°¸ì¡°.
 	m_pMainCamera = CRenderMgr::GetInst()->GetMainCam()->GetOwner();
 
-	// MainCamera¿¡¼­ »ç¿ëÇÏ´Â ÇÃ·¹ÀÌ¾î·ÎÀÇ °Å¸®¸¦ °¡Á®¿È.
+	// MainCameraì—ì„œ ì‚¬ìš©í•˜ëŠ” í”Œë ˆì´ì–´ë¡œì˜ ê±°ë¦¬ë¥¼ ê°€ì ¸ì˜´.
 	m_vDistance = m_pMainCamera->GetScript<CGameCameraScript>()->GetDistance();
 
-	// È¸ÀüÀº 360 - main camÀÇ x È¸Àü °ª.
+	// íšŒì „ì€ 360 - main camì˜ x íšŒì „ ê°’.
 	Vec3 CamRot = m_pMainCamera->Transform()->GetRelativeRot();
 	CamRot.x = XM_2PI - CamRot.x;
 	GetOwner()->Transform()->SetRelativeRot(CamRot);
 
-	// Ä«¸Þ¶ó ½ºÄÉÀÏÀº µ¿ÀÏÇÏ°Ô.
+	// ì¹´ë©”ë¼ ìŠ¤ì¼€ì¼ì€ ë™ì¼í•˜ê²Œ.
 	float Scale = m_pMainCamera->Camera()->GetScale();
 	GetOwner()->Camera()->SetScale(Scale);
 }
@@ -47,7 +47,7 @@ void CWaterCameraScript::LoadFromLevelFile(FILE* _FILE)
 }
 
 CWaterCameraScript::CWaterCameraScript()
-	: CScript((UINT)SCRIPT_TYPE::WATERCAMERASCRIPT)
+	: CScript(static_cast<UINT>(SCRIPT_TYPE::WATERCAMERASCRIPT))
 	, m_pMainCamera(nullptr)
 	, m_fWaterHeight(300.f)
 	, m_fYOffset(480.f)

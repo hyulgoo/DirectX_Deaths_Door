@@ -37,7 +37,7 @@ int ParticleSystemUI::render_update()
 
 	LoadParticle();
 
-	// °¢ ¸ğµâ OnOff ±â´É, On ¶§¸¸ ÇØ´ç ¸ğµâ ¼³Á¤ÀÌ ÄÑÁöµµ·Ï ÇÔ.
+	// ê° ëª¨ë“ˆ OnOff ê¸°ëŠ¥, On ë•Œë§Œ í•´ë‹¹ ëª¨ë“ˆ ì„¤ì •ì´ ì¼œì§€ë„ë¡ í•¨.
 	ModuleOnOff("Spawn Module", "##Spawn_Module", m_tModuleData.ModuleCheck[(UINT)PARTICLE_MODULE::PARTICLE_SPAWN]);
 	if (1 == m_tModuleData.ModuleCheck[(UINT)PARTICLE_MODULE::PARTICLE_SPAWN])
 		SpawnModule();
@@ -59,7 +59,7 @@ int ParticleSystemUI::render_update()
 	ImGui::NewLine();
 	ImGui::Separator();
 
-	// Emissive ¿©ºÎ
+	// Emissive ì—¬ë¶€
 	bool bEmissive = GetTarget()->ParticleSystem()->GetEmissive();
 	ImGui::Checkbox("Emissive", &bEmissive);
 	if (bEmissive)
@@ -228,7 +228,7 @@ void ParticleSystemUI::SpawnModule()
 	ImGui::SameLine();
 	ImGui::DragFloat("##Spawn_MaxTime", &m_tModuleData.MaxLifeTime);
 
-	//Texture »ç¿ë
+	//Texture ì‚¬ìš©
 	SetTexture();
 }
 
@@ -515,21 +515,21 @@ void ParticleSystemUI::SaveParticle()
 		if (false == GetSaveFileName(&ofn))
 			return;
 
-		// ÆÄÀÏ ÀÔÃâ·Â
+		// íŒŒì¼ ì…ì¶œë ¥
 		FILE* pFile = nullptr;
 		errno_t iErrNum = _wfopen_s(&pFile, szFilePath, L"wb");
 
 		if (nullptr == pFile)
 		{
 			wchar_t szStr[256] = {};
-			wsprintf(szStr, L"Particle Save ½ÇÆĞ, Error Number : %d", iErrNum);
-			MessageBox(nullptr, szStr, L"ÆÄÆ¼Å¬ ÀúÀå ½ÇÆĞ", MB_OK);
+			wsprintf(szStr, L"Particle Save ì‹¤íŒ¨, Error Number : %d", iErrNum);
+			MessageBox(nullptr, szStr, L"íŒŒí‹°í´ ì €ì¥ ì‹¤íŒ¨", MB_OK);
 			return;
 		}
 
 		wchar_t szNum[50] = {};
 		size_t iFrmCount = m_tModuleData.AddVelocityType;
-		_itow_s((int)iFrmCount, szNum, 50, 10);//Á¤¼ö¸¦ ¹®ÀÚ¿­·Î º¯È¯
+		_itow_s((int)iFrmCount, szNum, 50, 10);//ì •ìˆ˜ë¥¼ ë¬¸ìì—´ë¡œ ë³€í™˜
 		fwrite(&m_iEmissive, sizeof(int), 1, pFile); 
 		fwprintf_s(pFile, L"[AddVelocityType]\n");
 		fwprintf_s(pFile, szNum);
@@ -558,7 +558,7 @@ void ParticleSystemUI::SaveParticle()
 		fwprintf_s(pFile, L"\n\n");
 
 		iFrmCount = m_tModuleData.iMaxParticleCount;
-		_itow_s((int)iFrmCount, szNum, 50, 10);//Á¤¼ö¸¦ ¹®ÀÚ¿­·Î º¯È¯
+		_itow_s((int)iFrmCount, szNum, 50, 10);//ì •ìˆ˜ë¥¼ ë¬¸ìì—´ë¡œ ë³€í™˜
 		fwprintf_s(pFile, L"[iMaxParticleCount]\n");
 		fwprintf_s(pFile, szNum);
 		fwprintf_s(pFile, L"\n\n");
@@ -571,49 +571,49 @@ void ParticleSystemUI::SaveParticle()
 		fwprintf_s(pFile, L"\n\n");
 
 		iFrmCount = m_tModuleData.ModuleCheck[(UINT)PARTICLE_MODULE::ADD_VELOCITY];
-		_itow_s((int)iFrmCount, szNum, 50, 10);//Á¤¼ö¸¦ ¹®ÀÚ¿­·Î º¯È¯
+		_itow_s((int)iFrmCount, szNum, 50, 10);//ì •ìˆ˜ë¥¼ ë¬¸ìì—´ë¡œ ë³€í™˜
 		fwprintf_s(pFile, L"[ModuleCheck=ADDVELOCITY]\n");
 		fwprintf_s(pFile, szNum);
 		fwprintf_s(pFile, L"\n\n");
 
 		iFrmCount = m_tModuleData.ModuleCheck[(UINT)PARTICLE_MODULE::COLOR_CHANGE];
-		_itow_s((int)iFrmCount, szNum, 50, 10);//Á¤¼ö¸¦ ¹®ÀÚ¿­·Î º¯È¯
+		_itow_s((int)iFrmCount, szNum, 50, 10);//ì •ìˆ˜ë¥¼ ë¬¸ìì—´ë¡œ ë³€í™˜
 		fwprintf_s(pFile, L"[ModuleCheck=COLOR_CHANGE]\n");
 		fwprintf_s(pFile, szNum);
 		fwprintf_s(pFile, L"\n\n");
 
 		iFrmCount = m_tModuleData.ModuleCheck[(UINT)PARTICLE_MODULE::DRAG];
-		_itow_s((int)iFrmCount, szNum, 50, 10);//Á¤¼ö¸¦ ¹®ÀÚ¿­·Î º¯È¯
+		_itow_s((int)iFrmCount, szNum, 50, 10);//ì •ìˆ˜ë¥¼ ë¬¸ìì—´ë¡œ ë³€í™˜
 		fwprintf_s(pFile, L"[ModuleCheck=DRAG]\n");
 		fwprintf_s(pFile, szNum);
 		fwprintf_s(pFile, L"\n\n");
 
 		iFrmCount = m_tModuleData.ModuleCheck[(UINT)PARTICLE_MODULE::NOISE_FORCE];
-		_itow_s((int)iFrmCount, szNum, 50, 10);//Á¤¼ö¸¦ ¹®ÀÚ¿­·Î º¯È¯
+		_itow_s((int)iFrmCount, szNum, 50, 10);//ì •ìˆ˜ë¥¼ ë¬¸ìì—´ë¡œ ë³€í™˜
 		fwprintf_s(pFile, L"[ModuleCheck=NOISE_FORCE]\n");
 		fwprintf_s(pFile, szNum);
 		fwprintf_s(pFile, L"\n\n");
 
 		iFrmCount = m_tModuleData.ModuleCheck[(UINT)PARTICLE_MODULE::PARTICLE_SPAWN];
-		_itow_s((int)iFrmCount, szNum, 50, 10);//Á¤¼ö¸¦ ¹®ÀÚ¿­·Î º¯È¯
+		_itow_s((int)iFrmCount, szNum, 50, 10);//ì •ìˆ˜ë¥¼ ë¬¸ìì—´ë¡œ ë³€í™˜
 		fwprintf_s(pFile, L"[ModuleCheck=PARTICLE_SPAWN]\n");
 		fwprintf_s(pFile, szNum);
 		fwprintf_s(pFile, L"\n\n");
 
 		iFrmCount = m_tModuleData.ModuleCheck[(UINT)PARTICLE_MODULE::RENDER];
-		_itow_s((int)iFrmCount, szNum, 50, 10);//Á¤¼ö¸¦ ¹®ÀÚ¿­·Î º¯È¯
+		_itow_s((int)iFrmCount, szNum, 50, 10);//ì •ìˆ˜ë¥¼ ë¬¸ìì—´ë¡œ ë³€í™˜
 		fwprintf_s(pFile, L"[ModuleCheck=RENDER]\n");
 		fwprintf_s(pFile, szNum);
 		fwprintf_s(pFile, L"\n\n");
 
 		iFrmCount = m_tModuleData.ModuleCheck[(UINT)PARTICLE_MODULE::ANIMATION];
-		_itow_s((int)iFrmCount, szNum, 50, 10);//Á¤¼ö¸¦ ¹®ÀÚ¿­·Î º¯È¯
+		_itow_s((int)iFrmCount, szNum, 50, 10);//ì •ìˆ˜ë¥¼ ë¬¸ìì—´ë¡œ ë³€í™˜
 		fwprintf_s(pFile, L"[ModuleCheck=ANIMATION]\n");
 		fwprintf_s(pFile, szNum);
 		fwprintf_s(pFile, L"\n\n");
 
 		iFrmCount = m_tModuleData.ModuleCheck[(UINT)PARTICLE_MODULE::SCALE_CHANGE];
-		_itow_s((int)iFrmCount, szNum, 50, 10);//Á¤¼ö¸¦ ¹®ÀÚ¿­·Î º¯È¯
+		_itow_s((int)iFrmCount, szNum, 50, 10);//ì •ìˆ˜ë¥¼ ë¬¸ìì—´ë¡œ ë³€í™˜
 		fwprintf_s(pFile, L"[ModuleCheck=SCALE_CHANGE]\n");
 		fwprintf_s(pFile, szNum);
 		fwprintf_s(pFile, L"\n\n");
@@ -623,19 +623,19 @@ void ParticleSystemUI::SaveParticle()
 		fwprintf_s(pFile, L"\n\n");
 
 		iFrmCount = m_tModuleData.Space;
-		_itow_s((int)iFrmCount, szNum, 50, 10);//Á¤¼ö¸¦ ¹®ÀÚ¿­·Î º¯È¯
+		_itow_s((int)iFrmCount, szNum, 50, 10);//ì •ìˆ˜ë¥¼ ë¬¸ìì—´ë¡œ ë³€í™˜
 		fwprintf_s(pFile, L"[Space]\n");
 		fwprintf_s(pFile, szNum);
 		fwprintf_s(pFile, L"\n\n");
 
 		iFrmCount = m_tModuleData.SpawnRate;
-		_itow_s((int)iFrmCount, szNum, 50, 10);//Á¤¼ö¸¦ ¹®ÀÚ¿­·Î º¯È¯
+		_itow_s((int)iFrmCount, szNum, 50, 10);//ì •ìˆ˜ë¥¼ ë¬¸ìì—´ë¡œ ë³€í™˜
 		fwprintf_s(pFile, L"[SpawnRate]\n");
 		fwprintf_s(pFile, szNum);
 		fwprintf_s(pFile, L"\n\n");
 
 		iFrmCount = m_tModuleData.SpawnShapeType;
-		_itow_s((int)iFrmCount, szNum, 50, 10);//Á¤¼ö¸¦ ¹®ÀÚ¿­·Î º¯È¯
+		_itow_s((int)iFrmCount, szNum, 50, 10);//ì •ìˆ˜ë¥¼ ë¬¸ìì—´ë¡œ ë³€í™˜
 		fwprintf_s(pFile, L"[SpawnShapeType]\n");
 		fwprintf_s(pFile, szNum);
 		fwprintf_s(pFile, L"\n\n");
@@ -649,13 +649,13 @@ void ParticleSystemUI::SaveParticle()
 		fwprintf_s(pFile, L"\n\n");
 
 		iFrmCount = m_tModuleData.VelocityAlignment;
-		_itow_s((int)iFrmCount, szNum, 50, 10);//Á¤¼ö¸¦ ¹®ÀÚ¿­·Î º¯È¯
+		_itow_s((int)iFrmCount, szNum, 50, 10);//ì •ìˆ˜ë¥¼ ë¬¸ìì—´ë¡œ ë³€í™˜
 		fwprintf_s(pFile, L"[VelocityAlignment]\n");
 		fwprintf_s(pFile, szNum);
 		fwprintf_s(pFile, L"\n\n");
 
 		iFrmCount = m_tModuleData.VelocityScale;
-		_itow_s((int)iFrmCount, szNum, 50, 10);//Á¤¼ö¸¦ ¹®ÀÚ¿­·Î º¯È¯
+		_itow_s((int)iFrmCount, szNum, 50, 10);//ì •ìˆ˜ë¥¼ ë¬¸ìì—´ë¡œ ë³€í™˜
 		fwprintf_s(pFile, L"[VelocityScale]\n");
 		fwprintf_s(pFile, szNum);
 		fwprintf_s(pFile, L"\n\n");
@@ -676,13 +676,13 @@ void ParticleSystemUI::SaveParticle()
 
 		//Animation module members
 		iFrmCount = m_tModuleData.iFrmCount;
-		_itow_s((int)iFrmCount, szNum, 50, 10);//Á¤¼ö¸¦ ¹®ÀÚ¿­·Î º¯È¯
+		_itow_s((int)iFrmCount, szNum, 50, 10);//ì •ìˆ˜ë¥¼ ë¬¸ìì—´ë¡œ ë³€í™˜
 		fwprintf_s(pFile, L"[FrmCount]\n");
 		fwprintf_s(pFile, szNum);
 		fwprintf_s(pFile, L"\n\n");
 
 		iFrmCount = m_tModuleData.iXCount;
-		_itow_s((int)iFrmCount, szNum, 50, 10);//Á¤¼ö¸¦ ¹®ÀÚ¿­·Î º¯È¯
+		_itow_s((int)iFrmCount, szNum, 50, 10);//ì •ìˆ˜ë¥¼ ë¬¸ìì—´ë¡œ ë³€í™˜
 		fwprintf_s(pFile, L"[XCount]\n");
 		fwprintf_s(pFile, szNum);
 		fwprintf_s(pFile, L"\n\n");
@@ -713,7 +713,7 @@ void ParticleSystemUI::SaveParticle()
 		fwprintf_s(pFile, L"%.2f %.2f %.2f %.2f\n", m_tModuleData.vVelocityDir.x, m_tModuleData.vVelocityDir.y, m_tModuleData.vVelocityDir.z, m_tModuleData.vVelocityDir.w);
 		fwprintf_s(pFile, L"\n\n");
 
-		//»ç¿ëÇÒ texture ÀúÀå
+		//ì‚¬ìš©í•  texture ì €ì¥
 		fwprintf_s(pFile, L"[Texture_KEY]\n");
 		fwprintf_s(pFile, pTex->GetKey().c_str());
 		fwprintf_s(pFile, L"\n\n");
@@ -754,15 +754,15 @@ void ParticleSystemUI::LoadParticle()
 
 		if (false == GetOpenFileName(&ofn))
 			return;
-		// ÆÄÀÏ ÀÔÃâ·Â
+		// íŒŒì¼ ì…ì¶œë ¥
 		FILE* pFile = nullptr;
 		errno_t iErrNum = _wfopen_s(&pFile, szFilePath, L"rb");
 
 		if (nullptr == pFile)
 		{
 			wchar_t szStr[256] = {};
-			wsprintf(szStr, L"Particle Load ½ÇÆĞ, Error Number : %d", iErrNum);
-			MessageBox(nullptr, szStr, L"ÆÄÆ¼Å¬ ºÒ·¯¿À±â ½ÇÆĞ", MB_OK);
+			wsprintf(szStr, L"Particle Load ì‹¤íŒ¨, Error Number : %d", iErrNum);
+			MessageBox(nullptr, szStr, L"íŒŒí‹°í´ ë¶ˆëŸ¬ì˜¤ê¸° ì‹¤íŒ¨", MB_OK);
 			return;
 		}
 		wstring strTextureKey;
@@ -772,7 +772,7 @@ void ParticleSystemUI::LoadParticle()
 			fread(&m_iEmissive, sizeof(int), 1, pFile);
 			GetTarget()->ParticleSystem()->SetEmissive(m_iEmissive);
 			wchar_t szBuffer[256] = {};
-			fwscanf_s(pFile, L"%s", szBuffer, 256);//¹®ÀÚ¿­ º¯¼ö¸¦ ¸¸µé¾î ¹®ÀÚ¿­À» ÀĞ°Ô ÇÒ °Çµ¥
+			fwscanf_s(pFile, L"%s", szBuffer, 256);//ë¬¸ìì—´ ë³€ìˆ˜ë¥¼ ë§Œë“¤ì–´ ë¬¸ìì—´ì„ ì½ê²Œ í•  ê±´ë°
 
 			if (!wcscmp(szBuffer, L"[AddVelocityType]"))
 			{

@@ -31,23 +31,23 @@ void CStructuredBuffer::Create(UINT _iElementSize, UINT _iElementCount
 
 	UINT iBufferSize = m_iElementSize * _iElementCount;
 
-	// 16¹ÙÀÌÆ® ´ÜÀ§ ¸Þ¸ð¸® Á¤·Ä
+	// 16ë°”ì´íŠ¸ ë‹¨ìœ„ ë©”ëª¨ë¦¬ ì •ë ¬
 	assert(!(iBufferSize % 16));
 
-	// »ó¼ö¹öÆÛ »ý¼º
-	m_tDesc.ByteWidth = iBufferSize;				// ¹öÆÛ Å©±â
-	m_tDesc.StructureByteStride = m_iElementSize;	// µ¥ÀÌÅÍ °£°Ý
+	// ìƒìˆ˜ë²„í¼ ìƒì„±
+	m_tDesc.ByteWidth = iBufferSize;				// ë²„í¼ í¬ê¸°
+	m_tDesc.StructureByteStride = m_iElementSize;	// ë°ì´í„° ê°„ê²©
 
 	if (SB_TYPE::READ_ONLY == m_Type)
 	{
-		m_tDesc.BindFlags = D3D11_BIND_SHADER_RESOURCE;	// Texture ·¹Áö½ºÅÍ¿¡ ¹ÙÀÌµùÇÏ±â À§ÇÑ ÇÃ·¡±×
+		m_tDesc.BindFlags = D3D11_BIND_SHADER_RESOURCE;	// Texture ë ˆì§€ìŠ¤í„°ì— ë°”ì´ë”©í•˜ê¸° ìœ„í•œ í”Œëž˜ê·¸
 	}
 	else if(SB_TYPE::READ_WRITE == m_Type)
 	{
 		m_tDesc.BindFlags = D3D11_BIND_SHADER_RESOURCE | D3D11_BIND_UNORDERED_ACCESS;
 	}
 	
-	m_tDesc.MiscFlags = D3D11_RESOURCE_MISC_BUFFER_STRUCTURED;	// ±¸Á¶È­ ¹öÆÛ Ã¼Å©
+	m_tDesc.MiscFlags = D3D11_RESOURCE_MISC_BUFFER_STRUCTURED;	// êµ¬ì¡°í™” ë²„í¼ ì²´í¬
 	m_tDesc.Usage = D3D11_USAGE_DEFAULT;
 	m_tDesc.CPUAccessFlags = 0;	
 
@@ -71,7 +71,7 @@ void CStructuredBuffer::Create(UINT _iElementSize, UINT _iElementCount
 	}
 
 
-	// ShaderResourceView »ý¼º
+	// ShaderResourceView ìƒì„±
 	D3D11_SHADER_RESOURCE_VIEW_DESC	m_SRVDesc = {};
 
 	m_SRVDesc.ViewDimension = D3D_SRV_DIMENSION_BUFFEREX;
@@ -95,7 +95,7 @@ void CStructuredBuffer::Create(UINT _iElementSize, UINT _iElementCount
 		}
 	}
 
-	// CPU Access º¸Á¶ ¹öÆÛ
+	// CPU Access ë³´ì¡° ë²„í¼
 	if (m_bSysAccess)
 	{
 		m_tDesc.BindFlags = D3D11_BIND_FLAG::D3D11_BIND_SHADER_RESOURCE;
@@ -118,7 +118,7 @@ void CStructuredBuffer::Create(UINT _iElementSize, UINT _iElementCount
 	}
 }
 
-void CStructuredBuffer::SetData(void* _pSrc, UINT _iSize)
+void CStructuredBuffer::SetData(void* _pSrc, UINT _iSize) const
 {
 	if (nullptr == _pSrc)	
 		return;	
@@ -139,7 +139,7 @@ void CStructuredBuffer::SetData(void* _pSrc, UINT _iSize)
 	CONTEXT->CopyResource(m_SB.Get(), m_SB_CPU_Write.Get());
 }
 
-void CStructuredBuffer::GetData(void* _pDst)
+void CStructuredBuffer::GetData(void* _pDst) const
 {
 	// Main Buffer -> CPU ReadBuffer
 	CONTEXT->CopyResource(m_SB_CPU_Read.Get(), m_SB.Get());
@@ -196,7 +196,7 @@ void CStructuredBuffer::UpdateData_CS(UINT _iRegisterNum, bool _IsShaderRes)
 	}	
 }
 
-void CStructuredBuffer::Clear()
+void CStructuredBuffer::Clear() const
 {
 	ID3D11ShaderResourceView* pSRV = nullptr;
 	CONTEXT->VSSetShaderResources(m_iRecentRegisterNum, 1, &pSRV);
@@ -208,7 +208,7 @@ void CStructuredBuffer::Clear()
 
 }
 
-void CStructuredBuffer::Clear_CS(bool _IsShaderRes)
+void CStructuredBuffer::Clear_CS(bool _IsShaderRes) const
 {
 	if (_IsShaderRes)
 	{

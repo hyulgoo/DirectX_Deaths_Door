@@ -35,6 +35,6 @@ public:
 public:
     CLONE(CFrustum);
     CFrustum(CCamera* _pOwner);
-    ~CFrustum();
+    virtual ~CFrustum() override;
 };
 

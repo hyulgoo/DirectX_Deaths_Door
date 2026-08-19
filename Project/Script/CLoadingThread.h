@@ -1,8 +1,8 @@
 #pragma once
 
-#include <Engine\CThread.h>
-#include <Engine\CLevel.h>
-#include <Engine\CThreadQueue.h>
+#include <Engine/CThread.h>
+#include <Engine/CLevel.h>
+#include <Engine/CThreadQueue.h>
 
 #include "CLoadLevelThreadScript.h"
 
@@ -19,13 +19,13 @@ class CLoadingThread :
 
 protected:
 	CLoadingThread();
-	virtual ~CLoadingThread();
+	virtual ~CLoadingThread() override;
 
 protected:
 	wstring						m_LevelPath;
 	bool						m_bLoadComplete;
 	CThreadQueue				m_Queue;
-	CLoadLevelThreadScript*		m_LoadLevelThreadScript;	// ¿Ã CLoadingThread∏¶ ª˝º∫«— CLoadLevelThreadScript.
+	CLoadLevelThreadScript*		m_LoadLevelThreadScript;	// Ïù¥ CLoadingThreadÎ•º ÏÉùÏÑ±Ìïú CLoadLevelThreadScript.
 
 public:
 	void SetLoadLevelThreadScript(CLoadLevelThreadScript* _CLoadLevelThreadScript)
@@ -50,6 +50,6 @@ public:
 	}
 
 public:
-	virtual void Run();
+	virtual void Run() override;
 };
 

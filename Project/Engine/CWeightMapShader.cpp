@@ -37,7 +37,7 @@ void CWeightMapShader::UpdateData()
 
 	m_pRaycastInfo->UpdateData_CS(16, true);
 
-	// ±×·ì ¼ö °è»ê
+	// ê·¸ë£¹ ìˆ˜ ê³„ì‚°
 	m_iGroupX = (m_iWidth / m_iGroupPerThreadX) + 1;
 	m_iGroupY = (m_iHeight / m_iGroupPerThreadY) + 1;
 	m_iGroupZ = 1;

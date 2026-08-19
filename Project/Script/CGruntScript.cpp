@@ -7,7 +7,7 @@
 #include <Engine/CDetourMgr.h>
 
 CGruntScript::CGruntScript() :
-	CMonsterScript((UINT)SCRIPT_TYPE::GRUNTSCRIPT)
+	CMonsterScript(static_cast<UINT>(SCRIPT_TYPE::GRUNTSCRIPT))
 	, m_fPlayerDistance(0.f)
 	, m_fAttackRange(500.f)
 	, m_iNailAttackCount(0)
@@ -18,7 +18,7 @@ CGruntScript::CGruntScript() :
 }
 
 CGruntScript::CGruntScript(const CGruntScript& _Other) :
-	CMonsterScript((UINT)SCRIPT_TYPE::GRUNTSCRIPT)
+	CMonsterScript(static_cast<UINT>(SCRIPT_TYPE::GRUNTSCRIPT))
 	, m_fPlayerDistance(_Other.m_fPlayerDistance)
 	, m_fAttackRange(_Other.m_fAttackRange)
 	, m_iNailAttackCount(0)
@@ -44,7 +44,7 @@ void CGruntScript::begin()
 {
 	CMonsterScript::begin();
 	
-	// µø¿˚ ¿Á¡˙ ª˝º∫.
+	// ÎèôÏ†Å Ïû¨Ïßà ÏÉùÏÑ±.
 	int iMtrlCount = MeshRender()->GetMtrlCount();
 
 	for (int i = 0; i < iMtrlCount; ++i)
@@ -52,7 +52,7 @@ void CGruntScript::begin()
 		MeshRender()->GetDynamicMaterial(i);
 	}
 
-	// ªÛ≈¬ ≥÷æÓ¡÷±‚.
+	// ÏÉÅÌÉú ÎÑ£Ïñ¥Ï£ºÍ∏∞.
 	if (nullptr == m_pStateScript)
 	{
 		m_pStateScript = GetOwner()->GetScript<CStateScript>();
@@ -72,7 +72,7 @@ void CGruntScript::begin()
 		m_pStateScript->AddState(L"Walk", new CGruntWalk);
 		m_pStateScript->ChangeState(L"Idle");
 
-		// √ ±‚ Ω∫≈» º≥¡§.
+		// Ï¥àÍ∏∞ Ïä§ÌÉØ ÏÑ§Ï†ï.
 		Stat NewStat;
 		NewStat.Max_HP = 100;
 		NewStat.HP = NewStat.Max_HP;
@@ -81,7 +81,7 @@ void CGruntScript::begin()
 		NewStat.Speed = 100.f;
 		m_pStateScript->SetStat(NewStat);
 
-		// ¿Ã¿¸ HP
+		// Ïù¥Ï†Ñ HP
 		m_fPrevHP = NewStat.Max_HP;
 	}
 }
@@ -90,7 +90,7 @@ void CGruntScript::tick()
 {
 	CMonsterScript::tick();
 
-	// HP∞° 0 ¿Ã«œ∏È ªÁ∏¡.
+	// HPÍ∞Ä 0 Ïù¥ÌïòÎ©¥ ÏÇ¨Îßù.
 	if (m_pStateScript && m_pStateScript->GetStat().HP <= 0)
 	{
 		if (m_pStateScript->FindState(L"Death") != m_pStateScript->GetCurState())
@@ -105,7 +105,7 @@ void CGruntScript::tick()
 	m_vMonsterToPlayerDir.y /= m_fPlayerDistance;
 	m_vMonsterToPlayerDir.z /= m_fPlayerDistance;
 
-	// «√∑π¿ÃæÓ∏¶ πŸ∂Û∫∏¥¬ ∞ÊøÏ.
+	// ÌîåÎ†àÏù¥Ïñ¥Î•º Î∞îÎùºÎ≥¥Îäî Í≤ΩÏö∞.
 	if (m_bStarePlayer)
 	{
 		float fDir = GetSmoothDir(GetOwner(), m_pPlayer);
@@ -115,7 +115,7 @@ void CGruntScript::tick()
 
 	float fCurHP = m_pStateScript->GetStat().HP;
 
-	// √º∑¬¿Ã ¡Ÿæ˙¥Ÿ∏È.
+	// Ï≤¥Î†•Ïù¥ Ï§ÑÏóàÎã§Î©¥.
 	if (m_fPrevHP < fCurHP)
 	{
 		// Sound

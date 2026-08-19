@@ -2,7 +2,7 @@
 #include "CWaterScript.h"
 
 CWaterScript::CWaterScript()
-	: CScript((UINT)SCRIPT_TYPE::WATERSCRIPT)
+	: CScript(static_cast<UINT>(SCRIPT_TYPE::WATERSCRIPT))
 	, m_pPlayer(nullptr)
 	, m_fWaterHeight(300.f)
 {
@@ -24,8 +24,8 @@ void CWaterScript::begin()
 void CWaterScript::tick()
 {
 	Vec3 CurPlayerPos = m_pPlayer->Transform()->GetWorldPos();
-	CurPlayerPos.z += (CurPlayerPos.y - m_fWaterHeight);		// maincamera°¡ 45µµÀÓ. ¿öÅÍÀÇ z ÁÂÇ¥¸¦ ¹°°ú ÇÃ·¹ÀÌ¾î À§Ä¡¸¸Å­ µÚ·Î º¸³»±â.
-	CurPlayerPos.y = m_fWaterHeight;	// y ÁÂÇ¥´Â ¹° ³ôÀÌ·Î. 
+	CurPlayerPos.z += (CurPlayerPos.y - m_fWaterHeight);		// maincameraê°€ 45ë„ìž„. ì›Œí„°ì˜ z ì¢Œí‘œë¥¼ ë¬¼ê³¼ í”Œë ˆì´ì–´ ìœ„ì¹˜ë§Œí¼ ë’¤ë¡œ ë³´ë‚´ê¸°.
+	CurPlayerPos.y = m_fWaterHeight;	// y ì¢Œí‘œëŠ” ë¬¼ ë†’ì´ë¡œ. 
 
 	Transform()->SetRelativePos(CurPlayerPos);
 }

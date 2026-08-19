@@ -12,7 +12,7 @@ private:
 	UINT						m_iMaxCount;
 	vector<tInstancingData>		m_vecData;
 
-	// anim3D �뵵
+	// anim3D 용도
 	vector<CStructuredBuffer*>	m_vecBoneMat;
 	int							m_iAnimInstCount;
 	CStructuredBuffer*			m_pBoneBuffer;
@@ -29,13 +29,13 @@ public:
 	}
 	void AddInstancingData(tInstancingData& _tData) { m_vecData.push_back(_tData); }
 
-	UINT GetInstanceCount() { return (UINT)m_vecData.size(); }
+	UINT                 GetInstanceCount() const { return static_cast<UINT>(m_vecData.size()); }
 	ComPtr<ID3D11Buffer> GetBuffer() { return m_pInstancingBuffer; }
-	void SetData();
+	void                 SetData();
 
-	void AddInstancingBoneMat(CStructuredBuffer* _pBuffer);
-	int GetAnimInstancingCount() { return m_iAnimInstCount; };
-	CStructuredBuffer* GetBoneBuffer() { return m_pBoneBuffer; }
+	void               AddInstancingBoneMat(CStructuredBuffer* _pBuffer);
+	int                GetAnimInstancingCount() const { return m_iAnimInstCount; };
+	CStructuredBuffer* GetBoneBuffer() const { return m_pBoneBuffer; }
 
 private:
 	void Resize(UINT _iCount);
@@ -43,6 +43,6 @@ private:
 
 public:
 	CInstancingBuffer();
-	~CInstancingBuffer();
+    virtual ~CInstancingBuffer() override;
 };
 

@@ -14,7 +14,7 @@ CMPIconScript::~CMPIconScript()
 
 void CMPIconScript::begin()
 {
-	// µø¿˚ ¿Á¡˙ ª˝º∫.
+	// ÎèôÏ†Å Ïû¨Ïßà ÏÉùÏÑ±.
 	Transform()->SetRelativePos(Vec3(-465.f, 319.f, 0.f));
 	Transform()->SetRelativeScale(Vec3(154.f, 43.f, 0.f));
 	MeshRender()->GetMaterial(0)->SetTexParam(TEX_0, CResMgr::GetInst()->LoadTexture(L"texture\\HUD\\EGempty.png", L"texture\\HUD\\EGempty.png", 0));	
@@ -41,40 +41,40 @@ void CMPIconScript::tick()
 void CMPIconScript::SetMP(int _iCurMP, PLAYER_MAGIC iCurMagic)
 {
 	wstring wstrMPImageName;
-	//¥Ÿ ª°∞≠
+	//Îã§ Îπ®Í∞ï
 	if (_iCurMP >= 4 && iCurMagic == PLAYER_MAGIC::HOOK)
 		wstrMPImageName = L"texture\\HUD\\EG4r0w.png";
-	//2∞≥∏∏ »Úªˆ
+	//2Í∞úÎßå Ìù∞ÏÉâ
 	else if (_iCurMP >= 4 && iCurMagic == PLAYER_MAGIC::BOMB)
 		wstrMPImageName = L"texture\\HUD\\EG2r2w.png";
-	// 1∞≥∏∏ »Úªˆ
+	// 1Í∞úÎßå Ìù∞ÏÉâ
 	else if (_iCurMP >= 4 && iCurMagic != PLAYER_MAGIC::BOMB && iCurMagic != PLAYER_MAGIC::HOOK)
 		wstrMPImageName = L"texture\\HUD\\EG3r1w.png";
-	//¥Ÿ ª°∞≠
+	//Îã§ Îπ®Í∞ï
 	else if (_iCurMP == 3 && iCurMagic == PLAYER_MAGIC::HOOK)
 		wstrMPImageName = L"texture\\HUD\\EG3r0w.png";
-	//2∞≥∏∏ »Úªˆ
+	//2Í∞úÎßå Ìù∞ÏÉâ
 	else if (_iCurMP == 3 && iCurMagic == PLAYER_MAGIC::BOMB)
 		wstrMPImageName = L"texture\\HUD\\EG1r2w.png";
-	// 1∞≥∏∏ »Úªˆ
+	// 1Í∞úÎßå Ìù∞ÏÉâ
 	else if (_iCurMP == 3 && iCurMagic != PLAYER_MAGIC::BOMB && iCurMagic != PLAYER_MAGIC::HOOK)
 		wstrMPImageName = L"texture\\HUD\\EG2r1w.png";
-	//¥Ÿ ª°∞≠
+	//Îã§ Îπ®Í∞ï
 	else if (_iCurMP == 2 && iCurMagic == PLAYER_MAGIC::HOOK)
 		wstrMPImageName = L"texture\\HUD\\EG2r0w.png";
-	//2∞≥∏∏ »Úªˆ
+	//2Í∞úÎßå Ìù∞ÏÉâ
 	else if (_iCurMP == 2 && iCurMagic == PLAYER_MAGIC::BOMB)
 		wstrMPImageName = L"texture\\HUD\\EG0r2w.png";
-	// 1∞≥∏∏ »Úªˆ
+	// 1Í∞úÎßå Ìù∞ÏÉâ
 	else if (_iCurMP == 2 && iCurMagic != PLAYER_MAGIC::BOMB && iCurMagic != PLAYER_MAGIC::HOOK)
 		wstrMPImageName = L"texture\\HUD\\EG1r1w.png";
-	//¥Ÿ ª°∞≠
+	//Îã§ Îπ®Í∞ï
 	else if (_iCurMP == 1 && iCurMagic == PLAYER_MAGIC::HOOK)
 		wstrMPImageName = L"texture\\HUD\\EG1r0w.png";
-	//2∞≥∏∏ »Úªˆ
+	//2Í∞úÎßå Ìù∞ÏÉâ
 	else if (_iCurMP == 1 && iCurMagic == PLAYER_MAGIC::BOMB)
 		wstrMPImageName = L"texture\\HUD\\EG1r0w.png";
-	// 1∞≥∏∏ »Úªˆ
+	// 1Í∞úÎßå Ìù∞ÏÉâ
 	else if (_iCurMP == 1 && iCurMagic != PLAYER_MAGIC::BOMB && iCurMagic != PLAYER_MAGIC::HOOK)
 		wstrMPImageName = L"texture\\HUD\\EG0r1w.png";
 	else if (_iCurMP <= 0)

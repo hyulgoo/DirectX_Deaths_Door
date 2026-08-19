@@ -14,6 +14,6 @@ public:
 
 public:
     CHPIconScript();
-    ~CHPIconScript();
+    virtual ~CHPIconScript() override;
 };
 

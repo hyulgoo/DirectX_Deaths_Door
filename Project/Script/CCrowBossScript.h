@@ -8,15 +8,15 @@ private:
     Vec3            m_vMonsterToPlayerDir;
     float           m_fPlayerDistance;
     bool            m_bStarePlayer;
-    float           m_fPrevHP;          // ÀÌÀü HP. HP°¡ ÁÙ¾úÀ» ¶§, µ¥¹ÌÁö »ç¿îµå¸¦ Àç»ıÇÏ±â À§ÇØ »ç¿ë.
+    float           m_fPrevHP;          // ì´ì „ HP. HPê°€ ì¤„ì—ˆì„ ë•Œ, ë°ë¯¸ì§€ ì‚¬ìš´ë“œë¥¼ ì¬ìƒí•˜ê¸° ìœ„í•´ ì‚¬ìš©.
     CGameObject*    m_pCrowBossFeather;
 
 public:
-    Vec3 GetPlayerPos() { return m_vPlayerPos; }
-    Vec3 GetMonsterToPlayerDir() { return m_vMonsterToPlayerDir; }
-    float GetPlayerDistance() { return m_fPlayerDistance; }
+    Vec3  GetPlayerPos() const { return m_vPlayerPos; }
+    Vec3  GetMonsterToPlayerDir() const { return m_vMonsterToPlayerDir; }
+    float GetPlayerDistance() const { return m_fPlayerDistance; }
 
-    bool GetStarePlayer() { return m_bStarePlayer; }
+    bool GetStarePlayer() const { return m_bStarePlayer; }
     void SetStarePlayer(bool _bStarePlayer) { m_bStarePlayer = _bStarePlayer; }
     void DestoryFeather() 
     { 
@@ -44,6 +44,6 @@ public:
 public:
     CCrowBossScript();
     CCrowBossScript(const CCrowBossScript& _Other);
-    ~CCrowBossScript();
+    virtual ~CCrowBossScript() override;
 };
 

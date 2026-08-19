@@ -26,22 +26,22 @@ CMonsterScript::~CMonsterScript()
 
 void CMonsterScript::begin()
 {
-	// ÇÃ·¹ÀÌ¾î ¼³Á¤.
+	// í”Œë ˆì´ì–´ ì„¤ì •.
 	if (nullptr == m_pPlayer)
 		m_pPlayer = CLevelMgr::GetInst()->FindObjectByName(L"Player");
 
-	// Crack Texture ¹ÙÀÎµù.
+	// Crack Texture ë°”ì¸ë”©.
 	const int iMtrlCount = MeshRender()->GetMtrlCount();
 
 	for (int i = 0; i < iMtrlCount; ++i)
 	{
 		Ptr<CMaterial> mtrl = MeshRender()->GetSharedMaterial(i);
 
-		// 7¹øÀ¸·Î º¸³»ÀÚ. CrackTexture.
+		// 7ë²ˆìœ¼ë¡œ ë³´ë‚´ì. CrackTexture.
 		Ptr<CTexture> CrackTextue = CResMgr::GetInst()->Load<CTexture>(L"texture\\Deaths_Door\\MonsterCrack.png", L"texture\\Deaths_Door\\MonsterCrack.png");
 		mtrl->SetTexParam(TEX_7, CrackTextue.Get());		
 
-		// 6¹øÀ¸·Î º¸³»ÀÚ. Paperburn¿ë noise texture.
+		// 6ë²ˆìœ¼ë¡œ ë³´ë‚´ì. Paperburnìš© noise texture.
 		Ptr<CTexture> NoiseTextue = CResMgr::GetInst()->Load<CTexture>(L"texture\\Deaths_Door\\noise.png", L"texture\\Deaths_Door\\noise.png");
 		mtrl->SetTexParam(TEX_6, NoiseTextue.Get());
 	}
@@ -55,11 +55,11 @@ void CMonsterScript::tick()
 	{
 		Ptr<CMaterial> mtrl = MeshRender()->GetDynamicMaterial(i);
 
-		// ÇöÀç Ã¼·Â ºñÀ² º¸³»±â. FLOAT_0·Î º¸³¿.
-		float HPRatio = (float)m_pStateScript->GetStat().HP / (float)m_pStateScript->GetStat().Max_HP;
+		// í˜„ì¬ ì²´ë ¥ ë¹„ìœ¨ ë³´ë‚´ê¸°. FLOAT_0ë¡œ ë³´ëƒ„.
+		float HPRatio = static_cast<float>(m_pStateScript->GetStat().HP) / static_cast<float>(m_pStateScript->GetStat().Max_HP);
 		mtrl->SetScalarParam(FLOAT_0, &HPRatio);
 
-		// Paperburn È¿°ú¸¦ ÁÖ±â ½ÃÀÛÇÒ ¶§, ÇöÀç±îÁö Èå¸¥ ½Ã°£ º¸³»±â. FLOAT_1·Î º¸³¿. ÇÑ¹ø¸¸ º¸³»¾ß ÇØ¼­m_bSendDeadTime¸¦ »ç¿ëÇÔ. 
+		// Paperburn íš¨ê³¼ë¥¼ ì£¼ê¸° ì‹œì‘í•  ë•Œ, í˜„ì¬ê¹Œì§€ íë¥¸ ì‹œê°„ ë³´ë‚´ê¸°. FLOAT_1ë¡œ ë³´ëƒ„. í•œë²ˆë§Œ ë³´ë‚´ì•¼ í•´ì„œm_bSendDeadTimeë¥¼ ì‚¬ìš©í•¨. 
 		if (m_bPaperBurnEffect && !m_bSendDeadTime)
 		{
 			m_fDeathTime = GlobalData.tAccTime;
@@ -69,8 +69,8 @@ void CMonsterScript::tick()
 		if(m_bSendDeadTime)
 			mtrl->SetScalarParam(FLOAT_1, &m_fDeathTime);
 
-		// ÇÇ°İ ÀÌÆåÆ®
-		float fHitAfterTime = GlobalData.tAccTime - m_fLastHitTime;		// ÇÇ°İ ÀÌÈÄ Áö³­ ½Ã°£.
+		// í”¼ê²© ì´í™íŠ¸
+		float fHitAfterTime = GlobalData.tAccTime - m_fLastHitTime;		// í”¼ê²© ì´í›„ ì§€ë‚œ ì‹œê°„.
 		int HitEffect = 0;
 
 		if (fHitAfterTime < 0.2f && !m_bSendDeadTime)

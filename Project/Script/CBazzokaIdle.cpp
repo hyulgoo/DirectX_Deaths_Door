@@ -11,7 +11,7 @@ void CBazzokaIdle::tick()
 {
 	CGameObject* pPlayer = GetOwner()->GetScript<CBazookaScript>()->GetPlayer();
 	
-	// Detect »óÅÂ¶ó¸é Move »óÅÂ·Î ÀüÈ¯.
+	// Detect ìƒíƒœë¼ë©´ Move ìƒíƒœë¡œ ì „í™˜.
 	if (GetOwner()->GetScript<CBazookaScript>()->IsDetect())
 	{
 		ChangeState(L"Move");

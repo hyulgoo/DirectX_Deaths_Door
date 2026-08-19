@@ -215,154 +215,154 @@ CScript * CScriptMgr::GetScript(UINT _iScriptType)
 {
 	switch (_iScriptType)
 	{
-	case (UINT)SCRIPT_TYPE::ANCHORSCRIPT:
+	case static_cast<UINT>(SCRIPT_TYPE::ANCHORSCRIPT):
 		return new CAnchorScript;
 		break;
-	case (UINT)SCRIPT_TYPE::ARROWICONSCRIPT:
+	case static_cast<UINT>(SCRIPT_TYPE::ARROWICONSCRIPT):
 		return new CArrowIconScript;
 		break;
-	case (UINT)SCRIPT_TYPE::BANKERFRAMESCRIPT:
+	case static_cast<UINT>(SCRIPT_TYPE::BANKERFRAMESCRIPT):
 		return new CBankerFrameScript;
 		break;
-	case (UINT)SCRIPT_TYPE::BANKNPCSCRIPT:
+	case static_cast<UINT>(SCRIPT_TYPE::BANKNPCSCRIPT):
 		return new CBankNPCScript;
 		break;
-	case (UINT)SCRIPT_TYPE::BANKUPGRADESCRIPT:
+	case static_cast<UINT>(SCRIPT_TYPE::BANKUPGRADESCRIPT):
 		return new CBankUpgradeScript;
 		break;
-	case (UINT)SCRIPT_TYPE::BATSCRIPT:
+	case static_cast<UINT>(SCRIPT_TYPE::BATSCRIPT):
 		return new CBatScript;
 		break;
-	case (UINT)SCRIPT_TYPE::BAZOOKAGASGRENADESCRIPT:
+	case static_cast<UINT>(SCRIPT_TYPE::BAZOOKAGASGRENADESCRIPT):
 		return new CBazookaGasGrenadeScript;
 		break;
-	case (UINT)SCRIPT_TYPE::BAZOOKASCRIPT:
+	case static_cast<UINT>(SCRIPT_TYPE::BAZOOKASCRIPT):
 		return new CBazookaScript;
 		break;
-	case (UINT)SCRIPT_TYPE::BOMBICONSCRIPT:
+	case static_cast<UINT>(SCRIPT_TYPE::BOMBICONSCRIPT):
 		return new CBombIconScript;
 		break;
-	case (UINT)SCRIPT_TYPE::BOSSCHAINSCRIPT:
+	case static_cast<UINT>(SCRIPT_TYPE::BOSSCHAINSCRIPT):
 		return new CBossChainScript;
 		break;
-	case (UINT)SCRIPT_TYPE::BRAZIERSCRIPT:
+	case static_cast<UINT>(SCRIPT_TYPE::BRAZIERSCRIPT):
 		return new CBrazierScript;
 		break;
-	case (UINT)SCRIPT_TYPE::CAMERAMOVESCRIPT:
+	case static_cast<UINT>(SCRIPT_TYPE::CAMERAMOVESCRIPT):
 		return new CCameraMoveScript;
 		break;
-	case (UINT)SCRIPT_TYPE::CROWBOSSSCRIPT:
+	case static_cast<UINT>(SCRIPT_TYPE::CROWBOSSSCRIPT):
 		return new CCrowBossScript;
 		break;
-	case (UINT)SCRIPT_TYPE::CROWHEADSCRIPT:
+	case static_cast<UINT>(SCRIPT_TYPE::CROWHEADSCRIPT):
 		return new CCrowHeadScript;
 		break;
-	case (UINT)SCRIPT_TYPE::CURSORSCRIPT:
+	case static_cast<UINT>(SCRIPT_TYPE::CURSORSCRIPT):
 		return new CCursorScript;
 		break;
-	case (UINT)SCRIPT_TYPE::ENTERSCRIPT:
+	case static_cast<UINT>(SCRIPT_TYPE::ENTERSCRIPT):
 		return new CEnterScript;
 		break;
-	case (UINT)SCRIPT_TYPE::FENCESCRIPT:
+	case static_cast<UINT>(SCRIPT_TYPE::FENCESCRIPT):
 		return new CFenceScript;
 		break;
-	case (UINT)SCRIPT_TYPE::FIREICONSCRIPT:
+	case static_cast<UINT>(SCRIPT_TYPE::FIREICONSCRIPT):
 		return new CFireIconScript;
 		break;
-	case (UINT)SCRIPT_TYPE::GAMECAMERASCRIPT:
+	case static_cast<UINT>(SCRIPT_TYPE::GAMECAMERASCRIPT):
 		return new CGameCameraScript;
 		break;
-	case (UINT)SCRIPT_TYPE::GHOSTSCRIPT:
+	case static_cast<UINT>(SCRIPT_TYPE::GHOSTSCRIPT):
 		return new CGhostScript;
 		break;
-	case (UINT)SCRIPT_TYPE::GRIMKNIGHTSCRIPT:
+	case static_cast<UINT>(SCRIPT_TYPE::GRIMKNIGHTSCRIPT):
 		return new CGrimKnightScript;
 		break;
-	case (UINT)SCRIPT_TYPE::GRUNTSCRIPT:
+	case static_cast<UINT>(SCRIPT_TYPE::GRUNTSCRIPT):
 		return new CGruntScript;
 		break;
-	case (UINT)SCRIPT_TYPE::HITSTONESCRIPT:
+	case static_cast<UINT>(SCRIPT_TYPE::HITSTONESCRIPT):
 		return new CHitStoneScript;
 		break;
-	case (UINT)SCRIPT_TYPE::HOOKICONSCRIPT:
+	case static_cast<UINT>(SCRIPT_TYPE::HOOKICONSCRIPT):
 		return new CHookIconScript;
 		break;
-	case (UINT)SCRIPT_TYPE::HPICONSCRIPT:
+	case static_cast<UINT>(SCRIPT_TYPE::HPICONSCRIPT):
 		return new CHPIconScript;
 		break;
-	case (UINT)SCRIPT_TYPE::HUDSCRIPT:
+	case static_cast<UINT>(SCRIPT_TYPE::HUDSCRIPT):
 		return new CHUDScript;
 		break;
-	case (UINT)SCRIPT_TYPE::KNIGHTSCRIPT:
+	case static_cast<UINT>(SCRIPT_TYPE::KNIGHTSCRIPT):
 		return new CKnightScript;
 		break;
-	case (UINT)SCRIPT_TYPE::LADDERSCRIPT:
+	case static_cast<UINT>(SCRIPT_TYPE::LADDERSCRIPT):
 		return new CLadderScript;
 		break;
-	case (UINT)SCRIPT_TYPE::LEVELCHANGEDOORSCRIPT:
+	case static_cast<UINT>(SCRIPT_TYPE::LEVELCHANGEDOORSCRIPT):
 		return new CLevelChangeDoorScript;
 		break;
-	case (UINT)SCRIPT_TYPE::LOADLEVELTHREADSCRIPT:
+	case static_cast<UINT>(SCRIPT_TYPE::LOADLEVELTHREADSCRIPT):
 		return new CLoadLevelThreadScript;
 		break;
-	case (UINT)SCRIPT_TYPE::LURKERSCRIPT:
+	case static_cast<UINT>(SCRIPT_TYPE::LURKERSCRIPT):
 		return new CLurkerScript;
 		break;
-	case (UINT)SCRIPT_TYPE::MAGIC_ARROWSCRIPT:
+	case static_cast<UINT>(SCRIPT_TYPE::MAGIC_ARROWSCRIPT):
 		return new CMagic_ArrowScript;
 		break;
-	case (UINT)SCRIPT_TYPE::MAGIC_BOMBSCRIPT:
+	case static_cast<UINT>(SCRIPT_TYPE::MAGIC_BOMBSCRIPT):
 		return new CMagic_BombScript;
 		break;
-	case (UINT)SCRIPT_TYPE::MAGIC_FIRESCRIPT:
+	case static_cast<UINT>(SCRIPT_TYPE::MAGIC_FIRESCRIPT):
 		return new CMagic_FireScript;
 		break;
-	case (UINT)SCRIPT_TYPE::MAGIC_HOOKSCRIPT:
+	case static_cast<UINT>(SCRIPT_TYPE::MAGIC_HOOKSCRIPT):
 		return new CMagic_HookScript;
 		break;
-	case (UINT)SCRIPT_TYPE::MAINLIGHTSCRIPT:
+	case static_cast<UINT>(SCRIPT_TYPE::MAINLIGHTSCRIPT):
 		return new CMainLightScript;
 		break;
-	case (UINT)SCRIPT_TYPE::MONEYCOUNTSCRIPT:
+	case static_cast<UINT>(SCRIPT_TYPE::MONEYCOUNTSCRIPT):
 		return new CMoneyCountScript;
 		break;
-	case (UINT)SCRIPT_TYPE::MONSTERDETECTRANGESCRIPT:
+	case static_cast<UINT>(SCRIPT_TYPE::MONSTERDETECTRANGESCRIPT):
 		return new CMonsterDetectRangeScript;
 		break;
-	case (UINT)SCRIPT_TYPE::MPICONSCRIPT:
+	case static_cast<UINT>(SCRIPT_TYPE::MPICONSCRIPT):
 		return new CMPIconScript;
 		break;
-	case (UINT)SCRIPT_TYPE::PLAYERSCRIPT:
+	case static_cast<UINT>(SCRIPT_TYPE::PLAYERSCRIPT):
 		return new CPlayerScript;
 		break;
-	case (UINT)SCRIPT_TYPE::PLAYERWEAPONSCRIPT:
+	case static_cast<UINT>(SCRIPT_TYPE::PLAYERWEAPONSCRIPT):
 		return new CPlayerWeaponScript;
 		break;
-	case (UINT)SCRIPT_TYPE::ROOMSCRIPT:
+	case static_cast<UINT>(SCRIPT_TYPE::ROOMSCRIPT):
 		return new CRoomScript;
 		break;
-	case (UINT)SCRIPT_TYPE::SLASHSCRIPT:
+	case static_cast<UINT>(SCRIPT_TYPE::SLASHSCRIPT):
 		return new CSlashScript;
 		break;
-	case (UINT)SCRIPT_TYPE::SOUNDSCRIPT:
+	case static_cast<UINT>(SCRIPT_TYPE::SOUNDSCRIPT):
 		return new CSoundScript;
 		break;
-	case (UINT)SCRIPT_TYPE::SPAWNDOORSCRIPT:
+	case static_cast<UINT>(SCRIPT_TYPE::SPAWNDOORSCRIPT):
 		return new CSpawnDoorScript;
 		break;
-	case (UINT)SCRIPT_TYPE::STARTSCENEUISCRIPT:
+	case static_cast<UINT>(SCRIPT_TYPE::STARTSCENEUISCRIPT):
 		return new CStartSceneUIScript;
 		break;
-	case (UINT)SCRIPT_TYPE::STATESCRIPT:
+	case static_cast<UINT>(SCRIPT_TYPE::STATESCRIPT):
 		return new CStateScript;
 		break;
-	case (UINT)SCRIPT_TYPE::TRAPSCRIPT:
+	case static_cast<UINT>(SCRIPT_TYPE::TRAPSCRIPT):
 		return new CTrapScript;
 		break;
-	case (UINT)SCRIPT_TYPE::WATERCAMERASCRIPT:
+	case static_cast<UINT>(SCRIPT_TYPE::WATERCAMERASCRIPT):
 		return new CWaterCameraScript;
 		break;
-	case (UINT)SCRIPT_TYPE::WATERSCRIPT:
+	case static_cast<UINT>(SCRIPT_TYPE::WATERSCRIPT):
 		return new CWaterScript;
 		break;
 	}
@@ -371,7 +371,7 @@ CScript * CScriptMgr::GetScript(UINT _iScriptType)
 
 const wchar_t * CScriptMgr::GetScriptName(CScript * _pScript)
 {
-	switch ((SCRIPT_TYPE)_pScript->GetScriptType())
+	switch (static_cast<SCRIPT_TYPE>(_pScript->GetScriptType()))
 	{
 	case SCRIPT_TYPE::ANCHORSCRIPT:
 		return L"CAnchorScript";

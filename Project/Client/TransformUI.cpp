@@ -1,8 +1,8 @@
 #include "pch.h"
 #include "TransformUI.h"
 
-#include <Engine\CGameObject.h>
-#include <Engine\CTransform.h>
+#include <Engine/CGameObject.h>
+#include <Engine/CTransform.h>
 #include <Script/CRoomScript.h>
 #include <Engine/CRenderMgr.h>
 
@@ -45,7 +45,7 @@ int TransformUI::render_update()
 	ImGui::SameLine();
 	if (ImGui::DragFloat3("##Relative Scale", vScale))
 	{
-		// ºñÀ² À¯Áö ±â´É.
+		// ë¹„ìœ¨ ìœ ì§€ ê¸°ëŠ¥.
 		if (bSameRatio)
 		{
 			vScale.y = vScale.x;

@@ -1,12 +1,12 @@
 #include "pch.h"
 #include "ImGuiMgr.h"
 
-#include <Engine\CDevice.h>
-#include <Engine\CLevelMgr.h>
-#include <Engine\CKeyMgr.h>
-#include <Engine\CPathMgr.h>
+#include <Engine/CDevice.h>
+#include <Engine/CLevelMgr.h>
+#include <Engine/CKeyMgr.h>
+#include <Engine/CPathMgr.h>
 
-#include <Engine\CGameObject.h>
+#include <Engine/CGameObject.h>
 
 #include "UI.h"
 #include "ParamUI.h"

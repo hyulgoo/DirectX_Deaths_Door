@@ -29,7 +29,7 @@ int CameraUI::render_update()
         GetTarget()->Camera()->SetProjType((PROJ_TYPE)iProj_Type);
     }
 
-    // Orthographic¿¡¼­¸¸ »ç¿ëÇÏ´Â Scale ¼³Á¤
+    // Orthographicì—ì„œë§Œ ì‚¬ìš©í•˜ëŠ” Scale ì„¤ì •
     if (iProj_Type == (int)PROJ_TYPE::ORTHOGRAPHIC)
     {
         float fScale = GetTarget()->Camera()->GetScale();

@@ -21,11 +21,11 @@ public:
 	void SetDestBuffer(CStructuredBuffer* _pBuffer) { m_pDestBuffer = _pBuffer; }
 
 public:
-	virtual void UpdateData();
-	virtual void Clear();
+	virtual void UpdateData() override;
+	virtual void Clear() override;
 
 public:
 	CCopyBoneShader(UINT _iGroupPerThreadX, UINT _iGroupPerThreadY, UINT _iGroupPerThreadZ);
-	virtual ~CCopyBoneShader();
+	virtual ~CCopyBoneShader() override;
 };
 

@@ -32,26 +32,26 @@ CEngine::~CEngine()
 
 int CEngine::init(HWND _hWnd, UINT _iWidth, UINT _iHeight)
 {
-	// ¸ŞÀÎ À©µµ¿ì ÇÚµé
+	// ë©”ì¸ ìœˆë„ìš° í•¸ë“¤
 	m_hWnd = _hWnd;
-	m_vResolution = Vec2((float)_iWidth, (float)_iHeight);
+	m_vResolution = Vec2(static_cast<float>(_iWidth), static_cast<float>(_iHeight));
 
-	// ÇØ»óµµ¿¡ ¸Â´Â ÀÛ¾÷¿µ¿ª Å©±â Á¶Á¤
-	RECT rt = { 0, 0, (int)_iWidth, (int)_iHeight};
+	// í•´ìƒë„ì— ë§ëŠ” ì‘ì—…ì˜ì—­ í¬ê¸° ì¡°ì •
+	RECT rt = { 0, 0, static_cast<int>(_iWidth), static_cast<int>(_iHeight)};
 	AdjustWindowRect(&rt, WS_OVERLAPPEDWINDOW, false);
 	SetWindowPos(m_hWnd, nullptr, 10, 10, rt.right - rt.left, rt.bottom - rt.top, 0);
 	ShowWindow(m_hWnd, true);
 
 
-	// Device ÃÊ±âÈ­
+	// Device ì´ˆê¸°í™”
 	if (FAILED(CDevice::GetInst()->init(m_hWnd, _iWidth, _iHeight)))
 	{
-		MessageBox(nullptr, L"Device ÃÊ±âÈ­ ½ÇÆĞ", L"¿¡·¯", MB_OK);
+		MessageBox(nullptr, L"Device ì´ˆê¸°í™” ì‹¤íŒ¨", L"ì—ëŸ¬", MB_OK);
 		return E_FAIL;
 	}
 
 
-	// Manager ÃÊ±âÈ­
+	// Manager ì´ˆê¸°í™”
 	CPathMgr::GetInst()->init();
 
 	CKeyMgr::GetInst()->init();
@@ -83,17 +83,17 @@ int CEngine::init(HWND _hWnd, UINT _iWidth, UINT _iHeight)
 	return S_OK;
 }
 
-void CEngine::progress()
+void CEngine::progress() const
 {
 	tick();
 
 	render();
 
-	// Event Ã³¸®
+	// Event ì²˜ë¦¬
 	CEventMgr::GetInst()->tick();
 }
 
-void CEngine::tick()
+void CEngine::tick() const
 {
 	// Manager Tick
 	CResMgr::GetInst()->tick();
@@ -115,7 +115,7 @@ void CEngine::tick()
 	}
 }
 
-void CEngine::render()
+void CEngine::render() const
 {	
 	CRenderMgr::GetInst()->render();	
 

@@ -39,13 +39,13 @@ private:
 
 
 public:
-    void Destroy() { DestroyObject(GetOwner()); }
-    void SetLifeSpan(float _Time) { GetOwner()->SetLifeSpan(_Time); }
-    UINT GetScriptType() { return m_iScriptType; }
+    void                        Destroy() const { DestroyObject(GetOwner()); }
+    void                        SetLifeSpan(float _Time) const { GetOwner()->SetLifeSpan(_Time); }
+    UINT                        GetScriptType() const { return m_iScriptType; }
     const vector<tScriptParam>& GetScritpParam() { return m_vecParam; }
 
 public:   
-    virtual void finaltick() final {};
+    virtual void finaltick() override final {};
     virtual void BeginOverlap(CCollider2D* _Other) {}
     virtual void OnOverlap(CCollider2D* _Other) {}
     virtual void EndOverlap(CCollider2D* _Other) {}
@@ -63,6 +63,6 @@ protected:
 
 public:
     CScript(UINT _iScriptType);
-    ~CScript();
+    virtual ~CScript() override;
 };
 

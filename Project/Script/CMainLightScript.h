@@ -12,6 +12,6 @@ public:
     CLONE(CMainLightScript);
 
     CMainLightScript();
-    ~CMainLightScript();
+    virtual ~CMainLightScript() override;
 };
 

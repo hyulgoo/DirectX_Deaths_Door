@@ -124,7 +124,7 @@ void CMaterial::SetTexParam(TEX_PARAM _Param, const Ptr<CTexture>& _Tex)
 	m_arrTex[_Param] = _Tex;
 }
 
-void CMaterial::GetScalarParam(SCALAR_PARAM _param, void* _pData)
+void CMaterial::GetScalarParam(SCALAR_PARAM _param, void* _pData) const
 {
 	switch (_param)
 	{
@@ -133,8 +133,8 @@ void CMaterial::GetScalarParam(SCALAR_PARAM _param, void* _pData)
 	case INT_2:
 	case INT_3:		
 	{
-		int idx = (UINT)_param - (UINT)INT_0;
-		*((int*)_pData) = m_Const.arrInt[idx];
+		int idx                    = static_cast<UINT>(_param) - static_cast<UINT>(INT_0);
+		*static_cast<int*>(_pData) = m_Const.arrInt[idx];
 	}
 		break;
 	case FLOAT_0:
@@ -142,8 +142,8 @@ void CMaterial::GetScalarParam(SCALAR_PARAM _param, void* _pData)
 	case FLOAT_2:
 	case FLOAT_3:
 	{
-		int idx = (UINT)_param - (UINT)FLOAT_0;
-		*((float*)_pData) = m_Const.arrFloat[idx];
+		int idx                      = static_cast<UINT>(_param) - static_cast<UINT>(FLOAT_0);
+		*static_cast<float*>(_pData) = m_Const.arrFloat[idx];
 	}
 		break;
 
@@ -152,8 +152,8 @@ void CMaterial::GetScalarParam(SCALAR_PARAM _param, void* _pData)
 	case VEC2_2:
 	case VEC2_3:
 	{
-		int idx = (UINT)_param - (UINT)VEC2_0;
-		*((Vec2*)_pData) = m_Const.arrV2[idx];
+		int idx                     = static_cast<UINT>(_param) - static_cast<UINT>(VEC2_0);
+		*static_cast<Vec2*>(_pData) = m_Const.arrV2[idx];
 	}
 		break;
 
@@ -162,8 +162,8 @@ void CMaterial::GetScalarParam(SCALAR_PARAM _param, void* _pData)
 	case VEC4_2:
 	case VEC4_3:
 	{
-		int idx = (UINT)_param - (UINT)VEC4_0;
-		*((Vec4*)_pData) = m_Const.arrV4[idx];
+		int idx                     = static_cast<UINT>(_param) - static_cast<UINT>(VEC4_0);
+		*static_cast<Vec4*>(_pData) = m_Const.arrV4[idx];
 	}
 		break;
 
@@ -172,8 +172,8 @@ void CMaterial::GetScalarParam(SCALAR_PARAM _param, void* _pData)
 	case MAT_2:
 	case MAT_3:
 	{
-		int idx = (UINT)_param - (UINT)MAT_0;
-		*((Matrix*)_pData) = m_Const.arrMat[idx];
+		int idx                       = static_cast<UINT>(_param) - static_cast<UINT>(MAT_0);
+		*static_cast<Matrix*>(_pData) = m_Const.arrMat[idx];
 	}
 		break;
 	}
@@ -206,7 +206,7 @@ int CMaterial::Save(const wstring& _strRelativePath)
 	fwrite(&m_Const, sizeof(tMtrlConst), 1, pFile);
 
 	// Texture
-	for (UINT i = 0; i < (UINT)TEX_PARAM::TEX_END; ++i)
+	for (UINT i = 0; i < static_cast<UINT>(TEX_PARAM::TEX_END); ++i)
 	{
 		SaveResRef(m_arrTex[i].Get(), pFile);
 	}
@@ -238,7 +238,7 @@ int CMaterial::Load(const wstring& _strFilePath)
 	fread(&m_Const, sizeof(tMtrlConst), 1, pFile);
 
 	// Texture
-	for (UINT i = 0; i < (UINT)TEX_PARAM::TEX_END; ++i)
+	for (UINT i = 0; i < static_cast<UINT>(TEX_PARAM::TEX_END); ++i)
 	{
 		LoadResRef(m_arrTex[i], pFile);
 	}

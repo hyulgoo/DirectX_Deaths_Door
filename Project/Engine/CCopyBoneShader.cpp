@@ -20,11 +20,11 @@ CCopyBoneShader::~CCopyBoneShader()
 
 void CCopyBoneShader::UpdateData()
 {
-	// ±¸Á¶È­¹öÆÛ Àü´Þ
+	// êµ¬ì¡°í™”ë²„í¼ ì „ë‹¬
 	m_pSrcBuffer->UpdateData_CS(16, true);  // t16
 	m_pDestBuffer->UpdateData_CS(0, false);	// u0
 
-	// ±×·ì ¼ö °è»ê
+	// ê·¸ë£¹ ìˆ˜ ê³„ì‚°
 	int iBoneCount = m_Const.arrInt[0];
 
 	m_iGroupX = iBoneCount / m_iGroupPerThreadX + 1;
@@ -34,7 +34,7 @@ void CCopyBoneShader::UpdateData()
 
 void CCopyBoneShader::Clear()
 {
-	// Àü´ÞÇÑ ±¸Á¶È­¹öÆÛ Å¬¸®¾î	
+	// ì „ë‹¬í•œ êµ¬ì¡°í™”ë²„í¼ í´ë¦¬ì–´	
 	m_pSrcBuffer->Clear_CS(true);
 	m_pDestBuffer->Clear_CS(false);
 }

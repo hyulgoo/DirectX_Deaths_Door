@@ -31,14 +31,14 @@ void CInstancingBuffer::init()
 	if (FAILED(DEVICE->CreateBuffer(&tDesc, NULL, &m_pInstancingBuffer)))
 		assert(NULL);
 
-	m_pCopyShader = (CCopyBoneShader*)CResMgr::GetInst()->FindRes<CComputeShader>(L"CopyBoneCS").Get();
+	m_pCopyShader = static_cast<CCopyBoneShader*>(CResMgr::GetInst()->FindRes<CComputeShader>(L"CopyBoneCS").Get());
 }
 
 void CInstancingBuffer::SetData()
 {
 	if (m_vecData.size() > m_iMaxCount)
 	{
-		Resize((UINT)m_vecData.size());
+		Resize(static_cast<UINT>(m_vecData.size()));
 	}
 
 	D3D11_MAPPED_SUBRESOURCE tMap = {};
@@ -47,22 +47,22 @@ void CInstancingBuffer::SetData()
 	memcpy(tMap.pData, &m_vecData[0], sizeof(tInstancingData) * m_vecData.size());
 	CONTEXT->Unmap(m_pInstancingBuffer.Get(), 0);
 
-	// º» Çà·ÄÁ¤º¸ ¸Þ¸ð¸® º¹»ç
+	// ë³¸ í–‰ë ¬ì •ë³´ ë©”ëª¨ë¦¬ ë³µì‚¬
 	if (m_vecBoneMat.empty())
 		return;
 
-	UINT iBufferSize = (UINT)m_vecBoneMat.size() * m_vecBoneMat[0]->GetBufferSize();
+	UINT iBufferSize = static_cast<UINT>(m_vecBoneMat.size()) * m_vecBoneMat[0]->GetBufferSize();
 	if (m_pBoneBuffer->GetBufferSize() < iBufferSize)
 	{
 		m_pBoneBuffer->Create(m_vecBoneMat[0]->GetElementSize()
-			, m_vecBoneMat[0]->GetElementCount() * (UINT)m_vecBoneMat.size(), SB_TYPE::READ_WRITE, false, nullptr);
+			, m_vecBoneMat[0]->GetElementCount() * static_cast<UINT>(m_vecBoneMat.size()), SB_TYPE::READ_WRITE, false, nullptr);
 	}
 
-	// º¹»ç¿ë ÄÄÇ»Æ® ½¦ÀÌ´õ ½ÇÇà
+	// ë³µì‚¬ìš© ì»´í“¨íŠ¸ ì‰ì´ë” ì‹¤í–‰
 	UINT iBoneCount = m_vecBoneMat[0]->GetElementCount();
 	m_pCopyShader->SetBoneCount(iBoneCount);
 
-	for (UINT i = 0; i < (UINT)m_vecBoneMat.size(); ++i)
+	for (UINT i = 0; i < static_cast<UINT>(m_vecBoneMat.size()); ++i)
 	{
 		m_pCopyShader->SetRowIndex(i);
 		m_pCopyShader->SetSourceBuffer(m_vecBoneMat[i]);
@@ -70,7 +70,7 @@ void CInstancingBuffer::SetData()
 		m_pCopyShader->Execute();
 	}
 
-	// Bone Á¤º¸ Àü´Þ ·¹Áö½ºÅÍ
+	// Bone ì •ë³´ ì „ë‹¬ ë ˆì§€ìŠ¤í„°
 	m_pBoneBuffer->UpdateData(30, PIPELINE_STAGE::PS_VERTEX);
 }
 

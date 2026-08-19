@@ -3,7 +3,7 @@
 #include "CMonsterScript.h"
 
 CMonsterDetectRangeScript::CMonsterDetectRangeScript()
-	: CScript((UINT)SCRIPT_TYPE::MONSTERDETECTRANGESCRIPT)
+	: CScript(static_cast<UINT>(SCRIPT_TYPE::MONSTERDETECTRANGESCRIPT))
 {
 }
 
@@ -22,8 +22,8 @@ void CMonsterDetectRangeScript::tick()
 
 void CMonsterDetectRangeScript::BeginOverlap(CCollider3D* _Other)
 {
-	// Player¿Í ºÎµúÈù °æ¿ì¿¡¸¸.
-	if (_Other->GetOwner()->GetLayerIndex()	== (int)LAYER::PLAYER)
+	// Playerì™€ ë¶€ë”ªížŒ ê²½ìš°ì—ë§Œ.
+	if (_Other->GetOwner()->GetLayerIndex()	== static_cast<int>(LAYER::PLAYER))
 	{
 		GetOwner()->GetParent()->GetScript<CMonsterScript>()->SetDetect(true);
 		Destroy();

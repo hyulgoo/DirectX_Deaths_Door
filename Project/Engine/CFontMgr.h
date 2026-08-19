@@ -22,9 +22,9 @@ private:
 
 public:
 	void init();
-	void DrawFont(const wchar_t* _pStr, float _fPosX, float _fPosY, float _fFontSize, UINT _Color);
+	void DrawFont(const wchar_t* _pStr, float _fPosX, float _fPosY, float _fFontSize, UINT _Color) const;
 
 public:
 	CFontMgr();
-	~CFontMgr();
+    virtual ~CFontMgr() override;
 };

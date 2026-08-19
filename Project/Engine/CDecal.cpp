@@ -13,7 +13,7 @@ CDecal::CDecal()
 	, m_LightAlpha(1.f)
 {
 	SetName(L"Decal");
-	// DecalÀº Ç×»ó CubeMesh¸¦ »ç¿ëÇÒ °ÍÀÌ¹Ç·Î »ý¼ºÀÚ¿¡¼­ ¼³Á¤
+	// Decalì€ í•­ìƒ CubeMeshë¥¼ ì‚¬ìš©í•  ê²ƒì´ë¯€ë¡œ ìƒì„±ìžì—ì„œ ì„¤ì •
 	SetMesh(CResMgr::GetInst()->FindRes<CMesh>(L"CubeMesh"));
 	SetMaterial(CResMgr::GetInst()->FindRes<CMaterial>(L"DecalMtrl"), 0);
 }

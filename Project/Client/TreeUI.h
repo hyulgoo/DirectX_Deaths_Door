@@ -8,18 +8,18 @@ class TreeUI;
 class TreeNode
 {
 private:
-    TreeUI*             m_Owner;        // ³ëµå¸¦ ¼ÒÀ¯ÇÏ°í ÀÖ´Â Æ®¸®
-    TreeNode*           m_ParentNode;   // ºÎ¸ğ³ëµå
-    vector<TreeNode*>   m_vecChildNode; // ³ëµåÀÇ ÀÚ½Ä ³ëµå
+    TreeUI*             m_Owner;        // ë…¸ë“œë¥¼ ì†Œìœ í•˜ê³  ìˆëŠ” íŠ¸ë¦¬
+    TreeNode*           m_ParentNode;   // ë¶€ëª¨ë…¸ë“œ
+    vector<TreeNode*>   m_vecChildNode; // ë…¸ë“œì˜ ìì‹ ë…¸ë“œ
         
-    string              m_strName;      // ³ëµåÀÇ Ãâ·Â ÀÌ¸§
-    UINT                m_ID;           // ³ëµåÀÇ °íÀ¯ ID
+    string              m_strName;      // ë…¸ë“œì˜ ì¶œë ¥ ì´ë¦„
+    UINT                m_ID;           // ë…¸ë“œì˜ ê³ ìœ  ID
 
-    DWORD_PTR           m_Data;         // ³ëµå¿¡ ÀúÀåµÈ µ¥ÀÌÅÍ
+    DWORD_PTR           m_Data;         // ë…¸ë“œì— ì €ì¥ëœ ë°ì´í„°
 
 
-    bool                m_CategoryNode; // Ç×¸ñ ´ëÇ¥ ³ëµå
-    bool                m_Hilight;      // ³ëµå ÇÏÀÌ¶óÀÌÆ® Ã³¸®
+    bool                m_CategoryNode; // í•­ëª© ëŒ€í‘œ ë…¸ë“œ
+    bool                m_Hilight;      // ë…¸ë“œ í•˜ì´ë¼ì´íŠ¸ ì²˜ë¦¬
 
 
 public:
@@ -52,8 +52,8 @@ class TreeUI :
     public UI
 {
 private:
-    TreeNode*       m_RootNode; // Æ®¸®°¡ ¼ÒÀ¯ÇÏ°í ÀÖ´Â ³ëµå Áß ·çÆ® ³ëµå
-    UINT            g_NextId;   // »ı¼ºµÇ´Â ³ëµåµÚ¿¡ ºÙ¿©ÁÙ °íÀ¯ ¼ıÀÚ
+    TreeNode*       m_RootNode; // íŠ¸ë¦¬ê°€ ì†Œìœ í•˜ê³  ìˆëŠ” ë…¸ë“œ ì¤‘ ë£¨íŠ¸ ë…¸ë“œ
+    UINT            g_NextId;   // ìƒì„±ë˜ëŠ” ë…¸ë“œë’¤ì— ë¶™ì—¬ì¤„ ê³ ìœ  ìˆ«ì
     bool            m_bShowRoot;
 
     TreeNode*       m_SelectedNode;
@@ -70,7 +70,7 @@ private:
     UI*             m_DragDropInst;
     UI_DELEGATE_2   m_DragDropFunc;
 
-    // ¸¶¿ì½º ¿ìÅ¬¸¯¿ë
+    // ë§ˆìš°ìŠ¤ ìš°í´ë¦­ìš©
     UI*             m_MouseRClickInst;
     UI_DELEGATE_1   m_MouseRClickFunc;
     TreeNode*       m_RbtDownNode;
@@ -116,7 +116,7 @@ public:
 
 public:
     TreeNode* GetSelectedNode() { return m_SelectedNode; }
-    bool GetSelectedNode(DWORD_PTR _Data);  // ÀÔ·ÂµÈ µ¥ÀÌÅÍ¿Í µ¿ÀÏÇÑ µ¥ÀÌÅÍ¸¦ º¸À¯ÇÏ°í ÀÖ´Â ³ëµå¸¦ ¼±ÅÃ»óÅÂ·Î ¸¸µë
+    bool GetSelectedNode(DWORD_PTR _Data);  // ì…ë ¥ëœ ë°ì´í„°ì™€ ë™ì¼í•œ ë°ì´í„°ë¥¼ ë³´ìœ í•˜ê³  ìˆëŠ” ë…¸ë“œë¥¼ ì„ íƒìƒíƒœë¡œ ë§Œë“¬
 
 public:
     TreeUI();

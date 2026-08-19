@@ -3,14 +3,14 @@
 #include "CLevelSaveLoadInScript.h"
 #include "CLoadingThread.h"
 
-#include <Engine\DataStream.h>
-#include <Engine\CEventMgr.h>
-#include <Engine\CThreadQueue.h>
-#include <Engine\CThreadMgr.h>
+#include <Engine/DataStream.h>
+#include <Engine/CEventMgr.h>
+#include <Engine/CThreadQueue.h>
+#include <Engine/CThreadMgr.h>
 
 
 CLoadLevelThreadScript::CLoadLevelThreadScript()
-	: CScript((UINT)SCRIPT_TYPE::LOADLEVELTHREADSCRIPT)
+	: CScript(static_cast<UINT>(SCRIPT_TYPE::LOADLEVELTHREADSCRIPT))
 {
 }
 
@@ -53,8 +53,8 @@ void CLoadLevelThreadScript::begin()
 
 void CLoadLevelThreadScript::tick()
 {
-	// Queue¿¡ µ¥ÀÌÅÍ°¡ ÀÖÀ» °æ¿ì ¹Þ¾Æ¿Í¼­ Ã³¸®ÇÑ´Ù. 
-	// ÀÏ´Ü ¿ì¸® °ÔÀÓÀº ·Îµù·üÀº ¾È³ª¿À´Â °ÔÀÓÀÌ¶ó ¾È ¾µµí?
+	// Queueì— ë°ì´í„°ê°€ ìžˆì„ ê²½ìš° ë°›ì•„ì™€ì„œ ì²˜ë¦¬í•œë‹¤. 
+	// ì¼ë‹¨ ìš°ë¦¬ ê²Œìž„ì€ ë¡œë”©ë¥ ì€ ì•ˆë‚˜ì˜¤ëŠ” ê²Œìž„ì´ë¼ ì•ˆ ì“¸ë“¯?
 	if (!m_LoadingQueue->empty())
 	{
 		/*int	Header, Size;
@@ -75,7 +75,7 @@ void CLoadLevelThreadScript::tick()
 		tEvent evn = {};
 		evn.Type = EVENT_TYPE::LEVEL_CHANGE;
 		evn.wParam = (DWORD_PTR)m_LoadLevel;
-		evn.lParam = (DWORD_PTR)m_LoadLevel->GetLevelType();
+		evn.lParam = static_cast<DWORD_PTR>(m_LoadLevel->GetLevelType());
 
 		CEventMgr::GetInst()->AddEvent(evn);
 

@@ -16,7 +16,7 @@ void CResMgr::init()
     OutputDebugStringA("After Material\n");
 }
 
-void CResMgr::InitSound()
+void CResMgr::InitSound() const
 {
 	FMOD::System_Create(&CSound::g_pFMOD);
 
@@ -25,7 +25,7 @@ void CResMgr::InitSound()
 		assert(nullptr);
 	}
 
-	// 32∞≥ √§≥Œ ª˝º∫
+	// 32Í∞ú Ï±ÑÎÑê ÏÉùÏÑ±
 	CSound::g_pFMOD->init(32, FMOD_DEFAULT, nullptr);
 }
 
@@ -40,7 +40,7 @@ void CResMgr::CreateDefaultMesh()
 	Ptr<CMesh> pMesh = nullptr;
 
 	// ==============
-	// PointMesh ª˝º∫
+	// PointMesh ÏÉùÏÑ±
 	// ==============
 	v.vPos = Vec3(0.f, 0.f, 0.f);
 	v.vUV = Vec2(0.f, 0.f);
@@ -54,7 +54,7 @@ void CResMgr::CreateDefaultMesh()
 
 
 	// =============
-	// RectMesh ª˝º∫
+	// RectMesh ÏÉùÏÑ±
 	// =============
 	// 0 --- 1 
 	// |  \  |
@@ -93,7 +93,7 @@ void CResMgr::CreateDefaultMesh()
 	vecIdx.push_back(2);
 
 	pMesh = new CMesh(true);
-	pMesh->Create(vecVtx.data(), (UINT)vecVtx.size(), vecIdx.data(), (UINT)vecIdx.size());
+	pMesh->Create(vecVtx.data(), static_cast<UINT>(vecVtx.size()), vecIdx.data(), static_cast<UINT>(vecIdx.size()));
 	AddRes(L"RectMesh", pMesh);
 
 	vecIdx.clear();
@@ -104,7 +104,7 @@ void CResMgr::CreateDefaultMesh()
 	vecIdx.push_back(0);
 
 	pMesh = new CMesh(true);
-	pMesh->Create(vecVtx.data(), (UINT)vecVtx.size(), vecIdx.data(), (UINT)vecIdx.size());
+	pMesh->Create(vecVtx.data(), static_cast<UINT>(vecVtx.size()), vecIdx.data(), static_cast<UINT>(vecIdx.size()));
 	AddRes(L"RectMesh_Debug", pMesh);
 
 	vecVtx.clear();
@@ -117,14 +117,14 @@ void CResMgr::CreateDefaultMesh()
 	//      3 
 	//   4     2
 	//  5 --0-- 1	
-	// π›¡ˆ∏ß
+	// Î∞òÏßÄÎ¶Ñ
 	float fRadius = 0.5f;
 
-	// ∞¢µµ
+	// Í∞ÅÎèÑ
 	UINT Slice = 40;
-	float fTheta = XM_2PI / (float)Slice;
+	float fTheta = XM_2PI / static_cast<float>(Slice);
 
-	// ¡ﬂΩ…¡°
+	// Ï§ëÏã¨Ï†ê
 	v.vPos = Vec3(0.f, 0.f, 0.f);
 	v.vColor = Vec4(1.f, 1.f, 1.f, 1.f);
 	v.vUV = Vec2(0.5f, 0.5f);
@@ -135,15 +135,15 @@ void CResMgr::CreateDefaultMesh()
 
 	vecVtx.push_back(v);
 
-	// ¡§¡° ¿ßƒ° ¡ˆ¡§
+	// Ï†ïÏ†ê ÏúÑÏπò ÏßÄÏ†ï
 	for (UINT i = 0; i < Slice; ++i)
 	{
-		v.vPos = Vec3(fRadius * cosf(fTheta * (float)i), fRadius * sinf(fTheta * (float)i), 0.f);
-		v.vUV = Vec2(v.vPos.x + 0.5f, -v.vPos.y + 0.5f);
+		v.vPos = Vec3(fRadius * cosf(fTheta * static_cast<float>(i)), fRadius * sinf(fTheta * static_cast<float>(i)), 0.f);
+		v.vUV  = Vec2(v.vPos.x + 0.5f, -v.vPos.y + 0.5f);
 		vecVtx.push_back(v);
 	}
 
-	// ¿Œµ¶Ω∫ º≥¡§
+	// Ïù∏Îç±Ïä§ ÏÑ§Ï†ï
 	for (UINT i = 0; i < Slice - 1; ++i)
 	{
 		vecIdx.push_back(0);
@@ -151,13 +151,13 @@ void CResMgr::CreateDefaultMesh()
 		vecIdx.push_back(i + 1);
 	}
 
-	// ∏∂¡ˆ∏∑ ªÔ∞¢«¸
+	// ÎßàÏßÄÎßâ ÏÇºÍ∞ÅÌòï
 	vecIdx.push_back(0);
 	vecIdx.push_back(1);
 	vecIdx.push_back(Slice);
 
 	pMesh = new CMesh(true);
-	pMesh->Create(vecVtx.data(), (UINT)vecVtx.size(), vecIdx.data(), (UINT)vecIdx.size());
+	pMesh->Create(vecVtx.data(), static_cast<UINT>(vecVtx.size()), vecIdx.data(), static_cast<UINT>(vecIdx.size()));
 	AddRes(L"CircleMesh", pMesh);
 
 	vecIdx.clear();
@@ -168,7 +168,7 @@ void CResMgr::CreateDefaultMesh()
 	vecIdx.push_back(1);
 
 	pMesh = new CMesh(true);
-	pMesh->Create(vecVtx.data(), (UINT)vecVtx.size(), vecIdx.data(), (UINT)vecIdx.size());
+	pMesh->Create(vecVtx.data(), static_cast<UINT>(vecVtx.size()), vecIdx.data(), static_cast<UINT>(vecIdx.size()));
 	AddRes(L"CircleMesh_Debug", pMesh);
 
 	vecVtx.clear();
@@ -180,7 +180,7 @@ void CResMgr::CreateDefaultMesh()
 	// =========
 
 	Vtx arrCube[24] = {};
-	// ¿≠∏È
+	// ÏúóÎ©¥
 	arrCube[0].vPos = Vec3(-0.5f, 0.5f, 0.5f);
 	arrCube[0].vColor = Vec4(1.f, 1.f, 1.f, 1.f);
 	arrCube[0].vUV = Vec2(0.f, 0.f);
@@ -202,7 +202,7 @@ void CResMgr::CreateDefaultMesh()
 	arrCube[3].vNormal = Vec3(0.f, 1.f, 0.f);
 
 
-	// æ∆∑ß ∏È	
+	// ÏïÑÎû´ Î©¥	
 	arrCube[4].vPos = Vec3(-0.5f, -0.5f, -0.5f);
 	arrCube[4].vColor = Vec4(1.f, 0.f, 0.f, 1.f);
 	arrCube[4].vUV = Vec2(0.f, 0.f);
@@ -223,7 +223,7 @@ void CResMgr::CreateDefaultMesh()
 	arrCube[7].vUV = Vec2(0.f, 0.f);
 	arrCube[7].vNormal = Vec3(0.f, -1.f, 0.f);
 
-	// øﬁ¬  ∏È
+	// ÏôºÏ™Ω Î©¥
 	arrCube[8].vPos = Vec3(-0.5f, 0.5f, 0.5f);
 	arrCube[8].vColor = Vec4(0.f, 1.f, 0.f, 1.f);
 	arrCube[8].vUV = Vec2(0.f, 0.f);
@@ -244,7 +244,7 @@ void CResMgr::CreateDefaultMesh()
 	arrCube[11].vUV = Vec2(0.f, 0.f);
 	arrCube[11].vNormal = Vec3(-1.f, 0.f, 0.f);
 
-	// ø¿∏•¬  ∏È
+	// Ïò§Î•∏Ï™Ω Î©¥
 	arrCube[12].vPos = Vec3(0.5f, 0.5f, -0.5f);
 	arrCube[12].vColor = Vec4(0.f, 0.f, 1.f, 1.f);
 	arrCube[12].vUV = Vec2(0.f, 0.f);
@@ -265,7 +265,7 @@ void CResMgr::CreateDefaultMesh()
 	arrCube[15].vUV = Vec2(0.f, 0.f);
 	arrCube[15].vNormal = Vec3(1.f, 0.f, 0.f);
 
-	// µﬁ ∏È
+	// Îí∑ Î©¥
 	arrCube[16].vPos = Vec3(0.5f, 0.5f, 0.5f);
 	arrCube[16].vColor = Vec4(1.f, 1.f, 0.f, 1.f);
 	arrCube[16].vUV = Vec2(0.f, 0.f);
@@ -286,7 +286,7 @@ void CResMgr::CreateDefaultMesh()
 	arrCube[19].vUV = Vec2(0.f, 0.f);
 	arrCube[19].vNormal = Vec3(0.f, 0.f, 1.f);
 
-	// æ’ ∏È
+	// Ïïû Î©¥
 	arrCube[20].vPos = Vec3(-0.5f, 0.5f, -0.5f);;
 	arrCube[20].vColor = Vec4(1.f, 0.f, 1.f, 1.f);
 	arrCube[20].vUV = Vec2(0.f, 0.f);
@@ -307,7 +307,7 @@ void CResMgr::CreateDefaultMesh()
 	arrCube[23].vUV = Vec2(0.f, 0.f);
 	arrCube[23].vNormal = Vec3(0.f, 0.f, -1.f);
 
-	// ¿Œµ¶Ω∫
+	// Ïù∏Îç±Ïä§
 	for (int i = 0; i < 12; i += 2)
 	{
 		vecIdx.push_back(i * 2);
@@ -320,11 +320,11 @@ void CResMgr::CreateDefaultMesh()
 	}
 
 	pMesh = new CMesh(true);
-	pMesh->Create(arrCube, (UINT)24, vecIdx.data(), (UINT)vecIdx.size());
+	pMesh->Create(arrCube, (UINT)24, vecIdx.data(), static_cast<UINT>(vecIdx.size()));
 	AddRes<CMesh>(L"CubeMesh", pMesh);
 	vecIdx.clear();
 
-	// ¿Œµ¶Ω∫
+	// Ïù∏Îç±Ïä§
 	vecIdx.push_back(20);
 	vecIdx.push_back(21);
 	vecIdx.push_back(22);
@@ -354,7 +354,7 @@ void CResMgr::CreateDefaultMesh()
 
 
 	pMesh = new CMesh(true);
-	pMesh->Create(arrCube, (UINT)24, vecIdx.data(), (UINT)vecIdx.size());
+	pMesh->Create(arrCube, (UINT)24, vecIdx.data(), static_cast<UINT>(vecIdx.size()));
 	AddRes<CMesh>(L"DebugCubeMesh", pMesh);
 
 	vecIdx.clear();
@@ -376,14 +376,14 @@ void CResMgr::CreateDefaultMesh()
 	vecVtx.push_back(v);
 
 	// Body
-	UINT iStackCount = 20; // ∞°∑Œ ∫–«“ ∞≥ºˆ
-	UINT iSliceCount = 20; // ºº∑Œ ∫–«“ ∞≥ºˆ
+	UINT iStackCount = 20; // Í∞ÄÎ°ú Î∂ÑÌï† Í∞úÏàò
+	UINT iSliceCount = 20; // ÏÑ∏Î°ú Î∂ÑÌï† Í∞úÏàò
 
 	float fStackAngle = XM_PI / iStackCount;
 	float fSliceAngle = XM_2PI / iSliceCount;
 
-	float fUVXStep = 1.f / (float)iSliceCount;
-	float fUVYStep = 1.f / (float)iStackCount;
+	float fUVXStep = 1.f / static_cast<float>(iSliceCount);
+	float fUVYStep = 1.f / static_cast<float>(iStackCount);
 
 	for (UINT i = 1; i < iStackCount; ++i)
 	{
@@ -424,8 +424,8 @@ void CResMgr::CreateDefaultMesh()
 	v.vBinormal = Vec3(0.f, 0.f, -1.f);
 	vecVtx.push_back(v);
 
-	// ¿Œµ¶Ω∫
-	// ∫œ±ÿ¡°
+	// Ïù∏Îç±Ïä§
+	// Î∂ÅÍ∑πÏ†ê
 	for (UINT i = 0; i < iSliceCount; ++i)
 	{
 		vecIdx.push_back(0);
@@ -433,7 +433,7 @@ void CResMgr::CreateDefaultMesh()
 		vecIdx.push_back(i + 1);
 	}
 
-	// ∏ˆ≈Î
+	// Î™∏ÌÜµ
 	for (UINT i = 0; i < iStackCount - 2; ++i)
 	{
 		for (UINT j = 0; j < iSliceCount; ++j)
@@ -454,8 +454,8 @@ void CResMgr::CreateDefaultMesh()
 		}
 	}
 
-	// ≥≤±ÿ¡°
-	UINT iBottomIdx = (UINT)vecVtx.size() - 1;
+	// ÎÇ®Í∑πÏ†ê
+	UINT iBottomIdx = static_cast<UINT>(vecVtx.size()) - 1;
 	for (UINT i = 0; i < iSliceCount; ++i)
 	{
 		vecIdx.push_back(iBottomIdx);
@@ -479,7 +479,7 @@ void CResMgr::CreateDefaultMesh()
 	// StartPoint
 	v.vPos = Vec3(0.f, 0.f, 0.f);
 
-	// UV∂˚ TNB¥¬ ∞Ì∑¡ æ»«ÿº≠ æ»∞Ìƒß.
+	// UVÎûë TNBÎäî Í≥†Î†§ ÏïàÌï¥ÏÑú ÏïàÍ≥†Ïπ®.
 	v.vUV = Vec2(0.5f, 1.f);
 	v.vColor = Vec4(1.f, 1.f, 1.f, 1.f);
 	v.vNormal = v.vPos;
@@ -489,16 +489,16 @@ void CResMgr::CreateDefaultMesh()
 	vecVtx.push_back(v);
 
 	// Body
-	iStackCount = 40; // ∞°∑Œ ∫–«“ ∞≥ºˆ
-	iSliceCount = 40; // ºº∑Œ ∫–«“ ∞≥ºˆ
+	iStackCount = 40; // Í∞ÄÎ°ú Î∂ÑÌï† Í∞úÏàò
+	iSliceCount = 40; // ÏÑ∏Î°ú Î∂ÑÌï† Í∞úÏàò
 
-	float fSliceZStep = 0.5f / (float)(iSliceCount - 1);
+	float fSliceZStep = 0.5f / static_cast<float>(iSliceCount - 1);
 
 	fStackAngle = XM_PI / iStackCount;
 	fSliceAngle = XM_2PI / iSliceCount;
 
-	fUVXStep = 1.f / (float)iSliceCount;
-	fUVYStep = 1.f / (float)iStackCount;
+	fUVXStep = 1.f / static_cast<float>(iSliceCount);
+	fUVYStep = 1.f / static_cast<float>(iStackCount);
 
 	for (UINT i = 1; i < iStackCount; ++i)
 	{
@@ -508,11 +508,11 @@ void CResMgr::CreateDefaultMesh()
 		{
 			float theta = j * fSliceAngle;
 
-			v.vPos = Vec3(fRadius * ((float)i / (float)(iStackCount - 1)) * cosf(j * fSliceAngle)
-				, fRadius * ((float)i / (float)(iStackCount - 1)) * sinf(j * fSliceAngle)
+			v.vPos = Vec3(fRadius * (static_cast<float>(i) / static_cast<float>(iStackCount - 1)) * cosf(j * fSliceAngle)
+				, fRadius * (static_cast<float>(i) / static_cast<float>(iStackCount - 1)) * sinf(j * fSliceAngle)
 				, fSliceZStep * i);
 
-			// UV∂˚ TNB¥¬ ∞Ì∑¡ X
+			// UVÎûë TNBÎäî Í≥†Î†§ X
 			v.vUV = Vec2(fUVXStep * j, fUVYStep * i);
 			v.vColor = Vec4(1.f, 1.f, 1.f, 1.f);
 			v.vNormal = v.vPos;
@@ -530,10 +530,10 @@ void CResMgr::CreateDefaultMesh()
 		}
 	}
 
-	// πŸ¥⁄ ø¯¿« ¡ﬂΩ…
+	// Î∞îÎã• ÏõêÏùò Ï§ëÏã¨
 	v.vPos = Vec3(0.f, 0.f, fRadius);
 
-	// UV∂˚ TNB¥¬ ∞Ì∑¡ X
+	// UVÎûë TNBÎäî Í≥†Î†§ X
 	v.vUV = Vec2(0.5f, 1.f);
 	v.vColor = Vec4(1.f, 1.f, 1.f, 1.f);
 	v.vNormal = v.vPos;
@@ -542,8 +542,8 @@ void CResMgr::CreateDefaultMesh()
 	v.vBinormal = Vec3(0.f, 0.f, -1.f);
 	vecVtx.push_back(v);
 
-	// ¿Œµ¶Ω∫
-	// ∫œ±ÿ¡°
+	// Ïù∏Îç±Ïä§
+	// Î∂ÅÍ∑πÏ†ê
 	for (UINT i = 0; i < iSliceCount; ++i)
 	{
 		vecIdx.push_back(0);
@@ -551,7 +551,7 @@ void CResMgr::CreateDefaultMesh()
 		vecIdx.push_back(i + 1);
 	}
 
-	// ∏ˆ≈Î
+	// Î™∏ÌÜµ
 	for (UINT i = 0; i < iStackCount - 2; ++i)
 	{
 		for (UINT j = 0; j < iSliceCount; ++j)
@@ -572,7 +572,7 @@ void CResMgr::CreateDefaultMesh()
 		}
 	}
 
-	// πŸ¥⁄ ø¯
+	// Î∞îÎã• Ïõê
 	for (UINT i = 0; i < iSliceCount - 1; ++i)
 	{
 		vecIdx.push_back((iSliceCount + 1) * (iStackCount - 1) + 1);
@@ -580,7 +580,7 @@ void CResMgr::CreateDefaultMesh()
 		vecIdx.push_back((iSliceCount + 1) * (iStackCount - 2) + i + 2);
 	}
 
-	// ∏∂¡ˆ∏∑ ªÔ∞¢«¸
+	// ÎßàÏßÄÎßâ ÏÇºÍ∞ÅÌòï
 	vecIdx.push_back((iSliceCount + 1) * (iStackCount - 1) + 1);
 	vecIdx.push_back((iSliceCount + 1) * (iStackCount - 2) + iSliceCount);
 	vecIdx.push_back((iSliceCount + 1) * (iStackCount - 2) + 1);
@@ -592,7 +592,7 @@ void CResMgr::CreateDefaultMesh()
 	vecIdx.clear();
 
 	// =============
-	// Frustum Debug Mesh ª˝º∫
+	// Frustum Debug Mesh ÏÉùÏÑ±
 	// =============
 	//     4 ------ 5
 	//     |        |  Far
@@ -673,7 +673,7 @@ void CResMgr::CreateDefaultMesh()
 	vecIdx.push_back(6);
 
 	pMesh = new CMesh(true);
-	pMesh->Create(vecVtx.data(), (UINT)vecVtx.size(), vecIdx.data(), (UINT)vecIdx.size());
+	pMesh->Create(vecVtx.data(), static_cast<UINT>(vecVtx.size()), vecIdx.data(), static_cast<UINT>(vecIdx.size()));
 	AddRes(L"DebugFrustumMesh", pMesh);
 
 	vecVtx.clear();
@@ -939,8 +939,8 @@ void CResMgr::CreateDefaultGraphicsShader()
 	pShader->CreatePixelShader(L"shader\\skybox.fx", "PS_SkyBox");
 
 	pShader->SetRSType(RS_TYPE::CULL_FRONT);
-	// skybox¥¬ z√‡¿ª ƒ´∏ﬁ∂Û¿« ≈ıøµ √÷¥Îƒ°¿Œ 1∑Œ ∞Ì¡§Ω√≈∞±‚ ∂ßπÆø° 
-	// √÷¥Îƒ°∫∏¥Ÿ ≥∑∞≈≥™ ∞∞¿∫ ∞Õµµ ≈ıøµ«“ ºˆ ¿÷µµ∑œ LESS_EQUEAL∑Œ πŸ≤„¡‡æﬂ «‘.
+	// skyboxÎäî zÏ∂ïÏùÑ Ïπ¥Î©îÎùºÏùò Ìà¨ÏòÅ ÏµúÎåÄÏπòÏù∏ 1Î°ú Í≥†Ï†ïÏãúÌÇ§Í∏∞ ÎïåÎ¨∏Ïóê 
+	// ÏµúÎåÄÏπòÎ≥¥Îã§ ÎÇÆÍ±∞ÎÇò Í∞ôÏùÄ Í≤ÉÎèÑ Ìà¨ÏòÅÌï† Ïàò ÏûàÎèÑÎ°ù LESS_EQUEALÎ°ú Î∞îÍøîÏ§òÏïº Ìï®.
 	pShader->SetDSType(DS_TYPE::LESS_EQUAL);
 	pShader->SetBSType(BS_TYPE::DEFAULT);
 	pShader->SetDomain(SHADER_DOMAIN::DOMAIN_OPAQUE);
@@ -1030,7 +1030,7 @@ void CResMgr::CreateDefaultGraphicsShader()
 	pShader->CreatePixelShader(L"shader\\light.fx", "PS_DirLightShader");
 	pShader->SetRSType(RS_TYPE::CULL_NONE);
 	pShader->SetDSType(DS_TYPE::NO_TEST_NO_WRITE);
-	// ±§ø¯ «œ≥™∏∂¥Ÿ ∫˚¿Ã ¥ı«ÿ¡ˆπ«∑Œ ªˆ¿Ã ∞„√ƒ¡Ææﬂ «—¥Ÿ.
+	// Í¥ëÏõê ÌïòÎÇòÎßàÎã§ ÎπõÏù¥ ÎçîÌï¥ÏßÄÎØÄÎ°ú ÏÉâÏù¥ Í≤πÏ≥êÏ†∏Ïïº ÌïúÎã§.
 	pShader->SetBSType(BS_TYPE::ONE_ONE);
 	pShader->SetDomain(SHADER_DOMAIN::DOMAIN_LIGHT);
 	AddRes(pShader->GetKey(), pShader);
@@ -1046,11 +1046,11 @@ void CResMgr::CreateDefaultGraphicsShader()
 	pShader->SetKey(L"PointLightShader");
 	pShader->CreateVertexShader(L"shader\\light.fx", "VS_PointLightShader");
 	pShader->CreatePixelShader(L"shader\\light.fx", "PS_PointLightShader");
-	// CULL_NONE¿∫ æ’, µ⁄∑Œ ∂Û¿Ã∆√ ¿˚øÎ¿Ã 2π¯ µ«∞Ì
-	// CULL_BACK¿∫ Light π¸¿ß æ»¿∏∑Œ µÈæÓ∞°∏È ∂Û¿Ã∆√ ¿˚øÎ¿Ã æ»µ .
+	// CULL_NONEÏùÄ Ïïû, Îí§Î°ú ÎùºÏù¥ÌåÖ Ï†ÅÏö©Ïù¥ 2Î≤à ÎêòÍ≥†
+	// CULL_BACKÏùÄ Light Î≤îÏúÑ ÏïàÏúºÎ°ú Îì§Ïñ¥Í∞ÄÎ©¥ ÎùºÏù¥ÌåÖ Ï†ÅÏö©Ïù¥ ÏïàÎê®.
 	pShader->SetRSType(RS_TYPE::CULL_FRONT);
 	pShader->SetDSType(DS_TYPE::NO_TEST_NO_WRITE);
-	// ±§ø¯ «œ≥™∏∂¥Ÿ ∫˚¿Ã ¥ı«ÿ¡ˆπ«∑Œ ªˆ¿Ã ∞„√ƒ¡Ææﬂ «—¥Ÿ.
+	// Í¥ëÏõê ÌïòÎÇòÎßàÎã§ ÎπõÏù¥ ÎçîÌï¥ÏßÄÎØÄÎ°ú ÏÉâÏù¥ Í≤πÏ≥êÏ†∏Ïïº ÌïúÎã§.
 	pShader->SetBSType(BS_TYPE::ONE_ONE);
 	pShader->SetDomain(SHADER_DOMAIN::DOMAIN_LIGHT);
 	AddRes(pShader->GetKey(), pShader);
@@ -1066,11 +1066,11 @@ void CResMgr::CreateDefaultGraphicsShader()
 	pShader->SetKey(L"SpotLightShader");
 	pShader->CreateVertexShader(L"shader\\light.fx", "VS_SpotLight");
 	pShader->CreatePixelShader(L"shader\\light.fx", "PS_SpotLight");
-	// CULL_NONE¿∫ æ’, µ⁄∑Œ ∂Û¿Ã∆√ ¿˚øÎ¿Ã 2π¯ µ«∞Ì
-	// CULL_BACK¿∫ Light π¸¿ß æ»¿∏∑Œ µÈæÓ∞°∏È ∂Û¿Ã∆√ ¿˚øÎ¿Ã æ»µ .
+	// CULL_NONEÏùÄ Ïïû, Îí§Î°ú ÎùºÏù¥ÌåÖ Ï†ÅÏö©Ïù¥ 2Î≤à ÎêòÍ≥†
+	// CULL_BACKÏùÄ Light Î≤îÏúÑ ÏïàÏúºÎ°ú Îì§Ïñ¥Í∞ÄÎ©¥ ÎùºÏù¥ÌåÖ Ï†ÅÏö©Ïù¥ ÏïàÎê®.
 	pShader->SetRSType(RS_TYPE::CULL_FRONT);
 	pShader->SetDSType(DS_TYPE::NO_TEST_NO_WRITE);
-	// ±§ø¯ «œ≥™∏∂¥Ÿ ∫˚¿Ã ¥ı«ÿ¡ˆπ«∑Œ ªˆ¿Ã ∞„√ƒ¡Ææﬂ «—¥Ÿ.
+	// Í¥ëÏõê ÌïòÎÇòÎßàÎã§ ÎπõÏù¥ ÎçîÌï¥ÏßÄÎØÄÎ°ú ÏÉâÏù¥ Í≤πÏ≥êÏ†∏Ïïº ÌïúÎã§.
 	pShader->SetBSType(BS_TYPE::ONE_ONE);
 	pShader->SetDomain(SHADER_DOMAIN::DOMAIN_LIGHT);
 	AddRes(pShader->GetKey(), pShader);
@@ -1088,7 +1088,7 @@ void CResMgr::CreateDefaultGraphicsShader()
 	pShader->CreatePixelShader(L"shader\\light.fx", "PS_LightMerge");
 	pShader->SetRSType(RS_TYPE::CULL_NONE);
 	pShader->SetDSType(DS_TYPE::NO_TEST_NO_WRITE);
-	// ∏µÁ ¡§∫∏∏¶ ¡æ«’«ÿ ªı∑ŒøÓ »≠∏È¿« æ∫øˆæﬂ «œπ«∑Œ Default
+	// Î™®Îì† Ï†ïÎ≥¥Î•º Ï¢ÖÌï©Ìï¥ ÏÉàÎ°úÏö¥ ÌôîÎ©¥Ïùò ÏîåÏõåÏïº ÌïòÎØÄÎ°ú Default
 	pShader->SetBSType(BS_TYPE::DEFAULT);
 	pShader->SetDomain(SHADER_DOMAIN::DOMAIN_LIGHT);
 	AddRes(pShader->GetKey(), pShader);
@@ -1106,7 +1106,7 @@ void CResMgr::CreateDefaultGraphicsShader()
 	pShader->CreatePixelShader(L"shader\\decal.fx", "PS_Decal");
 	pShader->SetRSType(RS_TYPE::CULL_FRONT);
 	pShader->SetDSType(DS_TYPE::NO_TEST_NO_WRITE);
-	// ∏µÁ ¡§∫∏∏¶ ¡æ«’«ÿ ªı∑ŒøÓ »≠∏È¿« æ∫øˆæﬂ «œπ«∑Œ Default
+	// Î™®Îì† Ï†ïÎ≥¥Î•º Ï¢ÖÌï©Ìï¥ ÏÉàÎ°úÏö¥ ÌôîÎ©¥Ïùò ÏîåÏõåÏïº ÌïòÎØÄÎ°ú Default
 	pShader->SetBSType(BS_TYPE::ALPHA_BLEND);
 	pShader->SetDomain(SHADER_DOMAIN::DOMAIN_DECAL);
 	AddRes(pShader->GetKey(), pShader);
@@ -1268,25 +1268,25 @@ void CResMgr::CreateDefaultComputeShader()
 {
 	Ptr<CComputeShader> pCS = nullptr;
 
-	// Texture ªˆªÛ ∫Ø∞Ê Ω¶¿Ã¥ı
+	// Texture ÏÉâÏÉÅ Î≥ÄÍ≤Ω ÏâêÏù¥Îçî
 	pCS = new CSetColorShader(32, 32, 1);
 	pCS->SetKey(L"SetColorCS");
 	pCS->CreateComputeShader(L"shader\\setcolor.fx", "CS_SetColor");
 	AddRes(pCS->GetKey(), pCS);
 
-	// Particle Update Ω¶¿Ã¥ı
+	// Particle Update ÏâêÏù¥Îçî
 	pCS = new CParticleUpdateShader(128, 1, 1);
 	pCS->SetKey(L"ParticleUpdateCS");
 	pCS->CreateComputeShader(L"shader\\particle_update.fx", "CS_ParticleUpdate");
 	AddRes(pCS->GetKey(), pCS);
 
-	// Animation Matrix Update Ω¶¿Ã¥ı
+	// Animation Matrix Update ÏâêÏù¥Îçî
 	pCS = new CAnimation3DShader(256, 1, 1);
 	pCS->SetKey(L"Animation3DUpdateCS");
 	pCS->CreateComputeShader(L"shader\\animation3d.fx", "CS_Animation3D");
 	AddRes(pCS->GetKey(), pCS);
 
-	// Animation Matrix Update Ω¶¿Ã¥ı
+	// Animation Matrix Update ÏâêÏù¥Îçî
 	pCS = new CCopyBoneShader(1024, 1, 1);
 	pCS->SetKey(L"CopyBoneCS");
 	pCS->CreateComputeShader(L"shader\\copybone.fx", "CS_CopyBoneMatrix");

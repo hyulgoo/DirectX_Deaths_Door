@@ -15,8 +15,8 @@ CPlyDance::~CPlyDance()
 
 void CPlyDance::Enter()
 {
-	// ½Â¸®ÇßÀ» ¶§ ÃãÃâ °Í? °°¾Æ¼­ ¹«Àû º¯È¯
-	GetOwner()->Animator3D()->Play((int)PLAYERANIM_TYPE::DANCE, false);
+	// ìŠ¹ë¦¬í–ˆì„ ë•Œ ì¶¤ì¶œ ê²ƒ? ê°™ì•„ì„œ ë¬´ì  ë³€í™˜
+	GetOwner()->Animator3D()->Play(static_cast<int>(PLAYERANIM_TYPE::DANCE), false);
 	GetOwner()->GetScript<CPlayerScript>()->SetInvincible(true);
 }
 

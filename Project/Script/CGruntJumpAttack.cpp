@@ -8,7 +8,7 @@ void CGruntJumpAttack::Enter()
 {
 	GetOwner()->Animator3D()->Play(12, false);
 
-	// ∞¯∞› πÊ«‚¿∫ √≥¿Ωø°∏∏ ¡ˆ¡§«ÿæﬂ «‘. 
+	// Í≥µÍ≤© Î∞©Ìñ•ÏùÄ Ï≤òÏùåÏóêÎßå ÏßÄÏ†ïÌï¥Ïïº Ìï®. 
 	m_Dir = GetOwner()->GetScript<CGruntScript>()->GetMonsterToPlayerDir();
 	GetOwner()->Rigidbody()->SetVelocityLimit(1000.f);
 
@@ -23,15 +23,15 @@ void CGruntJumpAttack::Enter()
 
 void CGruntJumpAttack::tick()
 {
-	// ∞¯∞› √Êµπ√º «¡∏Æ∆È
-	CGameObject* MonsterAtack = CLevelSaveLoadInScript::SpawnandReturnPrefab(L"prefab\\MonsterAttack.prefab", (int)LAYER::MONSTERPROJECTILE, GetOwner()->Transform()->GetWorldPos(), 0.f);
+	// Í≥µÍ≤© Ï∂©ÎèåÏ≤¥ ÌîÑÎ¶¨Ìé©
+	CGameObject* MonsterAtack = CLevelSaveLoadInScript::SpawnandReturnPrefab(L"prefab\\MonsterAttack.prefab", static_cast<int>(LAYER::MONSTERPROJECTILE), GetOwner()->Transform()->GetWorldPos(), 0.f);
 
 	MonsterAtack->Collider3D()->SetOffsetPos(GetOwner()->Collider3D()->GetOffsetPos());
 	MonsterAtack->Collider3D()->SetOffsetScale(GetOwner()->Collider3D()->GetOffsetScale() * 1.2f);
 
-	float AnimLength = (float)GetOwner()->Animator3D()->GetCurClipTimeLength();
-	m_fTime += DT;
-	float CurRatio = m_fTime / AnimLength;
+	float AnimLength = static_cast<float>(GetOwner()->Animator3D()->GetCurClipTimeLength());
+	m_fTime          += DT;
+	float CurRatio   = m_fTime / AnimLength;
 
 	if (CurRatio <= 0.5f)
 	{
@@ -45,7 +45,7 @@ void CGruntJumpAttack::tick()
 	if(CurRatio > 0.65f)
 		GetOwner()->Rigidbody()->ClearForce();
 
-	// æ÷¥œ∏ﬁ¿Ãº«¿Ã ≥°≥™∏È Run2∑Œ ¥ŸΩ√ ∫Ø∞Ê.
+	// Ïï†ÎãàÎ©îÏù¥ÏÖòÏù¥ ÎÅùÎÇòÎ©¥ Run2Î°ú Îã§Ïãú Î≥ÄÍ≤Ω.
 	if (GetOwner()->Animator3D()->IsFinish())
 		ChangeState(L"Run2");
 }

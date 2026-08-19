@@ -7,7 +7,7 @@
 #include "CMonsterScript.h"
 
 CMagic_HookScript::CMagic_HookScript()
-	: CScript((UINT)SCRIPT_TYPE::MAGIC_HOOKSCRIPT)
+	: CScript(static_cast<UINT>(SCRIPT_TYPE::MAGIC_HOOKSCRIPT))
 	, m_pHookScript(nullptr)
 	, m_pHookingScript(nullptr)
 	, m_vecChain{}
@@ -48,7 +48,7 @@ void CMagic_HookScript::begin()
 	Vec4 ChainColor = Vec4(0.6f, 1.f, 0.6f, 1.f);
 	for (size_t i = 0; i < m_vecChain.size(); ++i)
 	{
-		Vec4 ChainPerColor = ChainColor * ((float)(i + 10.f) / (float)m_vecChain.size());
+		Vec4 ChainPerColor = ChainColor * ((float)(i + 10.f) / static_cast<float>(m_vecChain.size()));
 		m_vecChain[i]->GetRenderComponent()->GetDynamicMaterial(0)->SetScalarParam(INT_1, &a);
 		m_vecChain[i]->GetRenderComponent()->GetDynamicMaterial(0)->SetScalarParam(VEC4_0, &ChainPerColor);
 	}
@@ -58,7 +58,7 @@ void CMagic_HookScript::begin()
 
 void CMagic_HookScript::tick()
 {
-	// ´øÁöÁö ¾Ê¾Ò´Ù¸é return
+	// ë˜ì§€ì§€ ì•Šì•˜ë‹¤ë©´ return
 	if (!m_bActive)
 		return;
 
@@ -72,13 +72,13 @@ void CMagic_HookScript::tick()
 		CurPos += m_vThrownDir * 2500.f * DT;
 		Transform()->SetRelativePos(CurPos);
 
-		// ÀÏÁ¤½Ã°£ ÀÌ»ó °¬´Ù¸é µ¹¾Æ¿Àµµ·Ï ÇÔ.
+		// ì¼ì •ì‹œê°„ ì´ìƒ ê°”ë‹¤ë©´ ëŒì•„ì˜¤ë„ë¡ í•¨.
 		m_fTime += DT;
 
-		// ½Ã°£ÀÌ Áö³ª°í Ã¹ tickÀÌ¶ó¸é ³¯¾Æ¿À´ø ¹İ´ëÆíÀ¸·Î ¹æÇâÀ» ¹Ù²Ş		
+		// ì‹œê°„ì´ ì§€ë‚˜ê³  ì²« tickì´ë¼ë©´ ë‚ ì•„ì˜¤ë˜ ë°˜ëŒ€í¸ìœ¼ë¡œ ë°©í–¥ì„ ë°”ê¿ˆ		
 		if(m_bReturn)
 		{
-			// µ¹¾Æ¿À´Â µµÁß¿¡ ½ÃÀÛÁöÁ¡°ú °¡±îÀÌ ¿Ô´Ù¸é Hook Á¾·á
+			// ëŒì•„ì˜¤ëŠ” ë„ì¤‘ì— ì‹œì‘ì§€ì ê³¼ ê°€ê¹Œì´ ì™”ë‹¤ë©´ Hook ì¢…ë£Œ
 			if (abs(m_fDistancetoTarget) < 100.f)
 			{
 				Active(false);
@@ -95,11 +95,11 @@ void CMagic_HookScript::tick()
 		}
 	}
 
-	// ½ÃÀÛÁöÁ¡°úÀÇ °Å¸®¸¸Å­ ChainÀ» È°¼ºÈ­
+	// ì‹œì‘ì§€ì ê³¼ì˜ ê±°ë¦¬ë§Œí¼ Chainì„ í™œì„±í™”
 	PaveChain();
 }
 
-// Player°¡ HookÀ» ³¯¸®±â ½ÃÀÛ ¶Ç´Â ³¯¸®±â¸¦ Á¾·áÇß´Ù¸é È°¼º/ºñÈ°¼ºÈ­
+// Playerê°€ Hookì„ ë‚ ë¦¬ê¸° ì‹œì‘ ë˜ëŠ” ë‚ ë¦¬ê¸°ë¥¼ ì¢…ë£Œí–ˆë‹¤ë©´ í™œì„±/ë¹„í™œì„±í™”
 void CMagic_HookScript::Active(bool _bActive)
 {
 	m_bActive = _bActive;
@@ -129,9 +129,9 @@ void CMagic_HookScript::Active(bool _bActive)
 
 void CMagic_HookScript::BeginOverlap(CCollider3D* _Other)
 {
-	// °¥°í¸®¸¦ °É ¼ö ÀÖ´Â obj¿Í Ãæµ¹Çß´Ù¸é hooking »óÅÂ·Î ÀüÈ¯
-	if (_Other->GetOwner()->GetLayerIndex() == (int)LAYER::MONSTER
-		|| _Other->GetOwner()->GetLayerIndex() == (int)LAYER::ANCHOR)
+	// ê°ˆê³ ë¦¬ë¥¼ ê±¸ ìˆ˜ ìˆëŠ” objì™€ ì¶©ëŒí–ˆë‹¤ë©´ hooking ìƒíƒœë¡œ ì „í™˜
+	if (_Other->GetOwner()->GetLayerIndex() == static_cast<int>(LAYER::MONSTER)
+		|| _Other->GetOwner()->GetLayerIndex() == static_cast<int>(LAYER::ANCHOR))
 	{
 		if(!m_bReturn)
 		{
@@ -151,7 +151,7 @@ void CMagic_HookScript::BeginOverlap(CCollider3D* _Other)
 					_Other->GetOwner()->GetScript<CMonsterScript>()->SetFixPosition(true);
 			}
 
-			CLevelSaveLoadInScript::SpawnPrefab(L"prefab\\HitEffect.prefab", (int)LAYER::DEFAULT, Transform()->GetRelativePos(), 0.2f);
+			CLevelSaveLoadInScript::SpawnPrefab(L"prefab\\HitEffect.prefab", static_cast<int>(LAYER::DEFAULT), Transform()->GetRelativePos(), 0.2f);
 
 			CSoundScript* soundscript = CLevelMgr::GetInst()->FindObjectByName(L"SoundUI")->GetScript<CSoundScript>();
 			Ptr<CSound> pSound = soundscript->AddSound(L"Sound\\Player\\HookShotCollision.ogg", 1, 0.1f);
@@ -165,10 +165,10 @@ void CMagic_HookScript::EndOverlap(CCollider3D* _Other)
 		_Other->GetOwner()->GetScript<CMonsterScript>()->SetFixPosition(false);
 }
 
-void CMagic_HookScript::PaveChain()
+void CMagic_HookScript::PaveChain() const
 {
-	int ChainCount = (int)m_vecChain.size();
-	// Ã¼ÀÎ 1°³º¸´Ù HookÀÌ ¸Ö¸® ³ª°¡¸é ChainÀ» °Å¸®¸¸Å­ º¸ÀÌ°Ô ÇÔ.
+	int ChainCount = static_cast<int>(m_vecChain.size());
+	// ì²´ì¸ 1ê°œë³´ë‹¤ Hookì´ ë©€ë¦¬ ë‚˜ê°€ë©´ Chainì„ ê±°ë¦¬ë§Œí¼ ë³´ì´ê²Œ í•¨.
 	if (m_fDistancetoTarget >= m_fChainSpacing)
 	{
 		int ActiveChain = m_fDistancetoTarget / m_fChainSpacing;

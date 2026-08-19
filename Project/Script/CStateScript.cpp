@@ -5,7 +5,7 @@
 #include "CState.h"
 
 CStateScript::CStateScript()
-	: CScript((UINT)SCRIPT_TYPE::STATESCRIPT)
+	: CScript(static_cast<UINT>(SCRIPT_TYPE::STATESCRIPT))
 	, m_mapState{}
 	, m_pCurState(nullptr)
 {
@@ -32,7 +32,7 @@ void CStateScript::tick()
 	if (nullptr == m_pCurState)
 		return;
 
-	m_pCurState->tick(); // ¿ÀºêÁ§Æ®ÀÇ ÇöÀç state tickÀ» µ¹·ÁÁØ´Ù.
+	m_pCurState->tick(); // ì˜¤ë¸Œì íŠ¸ì˜ í˜„ì¬ state tickì„ ëŒë ¤ì¤€ë‹¤.
 }
 
 void CStateScript::SetStat(Stat _tStat)
@@ -56,11 +56,11 @@ void CStateScript::AddState(const wstring& _strKey, CState* _pState)
 
 void CStateScript::ChangeState(const wstring& _strStateName)
 {
-	// ÀÎÀÚ·Î µé¾î¿Â ÀÌ¸§À¸·Î State¸¦ Ã£¾Æ ´ÙÀ½ State·Î ÁöÁ¤ÇÔ.
+	// ì¸ìë¡œ ë“¤ì–´ì˜¨ ì´ë¦„ìœ¼ë¡œ Stateë¥¼ ì°¾ì•„ ë‹¤ìŒ Stateë¡œ ì§€ì •í•¨.
 	CState* pNextState = FindState(_strStateName);
 	assert(pNextState);
 
-	// ÀÌ¹Ì ÇöÀç StateÀÎ °ÍÀ¸·Î ±³Ã¼ÇÏ·Á°í ÇÏ¸é ¾Æ¹«ÀÏµµ ¾ÈÀÏ¾î³ª°Ô ÇÔ.
+	// ì´ë¯¸ í˜„ì¬ Stateì¸ ê²ƒìœ¼ë¡œ êµì²´í•˜ë ¤ê³  í•˜ë©´ ì•„ë¬´ì¼ë„ ì•ˆì¼ì–´ë‚˜ê²Œ í•¨.
 	if (pNextState == m_pCurState)
 		return;
 

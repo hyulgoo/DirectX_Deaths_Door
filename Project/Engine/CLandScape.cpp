@@ -78,24 +78,24 @@ void CLandScape::finaltick()
 
 		if (LANDSCAPE_MOD::HEIGHT_MAP == m_eMod)
 		{
-			// ±³Á¡ À§Ä¡Á¤º¸¸¦ Åä´ë·Î ³ôÀÌ¸¦ ¼öÁ¤ÇÔ.
-			m_pCSHeightMap->SetInputBuffer(m_pCrossBuffer); // ÇÇÅ· Á¤º¸¸¦ HeightShader¿¡ ¼¼ÆÃ
+			// êµì  ìœ„ì¹˜ì •ë³´ë¥¼ í† ëŒ€ë¡œ ë†’ì´ë¥¼ ìˆ˜ì •í•¨.
+			m_pCSHeightMap->SetInputBuffer(m_pCrossBuffer); // í”¼í‚¹ ì •ë³´ë¥¼ HeightShaderì— ì„¸íŒ…
 
-			m_pCSHeightMap->SetBrushTex(m_pBrushTex);		// »ç¿ëÇÒ ºê·¯½¬ ÅØ½ºÃÄ ¼¼ÆÃ
-			m_pCSHeightMap->SetBrushIdx(m_iBrushIdx);		// ºê·¯½¬ ÀÎµ¦½º ¼³Á¤
-			m_pCSHeightMap->SetBrushScale(m_vBrushScale);   // ºê·¯½¬ Å©±â
+			m_pCSHeightMap->SetBrushTex(m_pBrushTex);		// ì‚¬ìš©í•  ë¸ŒëŸ¬ì‰¬ í…ìŠ¤ì³ ì„¸íŒ…
+			m_pCSHeightMap->SetBrushIdx(m_iBrushIdx);		// ë¸ŒëŸ¬ì‰¬ ì¸ë±ìŠ¤ ì„¤ì •
+			m_pCSHeightMap->SetBrushScale(m_vBrushScale);   // ë¸ŒëŸ¬ì‰¬ í¬ê¸°
 			m_pCSHeightMap->SetVelocity(m_fVelocity);
 			m_pCSHeightMap->SetHeightMap(m_pHeightMap);
 			m_pCSHeightMap->Execute();
 		}
 		else if (LANDSCAPE_MOD::SPLAT == m_eMod)
 		{
-			m_pCSWeightMap->SetInputBuffer(m_pCrossBuffer);	// Raycast À§Ä¡
+			m_pCSWeightMap->SetInputBuffer(m_pCrossBuffer);	// Raycast ìœ„ì¹˜
 			m_pCSWeightMap->SetBrushScale(m_vBrushScale);
 			m_pCSWeightMap->SetBrushArrTex(m_pBrushTex);
 			m_pCSWeightMap->SetBrushIdx(m_iBrushIdx);
 			m_pCSWeightMap->SetVelocity(m_fVelocity);
-			m_pCSWeightMap->SetWeightMap(m_pWeightMapBuffer, m_iWeightWidth, m_iWeightHeight); // °¡ÁßÄ¡¸Ê, °¡·Î¼¼·Î
+			m_pCSWeightMap->SetWeightMap(m_pWeightMapBuffer, m_iWeightWidth, m_iWeightHeight); // ê°€ì¤‘ì¹˜ë§µ, ê°€ë¡œì„¸ë¡œ
 			m_pCSWeightMap->SetWeightIdx(m_iWeightIdx);
 			m_pCSWeightMap->Execute();
 		}		
@@ -109,19 +109,19 @@ void CLandScape::render()
 
 	Transform()->UpdateData();
 
-	// ¸é °³¼ö Àü´Ş
+	// ë©´ ê°œìˆ˜ ì „ë‹¬
 	//GetMaterial()->GetShader()->SetRSType(RS_TYPE::WIRE_FRAME);
 	GetMaterial(0)->SetScalarParam(INT_0, &m_iFaceX);
 	GetMaterial(0)->SetScalarParam(INT_1, &m_iFaceZ);
 	GetMaterial(0)->SetScalarParam(INT_2, &m_iMaxTessFactorLevel);
 
 
-	// ³ôÀÌ¸Ê Àü´Ş
+	// ë†’ì´ë§µ ì „ë‹¬
 	Vec2 vResolution = Vec2(m_pHeightMap->Width(), m_pHeightMap->Height());
 	GetMaterial(0)->SetScalarParam(VEC2_0, &vResolution);
 
-	// °¡ÁßÄ¡ ¹öÆÛ ÇØ»óµµ Àü´Ş
-	Vec2 vWeightMapResolution = Vec2((float)m_iWeightWidth, (float)m_iWeightHeight);
+	// ê°€ì¤‘ì¹˜ ë²„í¼ í•´ìƒë„ ì „ë‹¬
+	Vec2 vWeightMapResolution = Vec2(static_cast<float>(m_iWeightWidth), static_cast<float>(m_iWeightHeight));
 	GetMaterial(0)->SetScalarParam(VEC2_1, &vWeightMapResolution);
 
 	GetMaterial(0)->SetScalarParam(VEC2_2, &m_vBrushScale);
@@ -130,14 +130,14 @@ void CLandScape::render()
 
 	GetMaterial(0)->SetTexParam(TEX_2, m_pHeightMap);
 	
-	// °¡ÁßÄ¡ ¹öÆÛ Àü´Ş
+	// ê°€ì¤‘ì¹˜ ë²„í¼ ì „ë‹¬
 	m_pWeightMapBuffer->UpdateData(17, PIPELINE_STAGE::PS_PIXEL);
 
-	// Å¸ÀÏ ¹è¿­ °³¼ö Àü´Ş
-	float fTileCount = float(m_pTileArrTex->GetArraySize() / 2); // »ö»ó, ³ë¸»ÀÌ ÇÕÃÄÀÖÀ¸¹Ç·Î /2 ÇØÁÜ
+	// íƒ€ì¼ ë°°ì—´ ê°œìˆ˜ ì „ë‹¬
+	float fTileCount = static_cast<float>(m_pTileArrTex->GetArraySize() / 2); // ìƒ‰ìƒ, ë…¸ë§ì´ í•©ì³ìˆìœ¼ë¯€ë¡œ /2 í•´ì¤Œ
 	GetMaterial(0)->SetScalarParam(FLOAT_1, &fTileCount);
 
-	// Å¸ÀÏ ÅØ½ºÃÄ Àü´Ş
+	// íƒ€ì¼ í…ìŠ¤ì³ ì „ë‹¬
 	GetMaterial(0)->SetTexParam(TEX_ARR_0, m_pTileArrTex);
 	GetMaterial(0)->UpdateData();
 
@@ -173,12 +173,12 @@ void CLandScape::SetFace(UINT _iFaceX, UINT _iFaceZ)
 
 void CLandScape::Raycasting()
 {
-	// ½ÃÁ¡ Ä«¸Ş¶ó¸¦ °¡Á®¿È
+	// ì‹œì  ì¹´ë©”ë¼ë¥¼ ê°€ì ¸ì˜´
 	CCamera* pMainCam = CRenderMgr::GetInst()->GetMainCam();
 	if (nullptr == pMainCam)
 		return;
 
-	// ¿ùµå ±âÁØ ±¤¼±À» ÁöÇüÀÇ ·ÎÄÃ·Î º¸³¿
+	// ì›”ë“œ ê¸°ì¤€ ê´‘ì„ ì„ ì§€í˜•ì˜ ë¡œì»¬ë¡œ ë³´ëƒ„
 	const Matrix& matWorldInv = Transform()->GetWorldInvMat();
 	const tRay& ray = pMainCam->GetRay();
 
@@ -187,7 +187,7 @@ void CLandScape::Raycasting()
 	CamRay.vDir = XMVector3TransformNormal(ray.vDir, matWorldInv);
 	CamRay.vDir.Normalize();
 
-	// ÁöÇü°ú Ä«¸Ş¶ó Ray ÀÇ ±³Á¡À» ±¸ÇÔ
+	// ì§€í˜•ê³¼ ì¹´ë©”ë¼ Ray ì˜ êµì ì„ êµ¬í•¨
 	tRaycastOut out = { Vec2(0.f, 0.f), 0x7fffffff, 0 };
 	m_pCrossBuffer->SetData(&out, 1);
 
@@ -199,7 +199,7 @@ void CLandScape::Raycasting()
 	m_pCSRaycast->Execute();
 }
 
-void CLandScape::ComputeShaderSaveLoad(Ptr<CComputeShader> _pShader, COMPUTESHADER _tShader, wstring _strKey)
+void CLandScape::ComputeShaderSaveLoad(Ptr<CComputeShader> _pShader, COMPUTESHADER _tShader, wstring _strKey) const
 {
 
 	Ptr<CComputeShader> pRes = CResMgr::GetInst()->FindRes<CComputeShader>(_strKey);

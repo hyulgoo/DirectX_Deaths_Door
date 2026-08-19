@@ -25,7 +25,7 @@ void CArrowIconScript::MagicActive(bool _bActive)
 	wstring wstrArrowImageName;
 	CPlayerScript* pScript = CLevelMgr::GetInst()->FindObjectByName(L"Player")->GetScript<CPlayerScript>();
 	UINT magicState = pScript->GetUseMagic();
-	if (magicState == (UINT)PLAYER_MAGIC::ARROW)
+	if (magicState == static_cast<UINT>(PLAYER_MAGIC::ARROW))
 	{
 		Transform()->SetRelativePos(Vec3(-652.f, 331.f, 0.f));
 		Transform()->SetRelativeScale(Vec3(100.f, 116.f, 0.f));

@@ -1,7 +1,7 @@
 #pragma once
 
-#include <Engine\CScript.h>
-#include <Engine\CLevel.h>
+#include <Engine/CScript.h>
+#include <Engine/CLevel.h>
 
 class CLoadLevelThreadScript :
     public CScript
@@ -29,6 +29,6 @@ private:
     CLONE(CLoadLevelThreadScript);
 public:
     CLoadLevelThreadScript();
-    ~CLoadLevelThreadScript();
+    virtual ~CLoadLevelThreadScript() override;
 };
 

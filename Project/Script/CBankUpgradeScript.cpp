@@ -31,7 +31,7 @@ void CBankUpgradeScript::begin()
 		MeshRender()->GetDynamicMaterial(i);
 	}
 
-	// »óÅÂ ¼³Á¤
+	// ìƒíƒœ ì„¤ì •
 	if (nullptr == m_pStateScript)
 	{
 		m_pStateScript = GetOwner()->GetScript<CStateScript>();
@@ -67,7 +67,7 @@ void CBankUpgradeScript::EndOverlap(CCollider3D* _Other)
 {
 }
 
-void CBankUpgradeScript::Upgrade(PLAYER_UPGRADE _tUpgradeType)
+void CBankUpgradeScript::Upgrade(PLAYER_UPGRADE _tUpgradeType) const
 {
 	m_pPlayer->GetScript<CPlayerScript>()->Upgrade(_tUpgradeType);
 }

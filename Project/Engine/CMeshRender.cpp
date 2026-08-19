@@ -25,16 +25,16 @@ void CMeshRender::render()
 	if (nullptr == GetMesh() || nullptr == GetMaterial(0))
 		return;
 
-	// Transform ¿¡ UpdateData ¿äÃ»
+	// Transform ì— UpdateData ìš”ì²­
 	Transform()->UpdateData();
 
-	// Animator2D ÄÄÆ÷³ÍÆ®°¡ ÀÖ´Ù¸é
+	// Animator2D ì»´í¬ë„ŒíŠ¸ê°€ ìžˆë‹¤ë©´
 	if (Animator2D())
 	{
 		Animator2D()->UpdateData();
 	}
 
-	// Animator3D ¾÷µ¥ÀÌÆ®
+	// Animator3D ì—…ë°ì´íŠ¸
 	if (Animator3D())
 	{
 		Animator3D()->UpdateData();
@@ -44,28 +44,28 @@ void CMeshRender::render()
 			if (nullptr == GetMaterial(i))
 				continue;
 
-			GetMaterial(i)->SetAnim3D(true); // Animation Mesh ¾Ë¸®±â
+			GetMaterial(i)->SetAnim3D(true); // Animation Mesh ì•Œë¦¬ê¸°
 			GetMaterial(i)->SetBoneCount(Animator3D()->GetBoneCount());
 		}
 	}
 	
 
-	// ·»´õ
+	// ë Œë”
 	UINT iSubsetCount = GetMesh()->GetSubsetCount();
 
 	for (UINT i = 0; i < iSubsetCount; ++i)
 	{
 		if (nullptr != GetMaterial(i))
 		{
-			// »ç¿ëÇÒ ÀçÁú ¾÷µ¥ÀÌÆ®
+			// ì‚¬ìš©í•  ìž¬ì§ˆ ì—…ë°ì´íŠ¸
 			GetMaterial(i)->UpdateData();
 
-			// »ç¿ëÇÒ ¸Þ½¬ ¾÷µ¥ÀÌÆ® ¹× ·»´õ¸µ
+			// ì‚¬ìš©í•  ë©”ì‰¬ ì—…ë°ì´íŠ¸ ë° ë Œë”ë§
 			GetMesh()->render(i);
 		}
 	}
 
-	// Animation °ü·Ã Á¤º¸ Á¦°Å
+	// Animation ê´€ë ¨ ì •ë³´ ì œê±°
 	if (Animator2D())
 		Animator2D()->Clear();
 
@@ -78,30 +78,30 @@ void CMeshRender::render(UINT _iSubset)
 	if (nullptr == GetMesh() || nullptr == GetMaterial(_iSubset))
 		return;
 
-	// Transform ¿¡ UpdateData ¿äÃ»
+	// Transform ì— UpdateData ìš”ì²­
 	Transform()->UpdateData();
 
-	// Animator2D ÄÄÆ÷³ÍÆ®°¡ ÀÖ´Ù¸é
+	// Animator2D ì»´í¬ë„ŒíŠ¸ê°€ ìžˆë‹¤ë©´
 	if (Animator2D())
 	{
 		Animator2D()->UpdateData();
 	}
 
-	// Animator3D ¾÷µ¥ÀÌÆ®
+	// Animator3D ì—…ë°ì´íŠ¸
 	if (Animator3D())
 	{
 		Animator3D()->UpdateData();
-		GetMaterial(_iSubset)->SetAnim3D(true); // Animation Mesh ¾Ë¸®±â
+		GetMaterial(_iSubset)->SetAnim3D(true); // Animation Mesh ì•Œë¦¬ê¸°
 		GetMaterial(_iSubset)->SetBoneCount(Animator3D()->GetBoneCount());		
 	}
 
-	// »ç¿ëÇÒ ÀçÁú ¾÷µ¥ÀÌÆ®
+	// ì‚¬ìš©í•  ìž¬ì§ˆ ì—…ë°ì´íŠ¸
 	GetMaterial(_iSubset)->UpdateData();
 
-	// »ç¿ëÇÒ ¸Þ½¬ ¾÷µ¥ÀÌÆ® ¹× ·»´õ¸µ
+	// ì‚¬ìš©í•  ë©”ì‰¬ ì—…ë°ì´íŠ¸ ë° ë Œë”ë§
 	GetMesh()->render(_iSubset);
 
-	// Animation °ü·Ã Á¤º¸ Á¦°Å
+	// Animation ê´€ë ¨ ì •ë³´ ì œê±°
 	if (Animator2D())
 		Animator2D()->Clear();
 

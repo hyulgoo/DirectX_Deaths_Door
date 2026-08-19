@@ -23,10 +23,10 @@ void UI::finaltick()
 
 	string strFullName = m_strName + m_strID;
 
-	// ºÎ¸ğ UI
+	// ë¶€ëª¨ UI
 	if (nullptr == m_ParentUI)
 	{
-		// ¸ğ´Ş¸®½º
+		// ëª¨ë‹¬ë¦¬ìŠ¤
 		if (!m_Modal)
 		{
 			ImGui::Begin(strFullName.c_str(), &m_Active);
@@ -35,13 +35,13 @@ void UI::finaltick()
 
 			for (size_t i = 0; i < m_vecChildUI.size(); ++i)
 			{
-				// ÀÚ½ÄUI °¡ ºñÈ°¼ºÈ­ »óÅÂ¸é °Ç³Ê¶Ú´Ù.
+				// ìì‹UI ê°€ ë¹„í™œì„±í™” ìƒíƒœë©´ ê±´ë„ˆë›´ë‹¤.
 				if (!m_vecChildUI[i]->IsActive())
 					continue;
 
 				m_vecChildUI[i]->finaltick();
 
-				// ÀÚ½Ä UI °£ÀÇ ±¸ºĞ¼±
+				// ìì‹ UI ê°„ì˜ êµ¬ë¶„ì„ 
 				if (i != m_vecChildUI.size() - 1)
 					ImGui::Separator();
 			}
@@ -49,7 +49,7 @@ void UI::finaltick()
 			ImGui::End();
 		}
 
-		// ¸ğ´Ş
+		// ëª¨ë‹¬
 		else
 		{
 			ImGui::SetNextWindowPos(m_vPopupPos);
@@ -62,13 +62,13 @@ void UI::finaltick()
 
 				for (size_t i = 0; i < m_vecChildUI.size(); ++i)
 				{
-					// ÀÚ½ÄUI °¡ ºñÈ°¼ºÈ­ »óÅÂ¸é °Ç³Ê¶Ú´Ù.
+					// ìì‹UI ê°€ ë¹„í™œì„±í™” ìƒíƒœë©´ ê±´ë„ˆë›´ë‹¤.
 					if (!m_vecChildUI[i]->IsActive())
 						continue;
 
 					m_vecChildUI[i]->finaltick();
 
-					// ÀÚ½Ä UI °£ÀÇ ±¸ºĞ¼±
+					// ìì‹ UI ê°„ì˜ êµ¬ë¶„ì„ 
 					if (i != m_vecChildUI.size() - 1)
 						ImGui::Separator();
 				}
@@ -78,7 +78,7 @@ void UI::finaltick()
 		}
 	}
 
-	// ÀÚ½Ä UI
+	// ìì‹ UI
 	else
 	{
 		ImGui::BeginChild(strFullName.c_str(), m_vSize);

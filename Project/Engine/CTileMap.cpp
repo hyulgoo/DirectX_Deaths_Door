@@ -33,18 +33,18 @@ void CTileMap::render()
 	if (nullptr == GetMesh() || nullptr == GetMaterial(0))
 		return;
 
-	// Transform ¿¡ UpdateData ¿äÃ»
+	// Transform ì— UpdateData ìš”ì²­
 	Transform()->UpdateData();
 
-	// ÀçÁú ¾÷µ¥ÀÌÆ®
+	// ì¬ì§ˆ ì—…ë°ì´íŠ¸
 	GetMaterial(0)->SetScalarParam(INT_0, &m_iTileCountX);
 	GetMaterial(0)->SetScalarParam(INT_1, &m_iTileCountY);
 	GetMaterial(0)->UpdateData();
 
-	// ±¸Á¶È­¹öÆÛ ¾÷µ¥ÀÌÆ®
+	// êµ¬ì¡°í™”ë²„í¼ ì—…ë°ì´íŠ¸
 	UpdateData();
 
-	// ·»´õ
+	// ë Œë”
 	GetMesh()->render(0);
 }
 
@@ -55,7 +55,7 @@ void CTileMap::render(UINT _iSubset)
 
 void CTileMap::UpdateData()
 {
-	m_Buffer->SetData(m_vecTile.data(), sizeof(tTile) * (UINT)m_vecTile.size());
+	m_Buffer->SetData(m_vecTile.data(), sizeof(tTile) * static_cast<UINT>(m_vecTile.size()));
 	m_Buffer->UpdateData(20, PIPELINE_STAGE::PS_PIXEL);
 }
 
@@ -69,10 +69,10 @@ void CTileMap::SetTileCount(UINT _iXCount, UINT _iYCount)
 
 	if (m_Buffer->GetElementCount() < m_vecTile.size())
 	{
-		m_Buffer->Create(sizeof(tTile), (UINT)m_vecTile.size(), SB_TYPE::READ_ONLY, true);
+		m_Buffer->Create(sizeof(tTile), static_cast<UINT>(m_vecTile.size()), SB_TYPE::READ_ONLY, true);
 	}
 
-	// Å¸ÀÏ ¼¼ÆÃ Å×½ºÆ®
+	// íƒ€ì¼ ì„¸íŒ… í…ŒìŠ¤íŠ¸
 	for (size_t i = 0; i < m_iTileCountY; ++i)
 	{
 		for (size_t j = 0; j < m_iTileCountX; ++j)

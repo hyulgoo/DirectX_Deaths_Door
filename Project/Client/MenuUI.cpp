@@ -2,14 +2,14 @@
 #include "MenuUI.h"
 
 #include "CLevelSaveLoad.h"
-#include <Engine\CEventMgr.h>
-#include <Engine\CGameObject.h>
-#include <Engine\components.h>
-#include <Engine\CScript.h>
+#include <Engine/CEventMgr.h>
+#include <Engine/CGameObject.h>
+#include <Engine/components.h>
+#include <Engine/CScript.h>
 #include <Engine/CLevelMgr.h>
 #include <Engine/CPhysXMgr.h>
 
-#include <Script\CScriptMgr.h>
+#include <Script/CScriptMgr.h>
 
 #include "ImGuiMgr.h"
 #include "OutlinerUI.h"
@@ -42,12 +42,12 @@ int MenuUI::render_update()
         {
             if (ImGui::MenuItem("Save Level"))
             {
-                // Level ÀúÀå
+                // Level ì €ìž¥
                 CLevelSaveLoad::SaveLevel(CLevelMgr::GetInst()->GetCurLevel());
             }
             if (ImGui::MenuItem("Load Level"))
             {
-                // Level ºÒ·¯¿À±â
+                // Level ë¶ˆëŸ¬ì˜¤ê¸°
                 CLevel* pLoadedLevel = CLevelSaveLoad::LoadLevel(LEVEL_STATE::STOP);
 
                 tEvent evn = {};
@@ -61,7 +61,7 @@ int MenuUI::render_update()
         }
         if (ImGui::BeginMenu("GameObject"))
         {
-            // ÇöÀç ·¹º§¿¡ °ÔÀÓ¿ÀºêÁ§Æ® »ý¼º
+            // í˜„ìž¬ ë ˆë²¨ì— ê²Œìž„ì˜¤ë¸Œì íŠ¸ ìƒì„±
             if (ImGui::BeginMenu("Create Empty Object"))
             {
                 //CreateEmptyObject();
@@ -207,26 +207,26 @@ void MenuUI::CreateEmptyObject(int layerindx)
     {
         pNewObject->SetName(L"MainCamera");
         pNewObject->AddComponent(new CCamera);
-        pNewObject->Camera()->SetProjType(PROJ_TYPE::ORTHOGRAPHIC); // Ä«¸Þ¶ó ¿ÀºêÁ§Æ®ÀÇ Åõ¿µ ¹æ½Ä ¼³Á¤(Á÷±³)
-        pNewObject->Camera()->SetCameraIndex(0); //MainCamera·Î ¼³Á¤
-        pNewObject->Camera()->SetLayerMaskAll(true); // ¸ðµç ·¹ÀÌ¾î Ã¼Å©
-        pNewObject->Camera()->SetLayerMask(31, false);// UI Layer ´Â ·»´õ¸µÇÏÁö ¾Ê´Â´Ù.
+        pNewObject->Camera()->SetProjType(PROJ_TYPE::ORTHOGRAPHIC); // ì¹´ë©”ë¼ ì˜¤ë¸Œì íŠ¸ì˜ íˆ¬ì˜ ë°©ì‹ ì„¤ì •(ì§êµ)
+        pNewObject->Camera()->SetCameraIndex(0); //MainCameraë¡œ ì„¤ì •
+        pNewObject->Camera()->SetLayerMaskAll(true); // ëª¨ë“  ë ˆì´ì–´ ì²´í¬
+        pNewObject->Camera()->SetLayerMask(31, false);// UI Layer ëŠ” ë Œë”ë§í•˜ì§€ ì•ŠëŠ”ë‹¤.
     }
     else if (layerindx == (int)LAYER::SUBCAMERA)
     {
         pNewObject->SetName(L"SubCamera");
         pNewObject->AddComponent(new CCamera);
-        pNewObject->Camera()->SetProjType(PROJ_TYPE::ORTHOGRAPHIC); // Ä«¸Þ¶ó ¿ÀºêÁ§Æ®ÀÇ Åõ¿µ ¹æ½Ä ¼³Á¤(Á÷±³)
-        pNewObject->Camera()->SetCameraIndex(2); //SubCamera·Î ¼³Á¤
+        pNewObject->Camera()->SetProjType(PROJ_TYPE::ORTHOGRAPHIC); // ì¹´ë©”ë¼ ì˜¤ë¸Œì íŠ¸ì˜ íˆ¬ì˜ ë°©ì‹ ì„¤ì •(ì§êµ)
+        pNewObject->Camera()->SetCameraIndex(2); //SubCameraë¡œ ì„¤ì •
         pNewObject->Camera()->SetLayerMaskAll(false);
         pNewObject->Camera()->SetLayerMask(31, true);
     }
     SpawnGameObject(pNewObject, Vec3(0.f, 0.f, 0.f), layerindx);
 
-    // Outliner ¸¦ °¡Á®¿Â´Ù.
+    // Outliner ë¥¼ ê°€ì ¸ì˜¨ë‹¤.
     OutlinerUI* outliner = (OutlinerUI*)ImGuiMgr::GetInst()->FindUI("##Outliner");
 
-    // »õ·ÎÃß°¡µÈ ¿ÀºêÁ§Æ®¸¦ µ¥ÀÌÅÍ·Î ÇÏ´Â ³ëµå°¡ Ãß°¡µÇ¸é, ¼±ÅÃ»óÅÂ·Î µÎ°Ô ÇÑ´Ù.
+    // ìƒˆë¡œì¶”ê°€ëœ ì˜¤ë¸Œì íŠ¸ë¥¼ ë°ì´í„°ë¡œ í•˜ëŠ” ë…¸ë“œê°€ ì¶”ê°€ë˜ë©´, ì„ íƒìƒíƒœë¡œ ë‘ê²Œ í•œë‹¤.
     outliner->SetSelectedNodeData(DWORD_PTR(pNewObject));
 }
 
@@ -236,11 +236,11 @@ void MenuUI::CreatePrefabObject()
 
 void MenuUI::AddComponent(COMPONENT_TYPE _type)
 {
-    // Outliner ¿Í Inspector ¸¦ °¡Á®¿Â´Ù.
+    // Outliner ì™€ Inspector ë¥¼ ê°€ì ¸ì˜¨ë‹¤.
     OutlinerUI* outliner = (OutlinerUI*)ImGuiMgr::GetInst()->FindUI("##Outliner");
     InspectorUI* inspector = (InspectorUI*)ImGuiMgr::GetInst()->FindUI("##Inspector");
 
-    // ¼±ÅÃµÈ ¿ÀºêÁ§Æ®¸¦ °¡Á®¿Í¼­ ComponentType ¿¡ ¸Â´Â ÄÄÆ÷³ÍÆ®¸¦ »ý¼ºÇØ¼­ Ãß°¡ÇÑ´Ù.
+    // ì„ íƒëœ ì˜¤ë¸Œì íŠ¸ë¥¼ ê°€ì ¸ì™€ì„œ ComponentType ì— ë§žëŠ” ì»´í¬ë„ŒíŠ¸ë¥¼ ìƒì„±í•´ì„œ ì¶”ê°€í•œë‹¤.
     CGameObject* pSelectedObject = outliner->GetSelectedObject();
 
     if (nullptr == pSelectedObject)
@@ -292,18 +292,18 @@ void MenuUI::AddComponent(COMPONENT_TYPE _type)
         break;
     }
 
-    // Inspector ¿¡ »õ·Ó°Ô Ãß°¡µÈ ÄÄÆ÷³ÍÆ®¸¦ ¾Ë¸®±â À§ÇØ¼­ Å¸°ÙÀ» ´Ù½Ã ¾Ë·ÁÁØ´Ù.
+    // Inspector ì— ìƒˆë¡­ê²Œ ì¶”ê°€ëœ ì»´í¬ë„ŒíŠ¸ë¥¼ ì•Œë¦¬ê¸° ìœ„í•´ì„œ íƒ€ê²Ÿì„ ë‹¤ì‹œ ì•Œë ¤ì¤€ë‹¤.
     inspector->SetTargetObject(pSelectedObject);
 
 }
 
 void MenuUI::AddScript(const wstring& _strScriptName)
 {
-    // Outliner ¿Í Inspector ¸¦ °¡Á®¿Â´Ù.
+    // Outliner ì™€ Inspector ë¥¼ ê°€ì ¸ì˜¨ë‹¤.
     OutlinerUI* outliner = (OutlinerUI*)ImGuiMgr::GetInst()->FindUI("##Outliner");
     InspectorUI* inspector = (InspectorUI*)ImGuiMgr::GetInst()->FindUI("##Inspector");
 
-    // ¼±ÅÃµÈ ¿ÀºêÁ§Æ®¸¦ °¡Á®¿Í¼­ ComponentType ¿¡ ¸Â´Â ÄÄÆ÷³ÍÆ®¸¦ »ý¼ºÇØ¼­ Ãß°¡ÇÑ´Ù.
+    // ì„ íƒëœ ì˜¤ë¸Œì íŠ¸ë¥¼ ê°€ì ¸ì™€ì„œ ComponentType ì— ë§žëŠ” ì»´í¬ë„ŒíŠ¸ë¥¼ ìƒì„±í•´ì„œ ì¶”ê°€í•œë‹¤.
     CGameObject* pSelectedObject = outliner->GetSelectedObject();
 
     if (nullptr == pSelectedObject)

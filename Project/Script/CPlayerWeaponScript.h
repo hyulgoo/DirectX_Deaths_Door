@@ -16,7 +16,7 @@ public:
     virtual void BeginOverlap(CCollider3D* _Other) override;
     virtual void EndOverlap(CCollider3D* _Other) override;
 
-    void ChangeState(wstring _strStateName);
+    void ChangeState(wstring _strStateName) const;
 
 private:
 
@@ -28,6 +28,6 @@ public:
 
 public:
     CPlayerWeaponScript();
-    ~CPlayerWeaponScript();
+    virtual ~CPlayerWeaponScript() override;
 };
 

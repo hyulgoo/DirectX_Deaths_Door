@@ -8,11 +8,11 @@ void CLurkerAttack::Enter()
 {
 	GetOwner()->Animator3D()->Play(5, false);
 
-	// °ø°İ ¹æÇâÀº Ã³À½¿¡¸¸ ÁöÁ¤ÇØ¾ß ÇÔ. 
+	// ê³µê²© ë°©í–¥ì€ ì²˜ìŒì—ë§Œ ì§€ì •í•´ì•¼ í•¨. 
 	m_Dir = GetOwner()->GetScript<CLurkerScript>()->GetMonsterToPlayerDir();
 	GetOwner()->Rigidbody()->SetVelocityLimit(300.f);
 
-	// °ø°İ Á÷Àü¿¡´Â ¹«Á¶°Ç ÇÃ·¹ÀÌ¾î¸¦ ¹Ù¶óº¸µµ·Ï. 
+	// ê³µê²© ì§ì „ì—ëŠ” ë¬´ì¡°ê±´ í”Œë ˆì´ì–´ë¥¼ ë°”ë¼ë³´ë„ë¡. 
 	GetOwner()->GetScript<CLurkerScript>()->SetStarePlayer(false);
 	float fDir = GetDir(GetOwner()->Transform()->GetWorldPos(), GetOwner()->GetScript<CLurkerScript>()->GetPlayerPos());
 	Vec3 CurDir = GetOwner()->Transform()->GetRelativeRot();
@@ -25,11 +25,11 @@ void CLurkerAttack::Enter()
 
 void CLurkerAttack::tick()
 {
-	float AnimLength = (float)GetOwner()->Animator3D()->GetCurClipTimeLength();
-	m_fTime += DT;
-	float CurRatio = m_fTime / AnimLength;
+	float AnimLength = static_cast<float>(GetOwner()->Animator3D()->GetCurClipTimeLength());
+	m_fTime          += DT;
+	float CurRatio   = m_fTime / AnimLength;
 
-	// ÇöÀç Àç»ıÁßÀÎ ¾Ö´Ï¸ŞÀÌ¼ÇÀÌ ¾î´ÀÁ¤µµ ÁøÇà µÈ °æ¿ì ÇÃ·¹ÀÌ¾î·Î µ¹Áø. ±×µÚ·Î ¼Óµµ°¡ ´Ù½Ã ÁÙ¾îµé¾î¼­ Á¦ÀÚ¸®¿¡ ¸ØÃç¾ß ÇÔ.
+	// í˜„ì¬ ì¬ìƒì¤‘ì¸ ì• ë‹ˆë©”ì´ì…˜ì´ ì–´ëŠì •ë„ ì§„í–‰ ëœ ê²½ìš° í”Œë ˆì´ì–´ë¡œ ëŒì§„. ê·¸ë’¤ë¡œ ì†ë„ê°€ ë‹¤ì‹œ ì¤„ì–´ë“¤ì–´ì„œ ì œìë¦¬ì— ë©ˆì¶°ì•¼ í•¨.
 	if (CurRatio >= 0.5f)
 	{
 		Vec3 Velocity = m_Dir;
@@ -38,14 +38,14 @@ void CLurkerAttack::tick()
 
 		GetOwner()->Rigidbody()->AddVelocity(Velocity);
 
-		// °ø°İ Ãæµ¹Ã¼ ÇÁ¸®Æé
-		CGameObject* MonsterAtack = CLevelSaveLoadInScript::SpawnandReturnPrefab(L"prefab\\MonsterAttack.prefab", (int)LAYER::MONSTERPROJECTILE, GetOwner()->Transform()->GetWorldPos(), 0.f);
+		// ê³µê²© ì¶©ëŒì²´ í”„ë¦¬í©
+		CGameObject* MonsterAtack = CLevelSaveLoadInScript::SpawnandReturnPrefab(L"prefab\\MonsterAttack.prefab", static_cast<int>(LAYER::MONSTERPROJECTILE), GetOwner()->Transform()->GetWorldPos(), 0.f);
 
 		MonsterAtack->Collider3D()->SetOffsetPos(GetOwner()->Collider3D()->GetOffsetPos());
 		MonsterAtack->Collider3D()->SetOffsetScale(GetOwner()->Collider3D()->GetOffsetScale());
 	}
 
-	// ¾Ö´Ï¸ŞÀÌ¼ÇÀÌ ³¡³ª¸é Notify·Î ´Ù½Ã º¯°æ.
+	// ì• ë‹ˆë©”ì´ì…˜ì´ ëë‚˜ë©´ Notifyë¡œ ë‹¤ì‹œ ë³€ê²½.
 	if (GetOwner()->Animator3D()->IsFinish())
 		ChangeState(L"Notify");
 }

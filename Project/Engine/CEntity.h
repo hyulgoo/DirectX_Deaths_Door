@@ -12,7 +12,7 @@ private:
 public:
 	void SetName(const wstring& _strName) {  m_strName = _strName; }
 	const wstring& GetName() { return m_strName; }
-	UINT GetID() { return m_iID; }
+	UINT GetID() const { return m_iID; }
 
 public:
 	virtual CEntity* Clone() = 0;

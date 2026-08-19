@@ -13,6 +13,6 @@ public:
 
 public:
     CIconScript(UINT SCRIPT_TYPE);
-    ~CIconScript();
+    virtual ~CIconScript() override;
 };
 

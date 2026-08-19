@@ -22,7 +22,7 @@ CMeshData::~CMeshData()
 }
 
 
-CGameObject* CMeshData::Instantiate()
+CGameObject* CMeshData::Instantiate() const
 {
 	CGameObject* pNewObj = new CGameObject;
 	pNewObj->AddComponent(new CTransform);
@@ -35,7 +35,7 @@ CGameObject* CMeshData::Instantiate()
 		pNewObj->MeshRender()->SetMaterial(m_vecMtrl[i], i);
 	}	
 
-	// Animation ÆÄÆ® Ãß°¡
+	// Animation íŒŒíŠ¸ ì¶”ê°€
 	if (false == m_pMesh->IsAnimMesh())
 		return pNewObj;
 
@@ -58,11 +58,11 @@ CMeshData* CMeshData::LoadFromFBX(const wstring& _strPath)
 	loader.init();
 	loader.LoadFbx(strFullPath);
 
-	// ¸Ş½¬ °¡Á®¿À±â
+	// ë©”ì‰¬ ê°€ì ¸ì˜¤ê¸°
 	CMesh* pMesh = nullptr;
 	pMesh = CMesh::CreateFromContainer(loader);
 
-	// ResMgr ¿¡ ¸Ş½¬ µî·Ï
+	// ResMgr ì— ë©”ì‰¬ ë“±ë¡
 	if (nullptr != pMesh)
 	{
 		wstring strMeshKey = L"mesh\\";
@@ -70,17 +70,17 @@ CMeshData* CMeshData::LoadFromFBX(const wstring& _strPath)
 		strMeshKey += L".mesh";
 		CResMgr::GetInst()->AddRes<CMesh>(strMeshKey, pMesh);
 
-		// ¸Ş½Ã¸¦ ½ÇÁ¦ ÆÄÀÏ·Î ÀúÀå
+		// ë©”ì‹œë¥¼ ì‹¤ì œ íŒŒì¼ë¡œ ì €ì¥
 		pMesh->Save(strMeshKey);
 	}
 
 
 	vector<Ptr<CMaterial>> vecMtrl;
 
-	// ¸ŞÅ×¸®¾ó °¡Á®¿À±â
+	// ë©”í…Œë¦¬ì–¼ ê°€ì ¸ì˜¤ê¸°
 	for (UINT i = 0; i < loader.GetContainer(0).vecMtrl.size(); ++i)
 	{
-		// ¿¹¿ÜÃ³¸® (material ÀÌ¸§ÀÌ ÀÔ·Â ¾ÈµÇ¾îÀÖÀ» ¼öµµ ÀÖ´Ù.)
+		// ì˜ˆì™¸ì²˜ë¦¬ (material ì´ë¦„ì´ ì…ë ¥ ì•ˆë˜ì–´ìˆì„ ìˆ˜ë„ ìˆë‹¤.)
 		Ptr<CMaterial> pMtrl = CResMgr::GetInst()->FindRes<CMaterial>(loader.GetContainer(0).vecMtrl[i].strMtrlName);
 		assert(pMtrl.Get());
 
@@ -107,12 +107,12 @@ int CMeshData::Save(const wstring& _strRelativePath)
 	errno_t err = _wfopen_s(&pFile, strFilePath.c_str(), L"wb");
 	assert(pFile);
 
-	// Mesh Key ÀúÀå	
-	// Mesh Data ÀúÀå
+	// Mesh Key ì €ì¥	
+	// Mesh Data ì €ì¥
 	SaveResRef(m_pMesh.Get(), pFile);
 
-	// material Á¤º¸ ÀúÀå
-	UINT iMtrlCount = (UINT)m_vecMtrl.size();
+	// material ì •ë³´ ì €ì¥
+	UINT iMtrlCount = static_cast<UINT>(m_vecMtrl.size());
 	fwrite(&iMtrlCount, sizeof(UINT), 1, pFile);
 
 	UINT i = 0;
@@ -124,12 +124,12 @@ int CMeshData::Save(const wstring& _strRelativePath)
 		if (nullptr == m_vecMtrl[i])
 			continue;
 
-		// Material ÀÎµ¦½º, Key, Path ÀúÀå
+		// Material ì¸ë±ìŠ¤, Key, Path ì €ì¥
 		fwrite(&i, sizeof(UINT), 1, pFile);
 		SaveResRef(m_vecMtrl[i].Get(), pFile);
 	}
 
-	i = -1; // ¸¶°¨ °ª
+	i = -1; // ë§ˆê° ê°’
 	fwrite(&i, sizeof(UINT), 1, pFile);
 
 	fclose(pFile);
@@ -148,7 +148,7 @@ int CMeshData::Load(const wstring& _strFilePath)
 	LoadResRef<CMesh>(m_pMesh, pFile);
 	assert(m_pMesh.Get());
 
-	// material Á¤º¸ ÀĞ±â
+	// material ì •ë³´ ì½ê¸°
 	UINT iMtrlCount = 0;
 	fread(&iMtrlCount, sizeof(UINT), 1, pFile);
 

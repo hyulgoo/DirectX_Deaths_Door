@@ -10,9 +10,9 @@ class CAnimator2D :
     public CComponent
 {
 private:
-    map<wstring, CAnim2D*>  m_mapAnim;  // Animation ¸ñ·Ï
-    CAnim2D*                m_pCurAnim; // ÇöÀç Àç»ıÁßÀÎ Animation
-    bool                    m_bRepeat;  // ¹İº¹
+    map<wstring, CAnim2D*>  m_mapAnim;  // Animation ëª©ë¡
+    CAnim2D*                m_pCurAnim; // í˜„ì¬ ì¬ìƒì¤‘ì¸ Animation
+    bool                    m_bRepeat;  // ë°˜ë³µ
 
 
 public:
@@ -34,6 +34,6 @@ public:
     CLONE(CAnimator2D);
 public:
     CAnimator2D();
-    ~CAnimator2D();
+    virtual ~CAnimator2D() override;
 };
 

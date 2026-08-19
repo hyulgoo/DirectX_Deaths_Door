@@ -15,7 +15,7 @@ CSoundScript::~CSoundScript()
 }
 void CSoundScript::begin()
 {
-	// µ¿Àû ÀçÁú »ý¼º.
+	// ë™ì  ìž¬ì§ˆ ìƒì„±.
 	int iMtrlCount = MeshRender()->GetMtrlCount();
 
 	for (int i = 0; i < iMtrlCount; ++i)
@@ -24,7 +24,7 @@ void CSoundScript::begin()
 	}
 	MeshRender()->GetMaterial(0)->SetTexParam(TEX_0, CResMgr::GetInst()->LoadTexture(L"texture\\HUD\\VolumeUI.png", L"texture\\HUD\\VolumeUI.png",0));
 	
-	LEVEL_TYPE uLevelType = (LEVEL_TYPE)CLevelMgr::GetInst()->GetCurLevel()->GetLevelType();
+	LEVEL_TYPE uLevelType = static_cast<LEVEL_TYPE>(CLevelMgr::GetInst()->GetCurLevel()->GetLevelType());
 	switch (uLevelType)
 	{
 	case LEVEL_TYPE::CASTLE_FIELD:

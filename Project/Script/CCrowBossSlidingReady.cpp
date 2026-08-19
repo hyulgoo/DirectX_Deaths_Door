@@ -10,12 +10,12 @@ CCrowBossSlidingReady::CCrowBossSlidingReady()
 	, m_tChainPatern()
 	, m_iThrowCount(0)
 {
-	// ½ÃÀÛ ½Ã Hook ¹× Chain »ı¼º
+	// ì‹œì‘ ì‹œ Hook ë° Chain ìƒì„±
 	if (m_vecHook.empty())
 	{
 		for (int i = 0; i < 5; ++i)
 		{
-			CGameObject* Hook = CLevelSaveLoadInScript::SpawnandReturnPrefab(L"prefab\\BossHook.prefab", (int)LAYER::DEFAULT, Vec3(0.f, 0.f, 0.f));
+			CGameObject* Hook = CLevelSaveLoadInScript::SpawnandReturnPrefab(L"prefab\\BossHook.prefab", static_cast<int>(LAYER::DEFAULT), Vec3(0.f, 0.f, 0.f));
 			Hook->Transform()->SetRelativeScale(0.f, 0.f, 0.f);
 			Hook->Collider3D()->SetCollider3DType(COLLIDER3D_TYPE::SPHERE);
 			Hook->Collider3D()->SetAbsolute(true);
@@ -26,7 +26,7 @@ CCrowBossSlidingReady::CCrowBossSlidingReady()
 			vector<CGameObject*> vecChain;
 			for (int j = 0; j < 70; ++j)
 			{
-				CGameObject* Chain = CLevelSaveLoadInScript::SpawnandReturnPrefab(L"prefab\\Chain.prefab", (int)LAYER::DEFAULT, Vec3(0.f, 0.f, 0.f));
+				CGameObject* Chain = CLevelSaveLoadInScript::SpawnandReturnPrefab(L"prefab\\Chain.prefab", static_cast<int>(LAYER::DEFAULT), Vec3(0.f, 0.f, 0.f));
 				Chain->Transform()->SetRelativeScale(0.f, 0.f, 0.f);
 				vecChain.push_back(Chain);
 				m_vecHook[i]->GetScript<CBossChainScript>()->SetChain(vecChain);
@@ -52,10 +52,10 @@ void CCrowBossSlidingReady::Enter()
 
 	GetOwner()->Animator3D()->Play(4, false);
 
-	// È­¸é ¾È¿¡ ÀÖ´Ù¸é ONE ¹ÛÀÌ¶ó¸é CROSS, SPREAD Áß ·£´ıÁöÁ¤
+	// í™”ë©´ ì•ˆì— ìˆë‹¤ë©´ ONE ë°–ì´ë¼ë©´ CROSS, SPREAD ì¤‘ ëœë¤ì§€ì •
 	if (vDiff.x > 700.f || vDiff.y > 400.f)
 	{
-		srand(unsigned int(time(0)));
+		srand(static_cast<unsigned int>(time(0)));
 
 		if(rand() % 2)
 			m_tChainPatern = CHAINPATERN::CROSS;
@@ -68,8 +68,8 @@ void CCrowBossSlidingReady::Enter()
 		m_tChainPatern = CHAINPATERN::ONE;
 	}
 
-	// Hooking State¿¡ HookObj µî·Ï
-	CCrowBossSliding* pSlidingState = (CCrowBossSliding*)GetOwnerScript()->FindState(L"Sliding");
+	// Hooking Stateì— HookObj ë“±ë¡
+	CCrowBossSliding* pSlidingState = static_cast<CCrowBossSliding*>(GetOwnerScript()->FindState(L"Sliding"));
 	for(size_t i = 0; i < m_vecHook.size(); ++i)
 	{
 		pSlidingState->SetHook(m_vecHook);

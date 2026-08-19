@@ -1,5 +1,5 @@
 #pragma once
-#include <Engine\CScript.h>
+#include <Engine/CScript.h>
 class CGameCameraScript :
     public CScript
 {
@@ -11,7 +11,7 @@ private:
     float           m_fTargetScale;
     float           m_fPrevScale;
     Vec3            m_vDistance;
-    // CameraShake¿ë ¸â¹ö
+    // CameraShakeìš© ë©¤ë²„
     Vec2		    m_vOffset;
     float		    m_fAccTime;
     float		    m_fMaxTime;
@@ -29,7 +29,7 @@ public:
     virtual void EndOverlap(CCollider3D* _Other) override;
     void SetInvincible(float _fMoveTime) { m_fMoveTime = _fMoveTime; }
     void SetMoveCamera(float _vTargetScale, float _fTime);
-    Vec3 GetDistance() { return m_vDistance; }
+    Vec3 GetDistance() const { return m_vDistance; }
     
     void SetTarget(CGameObject* _pTarget) { m_pTarget = _pTarget; }
     void SetTargetPlayer(){ m_pTarget = CLevelMgr::GetInst()->GetCurLevel()->FindObjectByName(L"Player"); }
@@ -42,6 +42,6 @@ public:
 
 public:
     CGameCameraScript();
-    ~CGameCameraScript();
+    virtual ~CGameCameraScript() override;
 };
 

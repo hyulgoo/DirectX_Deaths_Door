@@ -16,6 +16,6 @@ public:
 
 public:
     CKnightChopAttackCombo();
-    ~CKnightChopAttackCombo();
+    virtual ~CKnightChopAttackCombo() override;
 };
 

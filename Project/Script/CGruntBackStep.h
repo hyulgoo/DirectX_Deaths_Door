@@ -12,6 +12,6 @@ public:
 
 public:
     CGruntBackStep();
-    ~CGruntBackStep();
+    virtual ~CGruntBackStep() override;
 };
 

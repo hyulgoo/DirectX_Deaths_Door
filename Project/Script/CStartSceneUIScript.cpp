@@ -2,7 +2,7 @@
 #include "CStartSceneUIScript.h"
 #include "CLevelSaveLoadInScript.h"
 #include <Engine/CKeyMgr.h>
-#include <Engine\CEventMgr.h>
+#include <Engine/CEventMgr.h>
 
 CStartSceneUIScript::CStartSceneUIScript() :
 	CScript(SCRIPT_TYPE::STARTSCENEUISCRIPT)
@@ -21,11 +21,11 @@ void CStartSceneUIScript::tick()
 
 		CLevel* NewLevel = CLevelSaveLoadInScript::Stop(L"Level\\Hall.lv", LEVEL_STATE::STOP);
 		NewLevel->SetName(L"Hall");
-		NewLevel->SetLevelType((int)LEVEL_TYPE::HALL);
+		NewLevel->SetLevelType(static_cast<int>(LEVEL_TYPE::HALL));
 		tEvent evn = {};
 		evn.Type = EVENT_TYPE::LEVEL_CHANGE;
 		evn.wParam = (DWORD_PTR)NewLevel;
-		evn.lParam = (DWORD_PTR)NewLevel->GetLevelType();
+		evn.lParam = static_cast<DWORD_PTR>(NewLevel->GetLevelType());
 		CEventMgr::GetInst()->AddEvent(evn);
 	}
 }
