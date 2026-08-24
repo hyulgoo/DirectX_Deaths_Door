@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include "CState.h"
 class CLurkerNotify :
     public CState
@@ -6,7 +6,7 @@ class CLurkerNotify :
 private:
     bool    m_bNotifyAnimEnd;
     int     m_iPrevPattern;
-    bool    m_bJustBeforeBackStep;  // ¹æ±İ Àü¿¡ BackStepÀ» ÇÑ °æ¿ì.
+    bool    m_bJustBeforeBackStep;  // ë°©ê¸ˆ ì „ì— BackStepì„ í•œ ê²½ìš°.
 
 public:
     virtual void Enter() override;
@@ -17,6 +17,6 @@ public:
 
 public:
     CLurkerNotify();
-    ~CLurkerNotify();
+    virtual ~CLurkerNotify() override;
 };
 

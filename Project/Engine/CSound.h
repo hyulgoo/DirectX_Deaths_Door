@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "CRes.h"
 
 #include <FMOD/fmod.h>

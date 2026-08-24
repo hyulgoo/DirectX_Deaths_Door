@@ -13,7 +13,7 @@ public:
     virtual void tick() override {};
 
     void SetHeight(float _fHeight) { m_fHeight = _fHeight; }
-    float GetHeight() { return m_fHeight; }
+    float GetHeight() const { return m_fHeight; }
 
     virtual void BeginOverlap(CCollider3D* _Other) override;
     virtual void OnOverlap(CCollider3D* _Other) override;
@@ -26,6 +26,6 @@ public:
 
 public:
     CLadderScript();
-    ~CLadderScript();
+    virtual ~CLadderScript() override;
 };
 

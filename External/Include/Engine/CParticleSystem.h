@@ -31,7 +31,7 @@ public:
 
 
     void SetModuleData(tParticleModule _ModuleData) {m_ModuleData = _ModuleData;}
-    tParticleModule GetModuleData() { return m_ModuleData; }
+    tParticleModule GetModuleData() const { return m_ModuleData; }
 
     void SetTex(Ptr<CTexture> _Tex) { m_Tex = _Tex; }
     Ptr<CTexture> GetTex() { return m_Tex; }
@@ -48,7 +48,7 @@ public:
     void AnimationModule(int _iFrmCount, int _iXCount, Vec2 _vLeftTop, Vec2 _vSlice, Vec2 _vOffset);
     void SetFollow() { m_ModuleData.Space = 1; }
     void SetEmissive(bool _bEmissive) { m_iEmissive = _bEmissive; }
-    bool GetEmissive() { return m_iEmissive; }
+    bool GetEmissive() const { return m_iEmissive; }
 
     void OnOff(bool _Onoff);
 
@@ -59,6 +59,6 @@ public:
 public:
     CParticleSystem();
     CParticleSystem(const CParticleSystem& _Other);
-    ~CParticleSystem();
+    virtual ~CParticleSystem() override;
 };
 

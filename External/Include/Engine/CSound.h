@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include "CRes.h"
 
 #include <FMOD/fmod.h>
@@ -20,32 +20,32 @@ class CSound :
 	public CRes
 {
 public:
-	static FMOD::System* g_pFMOD; //»ç¿îµå °´Ã¼¸¦ »ı¼ºÇÒ °÷ÀÎ ½Ã½ºÅÛ
+	static FMOD::System* g_pFMOD; //ì‚¬ìš´ë“œ ê°ì²´ë¥¼ ìƒì„±í•  ê³³ì¸ ì‹œìŠ¤í…œ
 
 private:
-	FMOD_MODE				m_mode;//1¹ø Default, ¹İº¹ Ãâ·Â½Ã Loop
-	FMOD::Sound*			m_pSound;//»ç¿îµå ÆÄÀÏÀ» ÀúÀåÇÒ »ç¿îµå °´Ã¼
+	FMOD_MODE				m_mode;//1ë²ˆ Default, ë°˜ë³µ ì¶œë ¥ì‹œ Loop
+	FMOD::Sound*			m_pSound;//ì‚¬ìš´ë“œ íŒŒì¼ì„ ì €ì¥í•  ì‚¬ìš´ë“œ ê°ì²´
 	FMOD::Channel*			m_channel;
 	list<FMOD::Channel*>	m_listChannel;
 
 	float m_volume;
 
 public:
-	// 0 (¹«ÇÑ¹İº¹) 0 ~ 1(Volume)
+	// 0 (ë¬´í•œë°˜ë³µ) 0 ~ 1(Volume)
 	int Play(int _iRoopCount, float _fVolume = 0.5f, int _iIdx = -1, bool _bOverlap = false);
 	int PlayBGM(int _iRoopCount, float _fVolume = 1.f, int _iIdx = -1, bool _bOverlap = false);
 	int PlaySFX(int _iRoopCount, float _fVolume = 1.f, int _iIdx = -1, bool _bOverlap = false);
 
-	int pause();
-	void Stop();
-	int volumeUp();
-	int volumeDown();
-	float GetVolume() { return m_volume; }
-	FMOD::Sound* GetSound() { return m_pSound; }
+	int          pause() const;
+	void         Stop();
+	int          volumeUp();
+	int          volumeDown();
+	float        GetVolume() const { return m_volume; }
+	FMOD::Sound* GetSound() const { return m_pSound; }
 	// 0 ~ 1
 	void SetVolume(float _f, int _iChannelIdx);
 
-	bool IsChannelPlaying(FMOD::Channel* channel);
+	bool IsChannelPlaying(FMOD::Channel* channel) const;
 
 	list<FMOD::Channel*> GetChannelList() { return m_listChannel; }
 private:
@@ -57,15 +57,15 @@ private:
 public:
 	virtual void UpdateData() {}
 
-	// ÆÄÀÏ·Î ÀúÀå
+	// íŒŒì¼ë¡œ ì €ì¥
 	virtual int Save(const wstring&) override { return S_OK; }
 
-	// ÆÄÀÏ·ÎºÎÅÍ ·Îµù
+	// íŒŒì¼ë¡œë¶€í„° ë¡œë”©
 	virtual int Load(const wstring& _strFilePath) override;
 		
 public:
 	CSound();
-	virtual ~CSound();
+	virtual ~CSound() override;
 	friend class CSound;
 };
 

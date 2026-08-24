@@ -32,7 +32,7 @@ public:
 	void Resume();
 	void ReStart();
 	void Stop();
-	void Start();
+	void Start() const;
 
 public:
 	virtual bool Init();

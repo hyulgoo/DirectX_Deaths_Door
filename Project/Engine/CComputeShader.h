@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "CShader.h"
 
 #include "ptr.h"

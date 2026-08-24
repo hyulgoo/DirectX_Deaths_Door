@@ -12,6 +12,6 @@ public:
 
 public:
     CGrimKnightBackStep();
-    ~CGrimKnightBackStep();
+    virtual ~CGrimKnightBackStep() override;
 };
 

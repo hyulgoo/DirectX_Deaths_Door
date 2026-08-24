@@ -15,6 +15,6 @@ public:
 
 public:
     CLurkerLeftMove();
-    ~CLurkerLeftMove();
+    virtual ~CLurkerLeftMove() override;
 };
 

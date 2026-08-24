@@ -12,6 +12,6 @@ public:
 
 public:
     CGruntTrace();
-    ~CGruntTrace();
+    virtual ~CGruntTrace() override;
 };
 

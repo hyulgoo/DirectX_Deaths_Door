@@ -12,6 +12,6 @@ public:
 
 public:
     CCrowBossRightSpin();
-    ~CCrowBossRightSpin();
+    virtual ~CCrowBossRightSpin() override;
 };
 

@@ -12,6 +12,6 @@ public:
 
 public:
     CMagic();
-    ~CMagic();
+    virtual ~CMagic() override;
 };
 

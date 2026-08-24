@@ -28,7 +28,7 @@ public:
 	template <typename T>
 	T* Create(const std::string& Name)
 	{
-		T* Thread = (T*)FindThread(Name);
+		T* Thread = static_cast<T*>(FindThread(Name));
 
 		if (Thread)
 			return Thread;

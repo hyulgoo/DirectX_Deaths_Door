@@ -12,6 +12,6 @@ public:
 
 public:
     CKnightHit();
-    ~CKnightHit();
+    virtual ~CKnightHit() override;
 };
 

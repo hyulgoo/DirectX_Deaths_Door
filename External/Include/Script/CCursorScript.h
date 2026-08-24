@@ -9,6 +9,6 @@ class CCursorScript :
     CLONE(CCursorScript);
 
     CCursorScript();
-    ~CCursorScript();
+    virtual ~CCursorScript() override;
 };
 

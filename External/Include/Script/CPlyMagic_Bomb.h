@@ -17,6 +17,6 @@ public:
 
 public:
     CPlyMagic_Bomb();
-    ~CPlyMagic_Bomb();
+    virtual ~CPlyMagic_Bomb() override;
 };
 

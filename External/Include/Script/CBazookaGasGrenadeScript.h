@@ -1,12 +1,12 @@
-#pragma once
-#include <Engine\CScript.h>
+ï»¿#pragma once
+#include <Engine/CScript.h>
 class CBazookaGasGrenadeScript :
     public CScript
 {
 private:
     Vec3            m_vShotDir;
     Vec3            m_vPrevVelocity;
-    int             m_iState;       // 0: ³¯¾Æ°¡´Â Áß. 1: ¶¥¿¡ ¶³¾îÁ®¼­ ÆÛÁö´Â Áß.
+    int             m_iState;       // 0: ë‚ ì•„ê°€ëŠ” ì¤‘. 1: ë•…ì— ë–¨ì–´ì ¸ì„œ í¼ì§€ëŠ” ì¤‘.
     CGameObject*    m_pGasBulletParticle;
     CGameObject*    m_pGasCenterParticle;
     CGameObject*    m_pGasRoundParticle;
@@ -15,7 +15,7 @@ private:
 
 public:
     void SetShotDir(Vec3 _ShotDir) { m_vShotDir = _ShotDir; }
-    Vec3 GetShotDir() { return m_vShotDir; }
+    Vec3 GetShotDir() const { return m_vShotDir; }
 
 public:
     virtual void begin() override;
@@ -29,6 +29,6 @@ public:
 public:
     CBazookaGasGrenadeScript();
     CBazookaGasGrenadeScript(const CBazookaGasGrenadeScript& _Other);
-    ~CBazookaGasGrenadeScript();
+    virtual ~CBazookaGasGrenadeScript() override;
 };
 

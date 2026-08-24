@@ -12,7 +12,7 @@ private:
 
 public:
     void SetOnCollision(bool onCol) { m_bOnCollision = onCol; }
-    int GetHitCount() { return m_iHitCount; }
+    int GetHitCount() const { return m_iHitCount; }
 public:
     virtual void begin() override;
     virtual void tick() override;
@@ -30,6 +30,6 @@ public:
 
 public:
     CGrimKnightScript();
-    ~CGrimKnightScript();
+    virtual ~CGrimKnightScript() override;
 };
 

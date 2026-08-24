@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "CCrowHeadScript.h"
 
 #include <Engine/CDetourMgr.h>

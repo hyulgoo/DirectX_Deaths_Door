@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include <Engine/CThread.h>
 #include <Engine/CLevel.h>

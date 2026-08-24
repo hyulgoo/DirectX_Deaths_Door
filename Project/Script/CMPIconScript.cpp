@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "CMPIconScript.h"
 #include "CStateScript.h"
 #include "CPlayerScript.h"

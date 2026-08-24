@@ -12,6 +12,6 @@ public:
 
 public:
     CAttackSpeed();
-    ~CAttackSpeed();
+    virtual ~CAttackSpeed() override;
 };
 

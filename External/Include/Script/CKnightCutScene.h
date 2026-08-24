@@ -16,6 +16,6 @@ public:
 
 public:
     CKnightCutScene();
-    ~CKnightCutScene();
+    virtual ~CKnightCutScene() override;
 };
 

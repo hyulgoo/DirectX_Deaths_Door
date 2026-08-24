@@ -17,11 +17,11 @@ public:
     virtual void OnOverlap(CCollider3D* _Other) override;
     virtual void EndOverlap(CCollider3D* _Other) override;
     void SetRoomNum(int _iRoomNum) { m_iRoomNum = _iRoomNum; }
-    bool CheckStoneHit() { return m_bHit; }
+    bool CheckStoneHit() const { return m_bHit; }
 
     CLONE(CHitStoneScript);
 public:
     CHitStoneScript();
-    ~CHitStoneScript();
+    virtual ~CHitStoneScript() override;
 };
 

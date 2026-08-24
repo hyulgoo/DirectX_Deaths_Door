@@ -1,10 +1,10 @@
-#pragma once
+ï»¿#pragma once
 #include <Engine/CScript.h>
 
 class CColiider3D;
 
-// Coliider¸¦ °¡Áö°í ¹æÀÇ ÀÔ±¸¿¡ À§Ä¡ÇÔ
-// Player¿Í Ãæµ¹ÇÏ¸é ÀÚ½ÅÀ» »èÁ¦ÇÏ¸ç ¹®À» ´İ°í SpawnMgr¿¡ ÀÚ½ÅÀÌ °¡Áø ¹øÈ£ÀÇ ¹æÀ» È°¼ºÈ­½ÃÅ°°Ô ÇÔ.
+// Coliiderë¥¼ ê°€ì§€ê³  ë°©ì˜ ì…êµ¬ì— ìœ„ì¹˜í•¨
+// Playerì™€ ì¶©ëŒí•˜ë©´ ìì‹ ì„ ì‚­ì œí•˜ë©° ë¬¸ì„ ë‹«ê³  SpawnMgrì— ìì‹ ì´ ê°€ì§„ ë²ˆí˜¸ì˜ ë°©ì„ í™œì„±í™”ì‹œí‚¤ê²Œ í•¨.
 class CEnterScript :
     public CScript
 {
@@ -26,7 +26,7 @@ public:
     CLONE(CEnterScript);
 public:
     CEnterScript();
-    ~CEnterScript();
+    virtual ~CEnterScript() override;
 
     friend class CSpawnMgr;
 };

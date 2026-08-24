@@ -12,6 +12,6 @@ public:
 
 public:
     CBazzokaLongDistance();
-    ~CBazzokaLongDistance();
+    virtual ~CBazzokaLongDistance() override;
 };
 

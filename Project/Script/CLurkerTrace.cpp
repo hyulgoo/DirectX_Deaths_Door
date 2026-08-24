@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "CLurkerTrace.h"
 #include "CLurkerScript.h"
 

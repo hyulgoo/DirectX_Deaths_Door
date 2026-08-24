@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "CLurkerScript.h"
 #include "CStateScript.h"
 #include "LurkerStates.h"

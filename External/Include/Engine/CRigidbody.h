@@ -22,31 +22,31 @@ public:
     void SetShapeType(physx::PxGeometryType::Enum _ShapeInfo);
     void SetRigidScale(Vec3 _vScale) { m_vScale = _vScale; }
     void SetSpawnPos(Vec3 _pxSpawnPos) { m_vSpawnPos =  _pxSpawnPos; }
-    void SetRigidPos(Vec3 _vPos);
+    void SetRigidPos(Vec3 _vPos) const;
 
-    physx::PxRigidDynamic* GetRigidbody() { return m_PxRigidbody; }
-    physx::PxGeometryType::Enum GetShapeType();
-    Vec3 GetRigidScale() { return m_vScale; }
-    Vec3 SetSpawnPos() { return m_vSpawnPos; }
+    physx::PxRigidDynamic*      GetRigidbody() const { return m_PxRigidbody; }
+    physx::PxGeometryType::Enum GetShapeType() const;
+    Vec3                        GetRigidScale() const { return m_vScale; }
+    Vec3                        SetSpawnPos() const { return m_vSpawnPos; }
 
-    void AddForce(Vec3 _vForce);
-    void ClearForce();
+    void AddForce(Vec3 _vForce) const;
+    void ClearForce() const;
 
-    void AddVelocity(Vec3 _vVelocity);
-    void SetVelocity(Vec3 _vVelocity);
-    void SetVelocityLimit(float _fLimit);
-    void SetGravity(float _fGravity);
-    Vec3 GetVelocity();
-    void SetMass(float _fMass);
+    void AddVelocity(Vec3 _vVelocity) const;
+    void SetVelocity(Vec3 _vVelocity) const;
+    void SetVelocityLimit(float _fLimit) const;
+    void SetGravity(float _fGravity) const;
+    Vec3 GetVelocity() const;
+    void SetMass(float _fMass) const;
 
-    virtual void SaveToLevelFile(FILE* _File);
-    virtual void LoadFromLevelFile(FILE* _FILE);
+    virtual void SaveToLevelFile(FILE* _File) override;
+    virtual void LoadFromLevelFile(FILE* _FILE) override;
 
     CLONE(CRigidbody);
 
 public:
     CRigidbody();
-    ~CRigidbody();
+    virtual ~CRigidbody() override;
 
     friend class CPhysXMgr;
 };

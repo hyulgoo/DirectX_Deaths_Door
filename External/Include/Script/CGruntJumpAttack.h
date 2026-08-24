@@ -16,6 +16,6 @@ public:
 
 public:
     CGruntJumpAttack();
-    ~CGruntJumpAttack();
+    virtual ~CGruntJumpAttack() override;
 };
 

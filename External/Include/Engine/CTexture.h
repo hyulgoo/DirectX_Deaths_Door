@@ -1,7 +1,7 @@
 #pragma once
 #include "CRes.h"
 
-#include <DirectXTex\DirectXTex.h>
+#include <DirectXTex/DirectXTex.h>
 
 #ifdef _DEBUG
 #pragma comment(lib, "DirectXTex//DirectXTex_debug")
@@ -33,19 +33,19 @@ public:
     void GenerateMip(UINT _iMipLevel);
 
 public:
-    float                               Width() { return (float)m_Desc.Width; }
-	float                               Height() { return (float)m_Desc.Height; }
-    UINT                                GetArraySize() { return m_Desc.ArraySize; }
-    UINT                                GetRowPitch() const { return (UINT)m_Image.GetImages()->rowPitch; }
-    UINT                                GetSlicePitch()const { return (UINT)m_Image.GetImages()->slicePitch; }
-    void*                               GetSysMem() { return m_Image.GetPixels(); }
+    float Width() const { return static_cast<float>(m_Desc.Width); }
+	float Height() const { return static_cast<float>(m_Desc.Height); }
+    UINT  GetArraySize() const { return m_Desc.ArraySize; }
+    UINT  GetRowPitch() const { return static_cast<UINT>(m_Image.GetImages()->rowPitch); }
+    UINT  GetSlicePitch()const { return static_cast<UINT>(m_Image.GetImages()->slicePitch); }
+    void* GetSysMem() const { return m_Image.GetPixels(); }
 
-    const D3D11_TEXTURE2D_DESC&         GetDesc() { return m_Desc; }
-	ComPtr<ID3D11Texture2D>             GetTex2D() { return m_Tex2D; }
-	ComPtr<ID3D11ShaderResourceView>    GetSRV() { return m_SRV; }
-	ComPtr<ID3D11RenderTargetView>	    GetRTV() { return m_RTV; }
-	ComPtr<ID3D11DepthStencilView>	    GetDSV() { return m_DSV; }
-	ComPtr<ID3D11UnorderedAccessView>   GetUAV() { return m_UAV; }
+    const D3D11_TEXTURE2D_DESC&       GetDesc() const { return m_Desc; }
+	ComPtr<ID3D11Texture2D>           GetTex2D() { return m_Tex2D; }
+	ComPtr<ID3D11ShaderResourceView>  GetSRV() { return m_SRV; }
+	ComPtr<ID3D11RenderTargetView>    GetRTV() { return m_RTV; }
+	ComPtr<ID3D11DepthStencilView>    GetDSV() { return m_DSV; }
+	ComPtr<ID3D11UnorderedAccessView> GetUAV() { return m_UAV; }
 
 
 
@@ -58,18 +58,18 @@ public:
 
 public:
     // _PipelineStage : PIPELINE_STAGE
-    void UpdateData(int _iRegisterNum, int _PipelineStage);
-    void UpdateData_CS(int _iRegisterNum, bool _bShaderRes);
-    void Clear();
+    void        UpdateData(int _iRegisterNum, int _PipelineStage);
+    void        UpdateData_CS(int _iRegisterNum, bool _bShaderRes);
+    void        Clear() const;
     static void Clear(int _iRegisterNum);
-    void Clear_CS(bool _bShaderRes);
+    void        Clear_CS(bool _bShaderRes) const;
 
 
 private:
-    void UpdateData();
+    void UpdateData() const;
 
 public:
     CTexture(bool _bEngine = false);
-    ~CTexture();
+    virtual ~CTexture() override;
 };
 

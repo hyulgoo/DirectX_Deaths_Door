@@ -1,14 +1,14 @@
-#pragma once
+ï»¿#pragma once
 #include <Engine/CScript.h>
 
-// ¸ó½ºÅÍ¸¦ ½ºÆù½ÃÅ°´Â DoorÀÇ ½ºÅ©¸³Æ®
+// ëª¬ìŠ¤í„°ë¥¼ ìŠ¤í°ì‹œí‚¤ëŠ” Doorì˜ ìŠ¤í¬ë¦½íŠ¸
 
 class CSpawnDoorScript :
     public CScript
 {
 private:
-    wstring     m_strSpawnMstName;  // ÀÚ½ÅÀÌ ½ºÆù½ºÅ³ ¸ó½ºÅÍÀÇ ÀÌ¸§
-    float       m_fDelay;           // ¸ó½ºÅÍ¸¦ ½ºÆù½ÃÅ³ Å¸ÀÌ¹Ö
+    wstring     m_strSpawnMstName;  // ìì‹ ì´ ìŠ¤í°ìŠ¤í‚¬ ëª¬ìŠ¤í„°ì˜ ì´ë¦„
+    float       m_fDelay;           // ëª¬ìŠ¤í„°ë¥¼ ìŠ¤í°ì‹œí‚¬ íƒ€ì´ë°
     bool        m_bSpawn;
 
 public:
@@ -20,6 +20,6 @@ public:
     CLONE(CSpawnDoorScript);
 public:
     CSpawnDoorScript();
-    ~CSpawnDoorScript();
+    virtual ~CSpawnDoorScript() override;
 };
 

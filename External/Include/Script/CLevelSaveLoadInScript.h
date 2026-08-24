@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 class CLevel;
 class CLayer;
@@ -19,16 +19,16 @@ public:
 	static CGameObject* LoadPrefab(const wstring& _strRelativePath);
 
 
-	//Prefab »ı¼º
+	//Prefab ìƒì„±
 	static void SpawnPrefab(wstring _strRelativepath, int _Idx, Vec3 _vWorldPos, float _fTime = -1.f);
 	static CGameObject* SpawnandReturnPrefab(wstring _strRelativepath, int ind, Vec3 _vWorldPos, float _fTime = -1.f);
 
-	//ÀÚ¸®¼ö °è»ê
-	int GetDigitCount(int _iMoney);
+	//ìë¦¬ìˆ˜ ê³„ì‚°
+	int GetDigitCount(int _iMoney) const;
 
-	//µ¥¹ÌÁö Ãâ·Â
+	//ë°ë¯¸ì§€ ì¶œë ¥
 	void ShowMoney(int _iMoney, int _iDigitCount);
-	void MoneyCount(int _iMoney) { ShowMoney(_iMoney, GetDigitCount(_iMoney)); }//ÀÌ°É »ç¿ëÇÏ¸é µÊ´Ù.
-	void AddChild(CGameObject* _pOwner, CGameObject* _pChild);
+	void MoneyCount(int _iMoney) { ShowMoney(_iMoney, GetDigitCount(_iMoney)); }//ì´ê±¸ ì‚¬ìš©í•˜ë©´ ë¨ë‹¤.
+	void AddChild(CGameObject* _pOwner, CGameObject* _pChild) const;
 };
 

@@ -17,6 +17,6 @@ public:
     CLONE(CHUDScript);
 public:
     CHUDScript();
-    ~CHUDScript();
+    virtual ~CHUDScript() override;
 };
 

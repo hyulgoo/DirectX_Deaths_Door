@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include "CComponent.h"
 
 
@@ -9,9 +9,9 @@
 
 struct tMtrlSet
 {   
-    Ptr<CMaterial>  pSharedMtrl;    // °øÀ¯ ¸ŞÅ×¸®¾ó
-    Ptr<CMaterial>  pDynamicMtrl;   // °øÀ¯ ¸ŞÅ×¸®¾óÀÇ º¹»çº»    
-    Ptr<CMaterial>  pCurMtrl;       // ÇöÀç »ç¿ë ÇÒ ¸ŞÅ×¸®¾ó
+    Ptr<CMaterial>  pSharedMtrl;    // ê³µìœ  ë©”í…Œë¦¬ì–¼
+    Ptr<CMaterial>  pDynamicMtrl;   // ê³µìœ  ë©”í…Œë¦¬ì–¼ì˜ ë³µì‚¬ë³¸    
+    Ptr<CMaterial>  pCurMtrl;       // í˜„ì¬ ì‚¬ìš© í•  ë©”í…Œë¦¬ì–¼
 };
 
 class CRenderComponent :
@@ -19,10 +19,10 @@ class CRenderComponent :
 {
 private:
     Ptr<CMesh>              m_pMesh;
-    vector<tMtrlSet>        m_vecMtrls;     // ÀçÁú    
+    vector<tMtrlSet>        m_vecMtrls;     // ì¬ì§ˆ    
 
-    float                   m_fBounding;        // FrustumCheck ¿ëµµ °æ°è¹üÀ§
-    bool                    m_bFrustumCheck;    // ÀıµÎÃ¼ ÄÃ¸µ Ã¼Å© À¯¹«
+    float                   m_fBounding;        // FrustumCheck ìš©ë„ ê²½ê³„ë²”ìœ„
+    bool                    m_bFrustumCheck;    // ì ˆë‘ì²´ ì»¬ë§ ì²´í¬ ìœ ë¬´
     bool                    m_bDynamicShadow;
 
 public:
@@ -40,16 +40,16 @@ public:
     Ptr<CMaterial> GetSharedMaterial(UINT _idx);
     Ptr<CMaterial> GetDynamicMaterial(UINT _idx);
 
-    UINT GetMtrlCount() { return (UINT)m_vecMtrls.size(); }
+    UINT GetMtrlCount() const { return static_cast<UINT>(m_vecMtrls.size()); }
 
     ULONG64 GetInstID(UINT _iMtrlIdx);
 
-    void SetFrustumCheck(bool _bUse) { m_bFrustumCheck = _bUse; }
-    bool IsUseFrustumCheck() { return m_bFrustumCheck; }
-    void SetBounding(float _fBounding) { m_fBounding = _fBounding; }
-    float GetBounding() { return m_fBounding; }
-    void SetDynamicShadow(bool _bSet) { m_bDynamicShadow = _bSet; }
-    bool IsDynamicShadow() { return m_bDynamicShadow; }
+    void  SetFrustumCheck(bool _bUse) { m_bFrustumCheck = _bUse; }
+    bool  IsUseFrustumCheck() const { return m_bFrustumCheck; }
+    void  SetBounding(float _fBounding) { m_fBounding = _fBounding; }
+    float GetBounding() const { return m_fBounding; }
+    void  SetDynamicShadow(bool _bSet) { m_bDynamicShadow = _bSet; }
+    bool  IsDynamicShadow() const { return m_bDynamicShadow; }
 
     virtual void SaveToLevelFile(FILE* _File) override;
     virtual void LoadFromLevelFile(FILE* _File) override;
@@ -57,6 +57,6 @@ public:
 
 public:
     CRenderComponent(COMPONENT_TYPE _type);
-    ~CRenderComponent();
+    virtual ~CRenderComponent() override;
 };
 

@@ -30,7 +30,7 @@ public:
 
 public:
     CPlyMagic_Hooking();
-    ~CPlyMagic_Hooking();
+    virtual ~CPlyMagic_Hooking() override;
     
     friend class CPlyMagic_Hook;
 };

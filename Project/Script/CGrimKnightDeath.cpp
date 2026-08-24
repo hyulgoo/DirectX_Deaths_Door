@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "CGrimKnightDeath.h"
 #include "CGrimKnightScript.h"
 #include "CSoundScript.h"

@@ -36,6 +36,6 @@ public:
 
 public:
     CMagic_BombScript();
-    ~CMagic_BombScript();
+    virtual ~CMagic_BombScript() override;
 };
 

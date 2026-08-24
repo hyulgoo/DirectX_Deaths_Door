@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "CPlyMagic_Hooking.h"
 #include "CPlayerScript.h"
 #include "CMagic_HookScript.h"

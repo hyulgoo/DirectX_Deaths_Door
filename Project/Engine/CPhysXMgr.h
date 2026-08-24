@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "CSingleton.h"
 #include <PhysX/PxPhysics.h>
 #include <PhysX/PxPhysicsAPI.h>

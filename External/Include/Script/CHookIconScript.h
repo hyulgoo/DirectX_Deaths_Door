@@ -14,6 +14,6 @@ public:
 
 public:
     CHookIconScript();
-    ~CHookIconScript();
+    virtual ~CHookIconScript() override;
 };
 

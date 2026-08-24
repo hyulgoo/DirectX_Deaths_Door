@@ -12,6 +12,6 @@ public:
 
 public:
     CBazookaAim();
-    ~CBazookaAim();
+    virtual ~CBazookaAim() override;
 };
 

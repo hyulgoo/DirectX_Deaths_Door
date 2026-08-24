@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "CMagic_BombScript.h"
 #include "CStateScript.h"
 #include <Engine/CRenderMgr.h>

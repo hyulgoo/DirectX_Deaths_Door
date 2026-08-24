@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "CGrimKnightScript.h"
 #include "GrimKnightStates.h"
 #include "CPlayerScript.h"

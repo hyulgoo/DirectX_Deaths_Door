@@ -9,6 +9,6 @@ public:
     CLONE(CStartSceneUIScript);
 public:
     CStartSceneUIScript();
-    ~CStartSceneUIScript();
+    virtual ~CStartSceneUIScript() override;
 };
 

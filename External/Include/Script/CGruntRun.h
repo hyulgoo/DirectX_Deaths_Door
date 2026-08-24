@@ -12,6 +12,6 @@ public:
 
 public:
     CGruntRun();
-    ~CGruntRun();
+    virtual ~CGruntRun() override;
 };
 

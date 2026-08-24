@@ -25,7 +25,7 @@ public:
 
 public:
     CFenceScript();
-    ~CFenceScript();
+    virtual ~CFenceScript() override;
 
     friend class CSpawnMgr;
 };

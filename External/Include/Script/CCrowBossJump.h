@@ -16,6 +16,6 @@ public:
 
 public:
     CCrowBossJump();
-    ~CCrowBossJump();
+    virtual ~CCrowBossJump() override;
 };
 

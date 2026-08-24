@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "CBazookaDeath.h"
 #include "CBazookaScript.h"
 #include "CPlayerScript.h"

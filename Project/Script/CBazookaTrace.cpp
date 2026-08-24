@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "CBazookaTrace.h"
 #include "CBazookaScript.h"
 #include <Engine/CDetourMgr.h>

@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include <Engine/CScript.h>
 
 class CEnterScript;
@@ -8,13 +8,13 @@ class CRoomScript :
     public CScript
 {
 private:
-    int                     m_iRoomNum;         // ¸ó½ºÅÍ ¿şÀÌºê¸¦ ¹ß»ı½ÃÅ³ ÇöÀç ¹æ ¹øÈ£
-    int                     m_iRemainMst;       // ³²Àº ¸ó½ºÅÍ ¼ö
-    int                     m_iRemainGimmik;    // ¹®À» ¿­±â À§ÇØ¼­ È°¼ºÈ­ÇØ¾ß ÇÒ ±â¹Í
-    int                     m_iCurWaveNum;      // ÇöÀç Wave
-    int                     m_iMaxWaveCount;     // ÃÖ´ë Wave
-    vector<SpawnInfo>       m_vecWave[2];       // ½ºÆù Á¤º¸¸¦ ´ãÀº Wave vector
-    bool                    m_bActive;          // È°¼º ¿©ºÎ
+    int                     m_iRoomNum;         // ëª¬ìŠ¤í„° ì›¨ì´ë¸Œë¥¼ ë°œìƒì‹œí‚¬ í˜„ì¬ ë°© ë²ˆí˜¸
+    int                     m_iRemainMst;       // ë‚¨ì€ ëª¬ìŠ¤í„° ìˆ˜
+    int                     m_iRemainGimmik;    // ë¬¸ì„ ì—´ê¸° ìœ„í•´ì„œ í™œì„±í™”í•´ì•¼ í•  ê¸°ë¯¹
+    int                     m_iCurWaveNum;      // í˜„ì¬ Wave
+    int                     m_iMaxWaveCount;     // ìµœëŒ€ Wave
+    vector<SpawnInfo>       m_vecWave[2];       // ìŠ¤í° ì •ë³´ë¥¼ ë‹´ì€ Wave vector
+    bool                    m_bActive;          // í™œì„± ì—¬ë¶€
 
 public:
     virtual void begin() override;
@@ -39,7 +39,7 @@ public:
 public:
     CRoomScript();
     CRoomScript(const CRoomScript& _Other);
-    ~CRoomScript();
+    virtual ~CRoomScript() override;
 
     friend class CSpawnMgr;
 };

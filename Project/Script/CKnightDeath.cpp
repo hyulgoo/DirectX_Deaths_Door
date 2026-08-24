@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "CKnightDeath.h"
 #include "CKnightScript.h"
 #include "CPlayerScript.h"

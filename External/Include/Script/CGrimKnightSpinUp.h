@@ -12,6 +12,6 @@ public:
 
 public:
     CGrimKnightSpinUp();
-    ~CGrimKnightSpinUp();
+    virtual ~CGrimKnightSpinUp() override;
 };
 

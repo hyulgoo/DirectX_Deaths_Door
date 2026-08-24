@@ -20,6 +20,6 @@ public:
 
 public:
     CSetColorShader(UINT _iGroupPerThreadX, UINT _iGroupPerThreadY, UINT _iGroupPerThreadZ);
-    ~CSetColorShader();
+    virtual ~CSetColorShader() override;
 };
 

@@ -16,6 +16,6 @@ public:
 
 public:
     CBazookaDeath();
-    ~CBazookaDeath();
+    virtual ~CBazookaDeath() override;
 };
 

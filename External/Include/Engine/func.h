@@ -1,12 +1,11 @@
-#pragma once
+ï»¿#pragma once
 
-
-// ¿ÀºêÁ§Æ® »ı¼º
+// ì˜¤ë¸Œì íŠ¸ ìƒì„±
 class CGameObject;
 void SpawnGameObject(CGameObject* _NewObject, Vec3 _vWorldPos, int _LayerIdx);
 void SpawnGameObject(CGameObject* _NewObject, Vec3 _vWorldPos, const wstring& _LayerName);
 
-// ¿ÀºêÁ§Æ® »èÁ¦
+// ì˜¤ë¸Œì íŠ¸ ì‚­ì œ
 void DestroyObject(CGameObject* _DeletObject);
 
 
@@ -30,13 +29,13 @@ Vec3 DecomposeRotMat(const Matrix& _matRot);
 float GetDistance(Vec3 _Vec1, Vec3 _Vec2);
 
 
-// TargetÀÇ prevpos¿Í worldpos¸¦ ³ÖÀ¸¸é ÀÌµ¿ÇÏ´Â °¢µµ¸¦ ¾Ë·ÁÁÜ.
-// zÃàÀº y·Î °è»êÇÏ¿© ¹æÇâÀ» ¾Ë·ÁÁÜ.
+// Targetì˜ prevposì™€ worldposë¥¼ ë„£ìœ¼ë©´ ì´ë™í•˜ëŠ” ê°ë„ë¥¼ ì•Œë ¤ì¤Œ.
+// zì¶•ì€ yë¡œ ê³„ì‚°í•˜ì—¬ ë°©í–¥ì„ ì•Œë ¤ì¤Œ.
 float GetDir(Vec3 _vStart, Vec3 _vTarget, bool _degree = false);
 const float& GetSmoothDir(CGameObject* _pStartObject, CGameObject* _pTargetObj, const float& _fdegree = 2.3f);
 const float& GetSmoothDir(Vec3 _vStart, Vec3 _vTarget, Vec3 _vPrevDir, float _degree = 2.3f);
 
-// Player¸¸ »ç¿ëÇÏ´Â ÇÔ¼ö
+// Playerë§Œ ì‚¬ìš©í•˜ëŠ” í•¨ìˆ˜
 void AddForceCentertoMouseDir(CGameObject* _pProjectile);
 
 
@@ -48,7 +47,7 @@ const char* ToString(COMPONENT_TYPE);
 const wchar_t* ToWSTring(COMPONENT_TYPE);
 
 
-// Relative Path °¡Á®¿À±â
+// Relative Path ê°€ì ¸ì˜¤ê¸°
 wstring GetRelativePath(const wstring& _strBase, const wstring& _strPath);
 
 
@@ -70,31 +69,7 @@ class Ptr;
 
 void SaveResRef(Ptr<CRes> _Res, FILE* _File);
 
-class CResMgr;
-template<typename T>
-void LoadResRef(Ptr<T>& _Res, FILE* _File)
-{
-	int i = 0;	
-	fread(&i, sizeof(int), 1, _File);
-	
-	if (i)
-	{
-		wstring strKey, strRelativePath;
-		LoadWString(strKey, _File);
-		
-		LoadWString(strRelativePath, _File);
-
-		_Res = CResMgr::GetInst()->Load<T>(strKey, strRelativePath);
-	}
-}
-
-
-
-
-
-
-
-
+// LoadResRef ì€ CResMgr ì´ ì™„ì „í•œ íƒ€ì…ì´ì–´ì•¼ í•˜ë¯€ë¡œ CResMgr.h ì— ì •ì˜ë˜ì–´ ìˆë‹¤.
 
 template<typename T, UINT Size>
 void Safe_Del_Array(T* (&arr)[Size])

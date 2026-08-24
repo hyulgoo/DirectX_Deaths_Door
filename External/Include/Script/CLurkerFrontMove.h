@@ -12,6 +12,6 @@ public:
 
 public:
     CLurkerFrontMove();
-    ~CLurkerFrontMove();
+    virtual ~CLurkerFrontMove() override;
 };
 

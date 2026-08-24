@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "CBazzokaLongDistance.h"
 #include "CBazookaScript.h"
 #include "CLevelSaveLoadInScript.h"

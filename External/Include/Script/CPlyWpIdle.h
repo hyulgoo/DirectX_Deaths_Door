@@ -12,6 +12,6 @@ public:
 
 public:
     CPlyWpIdle();
-    ~CPlyWpIdle();
+    virtual ~CPlyWpIdle() override;
 };
 

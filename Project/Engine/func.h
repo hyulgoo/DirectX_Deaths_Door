@@ -1,5 +1,4 @@
-#pragma once
-
+﻿#pragma once
 
 // 오브젝트 생성
 class CGameObject;
@@ -70,31 +69,7 @@ class Ptr;
 
 void SaveResRef(Ptr<CRes> _Res, FILE* _File);
 
-class CResMgr;
-template<typename T>
-void LoadResRef(Ptr<T>& _Res, FILE* _File)
-{
-	int i = 0;	
-	fread(&i, sizeof(int), 1, _File);
-	
-	if (i)
-	{
-		wstring strKey, strRelativePath;
-		LoadWString(strKey, _File);
-		
-		LoadWString(strRelativePath, _File);
-
-		_Res = CResMgr::GetInst()->Load<T>(strKey, strRelativePath);
-	}
-}
-
-
-
-
-
-
-
-
+// LoadResRef 은 CResMgr 이 완전한 타입이어야 하므로 CResMgr.h 에 정의되어 있다.
 
 template<typename T, UINT Size>
 void Safe_Del_Array(T* (&arr)[Size])

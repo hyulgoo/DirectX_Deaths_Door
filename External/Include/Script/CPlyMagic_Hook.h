@@ -25,6 +25,6 @@ public:
 
 public:
     CPlyMagic_Hook();
-    ~CPlyMagic_Hook();
+    virtual ~CPlyMagic_Hook() override;
 };
 

@@ -12,6 +12,6 @@ public:
 
 public:
     CPlyWpMagic_Arrow();
-    ~CPlyWpMagic_Arrow();
+    virtual ~CPlyWpMagic_Arrow() override;
 };
 

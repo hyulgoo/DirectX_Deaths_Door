@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "PathMgr.h"
 
 wchar_t CPathMgr::g_szSolutionPath[255] = L"";

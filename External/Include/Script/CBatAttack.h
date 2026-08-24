@@ -15,6 +15,6 @@ class CBatAttack    :
 
     public:
         CBatAttack();
-        ~CBatAttack();
+        virtual ~CBatAttack() override;
 };
 

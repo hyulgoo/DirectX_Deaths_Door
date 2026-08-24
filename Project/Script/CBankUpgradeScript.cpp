@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "CBankUpgradeScript.h"
 #include "CLevelSaveLoadInScript.h"
 #include "CPower.h"

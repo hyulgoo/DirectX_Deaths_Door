@@ -12,6 +12,6 @@ public:
 
 public:
     CBatRecognize();
-    ~CBatRecognize();
+    virtual ~CBatRecognize() override;
 };
 

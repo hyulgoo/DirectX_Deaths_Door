@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "CLurkerDeath.h"
 #include "CLurkerScript.h"
 #include "CPlayerScript.h"

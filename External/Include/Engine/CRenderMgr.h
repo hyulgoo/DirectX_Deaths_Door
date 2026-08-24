@@ -15,7 +15,7 @@ class CRenderMgr :
 {
     SINGLE(CRenderMgr);
 private:
-    CMRT*                       m_MRT[(UINT)MRT_TYPE::END];
+    CMRT*                       m_MRT[static_cast<UINT>(MRT_TYPE::END)];
 
     vector<CCamera*>            m_vecCam;
     CCamera*                    m_pEditorCam;
@@ -38,34 +38,34 @@ public:
     void render();
 
 public:
-    CMRT* GetMRT(MRT_TYPE _type) { return m_MRT[(UINT)_type]; }
+    CMRT* GetMRT(MRT_TYPE _type) const { return m_MRT[static_cast<UINT>(_type)]; }
 
     int RegisterCamera(CCamera* _Cam, int _idx);
     void RegisterEditorCamera(CCamera* _Cam) { m_pEditorCam = _Cam; }
     void SetRenderFunc(bool _IsPlay);
 
     void RegisterLight2D(CLight2D* _Light2D) { m_vecLight2D.push_back(_Light2D); }
-    UINT RegisterLight3D(CLight3D* _Light3D) { m_vecLight3D.push_back(_Light3D); return (UINT)m_vecLight3D.size() - 1; }
+    UINT RegisterLight3D(CLight3D* _Light3D) { m_vecLight3D.push_back(_Light3D); return static_cast<UINT>(m_vecLight3D.size()) - 1; }
 
     void ClearCamera() { m_vecCam.clear(); }
 
     void AddDebugShapeInfo(const tDebugShapeInfo& _info) { m_vecShapeInfo.push_back(_info); }
     vector<tDebugShapeInfo>& GetDebugShapeInfo() { return m_vecShapeInfo; }
 
-    CCamera* GetMainCam();
+    CCamera* GetMainCam() const;
     
-    const vector<CLight3D*> GetLight3D() { return m_vecLight3D; }
+    vector<CLight3D*> GetLight3D() const { return m_vecLight3D; }
 
-    void CopyRenderTarget();
-    void MRT_Clear();
-    void MRT_Clear(MRT_TYPE _Type);
+    void CopyRenderTarget() const;
+    void MRT_Clear() const;
+    void MRT_Clear(MRT_TYPE _Type) const;
 
 private:
-    void UpdateData();
+    void UpdateData() const;
     void render_play();
     void render_editor();
-    void render_clear();
-    void render_dynamic_shadowdepth();
+    void render_clear() const;
+    void render_dynamic_shadowdepth() const;
     void Clear();
 
 

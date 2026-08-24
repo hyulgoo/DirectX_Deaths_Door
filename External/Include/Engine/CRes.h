@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include "CEntity.h"
 
 class CRes :
@@ -24,26 +24,30 @@ private:
 
 
 private:
-    // ÆÄÀÏ·ÎºÎÅÍ ·Îµù
+    // íŒŒì¼ë¡œë¶€í„° ë¡œë”©
     virtual int Load(const wstring& _strFilePath) = 0;
 
 public:
-    // ÆÄÀÏ·Î ÀúÀå
+    // íŒŒì¼ë¡œ ì €ì¥
     virtual int Save(const wstring&) = 0;
 
-    // ¸®¼Ò½º´Â Clone À» ±¸ÇöÇÏÁö ¾Ê´Â´Ù.
-    virtual CRes* Clone() { return nullptr; assert(nullptr); }
+    // ë¦¬ì†ŒìŠ¤ëŠ” Clone ì„ êµ¬í˜„í•˜ì§€ ì•ŠëŠ”ë‹¤.
+    virtual CRes* Clone() override
+    { 
+        assert(nullptr);
+        return nullptr;  
+    }
 
 public:
     const wstring& GetKey() { return m_strKey; }
     const wstring& GetRelativePath() { return m_strRelativePath; }
-    RES_TYPE GetType() { return m_Type; }
-    bool IsEngineRes() { return m_bEngine; }
+    RES_TYPE       GetType() const { return m_Type; }
+    bool           IsEngineRes() const { return m_bEngine; }
 
 public:
     CRes(RES_TYPE _type, bool _bEngine = false);
     CRes(const CRes& _Other);
-    virtual ~CRes();
+    virtual ~CRes() override;
 
     friend class CResMgr;
     friend class CFBXLoader;

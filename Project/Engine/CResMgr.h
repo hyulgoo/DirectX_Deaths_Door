@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "CSingleton.h"
 
 #include "ptr.h"
@@ -156,4 +156,21 @@ inline Ptr<T> CResMgr::Load(const wstring& _strKey, const wstring& _strRelativeP
     m_Changed = true;
 
     return static_cast<T*>(pRes.Get());
+}
+
+template<typename T>
+void LoadResRef(Ptr<T>& _Res, FILE* _File)
+{
+	int i = 0;
+	fread(&i, sizeof(int), 1, _File);
+
+	if (i)
+	{
+		wstring strKey, strRelativePath;
+		LoadWString(strKey, _File);
+
+		LoadWString(strRelativePath, _File);
+
+		_Res = CResMgr::GetInst()->Load<T>(strKey, strRelativePath);
+	}
 }

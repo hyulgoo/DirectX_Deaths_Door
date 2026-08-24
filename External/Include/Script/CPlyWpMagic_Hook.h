@@ -12,6 +12,6 @@ public:
 
 public:
     CPlyWpMagic_Hook();
-    ~CPlyWpMagic_Hook();
+    virtual ~CPlyWpMagic_Hook() override;
 };
 

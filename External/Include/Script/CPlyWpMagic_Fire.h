@@ -15,6 +15,6 @@ public:
 
 public:
     CPlyWpMagic_Fire();
-    ~CPlyWpMagic_Fire();
+    virtual ~CPlyWpMagic_Fire() override;
 };
 

@@ -24,24 +24,24 @@ private:
 
 public:
     void Create(UINT _iElementSize, UINT _iElementCount, SB_TYPE _Type, bool _bUseSysAccess, void* _pSysMem = nullptr);
-    void SetData(void* _pSrc, UINT _iSize = 0);
-    void GetData(void* _pDst);
+    void SetData(void* _pSrc, UINT _iSize = 0) const;
+    void GetData(void* _pDst) const;
 
     // PIPELINE_STAGE
     void UpdateData(UINT _iRegisterNum, UINT _iPipeLineStage);
     void UpdateData_CS(UINT _iRegisterNum, bool _IsShaderRes);
 
-    void Clear();
-    void Clear_CS(bool _IsShaderRes);
+    void Clear() const;
+    void Clear_CS(bool _IsShaderRes) const;
 
-    UINT GetElementSize() { return m_iElementSize; }
-    UINT GetElementCount() { return m_iElementCount; }
-    UINT GetBufferSize() { return m_iElementSize * m_iElementCount;}
+    UINT GetElementSize() const { return m_iElementSize; }
+    UINT GetElementCount() const { return m_iElementCount; }
+    UINT GetBufferSize() const { return m_iElementSize * m_iElementCount;}
 
 
     CLONE_DISABLE(CStructuredBuffer);
 public:
     CStructuredBuffer();
-    ~CStructuredBuffer();
+    virtual ~CStructuredBuffer() override;
 };
 

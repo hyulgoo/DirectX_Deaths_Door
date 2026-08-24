@@ -16,7 +16,7 @@ private:
 
 public:
     void Create(UINT _iElementSize, UINT _iElementCount);
-    void SetData(void* _pSrc, UINT _iSize = 0);
+    void SetData(void* _pSrc, UINT _iSize = 0) const;
     void UpdateData();
     void UpdateData_CS();
 
@@ -25,6 +25,6 @@ public:
     CLONE_DISABLE(CConstBuffer);
 public:
     CConstBuffer(UINT _iRegisterNum);
-    ~CConstBuffer();
+    virtual ~CConstBuffer() override;
 };
 

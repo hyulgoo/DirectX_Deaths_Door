@@ -12,5 +12,5 @@ public:
 
 public:
     CBazzokaIdle();
-    ~CBazzokaIdle();
+    virtual ~CBazzokaIdle() override;
 };

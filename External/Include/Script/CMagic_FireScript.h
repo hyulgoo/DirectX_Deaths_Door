@@ -29,6 +29,6 @@ public:
 
 public:
     CMagic_FireScript();
-    ~CMagic_FireScript();
+    virtual ~CMagic_FireScript() override;
 };
 

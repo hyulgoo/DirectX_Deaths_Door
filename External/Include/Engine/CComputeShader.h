@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include "CShader.h"
 
 #include "ptr.h"
@@ -12,15 +12,15 @@ private:
     ComPtr<ID3DBlob>                m_CSBlob;    
 
 protected:
-    // ½¦ÀÌ´õ¿¡ Àü´ŞÇÒ »ó¼ö µ¥ÀÌÅÍ
+    // ì‰ì´ë”ì— ì „ë‹¬í•  ìƒìˆ˜ ë°ì´í„°
     tMtrlConst                      m_Const;
 
-    // ±×·ì °³¼ö
+    // ê·¸ë£¹ ê°œìˆ˜
     UINT                            m_iGroupX; 
     UINT                            m_iGroupY;
     UINT                            m_iGroupZ;
 
-    // ±×·ì 1°³´ç ½º·¹µå °³¼ö
+    // ê·¸ë£¹ 1ê°œë‹¹ ìŠ¤ë ˆë“œ ê°œìˆ˜
     UINT                            m_iGroupPerThreadX;
     UINT                            m_iGroupPerThreadY;
     UINT                            m_iGroupPerThreadZ;
@@ -37,6 +37,6 @@ private:
     CLONE_DISABLE(CComputeShader);
 public:
     CComputeShader();
-    ~CComputeShader();
+    virtual ~CComputeShader() override;
 };
 

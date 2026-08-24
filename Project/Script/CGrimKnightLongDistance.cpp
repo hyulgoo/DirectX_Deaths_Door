@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "CGrimKnightLongDistance.h"
 #include "CLevelSaveLoadInScript.h"
 #include "CGrimKnightScript.h"

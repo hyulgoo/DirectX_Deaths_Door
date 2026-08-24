@@ -16,6 +16,6 @@ public:
 
 public:
     CLurkerAttack();
-    ~CLurkerAttack();
+    virtual ~CLurkerAttack() override;
 };
 

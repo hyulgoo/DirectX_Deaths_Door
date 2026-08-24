@@ -12,6 +12,6 @@ public:
 
 public:
     CGruntIdle();
-    ~CGruntIdle();
+    virtual ~CGruntIdle() override;
 };
 

@@ -1,4 +1,4 @@
-#pragma once
+Ôªø#pragma once
 #include "CEntity.h"
 
 
@@ -27,9 +27,9 @@ class CGameObject :
     public CEntity
 {
 private:
-    CComponent*             m_arrCom[(UINT)COMPONENT_TYPE::END];
-    CRenderComponent*       m_RenderCom;
-    vector<CScript*>        m_vecScript;
+    CComponent*       m_arrCom[static_cast<UINT>(COMPONENT_TYPE::END)];
+    CRenderComponent* m_RenderCom;
+    vector<CScript*>  m_vecScript;
 
     CGameObject*            m_Parent;
     vector<CGameObject*>    m_vecChild;
@@ -41,11 +41,11 @@ private:
     bool                    m_bLifeSpan;
     
 public:
-    void begin();       // ∑π∫ß¿Ã Ω√¿€µ… ∂ß »£√‚ or Ω√¿€ µ» ∑π∫ßø° «’∑˘«“ ∂ß
-    void tick();        
+    void         begin() const;       // Î†àÎ≤®Ïù¥ ÏãúÏûëÎê† Îïå Ìò∏Ï∂ú or ÏãúÏûë Îêú Î†àÎ≤®Ïóê Ìï©Î•òÌï† Îïå
+    void         tick() const;        
     virtual void finaltick();
     virtual void finaltick_module();
-    void render();
+    void         render() const;
 
 public:
     void AddComponent(CComponent* _Component);
@@ -53,7 +53,7 @@ public:
     void AddChild(CGameObject* _Object);
     void AddChild(CGameObject* _Object, int _iLayer);
 
-    CComponent* GetComponent(COMPONENT_TYPE _ComType) { return m_arrCom[(UINT)_ComType]; }
+    CComponent*                 GetComponent(COMPONENT_TYPE _ComType) const { return m_arrCom[static_cast<UINT>(_ComType)]; }
     const vector<CGameObject*>& GetChild() { return m_vecChild; }
 
     CGameObject* GetParent() const { return m_Parent; }
@@ -77,7 +77,7 @@ public:
     CRenderComponent* GetRenderComponent() const {  return m_RenderCom; }
 
 
-    int GetLayerIndex() { return m_iLayerIdx; }
+    int GetLayerIndex() const { return m_iLayerIdx; }
 
     template<typename T>
     T* GetScript();
@@ -93,8 +93,8 @@ public:
         m_bLifeSpan = true;
     }
 
-    bool IsDead() { return m_bDead; }
-    bool IsAncestor(CGameObject* _Target);
+    bool IsDead() const { return m_bDead; }
+    bool IsAncestor(CGameObject* _Target) const;
 
 
 private:
@@ -108,7 +108,7 @@ private:
 public:
     CGameObject();
     CGameObject(const CGameObject& _Other);
-    ~CGameObject();
+    virtual ~CGameObject() override;
 
     friend class CLayer;
     friend class CEventMgr;

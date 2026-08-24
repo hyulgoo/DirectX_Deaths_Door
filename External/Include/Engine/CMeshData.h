@@ -18,7 +18,7 @@ public:
 	virtual int Save(const wstring& _strFilePath) override;
 	virtual int Load(const wstring& _strFilePath) override;
 
-	CGameObject* Instantiate();
+	CGameObject* Instantiate() const;
 
 	Ptr<CMesh>GetMesh() { return m_pMesh; }
 	vector<Ptr<CMaterial>>GetMaterials() { return m_vecMtrl; }
@@ -26,6 +26,6 @@ public:
 	CLONE_DISABLE(CMeshData)
 public:
 	CMeshData(bool _bEngine = false);
-	virtual ~CMeshData();
+	virtual ~CMeshData() override;
 };
 

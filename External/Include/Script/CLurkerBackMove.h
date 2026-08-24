@@ -12,6 +12,6 @@ public:
 
 public:
     CLurkerBackMove();
-    ~CLurkerBackMove();
+    virtual ~CLurkerBackMove() override;
 };
 

@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include <Engine/CScript.h>
 
 class CPlyMagic_Hook;
@@ -15,10 +15,10 @@ private:
     Vec3                    m_vThrownDir;
     Vec3                    m_vAttackDir;
     float                   m_fTime;
-    float                   m_fDistancetoTarget;    // Hookpos¿ÍÀÇ °Å¸®
-    float                   m_fChainSpacing;        // Ã¼ÀÎ ´ç Â÷ÁöÇÏ´Â °ø°£
-    bool                    m_bSnatch;              // ³¬¾ÆÃ¨ À¯¹«
-    bool                    m_bReturn;              // ³¬¾ÆÃ¤Áö ¸øÇÏ°í µ¹¾Æ¿À´Â Áß
+    float                   m_fDistancetoTarget;    // Hookposì™€ì˜ ê±°ë¦¬
+    float                   m_fChainSpacing;        // ì²´ì¸ ë‹¹ ì°¨ì§€í•˜ëŠ” ê³µê°„
+    bool                    m_bSnatch;              // ë‚šì•„ì±” ìœ ë¬´
+    bool                    m_bReturn;              // ë‚šì•„ì±„ì§€ ëª»í•˜ê³  ëŒì•„ì˜¤ëŠ” ì¤‘
     bool                    m_bActive;
     bool                    m_bCollidable;
     
@@ -38,14 +38,14 @@ public:
     virtual void BeginOverlap(CCollider3D* _Other) override;
     virtual void EndOverlap(CCollider3D* _Other) override;
 
-    void PaveChain();
+    void PaveChain() const;
     void Clear();
 
     CLONE(CMagic_HookScript);
 
 public:
     CMagic_HookScript();
-    ~CMagic_HookScript();
+    virtual ~CMagic_HookScript() override;
     
     friend class CPlyMagic_Hook;
     friend class CPlyMagic_Hooking;

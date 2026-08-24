@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "CMonsterScript.h"
 class CCrowBossScript :
     public CMonsterScript

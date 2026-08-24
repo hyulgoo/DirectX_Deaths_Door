@@ -14,6 +14,6 @@ public:
 
 public:
     CBatDeath();
-    ~CBatDeath();
+    virtual ~CBatDeath() override;
 };
 

@@ -12,6 +12,6 @@ public:
 
 public:
     CLurkerIdle();
-    ~CLurkerIdle();
+    virtual ~CLurkerIdle() override;
 };
 

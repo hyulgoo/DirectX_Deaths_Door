@@ -10,14 +10,14 @@ public:
     virtual void Enter() override;
     virtual void Exit() override;
 
-    virtual void BeginOverlap(CCollider3D* _Other);
-    virtual void OnOverlap(CCollider3D* _Other);
-    virtual void EndOverlap(CCollider3D* _Other);
+    virtual void BeginOverlap(CCollider3D* _Other) override;
+    virtual void OnOverlap(CCollider3D* _Other) override;
+    virtual void EndOverlap(CCollider3D* _Other) override;
 
     CLONE(CPlyFall);
 
 public:
     CPlyFall();
-    ~CPlyFall();
+    virtual ~CPlyFall() override;
 };
 

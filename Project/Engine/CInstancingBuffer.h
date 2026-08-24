@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include "CStructuredBuffer.h"
 #include "CTexture.h"

@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include "CSingleton.h"
 #include <PhysX/PxPhysics.h>
 #include <PhysX/PxPhysicsAPI.h>
@@ -45,7 +45,7 @@ class CPhysXMgr :
     SINGLE(CPhysXMgr);
 
 private:
-    // º¯¼ö ¼±¾ğ
+    // ë³€ìˆ˜ ì„ ì–¸
     physx::PxDefaultErrorCallback       m_DefaultErrorCallback;
     physx::PxDefaultAllocator           m_DefaultAllocatorCallback;
     physx::PxDefaultCpuDispatcher*      m_Dispatcher = NULL;
@@ -67,17 +67,17 @@ private:
 
 public:
     void init();
-    void tick();
+    void tick() const;
     void finaltick();
 
 private:
     physx::PxRigidDynamic* CreateDynamic(Vec3 _vSpawnPos, const PxGeometry& geometry, CGameObject* _Object, float _fYOffset,  const PxVec3& velocity = PxVec3(0));
-    void SetRigidPos(physx::PxRigidDynamic* _pDynamic, Vec3 _vPos);
+    void SetRigidPos(physx::PxRigidDynamic* _pDynamic, Vec3 _vPos) const;
 
 public:
-    // µ¿Àû ¹°Ã¼ »ı¼º ÇÔ¼ö.
-    // t : À§Ä¡, geometry : ÇüÅÂ, velocity : ¼Óµµ
-    // »ı¼ºµÈ ¹°Ã¼¸¦ ¹İÈ¯ÇÔ.
+    // ë™ì  ë¬¼ì²´ ìƒì„± í•¨ìˆ˜.
+    // t : ìœ„ì¹˜, geometry : í˜•íƒœ, velocity : ì†ë„
+    // ìƒì„±ëœ ë¬¼ì²´ë¥¼ ë°˜í™˜í•¨.
     physx::PxRigidDynamic* CreateCube(Vec3 _vSpawnPos, Vec3 _vCubeScale, CGameObject* _Object, Vec3 _vVelocity = Vec3(0.f));
     physx::PxRigidDynamic* CreateCapsule(Vec3 _vSpawnPos, float _fRadius, float _fHeight, CGameObject* _Object, Vec3 _vVelocity = Vec3(0.f));
     physx::PxRigidDynamic* CreateSphere(Vec3 _vSpawnPos, float _fRadius, CGameObject* _Object, Vec3 _vVelocity = Vec3(0.f));
@@ -87,7 +87,7 @@ public:
     void ReleaseStatic(physx::PxRigidStatic* _pStatic);
     void ReleaseDynamic(physx::PxRigidDynamic* _pDynamic, CGameObject* _pObject);
 
-    // Æò¸é »ı¼º ÇÔ¼ö
+    // í‰ë©´ ìƒì„± í•¨ìˆ˜
     physx::PxRigidStatic* CreatePlane(Vec4 _Plane);
     void AddDynamicActor(CRigidbody* _pRigidbody);
     void Clear();

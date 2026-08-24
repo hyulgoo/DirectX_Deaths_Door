@@ -23,6 +23,6 @@ public:
 
 public:
     CPlyLadder();
-    ~CPlyLadder();
+    virtual ~CPlyLadder() override;
 };
 

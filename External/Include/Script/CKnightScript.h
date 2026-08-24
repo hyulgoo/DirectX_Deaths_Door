@@ -23,6 +23,6 @@ public:
 
 public:
     CKnightScript();
-    ~CKnightScript();
+    virtual ~CKnightScript() override;
 };
 

@@ -14,6 +14,6 @@ public:
 
 public:
     CGhostHit();
-    ~CGhostHit();
+    virtual ~CGhostHit() override;
 };
 

@@ -19,8 +19,8 @@ public:
     void SetScalarParam(SCALAR_PARAM _Param, const void* _Src);
     void SetTexParam(TEX_PARAM _Param, const Ptr<CTexture>& _Tex);
 
-    void GetScalarParam(SCALAR_PARAM _param, void* _pData);
-    Ptr<CTexture> GetTexParam(TEX_PARAM _param) { return m_arrTex[(UINT)_param]; }
+    void          GetScalarParam(SCALAR_PARAM _param, void* _pData) const;
+    Ptr<CTexture> GetTexParam(TEX_PARAM _param) { return m_arrTex[static_cast<UINT>(_param)]; }
 
     void SetShader(Ptr<CGraphicsShader> _Shader) { m_pShader = _Shader; }
     Ptr<CGraphicsShader> GetShader() { return m_pShader; }
@@ -33,7 +33,7 @@ public:
         m_Const.mtrl.vEmv = _vEmis;
     }
 
-    void SetAnim3D(bool _bTrue) { m_Const.arrAnimData[0] = (int)_bTrue; }
+    void SetAnim3D(bool _bTrue) { m_Const.arrAnimData[0] = static_cast<int>(_bTrue); }
     void SetBoneCount(int _iBoneCount) { m_Const.arrAnimData[1] = _iBoneCount; }
 
    
@@ -42,15 +42,15 @@ public:
     void UpdateData_Inst();
 
 private:
-    virtual int Load(const wstring& _strFilePath);
+    virtual int Load(const wstring& _strFilePath) override;
 public:
-    virtual int Save(const wstring& _strRelativePath);
+    virtual int Save(const wstring& _strRelativePath) override;
 
 public:
     CLONE(CMaterial);
 
 public:
     CMaterial(bool _bEngine = false);
-    ~CMaterial();
+    virtual ~CMaterial() override;
 };
 

@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "CMonsterDetectRangeScript.h"
 #include "CMonsterScript.h"
 

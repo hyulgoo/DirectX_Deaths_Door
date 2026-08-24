@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "CGameCameraScript.h"
 
 CGameCameraScript::CGameCameraScript()

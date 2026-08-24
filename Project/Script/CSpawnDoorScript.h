@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include <Engine/CScript.h>
 
 // 몬스터를 스폰시키는 Door의 스크립트

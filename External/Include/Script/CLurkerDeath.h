@@ -17,6 +17,6 @@ public:
 
 public:
     CLurkerDeath();
-    ~CLurkerDeath();
+    virtual ~CLurkerDeath() override;
 };
 

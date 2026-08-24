@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "CLurkerNotify.h"
 #include "CLurkerScript.h"
 #include "CSoundScript.h"

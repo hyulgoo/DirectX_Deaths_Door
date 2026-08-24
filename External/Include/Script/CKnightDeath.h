@@ -15,6 +15,6 @@ public:
 
 public:
     CKnightDeath();
-    ~CKnightDeath();
+    virtual ~CKnightDeath() override;
 };
 

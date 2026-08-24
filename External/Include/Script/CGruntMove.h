@@ -12,6 +12,6 @@ public:
 
 public:
     CGruntMove();
-    ~CGruntMove();
+    virtual ~CGruntMove() override;
 };
 

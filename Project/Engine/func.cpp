@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 
 #include "CEventMgr.h"
 #include "CLevelMgr.h"
@@ -13,10 +13,6 @@
 #include "CDevice.h"
 #include "CRigidbody.h"
 #include "CTimeMgr.h"
-
-
-
-
 
 void SpawnGameObject(CGameObject* _NewObject, Vec3 _vWorldPos, int _LayerIdx)
 {

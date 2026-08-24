@@ -19,13 +19,13 @@ public:
 
     void Move();
 
-    virtual void BeginOverlap(CCollider3D* _Other);
-    virtual void OnOverlap(CCollider3D* _Other);
+    virtual void BeginOverlap(CCollider3D* _Other) override;
+    virtual void OnOverlap(CCollider3D* _Other) override;
 
     CLONE(CPlyRun);
 
 public:
     CPlyRun();
-    ~CPlyRun();
+    virtual ~CPlyRun() override;
 };
 

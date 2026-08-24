@@ -20,6 +20,6 @@ public:
 	void render();
 
 public:
-	float GetDeltaTime() { return m_fDeltaTime; }
+	float GetDeltaTime() const { return m_fDeltaTime; }
 };
 

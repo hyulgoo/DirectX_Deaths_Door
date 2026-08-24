@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "CGhostScript.h"
 #include "CTrace.h"
 #include "CStateScript.h"

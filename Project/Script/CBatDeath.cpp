@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "CBatDeath.h"
 #include "CBatScript.h"
 #include "CPlayerScript.h"

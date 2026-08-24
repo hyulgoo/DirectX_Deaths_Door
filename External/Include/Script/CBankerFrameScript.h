@@ -13,6 +13,6 @@ public:
     CLONE(CBankerFrameScript);
 public:
     CBankerFrameScript();
-    ~CBankerFrameScript();
+    virtual ~CBankerFrameScript() override;
 };
 

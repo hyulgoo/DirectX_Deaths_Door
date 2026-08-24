@@ -12,6 +12,6 @@ public:
 
 public:
     CMPIconScript();
-    ~CMPIconScript();
+    virtual ~CMPIconScript() override;
 };
 

@@ -16,6 +16,6 @@ public:
     CLONE(CBankNPCScript);
 public:
     CBankNPCScript();
-    ~CBankNPCScript();
+    virtual ~CBankNPCScript() override;
 };
 
